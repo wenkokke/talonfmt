@@ -1,0 +1,568 @@
+input: "os: mac\nand app: notes\n-\n\nnew note: key(cmd-n)\nduplicate note: key(cmd-d)\n\
+  new folder: key(shift-cmd-n)\ntoggle folders: key(alt-cmd-s)\nshow main: key(cmd-0)\n\
+  list view: key(cmd-1)\ngallery view: key(cmd-2)\ntoggle attachments: key(cmd-3)\n\
+  find all: key(alt-cmd-f)\nprint note: key(cmd-p)\nattach file: key(shift-cmd-a)\n\
+  create link: key(cmd-k)\ninsert table: key(alt-cmd-t)\napply title: key(shift-cmd-t)\n\
+  apply heading: key(shift-cmd-h)\napply subheading: key(shift-cmd-j)\napply body:\
+  \ key(shift-cmd-b)\napply mono: key(shift-cmd-m)\napply bullet: key(shift-cmd-7)\n\
+  apply dash: key(shift-cmd-8)\napply number: key(shift-cmd-9)\napply checklist: key(shift-cmd-l)\n\
+  increase font: key(cmd-+)\ndecrease font: key(cmd--)\nline break: key(ctrl-enter)\n\
+  mark: key(shift-cmd-u)\ndrag [line] down: key('ctrl-cmd-down')\ndrag [line] up:\
+  \ key('ctrl-cmd-up')\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: and
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' mac'
+          type: implicit_string
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' notes'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: new
+          type: word
+        - text: note
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: duplicate
+          type: word
+        - text: note
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-d
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: new
+          type: word
+        - text: folder
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: folders
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-cmd-s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: main
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-0
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: list
+          type: word
+        - text: view
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: gallery
+          type: word
+        - text: view
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-2
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: attachments
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-3
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-cmd-f
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: print
+          type: word
+        - text: note
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-p
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: attach
+          type: word
+        - text: file
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-a
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: create
+          type: word
+        - text: link
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-k
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: insert
+          type: word
+        - text: table
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-cmd-t
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: title
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-t
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: heading
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-h
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: subheading
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-j
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: body
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-b
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: mono
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-m
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: bullet
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-7
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: dash
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-8
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: number
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-9
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: apply
+          type: word
+        - text: checklist
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-l
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: increase
+          type: word
+        - text: font
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-+
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: decrease
+          type: word
+        - text: font
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd--
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: line
+          type: word
+        - text: break
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: mark
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-cmd-u
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: "'ctrl-cmd-down'"
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: "'ctrl-cmd-up'"
+            type: implicit_string

@@ -1,0 +1,45 @@
+input: "tag: user.code_keywords\n-\nkeyword (<user.code_keyword>+): user.code_keyword(code_keyword_list)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.code_keywords'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: keyword
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: repeat1
+            children:
+            - type: capture
+              capture_name:
+                text: user.code_keyword
+                type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_keyword
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: code_keyword_list
+                type: identifier

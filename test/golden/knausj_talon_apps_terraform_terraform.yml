@@ -1,0 +1,251 @@
+input: "tag: terminal\nand tag: user.terraform_client\n-\nterraform: \"terraform \"\
+  \n\nterraform apply: \"terraform apply \"\nterraform destroy: \"terraform destroy\
+  \ \"\nterraform format recursive: \"terraform fmt -recursive\\n\"\nterraform format:\
+  \ \"terraform fmt\\n\"\nterraform help: \"terraform -help\"\nterraform init upgrade:\
+  \ \"terraform init -upgrade\\n\"\nterraform init: \"terraform init\\n\"\nterraform\
+  \ plan: \"terraform plan\\n\"\nterraform state move: \"terraform state mv \"\nterraform\
+  \ validate: \"terraform validate\\n\"\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: and
+      children:
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' terminal'
+          type: implicit_string
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' user.terraform_client'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: terraform
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'terraform '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: apply
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'terraform apply '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: destroy
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'terraform destroy '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: format
+          type: word
+        - text: recursive
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform fmt -recursive
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: format
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform fmt
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: help
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform -help
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: init
+          type: word
+        - text: upgrade
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform init -upgrade
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: init
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform init
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: plan
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform plan
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: state
+          type: word
+        - text: move
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'terraform state mv '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: terraform
+          type: word
+        - text: validate
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: terraform validate
+            type: string_content
+          - text: \n
+            type: string_escape_sequence

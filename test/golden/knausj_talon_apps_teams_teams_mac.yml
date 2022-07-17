@@ -1,0 +1,1348 @@
+input: "os: mac\napp: com.microsoft.teams\n\n-\n\nopen history: key(super-shift-h)\n\
+  view shortcuts: key(super-.)\nshow shortcuts: key(super-.)\n[go] [to] search: key(super-e)\n\
+  show commands: key(super-/)\nopen filter: key(super-shift-f)\ngo to: key(super-g)\n\
+  open (apps|applications): key(ctrl-`)\n[start] new chat: key(super-n)\nopen settings:\
+  \ key(super-,)\nopen help: key(f1)\nclose: key(escape)\nreset:\n  key(escape)\n\
+  \  key(escape)\n  key(escape)\n  key(escape)\nzoom reset:\n  key(super-0)\n\n# navigations\n\
+  open (act|activity): key(super-1)\nopen chat: key(super-2)\nopen teams: key(super-3)\n\
+  open calendar: key(super-4)\nopen calls: key(super-5)\nopen files: key(super-6)\n\
+  [go] [to] (prev|previous) [list] item: key(alt-up)\n[go] [to] next [list] item:\
+  \ key(alt-down)\nmove [selected] team up: key(super-shift-up)\nmove [selected] team\
+  \ down: key(super-shift-down)\n[go] [to] (prev|previous) section: key(super-shift-f6)\n\
+  [go] [to] next section: key(super-f6)\n\n# messaging\n[go] [to] compose [box]: key(shift-alt-c)\n\
+  [expand] compose [box]: key(super-shift-x)\nsend message: key(super-enter)\nattach\
+  \ file: key(shift-alt-o)\nattach local file:\n  key(shift-alt-o)\n  sleep(100ms)\n\
+  \  key(down)\n  key(space)\n[start] new line: key(shift-enter)\nreply [to] [thread]:\
+  \ key(shift-alt-r)\n\n# Meetings, Calls and Calendar\naccept video call: key(super-shift-a)\n\
+  accept audio call: key(super-shift-s)\ndecline call: key(super-shift-d)\nstart audio\
+  \ call: key(super-shift-c)\nstart video call: key(super-shift-u)\ntoggle mute: key(super-shift-m)\n\
+  starch screen share session: key(super-shift-e)\ntoggle video: key(super-shift-o)\n\
+  [go] [to] sharing toolbar: key(super-shift-space)\ndecline screen share: key(super-shift-d)\n\
+  accept screen share: key(super-shift-a)\nschedule [a] meeting: key(alt-shift-n)\n\
+  go to current time: key(alt-.)\ngo to (prev|previous) (day|week): key(super-alt-left)\n\
+  go to next (day|week): key(super-alt-right)\nview day: key(super-alt-1)\nview work\
+  \ week: key(super-alt-2)\nview week: key(super-alt-3)\n(save|send) meeting request:\
+  \ key(super-s)\njoin [from] meeting [details]: key(alt-shift-j)\ngo to suggested\
+  \ time: key(alt-shift-s)\n(raise|lower) hand: key(super-shift-k)\nleave team meeting:\
+  \ key(super-shift-h)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' mac'
+          type: implicit_string
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' com.microsoft.teams'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: history
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-h
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: shortcuts
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-.
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: shortcuts
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-.
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - text: search
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-e
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: commands
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-/
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: filter
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-f
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-g
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: apps
+              type: word
+            - text: applications
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-`
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: start
+            type: word
+        - text: new
+          type: word
+        - text: chat
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: settings
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-,
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: help
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: close
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: escape
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: reset
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: escape
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: escape
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: escape
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: escape
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: zoom
+          type: word
+        - text: reset
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-0
+            type: implicit_string
+  - text: '# navigations'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: act
+              type: word
+            - text: activity
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: chat
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-2
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: teams
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-3
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: calendar
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-4
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: calls
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-5
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: files
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-6
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: prev
+              type: word
+            - text: previous
+              type: word
+        - type: optional
+          children:
+          - text: list
+            type: word
+        - text: item
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-up
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - text: next
+          type: word
+        - type: optional
+          children:
+          - text: list
+            type: word
+        - text: item
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-down
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: move
+          type: word
+        - type: optional
+          children:
+          - text: selected
+            type: word
+        - text: team
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-up
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: move
+          type: word
+        - type: optional
+          children:
+          - text: selected
+            type: word
+        - text: team
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-down
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: prev
+              type: word
+            - text: previous
+              type: word
+        - text: section
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-f6
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - text: next
+          type: word
+        - text: section
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-f6
+            type: implicit_string
+  - text: '# messaging'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - text: compose
+          type: word
+        - type: optional
+          children:
+          - text: box
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-alt-c
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: expand
+            type: word
+        - text: compose
+          type: word
+        - type: optional
+          children:
+          - text: box
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-x
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: send
+          type: word
+        - text: message
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: attach
+          type: word
+        - text: file
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-alt-o
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: attach
+          type: word
+        - text: local
+          type: word
+        - text: file
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-alt-o
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: down
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: space
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: start
+            type: word
+        - text: new
+          type: word
+        - text: line
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: reply
+          type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - type: optional
+          children:
+          - text: thread
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: shift-alt-r
+            type: implicit_string
+  - text: '# Meetings, Calls and Calendar'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: accept
+          type: word
+        - text: video
+          type: word
+        - text: call
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-a
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: accept
+          type: word
+        - text: audio
+          type: word
+        - text: call
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: decline
+          type: word
+        - text: call
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-d
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: start
+          type: word
+        - text: audio
+          type: word
+        - text: call
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-c
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: start
+          type: word
+        - text: video
+          type: word
+        - text: call
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-u
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: mute
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-m
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: starch
+          type: word
+        - text: screen
+          type: word
+        - text: share
+          type: word
+        - text: session
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-e
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: video
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-o
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: go
+            type: word
+        - type: optional
+          children:
+          - text: to
+            type: word
+        - text: sharing
+          type: word
+        - text: toolbar
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-space
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: decline
+          type: word
+        - text: screen
+          type: word
+        - text: share
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-d
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: accept
+          type: word
+        - text: screen
+          type: word
+        - text: share
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-a
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: schedule
+          type: word
+        - type: optional
+          children:
+          - text: a
+            type: word
+        - text: meeting
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: current
+          type: word
+        - text: time
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-.
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: prev
+              type: word
+            - text: previous
+              type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: day
+              type: word
+            - text: week
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-alt-left
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: next
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: day
+              type: word
+            - text: week
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-alt-right
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: day
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-alt-1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: work
+          type: word
+        - text: week
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-alt-2
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: week
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-alt-3
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: save
+              type: word
+            - text: send
+              type: word
+        - text: meeting
+          type: word
+        - text: request
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: join
+          type: word
+        - type: optional
+          children:
+          - text: from
+            type: word
+        - text: meeting
+          type: word
+        - type: optional
+          children:
+          - text: details
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-j
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: suggested
+          type: word
+        - text: time
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: raise
+              type: word
+            - text: lower
+              type: word
+        - text: hand
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-k
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: leave
+          type: word
+        - text: team
+          type: word
+        - text: meeting
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: super-shift-h
+            type: implicit_string

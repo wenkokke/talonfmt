@@ -1,0 +1,152 @@
+input: "not mode: sleep\n-\n^dictation mode$:\n    mode.disable(\"sleep\")\n    mode.disable(\"\
+  command\")\n    mode.enable(\"dictation\")\n    user.code_clear_language_mode()\n\
+  \    mode.disable(\"user.gdb\")\n^command mode$:\n    mode.disable(\"sleep\")\n\
+  \    mode.disable(\"dictation\")\n    mode.enable(\"command\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: not
+      children:
+      - type: match
+        key:
+          text: mode
+          type: identifier
+        pattern:
+          text: ' sleep'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: dictation
+          type: word
+        - text: mode
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.disable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: sleep
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.disable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: command
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.enable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: dictation
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_clear_language_mode
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.disable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: user.gdb
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: command
+          type: word
+        - text: mode
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.disable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: sleep
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.disable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: dictation
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mode.enable
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: command
+                type: string_content

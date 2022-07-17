@@ -1,0 +1,112 @@
+input: "tag: user.pages\n-\npage next: user.page_next()\npage last: user.page_previous()\n\
+  go page <number>: user.page_jump(number)\ngo page final: user.page_final()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.pages'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: page
+          type: word
+        - text: next
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.page_next
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: page
+          type: word
+        - text: last
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.page_previous
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: page
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.page_jump
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: page
+          type: word
+        - text: final
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.page_final
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

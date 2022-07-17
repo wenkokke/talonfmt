@@ -1,0 +1,48 @@
+input: "os: mac\napp: iterm2\n-\ntag(): terminal\n# todo: filemanager support\n#tag():\
+  \ user.file_manager\ntag(): user.generic_unix_shell\ntag(): user.git\ntag(): user.kubectl\n\
+  tag(): user.tabs\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' mac'
+          type: implicit_string
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' iterm2'
+          type: implicit_string
+  - type: include_tag
+    tag:
+      text: terminal
+      type: identifier
+  - text: '# todo: filemanager support'
+    type: comment
+  - text: '#tag(): user.file_manager'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.generic_unix_shell
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.git
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.kubectl
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier

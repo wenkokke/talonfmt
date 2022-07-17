@@ -1,0 +1,27 @@
+input: "{user.file_extension}: \"{file_extension}\"\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: list
+        list_name:
+          text: user.file_extension
+          type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '{'
+            type: string_content
+          - text: file_extension
+            type: string_content
+          - text: '}'
+            type: string_content

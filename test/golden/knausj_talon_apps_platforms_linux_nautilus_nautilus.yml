@@ -1,0 +1,23 @@
+input: "app: nautilus\n-\n# Set tags\ntag(): user.tabs\ntag(): user.file_manager\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' nautilus'
+        type: implicit_string
+  - text: '# Set tags'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.file_manager
+      type: identifier

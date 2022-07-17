@@ -1,0 +1,200 @@
+input: "tag: user.code_operators_bitwise\n-\n\n#bitwise operators\n[op] bitwise and:\
+  \ user.code_operator_bitwise_and()\n[op] bitwise or: user.code_operator_bitwise_or()\n\
+  \n# TODO: split these out into separate logical and bitwise operator commands\n\n\
+  (op | logical | bitwise) (ex | exclusive) or: user.code_operator_bitwise_exclusive_or()\n\
+  (op | logical | bitwise) (left shift | shift left): user.code_operator_bitwise_left_shift()\n\
+  (op | logical | bitwise) (right shift | shift right): user.code_operator_bitwise_right_shift()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.code_operators_bitwise'
+        type: implicit_string
+  - text: '#bitwise operators'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: op
+            type: word
+        - text: bitwise
+          type: word
+        - text: and
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_bitwise_and
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: op
+            type: word
+        - text: bitwise
+          type: word
+        - text: or
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_bitwise_or
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - text: '# TODO: split these out into separate logical and bitwise operator commands'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: op
+              type: word
+            - text: logical
+              type: word
+            - text: bitwise
+              type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: ex
+              type: word
+            - text: exclusive
+              type: word
+        - text: or
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_bitwise_exclusive_or
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: op
+              type: word
+            - text: logical
+              type: word
+            - text: bitwise
+              type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - type: seq
+              children:
+              - text: left
+                type: word
+              - text: shift
+                type: word
+            - type: seq
+              children:
+              - text: shift
+                type: word
+              - text: left
+                type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_bitwise_left_shift
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: op
+              type: word
+            - text: logical
+              type: word
+            - text: bitwise
+              type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - type: seq
+              children:
+              - text: right
+                type: word
+              - text: shift
+                type: word
+            - type: seq
+              children:
+              - text: shift
+                type: word
+              - text: right
+                type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_bitwise_right_shift
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

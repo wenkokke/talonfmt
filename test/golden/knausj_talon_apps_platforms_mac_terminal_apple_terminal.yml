@@ -1,0 +1,100 @@
+input: "app: apple_terminal\n-\n# makes the commands in generic_terminal available\n\
+  tag(): terminal\n\n# activates the implementation of the commands/functions in generic_terminal\n\
+  tag(): user.generic_unix_shell\n\n# makes commands for certain applications available\n\
+  # you can deactivate them if you do not use the application\ntag(): user.git\ntag():\
+  \ user.anaconda\ntag(): user.kubectl\n\n# TODO: explain\ntag(): user.tabs\ntag():\
+  \ user.file_manager\n\nsuspend:\n    key(ctrl-z)\nresume:\n    insert(\"fg\")\n\
+  \    key(enter)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' apple_terminal'
+        type: implicit_string
+  - text: '# makes the commands in generic_terminal available'
+    type: comment
+  - type: include_tag
+    tag:
+      text: terminal
+      type: identifier
+  - text: '# activates the implementation of the commands/functions in generic_terminal'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.generic_unix_shell
+      type: identifier
+  - text: '# makes commands for certain applications available'
+    type: comment
+  - text: '# you can deactivate them if you do not use the application'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.git
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.anaconda
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.kubectl
+      type: identifier
+  - text: '# TODO: explain'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.file_manager
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: suspend
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-z
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: resume
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: fg
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string

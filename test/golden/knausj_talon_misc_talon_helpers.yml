@@ -1,0 +1,1012 @@
+input: "talon check updates: menu.check_for_updates()\ntalon open log: menu.open_log()\n\
+  talon open rebel: menu.open_repl()\ntalon home: menu.open_talon_home()\ntalon copy\
+  \ context pie: user.talon_add_context_clipboard_python()\ntalon copy context: user.talon_add_context_clipboard()\n\
+  talon copy name:\n    name = app.name()\n    clip.set_text(name)\ntalon copy executable:\n\
+  \    executable = app.executable()\n    clip.set_text(executable)\ntalon copy bundle:\n\
+  \    bundle = app.bundle()\n    clip.set_text(bundle)\ntalon copy title:\n    title\
+  \ = win.title()\n    clip.set_text(title)\ntalon dump version:\n    result = user.talon_version_info()\n\
+  \    print(result)\ntalon insert version:\n    result = user.talon_version_info()\n\
+  \    user.paste(result)\ntalon dump context:\n    result = user.talon_get_active_context()\n\
+  \    print(result)\n^talon test last$:\n    phrase = user.history_get(1)\n    user.talon_sim_phrase(phrase)\n\
+  ^talon test numb <number_small>$:\n    phrase = user.history_get(number_small)\n\
+  \    user.talon_sim_phrase(phrase)\n^talon test <phrase>$:\n    user.talon_sim_phrase(phrase)\n\
+  ^talon debug action {user.talon_actions}$:\n    user.talon_action_find(\"{user.talon_actions}\"\
+  )\n^talon debug list {user.talon_lists}$:\n    user.talon_debug_list(talon_lists)\n\
+  ^talon copy list {user.talon_lists}$:\n    user.talon_copy_list(talon_lists)\n^talon\
+  \ debug tags$:\n    user.talon_debug_tags()\n^talon debug modes$:\n    user.talon_debug_modes()\n\
+  ^talon debug scope {user.talon_scopes}$:\n    user.talon_debug_scope(talon_scopes)\n\
+  ^talon debug setting {user.talon_settings}$:\n    user.talon_debug_setting(talon_settings)\n\
+  ^talon debug all settings$:\n    user.talon_debug_all_settings()\n^talon debug active\
+  \ app$:\n    result = user.talon_get_active_application_info()\n    print(\"****\
+  \ Dumping active application **** \")\n    print(result)\n    print(\"***********************\"\
+  )\n^talon copy active app$:\n    result = user.talon_get_active_application_info()\n\
+  \    clip.set_text(result)\n\ntalon (bug report|report bug): user.open_url('https://github.com/knausj85/knausj_talon/issues')\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: check
+          type: word
+        - text: updates
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: menu.check_for_updates
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: open
+          type: word
+        - text: log
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: menu.open_log
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: open
+          type: word
+        - text: rebel
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: menu.open_repl
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: home
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: menu.open_talon_home
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: context
+          type: word
+        - text: pie
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_add_context_clipboard_python
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: context
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_add_context_clipboard
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: name
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: name
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: app.name
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: clip.set_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: name
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: executable
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: executable
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: app.executable
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: clip.set_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: executable
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: bundle
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: bundle
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: app.bundle
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: clip.set_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: bundle
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: title
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: title
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: win.title
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: clip.set_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: title
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: dump
+          type: word
+        - text: version
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.talon_version_info
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: print
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: insert
+          type: word
+        - text: version
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.talon_version_info
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.paste
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: dump
+          type: word
+        - text: context
+          type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.talon_get_active_context
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: print
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: test
+          type: word
+        - text: last
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: phrase
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.history_get
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_sim_phrase
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: phrase
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: test
+          type: word
+        - text: numb
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: phrase
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.history_get
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_small
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_sim_phrase
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: phrase
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: test
+          type: word
+        - type: capture
+          capture_name:
+            text: phrase
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_sim_phrase
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: phrase
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: action
+          type: word
+        - type: list
+          list_name:
+            text: user.talon_actions
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_action_find
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: user.talon_actions
+                type: string_content
+              - text: '}'
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: list
+          type: word
+        - type: list
+          list_name:
+            text: user.talon_lists
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_debug_list
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: talon_lists
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: list
+          type: word
+        - type: list
+          list_name:
+            text: user.talon_lists
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_copy_list
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: talon_lists
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: tags
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_debug_tags
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: modes
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_debug_modes
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: scope
+          type: word
+        - type: list
+          list_name:
+            text: user.talon_scopes
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_debug_scope
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: talon_scopes
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: setting
+          type: word
+        - type: list
+          list_name:
+            text: user.talon_settings
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_debug_setting
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: talon_settings
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: all
+          type: word
+        - text: settings
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.talon_debug_all_settings
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: debug
+          type: word
+        - text: active
+          type: word
+        - text: app
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.talon_get_active_application_info
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: print
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '**** Dumping active application **** '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: print
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: print
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '***********************'
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - text: copy
+          type: word
+        - text: active
+          type: word
+        - text: app
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.talon_get_active_application_info
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: clip.set_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: talon
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - type: seq
+              children:
+              - text: bug
+                type: word
+              - text: report
+                type: word
+            - type: seq
+              children:
+              - text: report
+                type: word
+              - text: bug
+                type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.open_url
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: https://github.com/knausj85/knausj_talon/issues
+                type: string_content

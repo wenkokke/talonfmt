@@ -1,0 +1,601 @@
+input: "tag: user.css\n-\ntag(): user.code_comment_block_c_like\ntag(): user.code_functions_common\n\
+  tag(): user.code_libraries\ntag(): user.code_operators_math\n\nsettings():\n   \
+  \ user.code_public_variable_formatter = \"DASH_SEPARATED\"\n\nblock: user.code_block()\n\
+  \nattribute [<user.text>]:\n    name = user.formatted_text(text or \"\", \"DASH_SEPARATED\"\
+  )\n    user.insert_between(\"[{name}\", \"]\")\n\nprop <user.text>:\n    name =\
+  \ user.formatted_text(text, \"DASH_SEPARATED\")\n    user.insert_between(\"{name}:\
+  \ \", \";\")\n\n# for media/supports queries, or if you don't like prop\nrule <user.text>:\n\
+  \    name = user.formatted_text(text, \"DASH_SEPARATED\")\n    insert(\"{name}:\
+  \ \")\n\nvalue <user.number_string> [{user.css_unit}]:\n    \"{number_string}{css_unit\
+  \ or ''}\"\nvalue <user.number_string> point <digit_string> [{user.css_unit}]:\n\
+  \    \"{number_string}.{digit_string}{css_unit or ''}\"\n\n(value|state) {user.css_global_value}:\
+  \ \"{css_global_value}\"\nvalue <user.text>: user.insert_formatted(text, \"DASH_SEPARATED\"\
+  )\n\nvariable <user.text>:\n    name = user.formatted_text(text, settings.get(\"\
+  user.code_public_variable_formatter\"))\n    insert(\"var(--{name})\")\n\nop var:\
+  \ user.insert_between(\"var(--\", \")\")\n\nat {user.css_at_rule}: \"@{css_at_rule}\
+  \ \"\nunit {user.css_unit}: insert(css_unit)\n\n[value] current color: \"currentColor\"\
+  \nop important: \" !important\"\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.css'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.code_comment_block_c_like
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_functions_common
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_libraries
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_math
+      type: identifier
+  - type: settings
+    children:
+    - type: block
+      children:
+      - type: assignment
+        left:
+          text: user.code_public_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: DASH_SEPARATED
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: block
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_block
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: attribute
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: name
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.formatted_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: text
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                type: string
+                children: []
+            - type: string
+              children:
+              - text: DASH_SEPARATED
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_between
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '['
+                type: string_content
+              - text: '{'
+                type: string_content
+              - text: name
+                type: string_content
+              - text: '}'
+                type: string_content
+            - type: string
+              children:
+              - text: ']'
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: prop
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: name
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.formatted_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+            - type: string
+              children:
+              - text: DASH_SEPARATED
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_between
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: name
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: ': '
+                type: string_content
+            - type: string
+              children:
+              - text: ;
+                type: string_content
+  - text: "# for media/supports queries, or if you don't like prop"
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: rule
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: name
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.formatted_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+            - type: string
+              children:
+              - text: DASH_SEPARATED
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: name
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: ': '
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: value
+          type: word
+        - type: capture
+          capture_name:
+            text: user.number_string
+            type: identifier
+        - type: optional
+          children:
+          - type: list
+            list_name:
+              text: user.css_unit
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '{'
+            type: string_content
+          - text: number_string
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: css_unit or ''
+            type: string_content
+          - text: '}'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: value
+          type: word
+        - type: capture
+          capture_name:
+            text: user.number_string
+            type: identifier
+        - text: point
+          type: word
+        - type: capture
+          capture_name:
+            text: digit_string
+            type: identifier
+        - type: optional
+          children:
+          - type: list
+            list_name:
+              text: user.css_unit
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '{'
+            type: string_content
+          - text: number_string
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: .
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: digit_string
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: css_unit or ''
+            type: string_content
+          - text: '}'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: value
+              type: word
+            - text: state
+              type: word
+        - type: list
+          list_name:
+            text: user.css_global_value
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '{'
+            type: string_content
+          - text: css_global_value
+            type: string_content
+          - text: '}'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: value
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_formatted
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+            - type: string
+              children:
+              - text: DASH_SEPARATED
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: variable
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: name
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.formatted_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+            - type: action
+              action_name:
+                text: settings.get
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: string
+                  children:
+                  - text: user.code_public_variable_formatter
+                    type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: var(--
+                type: string_content
+              - text: '{'
+                type: string_content
+              - text: name
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: )
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: var
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_between
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: var(--
+                type: string_content
+            - type: string
+              children:
+              - text: )
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: at
+          type: word
+        - type: list
+          list_name:
+            text: user.css_at_rule
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '@'
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: css_at_rule
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: ' '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: unit
+          type: word
+        - type: list
+          list_name:
+            text: user.css_unit
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: css_unit
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: value
+            type: word
+        - text: current
+          type: word
+        - text: color
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: currentColor
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: important
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' !important'
+            type: string_content

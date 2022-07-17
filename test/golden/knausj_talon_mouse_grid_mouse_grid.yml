@@ -1,0 +1,61 @@
+input: "tag: user.mouse_grid_enabled\n-\nM grid:\n    app.notify(\"please use the\
+  \ voice command 'mouse grid' instead of 'm grid'\")\n    user.grid_select_screen(1)\n\
+  \    user.grid_activate()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.mouse_grid_enabled'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: M
+          type: word
+        - text: grid
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: app.notify
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: please use the voice command 'mouse grid' instead of 'm grid'
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_select_screen
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_activate
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

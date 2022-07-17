@@ -1,0 +1,215 @@
+input: "tag: user.multiple_cursors\n-\ncursor multiple: user.multi_cursor_enable()\n\
+  cursor stop: user.multi_cursor_disable()\ncursor up: user.multi_cursor_add_above()\n\
+  cursor down: user.multi_cursor_add_below()\ncursor less: user.multi_cursor_select_fewer_occurrences()\n\
+  cursor more: user.multi_cursor_select_more_occurrences()\ncursor skip: user.multi_cursor_skip_occurrence()\n\
+  cursor all: user.multi_cursor_select_all_occurrences()\ncursor lines: user.multi_cursor_add_to_line_ends()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.multiple_cursors'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: multiple
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_enable
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: stop
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_disable
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_add_above
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_add_below
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: less
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_select_fewer_occurrences
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: more
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_select_more_occurrences
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: skip
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_skip_occurrence
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_select_all_occurrences
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cursor
+          type: word
+        - text: lines
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.multi_cursor_add_to_line_ends
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

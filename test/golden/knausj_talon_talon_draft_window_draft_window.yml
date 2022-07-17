@@ -1,0 +1,542 @@
+input: "# These are active when we have focus on the draft window\ntitle:Talon Draft\n\
+  -\nsettings():\n  # Enable 'Smart dictation mode', see https://github.com/knausj85/knausj_talon/pull/356\n\
+  \  user.context_sensitive_dictation = 1\n\n# Replace a single word with a phrase\n\
+  replace <user.draft_anchor> with <user.text>:\n  user.draft_select(\"{draft_anchor}\"\
+  )\n  result = user.formatted_text(text, \"NOOP\")\n  insert(result)\n\n# Position\
+  \ cursor before word\n(pre | cursor | cursor before) <user.draft_anchor>:\n  user.draft_position_caret(\"\
+  {draft_anchor}\")\n\n# Position cursor after word\n(post | cursor after) <user.draft_anchor>:\n\
+  \  user.draft_position_caret(\"{draft_anchor}\", 1)\n\n# Select a whole word\n(take\
+  \ | select) <user.draft_anchor>:\n  user.draft_select(\"{draft_anchor}\")\n\n# Select\
+  \ a range of words\n(take | select) <user.draft_anchor> (through | past) <user.draft_anchor>:\n\
+  \  user.draft_select(\"{draft_anchor_1}\", \"{draft_anchor_2}\")\n\n# Delete a word\n\
+  (change | chuck | clear) <user.draft_anchor>:\n  user.draft_select(\"{draft_anchor}\"\
+  , \"\", 1)\n  key(backspace)\n\n# Delete a range of words\n(change | chuck | clear)\
+  \ <user.draft_anchor> (through | past) <user.draft_anchor>:\n  user.draft_select(draft_anchor_1,\
+  \ draft_anchor_2, 1)\n  key(backspace)\n\n# reformat word\n<user.formatters> word\
+  \ <user.draft_anchor>:\n  user.draft_select(\"{draft_anchor}\", \"\", 1)\n  user.formatters_reformat_selection(user.formatters)\n\
+  \n# reformat range\n<user.formatters> <user.draft_anchor> (through | past) <user.draft_anchor>:\n\
+  \    user.draft_select(draft_anchor_1, draft_anchor_2, 1)\n    user.formatters_reformat_selection(user.formatters)\n"
+output:
+  type: source_file
+  children:
+  - text: '# These are active when we have focus on the draft window'
+    type: comment
+  - type: context
+    children:
+    - type: match
+      key:
+        text: title
+        type: identifier
+      pattern:
+        text: Talon Draft
+        type: implicit_string
+  - type: settings
+    children:
+    - text: "# Enable 'Smart dictation mode', see https://github.com/knausj85/knausj_talon/pull/356"
+      type: comment
+    - type: block
+      children:
+      - type: assignment
+        left:
+          text: user.context_sensitive_dictation
+          type: identifier
+        right:
+          text: '1'
+          type: integer
+  - text: '# Replace a single word with a phrase'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: replace
+          type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+        - text: with
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor
+                type: string_content
+              - text: '}'
+                type: string_content
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.formatted_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+            - type: string
+              children:
+              - text: NOOP
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+  - text: '# Position cursor before word'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: pre
+              type: word
+            - text: cursor
+              type: word
+            - type: seq
+              children:
+              - text: cursor
+                type: word
+              - text: before
+                type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_position_caret
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor
+                type: string_content
+              - text: '}'
+                type: string_content
+  - text: '# Position cursor after word'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: post
+              type: word
+            - type: seq
+              children:
+              - text: cursor
+                type: word
+              - text: after
+                type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_position_caret
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor
+                type: string_content
+              - text: '}'
+                type: string_content
+            - text: '1'
+              type: integer
+  - text: '# Select a whole word'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: take
+              type: word
+            - text: select
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor
+                type: string_content
+              - text: '}'
+                type: string_content
+  - text: '# Select a range of words'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: take
+              type: word
+            - text: select
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: through
+              type: word
+            - text: past
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor_1
+                type: string_content
+              - text: '}'
+                type: string_content
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor_2
+                type: string_content
+              - text: '}'
+                type: string_content
+  - text: '# Delete a word'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: change
+              type: word
+            - text: chuck
+              type: word
+            - text: clear
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor
+                type: string_content
+              - text: '}'
+                type: string_content
+            - type: string
+              children: []
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: backspace
+            type: implicit_string
+  - text: '# Delete a range of words'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: change
+              type: word
+            - text: chuck
+              type: word
+            - text: clear
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: through
+              type: word
+            - text: past
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: draft_anchor_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: draft_anchor_2
+                type: identifier
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: backspace
+            type: implicit_string
+  - text: '# reformat word'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: capture
+          capture_name:
+            text: user.formatters
+            type: identifier
+        - text: word
+          type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: draft_anchor
+                type: string_content
+              - text: '}'
+                type: string_content
+            - type: string
+              children: []
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.formatters_reformat_selection
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.formatters
+                type: identifier
+  - text: '# reformat range'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: capture
+          capture_name:
+            text: user.formatters
+            type: identifier
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: through
+              type: word
+            - text: past
+              type: word
+        - type: capture
+          capture_name:
+            text: user.draft_anchor
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: draft_anchor_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: draft_anchor_2
+                type: identifier
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.formatters_reformat_selection
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.formatters
+                type: identifier

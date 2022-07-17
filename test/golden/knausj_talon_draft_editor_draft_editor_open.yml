@@ -1,0 +1,67 @@
+input: "tag: user.draft_editor_active\nand tag: user.draft_editor_app_focused\n-\n\
+  \ndraft submit:    user.draft_editor_submit()\ndraft discard:   user.draft_editor_discard()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: and
+      children:
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' user.draft_editor_active'
+          type: implicit_string
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' user.draft_editor_app_focused'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: draft
+          type: word
+        - text: submit
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_editor_submit
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: draft
+          type: word
+        - text: discard
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.draft_editor_discard
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

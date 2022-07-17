@@ -1,0 +1,1594 @@
+input: "os: linux\n# XXX - this matches .gdb files atm\n#win.title: /gdb/\ntag: terminal\n\
+  mode: user.gdb\n-\ntag(): user.gdb\ntag(): user.debugger\nuntil <number>: \"until\
+  \ {number}\"\nforce clear all break points:\n    insert(\"d br\\n\")\n    insert(\"\
+  y\\n\")\nbreak [on] clipboard:\n    insert(\"break \")\n    key(ctrl-shift-v)\n\
+  \    key(enter)\n\n# information\nlist [source]: \"list\\n\"\ninfo source: \"info\
+  \ source\\n\"\n\nprint: \"p \"\nprint [variable] <user.text>: \"p {text}\"\nprint\
+  \ hex: \"p/x \"\nprint hex [variable] <user.text>: \"p/x {text}\"\nprint string:\
+  \ \"p/s \"\n\n# hexdumping\n# XXX - switch the sizes to a list in python?\n# XXX\
+  \ - should cache the last used size\nhex dump <number> bytes: \"x/{number}bx \"\n\
+  hex dump <number> (half|short) words: \"x/{number}hx \"\nhex dump <number> (d|long)\
+  \ words: \"x/{number}dx \"\nhex dump <number> quad words: \"x/{number}gx \"\n# this\
+  \ is some arbitrary default for convenience\nhex dump: \"x/100gx \"\nhex dump highlighted:\n\
+  \    insert(\"x/100gx \")\n    edit.copy()\n    edit.paste()\n    key(enter)\nhex\
+  \ dump clipboard:\n    insert(\"x/100gx \")\n    edit.paste()\n    key(enter)\n\n\
+  \n# execution\nsource: \"source \\t\\t\"\n\n# displays\n# XXX - move thee invoke\
+  \ command into a python script\n(list|show|info) display: \"info display\\n\"\n\
+  display assembly line$: \"display /i $pc\\n\"\ndisplay source: \"display \"\nenable\
+  \ display <number_small>: \"enable display {number_small}\\n\"\ndisable display\
+  \ <number_small>: \"disable display {number_small}\\n\"\nundisplay: \"undisplay\\\
+  n\"\n\n# variables\n(list|show|info) local: \"info local \"\n(list|show|info) local\
+  \ typed: \"info local -t \"\n(list|show|info) variable: \"info variable \"\n(list|show|info)\
+  \ variable typed: \"info variable -t \"\n(list|show|info) locals: \"info local\\\
+  n\"\n(list|show|info) variables: \"info variables\\n\"\n\n# threads\ninfo threads:\
+  \ \"info threads\\n\"\n\nrestart [program]: \"r\\n\"\ncontinue: \"c\\n\"\nback trace:\
+  \ \"bt\\n\"\ndebug quit: \"quit\\n\"\n# more quickly quit when there are inferiors\n\
+  debug force quit: \"quit\\ny\\n\"\n(show|info) (inf|inferiors): \"info inferiors\\\
+  n\"\ninferior <number_small>$: \"inferior {number_small}\\n\"\ninferior: \"inferior\
+  \ \"\nresume main (inf|inferior):\n    insert(\"inferior 1\\n\")\n    insert(\"\
+  c\\n\")\nresume [from] (inf|inferior) <number_small>$:\n    insert(\"inferior {number_small}\\\
+  n\")\n    insert(\"c\\n\")\n\n# arguments\nset args: \"set args \"\n\n# settings\n\
+  show follow (fork|forks) [mode]: \"show follow-fork-mode\\n\"\n[set] follow (fork|forks)\
+  \ [mode] child: \"set follow-fork-mode child\\n\"\n[set] follow (fork|forks) [mode]\
+  \ parent: \"set follow-fork-mode parent\\n\"\n\nshow detach on fork: \"show detach-on-fork\\\
+  n\"\nset detach on fork: \"set detach-on-fork on\\n\"\nunset detach on fork: \"\
+  set detach-on-fork off\\n\"\n\n# list\nshow list size: \"show listsize\\n\"\nset\
+  \ list size <number_small>: \"set listsize {number_small}\\n\"\n\n# misc\nclear\
+  \ screen: \"shell clear\\n\"\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' linux'
+          type: implicit_string
+      - text: '# XXX - this matches .gdb files atm'
+        type: comment
+      - text: '#win.title: /gdb/'
+        type: comment
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' terminal'
+          type: implicit_string
+      - type: match
+        key:
+          text: mode
+          type: identifier
+        pattern:
+          text: ' user.gdb'
+          type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.gdb
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.debugger
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'until '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number
+            type: string_content
+          - text: '}'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: force
+          type: word
+        - text: clear
+          type: word
+        - text: all
+          type: word
+        - text: break
+          type: word
+        - text: points
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: d br
+                type: string_content
+              - text: \n
+                type: string_escape_sequence
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: y
+                type: string_content
+              - text: \n
+                type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: break
+          type: word
+        - type: optional
+          children:
+          - text: on
+            type: word
+        - text: clipboard
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'break '
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-shift-v
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - text: '# information'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: list
+          type: word
+        - type: optional
+          children:
+          - text: source
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: list
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: info
+          type: word
+        - text: source
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: info source
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: print
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'p '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: print
+          type: word
+        - type: optional
+          children:
+          - text: variable
+            type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'p '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: text
+            type: string_content
+          - text: '}'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: print
+          type: word
+        - text: hex
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'p/x '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: print
+          type: word
+        - text: hex
+          type: word
+        - type: optional
+          children:
+          - text: variable
+            type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'p/x '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: text
+            type: string_content
+          - text: '}'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: print
+          type: word
+        - text: string
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'p/s '
+            type: string_content
+  - text: '# hexdumping'
+    type: comment
+  - text: '# XXX - switch the sizes to a list in python?'
+    type: comment
+  - text: '# XXX - should cache the last used size'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: bytes
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: x/
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: 'bx '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: half
+              type: word
+            - text: short
+              type: word
+        - text: words
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: x/
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: 'hx '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: d
+              type: word
+            - text: long
+              type: word
+        - text: words
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: x/
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: 'dx '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: quad
+          type: word
+        - text: words
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: x/
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: 'gx '
+            type: string_content
+  - text: '# this is some arbitrary default for convenience'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'x/100gx '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+        - text: highlighted
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'x/100gx '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.copy
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.paste
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hex
+          type: word
+        - text: dump
+          type: word
+        - text: clipboard
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'x/100gx '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.paste
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - text: '# execution'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: source
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'source '
+            type: string_content
+          - text: \t
+            type: string_escape_sequence
+          - text: \t
+            type: string_escape_sequence
+  - text: '# displays'
+    type: comment
+  - text: '# XXX - move thee invoke command into a python script'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: display
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: info display
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: display
+          type: word
+        - text: assembly
+          type: word
+        - text: line
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: display /i $pc
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: display
+          type: word
+        - text: source
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'display '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: enable
+          type: word
+        - text: display
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'enable display '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number_small
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: disable
+          type: word
+        - text: display
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'disable display '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number_small
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: undisplay
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: undisplay
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - text: '# variables'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: local
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'info local '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: local
+          type: word
+        - text: typed
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'info local -t '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: variable
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'info variable '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: variable
+          type: word
+        - text: typed
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'info variable -t '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: locals
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: info local
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: list
+              type: word
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - text: variables
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: info variables
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - text: '# threads'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: info
+          type: word
+        - text: threads
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: info threads
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: restart
+          type: word
+        - type: optional
+          children:
+          - text: program
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: r
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: continue
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: c
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: back
+          type: word
+        - text: trace
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: bt
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: quit
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: quit
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - text: '# more quickly quit when there are inferiors'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: force
+          type: word
+        - text: quit
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: quit
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+          - text: y
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: show
+              type: word
+            - text: info
+              type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: inf
+              type: word
+            - text: inferiors
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: info inferiors
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: inferior
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'inferior '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number_small
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: inferior
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'inferior '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: resume
+          type: word
+        - text: main
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: inf
+              type: word
+            - text: inferior
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: inferior 1
+                type: string_content
+              - text: \n
+                type: string_escape_sequence
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: c
+                type: string_content
+              - text: \n
+                type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: resume
+          type: word
+        - type: optional
+          children:
+          - text: from
+            type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: inf
+              type: word
+            - text: inferior
+              type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'inferior '
+                type: string_content
+              - text: '{'
+                type: string_content
+              - text: number_small
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: \n
+                type: string_escape_sequence
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: c
+                type: string_content
+              - text: \n
+                type: string_escape_sequence
+  - text: '# arguments'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: set
+          type: word
+        - text: args
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'set args '
+            type: string_content
+  - text: '# settings'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: follow
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: fork
+              type: word
+            - text: forks
+              type: word
+        - type: optional
+          children:
+          - text: mode
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: show follow-fork-mode
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: set
+            type: word
+        - text: follow
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: fork
+              type: word
+            - text: forks
+              type: word
+        - type: optional
+          children:
+          - text: mode
+            type: word
+        - text: child
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: set follow-fork-mode child
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: set
+            type: word
+        - text: follow
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: fork
+              type: word
+            - text: forks
+              type: word
+        - type: optional
+          children:
+          - text: mode
+            type: word
+        - text: parent
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: set follow-fork-mode parent
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: detach
+          type: word
+        - text: on
+          type: word
+        - text: fork
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: show detach-on-fork
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: set
+          type: word
+        - text: detach
+          type: word
+        - text: on
+          type: word
+        - text: fork
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: set detach-on-fork on
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: unset
+          type: word
+        - text: detach
+          type: word
+        - text: on
+          type: word
+        - text: fork
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: set detach-on-fork off
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - text: '# list'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: list
+          type: word
+        - text: size
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: show listsize
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: set
+          type: word
+        - text: list
+          type: word
+        - text: size
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'set listsize '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: number_small
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - text: '# misc'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: clear
+          type: word
+        - text: screen
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: shell clear
+            type: string_content
+          - text: \n
+            type: string_escape_sequence

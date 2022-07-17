@@ -1,0 +1,59 @@
+input: "os: linux\nand app.name: konsole\n-\n# makes the commands in generic_terminal\
+  \ available\ntag(): terminal\n\n# activates the implementation of the commands/functions\
+  \ in generic_terminal\ntag(): user.generic_unix_shell\n\n# makes commands for certain\
+  \ applications available\n# you can deactivate them if you do not use the application\n\
+  tag(): user.git\ntag(): user.anaconda\n# tag(): user.kubectl\n\n\ntag(): user.tabs\n\
+  # TODO: add file_manager support\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: and
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' linux'
+          type: implicit_string
+      - type: match
+        key:
+          text: app.name
+          type: identifier
+        pattern:
+          text: ' konsole'
+          type: implicit_string
+  - text: '# makes the commands in generic_terminal available'
+    type: comment
+  - type: include_tag
+    tag:
+      text: terminal
+      type: identifier
+  - text: '# activates the implementation of the commands/functions in generic_terminal'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.generic_unix_shell
+      type: identifier
+  - text: '# makes commands for certain applications available'
+    type: comment
+  - text: '# you can deactivate them if you do not use the application'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.git
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.anaconda
+      type: identifier
+  - text: '# tag(): user.kubectl'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - text: '# TODO: add file_manager support'
+    type: comment

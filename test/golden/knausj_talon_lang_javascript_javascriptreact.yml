@@ -1,0 +1,17 @@
+input: "tag: user.javascriptreact\n-\ntag(): user.javascript\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.javascriptreact'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.javascript
+      type: identifier

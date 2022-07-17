@@ -1,0 +1,37 @@
+input: "tag: user.code_operators_array\n-\n\n# array subscription\nop subscript: user.code_operator_subscript()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.code_operators_array'
+        type: implicit_string
+  - text: '# array subscription'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: subscript
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_subscript
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

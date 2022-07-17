@@ -1,0 +1,988 @@
+input: "#custom eclipse commands go here\napp: eclipse\n-\ntag(): user.find_and_replace\n\
+  tag(): user.line_commands\n# tag(): user.multiple_cursors\n# tag(): user.snippets\n\
+  tag(): user.splits\ntag(): user.tabs\n# splits.py support end\n\nplease [<user.text>]:\n\
+  \    key(ctrl-3)\n    insert(user.text or \"\")\n\n# Sidebar\nbar explore: key(alt-shift-w\
+  \ p)\n# bar extensions:\nbar outline: key(alt-shift-q o)\n\n# bar run:\n\n# bar\
+  \ source:\n# bar switch:\n\n# Panels\n# panel control:\npanel output:\n    key(alt-shift-q)\n\
+  \    sleep(200ms)\n    key(c)\npanel problems:\n    key(alt-shift-q)\n    sleep(200ms)\n\
+  \    key(x)\npanel errors:\n    key(alt-shift-q)\n    sleep(200ms)\n    key(l)\n\
+  panel breakpoints:\n    key(alt-shift-q)\n    sleep(200ms)\n    key(b)\npanel search:\n\
+  \    key(alt-shift-q)\n    sleep(200ms)\n    key(s)\npanel variables:\n    key(alt-shift-q)\n\
+  \    sleep(200ms)\n    key(v)\n# panel switch:\n# panel terminal:\n\n# Settings\n\
+  show settings: key(alt-w p)\nshow shortcuts: key(ctrl-shift-l)\n#show snippets:\n\
+  \n# Display\n# centered switch:\n# fullscreen switch:\n# theme switch:\n# wrap switch:\n\
+  # zen switch:\n\n# File Commands\nfile hunt [<user.text>]:\n    key(ctrl-shift-r)\n\
+  \    sleep(50ms)\n    insert(text or \"\")\n# file copy path:\n# file create sibling:\n\
+  file create: key(ctrl-n)\nfile open folder: key(alt-shift-w x)\nfile rename:\n \
+  \   key(alt-shift-w p enter f2)\nfile reveal: key(alt-shift-w p enter)\n\n# Language\
+  \ Features\n# suggest show:\n# hint show:\n# definition show:\n# definition peek:\n\
+  # definition side:\n# references show:\n# references find:\n# format that:\n# format\
+  \ selection:\nimports fix: key(ctrl-shift-o)\n# problem last:\n# problem fix:\n\
+  # rename that:\n# refactor that:\n# whitespace trim:\n# language switch:\nrefactor\
+  \ rename: key(alt-shift-r)\nrefactor this: key(alt-shift-i)\n\n#code navigation\n\
+  (go declaration | follow): key(f3)\ngo back: key(alt-left)\ngo forward: key(alt-right)\n\
+  # go implementation:\n# go recent:\n# go type:\n# go usage:\n\n# Bookmarks.\n#requires\
+  \ https://marketplace.eclipse.org/content/quick-bookmarks\ngo marks: key(alt-end)\n\
+  toggle mark: key(ctrl-alt-b down enter)\ngo next mark: key(alt-pagedown)\ngo last\
+  \ mark: key(alt-pageup)\n\n# Folding\n# fold that:\n# unfold that:\n# fold those:\n\
+  # unfold those:\n# fold all:\n# unfold all:\n# fold comments:\n\n#Debugging\nbreak\
+  \ point: key(ctrl-shift-b)\nstep over: key(f6)\ndebug step into: key(f5)\ndebug\
+  \ step out [of]: key(f7)\n#debug start: user.vscode(\"workbench.action.debug.start\"\
+  )\n#debug pause:\n#debug stopper:\ndebug continue: key(f8)\n#debug restart:\n\n\
+  # Terminal\n# terminal external: user.vscode(\"workbench.action.terminal.openNativeConsole\"\
+  )\n\n# terminal new: user.vscode(\"workbench.action.terminal.new\")\n# terminal\
+  \ next: user.vscode(\"workbench.action.terminal.focusNextPane\")\n# terminal last:user.vscode(\"\
+  workbench.action.terminal.focusPreviousPane\")\n# terminal split: user.vscode(\"\
+  workbench.action.terminal.split\")\n# terminal trash: user.vscode(\"Terminal:Kill\"\
+  )\n# terminal scroll up: user.vscode(\"Terminal:ScrollUp\")\n# terminal scroll down:\
+  \ user.vscode(\"Terminal:ScrollDown\")\n\n#TODO: should this be added to linecommands?\n\
+  copy line down: key(ctrl-alt-down)\ncopy line up: key(ctrl-alt-up)\n"
+output:
+  type: source_file
+  children:
+  - text: '#custom eclipse commands go here'
+    type: comment
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' eclipse'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.find_and_replace
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.line_commands
+      type: identifier
+  - text: '# tag(): user.multiple_cursors'
+    type: comment
+  - text: '# tag(): user.snippets'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.splits
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - text: '# splits.py support end'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: please
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-3
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: user.text
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                type: string
+                children: []
+  - text: '# Sidebar'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: bar
+          type: word
+        - text: explore
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-w p
+            type: implicit_string
+  - text: '# bar extensions:'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: bar
+          type: word
+        - text: outline
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q o
+            type: implicit_string
+  - text: '# bar run:'
+    type: comment
+  - text: '# bar source:'
+    type: comment
+  - text: '# bar switch:'
+    type: comment
+  - text: '# Panels'
+    type: comment
+  - text: '# panel control:'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: panel
+          type: word
+        - text: output
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 200ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: c
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: panel
+          type: word
+        - text: problems
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 200ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: x
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: panel
+          type: word
+        - text: errors
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 200ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: l
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: panel
+          type: word
+        - text: breakpoints
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 200ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: b
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: panel
+          type: word
+        - text: search
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 200ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: panel
+          type: word
+        - text: variables
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 200ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: v
+            type: implicit_string
+  - text: '# panel switch:'
+    type: comment
+  - text: '# panel terminal:'
+    type: comment
+  - text: '# Settings'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: settings
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-w p
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: show
+          type: word
+        - text: shortcuts
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-shift-l
+            type: implicit_string
+  - text: '#show snippets:'
+    type: comment
+  - text: '# Display'
+    type: comment
+  - text: '# centered switch:'
+    type: comment
+  - text: '# fullscreen switch:'
+    type: comment
+  - text: '# theme switch:'
+    type: comment
+  - text: '# wrap switch:'
+    type: comment
+  - text: '# zen switch:'
+    type: comment
+  - text: '# File Commands'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: file
+          type: word
+        - text: hunt
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-shift-r
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 50ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: text
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                type: string
+                children: []
+  - text: '# file copy path:'
+    type: comment
+  - text: '# file create sibling:'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: file
+          type: word
+        - text: create
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: file
+          type: word
+        - text: open
+          type: word
+        - text: folder
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-w x
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: file
+          type: word
+        - text: rename
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-w p enter f2
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: file
+          type: word
+        - text: reveal
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-w p enter
+            type: implicit_string
+  - text: '# Language Features'
+    type: comment
+  - text: '# suggest show:'
+    type: comment
+  - text: '# hint show:'
+    type: comment
+  - text: '# definition show:'
+    type: comment
+  - text: '# definition peek:'
+    type: comment
+  - text: '# definition side:'
+    type: comment
+  - text: '# references show:'
+    type: comment
+  - text: '# references find:'
+    type: comment
+  - text: '# format that:'
+    type: comment
+  - text: '# format selection:'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: imports
+          type: word
+        - text: fix
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-shift-o
+            type: implicit_string
+  - text: '# problem last:'
+    type: comment
+  - text: '# problem fix:'
+    type: comment
+  - text: '# rename that:'
+    type: comment
+  - text: '# refactor that:'
+    type: comment
+  - text: '# whitespace trim:'
+    type: comment
+  - text: '# language switch:'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: refactor
+          type: word
+        - text: rename
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-r
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: refactor
+          type: word
+        - text: this
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-shift-i
+            type: implicit_string
+  - text: '#code navigation'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: parenthesized_rule
+        children:
+        - type: choice
+          children:
+          - type: seq
+            children:
+            - text: go
+              type: word
+            - text: declaration
+              type: word
+          - text: follow
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f3
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: back
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-left
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: forward
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-right
+            type: implicit_string
+  - text: '# go implementation:'
+    type: comment
+  - text: '# go recent:'
+    type: comment
+  - text: '# go type:'
+    type: comment
+  - text: '# go usage:'
+    type: comment
+  - text: '# Bookmarks.'
+    type: comment
+  - text: '#requires https://marketplace.eclipse.org/content/quick-bookmarks'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: marks
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-end
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: mark
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-b down enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: next
+          type: word
+        - text: mark
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-pagedown
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: last
+          type: word
+        - text: mark
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-pageup
+            type: implicit_string
+  - text: '# Folding'
+    type: comment
+  - text: '# fold that:'
+    type: comment
+  - text: '# unfold that:'
+    type: comment
+  - text: '# fold those:'
+    type: comment
+  - text: '# unfold those:'
+    type: comment
+  - text: '# fold all:'
+    type: comment
+  - text: '# unfold all:'
+    type: comment
+  - text: '# fold comments:'
+    type: comment
+  - text: '#Debugging'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: break
+          type: word
+        - text: point
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-shift-b
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: step
+          type: word
+        - text: over
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f6
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: step
+          type: word
+        - text: into
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f5
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: step
+          type: word
+        - text: out
+          type: word
+        - type: optional
+          children:
+          - text: of
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f7
+            type: implicit_string
+  - text: '#debug start: user.vscode("workbench.action.debug.start")'
+    type: comment
+  - text: '#debug pause:'
+    type: comment
+  - text: '#debug stopper:'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: continue
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f8
+            type: implicit_string
+  - text: '#debug restart:'
+    type: comment
+  - text: '# Terminal'
+    type: comment
+  - text: '# terminal external: user.vscode("workbench.action.terminal.openNativeConsole")'
+    type: comment
+  - text: '# terminal new: user.vscode("workbench.action.terminal.new")'
+    type: comment
+  - text: '# terminal next: user.vscode("workbench.action.terminal.focusNextPane")'
+    type: comment
+  - text: '# terminal last:user.vscode("workbench.action.terminal.focusPreviousPane")'
+    type: comment
+  - text: '# terminal split: user.vscode("workbench.action.terminal.split")'
+    type: comment
+  - text: '# terminal trash: user.vscode("Terminal:Kill")'
+    type: comment
+  - text: '# terminal scroll up: user.vscode("Terminal:ScrollUp")'
+    type: comment
+  - text: '# terminal scroll down: user.vscode("Terminal:ScrollDown")'
+    type: comment
+  - text: '#TODO: should this be added to linecommands?'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - text: line
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-down
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - text: line
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-up
+            type: implicit_string

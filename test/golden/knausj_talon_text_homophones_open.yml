@@ -1,0 +1,137 @@
+input: "mode: user.homophones\n-\nchoose <number_small>:\n    result = user.homophones_select(number_small)\n\
+  \    insert(result)\n    user.homophones_hide()\nchoose <user.formatters> <number_small>:\n\
+  \    result = user.homophones_select(number_small)\n    insert(user.formatted_text(result,\
+  \ formatters))\n    user.homophones_hide()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: mode
+        type: identifier
+      pattern:
+        text: ' user.homophones'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: choose
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.homophones_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_small
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: result
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.homophones_hide
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: choose
+          type: word
+        - type: capture
+          capture_name:
+            text: user.formatters
+            type: identifier
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: result
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: user.homophones_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_small
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: result
+                    type: identifier
+                - type: variable
+                  variable_name:
+                    text: formatters
+                    type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.homophones_hide
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

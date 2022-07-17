@@ -1,0 +1,1307 @@
+input: "control mouse: user.mouse_toggle_control_mouse()\nzoom mouse: user.mouse_toggle_zoom_mouse()\n\
+  camera overlay: user.mouse_toggle_camera_overlay()\nrun calibration: user.mouse_calibrate()\n\
+  touch:\n\tmouse_click(0)\n\t# close the mouse grid if open\n\tuser.grid_close()\n\
+  \    \t# End any open drags\n\t# Touch automatically ends left drags so this is\
+  \ for right drags specifically\n\tuser.mouse_drag_end()\n\nrighty:\n\tmouse_click(1)\n\
+  \t# close the mouse grid if open\n\tuser.grid_close()\n\nmid click:\n\tmouse_click(2)\n\
+  \t# close the mouse grid\n\tuser.grid_close()\n\n#see keys.py for modifiers.\n#defaults\n\
+  #command\n#control\n#option = alt\n#shift\n#super = windows key\n<user.modifiers>\
+  \ touch:\n\tkey(\"{modifiers}:down\")\n\tmouse_click(0)\n\tkey(\"{modifiers}:up\"\
+  )\n\t# close the mouse grid\n\tuser.grid_close()\n<user.modifiers> righty:\n\tkey(\"\
+  {modifiers}:down\")\n\tmouse_click(1)\n\tkey(\"{modifiers}:up\")\n\t# close the\
+  \ mouse grid\n\tuser.grid_close()\n(dub click | duke):\n\tmouse_click()\n\tmouse_click()\n\
+  \t# close the mouse grid\n\tuser.grid_close()\n(trip click | trip lick):\n\tmouse_click()\n\
+  \tmouse_click()\n\tmouse_click()\n\t# close the mouse grid\n\tuser.grid_close()\n\
+  left drag | drag:\n\tuser.mouse_drag(0)\n\t# close the mouse grid\n\tuser.grid_close()\n\
+  right drag | righty drag:\n\tuser.mouse_drag(1)\n\t# close the mouse grid\n\tuser.grid_close()\n\
+  end drag | drag end:\n    user.mouse_drag_end()\nwheel down: user.mouse_scroll_down()\n\
+  wheel down here:\n    user.mouse_move_center_active_window()\n    user.mouse_scroll_down()\n\
+  wheel tiny [down]: user.mouse_scroll_down(0.2)\nwheel tiny [down] here:\n    user.mouse_move_center_active_window()\n\
+  \    user.mouse_scroll_down(0.2)\nwheel downer: user.mouse_scroll_down_continuous()\n\
+  wheel downer here:\n    user.mouse_move_center_active_window()\n    user.mouse_scroll_down_continuous()\n\
+  wheel up: user.mouse_scroll_up()\nwheel up here:\n    user.mouse_move_center_active_window()\n\
+  \    user.mouse_scroll_up()\nwheel tiny up: user.mouse_scroll_up(0.2)\nwheel tiny\
+  \ up here:\n    user.mouse_move_center_active_window()\n    user.mouse_scroll_up(0.2)\n\
+  wheel upper: user.mouse_scroll_up_continuous()\nwheel upper here:\n    user.mouse_move_center_active_window()\n\
+  \    user.mouse_scroll_up_continuous()\nwheel gaze: user.mouse_gaze_scroll()\nwheel\
+  \ gaze here:\n    user.mouse_move_center_active_window()\n    user.mouse_gaze_scroll()\n\
+  wheel stop: user.mouse_scroll_stop()\nwheel stop here:\n    user.mouse_move_center_active_window()\n\
+  \    user.mouse_scroll_stop()\nwheel left: user.mouse_scroll_left()\nwheel left\
+  \ here:\n    user.mouse_move_center_active_window()\n    user.mouse_scroll_left()\n\
+  wheel tiny left: user.mouse_scroll_left(0.5)\nwheel tiny left here:\n    user.mouse_move_center_active_window()\n\
+  \    user.mouse_scroll_left(0.5)\nwheel right: user.mouse_scroll_right()\nwheel\
+  \ right here:\n    user.mouse_move_center_active_window()\n    user.mouse_scroll_right()\n\
+  wheel tiny right: user.mouse_scroll_right(0.5)\nwheel tiny right here:\n    user.mouse_move_center_active_window()\n\
+  \    user.mouse_scroll_right(0.5)\ncopy mouse position: user.copy_mouse_position()\n\
+  curse no:\n    # Command added 2021-12-13, can remove after 2022-06-01\n    app.notify(\"\
+  Please activate the user.mouse_cursor_commands_enable tag to enable this command\"\
+  )\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: control
+          type: word
+        - text: mouse
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_toggle_control_mouse
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: zoom
+          type: word
+        - text: mouse
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_toggle_zoom_mouse
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: camera
+          type: word
+        - text: overlay
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_toggle_camera_overlay
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: calibration
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_calibrate
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: touch
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0'
+              type: integer
+      - text: '# close the mouse grid if open'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - text: '# End any open drags'
+        type: comment
+      - text: '# Touch automatically ends left drags so this is for right drags specifically'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_drag_end
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: righty
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+      - text: '# close the mouse grid if open'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mid
+          type: word
+        - text: click
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '2'
+              type: integer
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - text: '#see keys.py for modifiers.'
+    type: comment
+  - text: '#defaults'
+    type: comment
+  - text: '#command'
+    type: comment
+  - text: '#control'
+    type: comment
+  - text: '#option = alt'
+    type: comment
+  - text: '#shift'
+    type: comment
+  - text: '#super = windows key'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: capture
+          capture_name:
+            text: user.modifiers
+            type: identifier
+        - text: touch
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"{modifiers}:down"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0'
+              type: integer
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"{modifiers}:up"'
+            type: implicit_string
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: capture
+          capture_name:
+            text: user.modifiers
+            type: identifier
+        - text: righty
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"{modifiers}:down"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"{modifiers}:up"'
+            type: implicit_string
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: parenthesized_rule
+        children:
+        - type: choice
+          children:
+          - type: seq
+            children:
+            - text: dub
+              type: word
+            - text: click
+              type: word
+          - text: duke
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: parenthesized_rule
+        children:
+        - type: choice
+          children:
+          - type: seq
+            children:
+            - text: trip
+              type: word
+            - text: click
+              type: word
+          - type: seq
+            children:
+            - text: trip
+              type: word
+            - text: lick
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: mouse_click
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: choice
+        children:
+        - type: seq
+          children:
+          - text: left
+            type: word
+          - text: drag
+            type: word
+        - text: drag
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_drag
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0'
+              type: integer
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: choice
+        children:
+        - type: seq
+          children:
+          - text: right
+            type: word
+          - text: drag
+            type: word
+        - type: seq
+          children:
+          - text: righty
+            type: word
+          - text: drag
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_drag
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+      - text: '# close the mouse grid'
+        type: comment
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.grid_close
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: choice
+        children:
+        - type: seq
+          children:
+          - text: end
+            type: word
+          - text: drag
+            type: word
+        - type: seq
+          children:
+          - text: drag
+            type: word
+          - text: end
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_drag_end
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: down
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - type: optional
+          children:
+          - text: down
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.2'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - type: optional
+          children:
+          - text: down
+            type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.2'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: downer
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_down_continuous
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: downer
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_down_continuous
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: up
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.2'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - text: up
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.2'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: upper
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_up_continuous
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: upper
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_up_continuous
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: gaze
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_gaze_scroll
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: gaze
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_gaze_scroll
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: stop
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_stop
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: stop
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_stop
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: left
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_left
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: left
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_left
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - text: left
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_left
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.5'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - text: left
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_left
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.5'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: right
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_right
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: right
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_right
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - text: right
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_right
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.5'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: wheel
+          type: word
+        - text: tiny
+          type: word
+        - text: right
+          type: word
+        - text: here
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_move_center_active_window
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.mouse_scroll_right
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '0.5'
+              type: float
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - text: mouse
+          type: word
+        - text: position
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.copy_mouse_position
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: curse
+          type: word
+        - text: no
+          type: word
+    script:
+      text: '# Command added 2021-12-13, can remove after 2022-06-01'
+      type: comment

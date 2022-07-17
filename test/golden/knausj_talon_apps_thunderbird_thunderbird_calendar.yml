@@ -1,0 +1,245 @@
+input: "app: thunderbird_calendar\n-\n# event/task\nevent new: user.thunderbird_mod(\"\
+  i\")\ntask new: user.thunderbird_mod(\"d\")\n(task | event) delete: key(delete)\n\
+  # layout\ntoggle today: key(f11)\nview <number_small>: user.thunderbird_calendar_view(number_small)\n\
+  view day: user.thunderbird_calendar_view(1)\nview week: user.thunderbird_calendar_view(2)\n\
+  view multi [week]: user.thunderbird_calendar_view(3)\nview month: user.thunderbird_calendar_view(4)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' thunderbird_calendar'
+        type: implicit_string
+  - text: '# event/task'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: event
+          type: word
+        - text: new
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_mod
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: i
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: task
+          type: word
+        - text: new
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_mod
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: d
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: task
+              type: word
+            - text: event
+              type: word
+        - text: delete
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: delete
+            type: implicit_string
+  - text: '# layout'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: today
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: f11
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_calendar_view
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_small
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: day
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_calendar_view
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: week
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_calendar_view
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '2'
+              type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: multi
+          type: word
+        - type: optional
+          children:
+          - text: week
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_calendar_view
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '3'
+              type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: view
+          type: word
+        - text: month
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_calendar_view
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '4'
+              type: integer

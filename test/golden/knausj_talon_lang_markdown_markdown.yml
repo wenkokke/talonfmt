@@ -1,0 +1,175 @@
+input: "tag: user.markdown\n-\nlevel one: \"# \"\nlevel two: \"## \"\nlevel three:\
+  \ \"### \"\nlevel four: \"#### \"\nlevel five: \"##### \"\nlevel six: \"###### \"\
+  \n\n{user.markdown_code_block_language} block:\n    \"```{markdown_code_block_language}\"\
+  \n    key(enter:2)\n    \"```\"\n    key(up)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.markdown'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: level
+          type: word
+        - text: one
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '# '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: level
+          type: word
+        - text: two
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '## '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: level
+          type: word
+        - text: three
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '### '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: level
+          type: word
+        - text: four
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '#### '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: level
+          type: word
+        - text: five
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '##### '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: level
+          type: word
+        - text: six
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '###### '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: list
+          list_name:
+            text: user.markdown_code_block_language
+            type: identifier
+        - text: block
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '```'
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: markdown_code_block_language
+            type: string_content
+          - text: '}'
+            type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter:2
+            type: implicit_string
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '```'
+            type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: up
+            type: implicit_string

@@ -1,0 +1,184 @@
+input: "-\nsettings():\n    # Adjust the scale of the imgui to my liking\n    imgui.scale\
+  \ = 1.3\n\n    # Enable if you'd like the picker gui to automatically appear when\
+  \ explorer has focus\n    user.file_manager_auto_show_pickers = 0\n\n    # Set the\
+  \ max number of command lines per page in help\n    user.help_max_command_lines_per_page\
+  \ = 50\n\n    # Set the max number of contexts display per page in help\n    user.help_max_contexts_per_page\
+  \ = 20\n\n    # The default amount used when scrolling continuously\n    user.mouse_continuous_scroll_amount\
+  \ = 80\n\n    # Stop continuous scroll/gaze scroll with a pop\n    user.mouse_enable_pop_stops_scroll\
+  \ = 1\n\n    # Enable pop click with 'control mouse' mode\n    user.mouse_enable_pop_click\
+  \ = 1\n\n    # When enabled, the 'Scroll Mouse' GUI will not be shown.\n    user.mouse_hide_mouse_gui\
+  \ = 0\n\n    # Hide cursor when mouse_wake is called to enable zoom mouse\n    user.mouse_wake_hides_cursor\
+  \ = 0\n\n    # The amount to scroll up/down (equivalent to mouse wheel on Windows\
+  \ by default)\n    user.mouse_wheel_down_amount = 120\n\n    # The amount to scroll\
+  \ left/right\n    user.mouse_wheel_horizontal_amount = 40\n\n    # Mouse grid and\
+  \ friends put the number one on the bottom left (vs on the top left)\n    user.grids_put_one_bottom_left\
+  \ = 1\n\n    # The number of lines of command history to display by default\n  \
+  \  user.command_history_display = 10\n\n    # The number of lines of command history\
+  \ to keep in total;\n    # \"command history more\" to display all of them, \"command\
+  \ history less\" to restore\n    user.command_history_size = 50\n\n    # Uncomment\
+  \ the below to enable context-sensitive dictation. This determines\n    # how to\
+  \ format (capitalize, space) dictation-mode speech by selecting &\n    # copying\
+  \ surrounding text before inserting. This can be slow and may not\n    # work in\
+  \ some applications. You may wish to enable this on a\n    # per-application basis.\n\
+  \    # user.context_sensitive_dictation = 1\n\n# Uncomment this to enable the curse\
+  \ yes/curse no commands (show hide mouse cursor). See issue #688.\n# tag(): user.mouse_cursor_commands_enable\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: settings
+    children:
+    - text: '# Adjust the scale of the imgui to my liking'
+      type: comment
+    - type: block
+      children:
+      - type: assignment
+        left:
+          text: imgui.scale
+          type: identifier
+        right:
+          text: '1.3'
+          type: float
+      - text: "# Enable if you'd like the picker gui to automatically appear when\
+          \ explorer has focus"
+        type: comment
+      - type: assignment
+        left:
+          text: user.file_manager_auto_show_pickers
+          type: identifier
+        right:
+          text: '0'
+          type: integer
+      - text: '# Set the max number of command lines per page in help'
+        type: comment
+      - type: assignment
+        left:
+          text: user.help_max_command_lines_per_page
+          type: identifier
+        right:
+          text: '50'
+          type: integer
+      - text: '# Set the max number of contexts display per page in help'
+        type: comment
+      - type: assignment
+        left:
+          text: user.help_max_contexts_per_page
+          type: identifier
+        right:
+          text: '20'
+          type: integer
+      - text: '# The default amount used when scrolling continuously'
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_continuous_scroll_amount
+          type: identifier
+        right:
+          text: '80'
+          type: integer
+      - text: '# Stop continuous scroll/gaze scroll with a pop'
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_enable_pop_stops_scroll
+          type: identifier
+        right:
+          text: '1'
+          type: integer
+      - text: "# Enable pop click with 'control mouse' mode"
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_enable_pop_click
+          type: identifier
+        right:
+          text: '1'
+          type: integer
+      - text: "# When enabled, the 'Scroll Mouse' GUI will not be shown."
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_hide_mouse_gui
+          type: identifier
+        right:
+          text: '0'
+          type: integer
+      - text: '# Hide cursor when mouse_wake is called to enable zoom mouse'
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_wake_hides_cursor
+          type: identifier
+        right:
+          text: '0'
+          type: integer
+      - text: '# The amount to scroll up/down (equivalent to mouse wheel on Windows
+          by default)'
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_wheel_down_amount
+          type: identifier
+        right:
+          text: '120'
+          type: integer
+      - text: '# The amount to scroll left/right'
+        type: comment
+      - type: assignment
+        left:
+          text: user.mouse_wheel_horizontal_amount
+          type: identifier
+        right:
+          text: '40'
+          type: integer
+      - text: '# Mouse grid and friends put the number one on the bottom left (vs
+          on the top left)'
+        type: comment
+      - type: assignment
+        left:
+          text: user.grids_put_one_bottom_left
+          type: identifier
+        right:
+          text: '1'
+          type: integer
+      - text: '# The number of lines of command history to display by default'
+        type: comment
+      - type: assignment
+        left:
+          text: user.command_history_display
+          type: identifier
+        right:
+          text: '10'
+          type: integer
+      - text: '# The number of lines of command history to keep in total;'
+        type: comment
+      - text: '# "command history more" to display all of them, "command history less"
+          to restore'
+        type: comment
+      - type: assignment
+        left:
+          text: user.command_history_size
+          type: identifier
+        right:
+          text: '50'
+          type: integer
+      - text: '# Uncomment the below to enable context-sensitive dictation. This determines'
+        type: comment
+      - text: '# how to format (capitalize, space) dictation-mode speech by selecting
+          &'
+        type: comment
+      - text: '# copying surrounding text before inserting. This can be slow and may
+          not'
+        type: comment
+      - text: '# work in some applications. You may wish to enable this on a'
+        type: comment
+      - text: '# per-application basis.'
+        type: comment
+      - text: '# user.context_sensitive_dictation = 1'
+        type: comment
+  - text: '# Uncomment this to enable the curse yes/curse no commands (show hide mouse
+      cursor). See issue #688.'
+    type: comment
+  - text: '# tag(): user.mouse_cursor_commands_enable'
+    type: comment

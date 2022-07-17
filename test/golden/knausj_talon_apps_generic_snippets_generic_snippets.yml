@@ -1,0 +1,141 @@
+input: "tag: user.snippets\n-\nsnip {user.snippets}: user.snippet_insert(user.snippets)\n\
+  snip hunt <user.text>: user.snippet_search(user.text)\nsnip hunt: user.snippet_search(\"\
+  \")\nsnip create: user.snippet_create()\nsnip show: user.snippet_toggle()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.snippets'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: snip
+          type: word
+        - type: list
+          list_name:
+            text: user.snippets
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.snippet_insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.snippets
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: snip
+          type: word
+        - text: hunt
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.snippet_search
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: snip
+          type: word
+        - text: hunt
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.snippet_search
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: snip
+          type: word
+        - text: create
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.snippet_create
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: snip
+          type: word
+        - text: show
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.snippet_toggle
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

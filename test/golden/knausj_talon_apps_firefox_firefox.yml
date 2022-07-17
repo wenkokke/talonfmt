@@ -1,0 +1,111 @@
+input: "app: firefox\n-\ntag(): browser\ntag(): user.tabs\ntab search:\n    browser.focus_address()\n\
+  \    insert(\"% \")\ntab search <user.text>$:\n    browser.focus_address()\n   \
+  \ insert(\"% {text}\")\n    key(down)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' firefox'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: browser
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: tab
+          type: word
+        - text: search
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: browser.focus_address
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '% '
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: tab
+          type: word
+        - text: search
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: browser.focus_address
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '% '
+                type: string_content
+              - text: '{'
+                type: string_content
+              - text: text
+                type: string_content
+              - text: '}'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: down
+            type: implicit_string

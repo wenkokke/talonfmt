@@ -1,0 +1,489 @@
+input: "#provide both anchored and unachored commands via 'over'\nphrase <user.text>$:\
+  \ user.insert_with_history(text)\nphrase <user.text> over: user.insert_with_history(text)\n\
+  {user.prose_formatter} <user.prose>$: user.insert_formatted(prose, prose_formatter)\n\
+  {user.prose_formatter} <user.prose> over: user.insert_formatted(prose, prose_formatter)\n\
+  <user.format_text>+$: user.insert_many(format_text_list)\n<user.format_text>+ over:\
+  \ user.insert_many(format_text_list)\n<user.formatters> that: user.formatters_reformat_selection(user.formatters)\n\
+  word <user.word>: user.insert_with_history(user.word)\nrecent list: user.toggle_phrase_history()\n\
+  recent close: user.phrase_history_hide()\nrecent repeat <number_small>: user.insert_with_history(user.get_recent_phrase(number_small))\n\
+  recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))\n\
+  select that: user.select_last_phrase()\nbefore that: user.before_last_phrase()\n\
+  nope that | scratch that: user.clear_last_phrase()\nnope that was <user.formatters>:\
+  \ user.formatters_reformat_last(formatters)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - text: "#provide both anchored and unachored commands via 'over'"
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: phrase
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_with_history
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: phrase
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - text: over
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_with_history
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: list
+          list_name:
+            text: user.prose_formatter
+            type: identifier
+        - type: capture
+          capture_name:
+            text: user.prose
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_formatted
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: prose
+                type: identifier
+            - type: variable
+              variable_name:
+                text: prose_formatter
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: list
+          list_name:
+            text: user.prose_formatter
+            type: identifier
+        - type: capture
+          capture_name:
+            text: user.prose
+            type: identifier
+        - text: over
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_formatted
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: prose
+                type: identifier
+            - type: variable
+              variable_name:
+                text: prose_formatter
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: repeat1
+        children:
+        - type: capture
+          capture_name:
+            text: user.format_text
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_many
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: format_text_list
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: repeat1
+          children:
+          - type: capture
+            capture_name:
+              text: user.format_text
+              type: identifier
+        - text: over
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_many
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: format_text_list
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: capture
+          capture_name:
+            text: user.formatters
+            type: identifier
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.formatters_reformat_selection
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.formatters
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: word
+          type: word
+        - type: capture
+          capture_name:
+            text: user.word
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_with_history
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.word
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: recent
+          type: word
+        - text: list
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.toggle_phrase_history
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: recent
+          type: word
+        - text: close
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.phrase_history_hide
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: recent
+          type: word
+        - text: repeat
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_with_history
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.get_recent_phrase
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: number_small
+                    type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: recent
+          type: word
+        - text: copy
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: clip.set_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.get_recent_phrase
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: number_small
+                    type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: select
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_last_phrase
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: before
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.before_last_phrase
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: choice
+        children:
+        - type: seq
+          children:
+          - text: nope
+            type: word
+          - text: that
+            type: word
+        - type: seq
+          children:
+          - text: scratch
+            type: word
+          - text: that
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.clear_last_phrase
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: nope
+          type: word
+        - text: that
+          type: word
+        - text: was
+          type: word
+        - type: capture
+          capture_name:
+            text: user.formatters
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.formatters_reformat_last
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: formatters
+                type: identifier

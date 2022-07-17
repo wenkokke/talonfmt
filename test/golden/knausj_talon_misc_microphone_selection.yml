@@ -1,0 +1,93 @@
+input: "^microphone show$: user.microphone_selection_toggle()\n^microphone close$:\
+  \ user.microphone_selection_hide()\n^microphone pick <number_small>$: user.microphone_select(number_small)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: microphone
+          type: word
+        - text: show
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.microphone_selection_toggle
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: microphone
+          type: word
+        - text: close
+          type: word
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.microphone_selection_hide
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: microphone
+          type: word
+        - text: pick
+          type: word
+        - type: capture
+          capture_name:
+            text: number_small
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.microphone_select
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_small
+                type: identifier

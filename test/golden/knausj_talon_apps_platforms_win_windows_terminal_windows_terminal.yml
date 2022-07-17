@@ -1,0 +1,214 @@
+input: "app: windows_terminal\n-\n# makes the commands in generic_terminal available\n\
+  tag(): terminal\n\n# activates the implementation of the commands/functions in generic_terminal\n\
+  tag(): user.generic_windows_shell\n\n# makes commands for certain applications available\n\
+  # you can deactivate them if you do not use the application\ntag(): user.git\ntag():\
+  \ user.anaconda\n# tag(): user.kubectl\n\ntag(): user.tabs\n# TODO: file_manager\n\
+  tag(): user.splits\n\nsettings open : key(ctrl-,)\nfocus left: key(ctrl-alt-shift-left)\n\
+  focus right: key(ctrl-alt-shift-right)\nfocus up: key(ctrl-alt-shift-up)\nfocus\
+  \ down: key(ctrl-alt-shift-down)\nterm menu: key(ctrl-shift-f1)\n\nfind it:\n  \
+  \  edit.find()\n\nfind it <phrase>$:\n    # handle consecutive finds by first escaping\
+  \ out of any previous one\n    key(escape)\n    # make it so\n    edit.find(\"{phrase}\\\
+  n\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' windows_terminal'
+        type: implicit_string
+  - text: '# makes the commands in generic_terminal available'
+    type: comment
+  - type: include_tag
+    tag:
+      text: terminal
+      type: identifier
+  - text: '# activates the implementation of the commands/functions in generic_terminal'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.generic_windows_shell
+      type: identifier
+  - text: '# makes commands for certain applications available'
+    type: comment
+  - text: '# you can deactivate them if you do not use the application'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.git
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.anaconda
+      type: identifier
+  - text: '# tag(): user.kubectl'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - text: '# TODO: file_manager'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.splits
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: settings
+          type: word
+        - text: open
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-,
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: focus
+          type: word
+        - text: left
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-shift-left
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: focus
+          type: word
+        - text: right
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-shift-right
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: focus
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-shift-up
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: focus
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-shift-down
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: term
+          type: word
+        - text: menu
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-shift-f1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: it
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.find
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: it
+          type: word
+        - type: capture
+          capture_name:
+            text: phrase
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      text: '# handle consecutive finds by first escaping out of any previous one'
+      type: comment

@@ -1,0 +1,414 @@
+input: "tag: user.vimscript\n-\ntag(): user.code_imperative\ntag(): user.code_operators_assignment\n\
+  tag(): user.code_operators_math\ntag(): user.code_comment_line\n\n# XXX - revisit\
+  \ these\nsettings():\n    user.code_private_function_formatter = \"SNAKE_CASE\"\n\
+  \    user.code_protected_function_formatter = \"SNAKE_CASE\"\n    user.code_public_function_formatter\
+  \ = \"SNAKE_CASE\"\n    user.code_private_variable_formatter = \"SNAKE_CASE\"\n\
+  \    user.code_protected_variable_formatter = \"SNAKE_CASE\"\n    user.code_public_variable_formatter\
+  \ = \"SNAKE_CASE\"\n\n###\n# VIM Script Specific\n###\nassign [<user.vimscript_scope>]\
+  \ (variable|var) [<user.text>] [over]:\n    insert(\"let \")\n    insert(vimscript_scope\
+  \ or '')\n    user.code_private_variable_formatter(text)\n\n[<user.vimscript_scope>]\
+  \ (variable|var) [<user.text>] [over]:\n    insert(vimscript_scope or '')\n    user.code_private_variable_formatter(text)\n\
+  \n# see lang/vimscript/vimscript.py for list\n<user.vimscript_functions>:\n    insert(\"\
+  {vimscript_functions} \")\n\n# XXX - possibly overlap with some programming.talon\n\
+  state command: \"command! \"\nstate end if: \"endif\"\nstate end for: \"endfor\"\
+  \nstate end while: \"endwhile\"\nstate end function: \"endfunction\"\nstate continue:\
+  \ \"continue\"\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.vimscript'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.code_imperative
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_assignment
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_math
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_comment_line
+      type: identifier
+  - text: '# XXX - revisit these'
+    type: comment
+  - type: settings
+    children:
+    - type: block
+      children:
+      - type: assignment
+        left:
+          text: user.code_private_function_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: SNAKE_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_protected_function_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: SNAKE_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_public_function_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: SNAKE_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_private_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: SNAKE_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_protected_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: SNAKE_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_public_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: SNAKE_CASE
+            type: string_content
+  - text: '###'
+    type: comment
+  - text: '# VIM Script Specific'
+    type: comment
+  - text: '###'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: assign
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.vimscript_scope
+              type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: variable
+              type: word
+            - text: var
+              type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'let '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: vimscript_scope
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                type: string
+                children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_private_variable_formatter
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.vimscript_scope
+              type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: variable
+              type: word
+            - text: var
+              type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: vimscript_scope
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                type: string
+                children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_private_variable_formatter
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+  - text: '# see lang/vimscript/vimscript.py for list'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: capture
+        capture_name:
+          text: user.vimscript_functions
+          type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: vimscript_functions
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: ' '
+                type: string_content
+  - text: '# XXX - possibly overlap with some programming.talon'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: command
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'command! '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: end
+          type: word
+        - text: if
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: endif
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: end
+          type: word
+        - text: for
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: endfor
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: end
+          type: word
+        - text: while
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: endwhile
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: end
+          type: word
+        - text: function
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: endfunction
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: continue
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: continue
+            type: string_content

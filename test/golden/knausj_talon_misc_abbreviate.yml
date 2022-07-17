@@ -1,0 +1,39 @@
+input: "-\n(abbreviate|abreviate|brief) {user.abbreviation}: \"{abbreviation}\"\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: abbreviate
+              type: word
+            - text: abreviate
+              type: word
+            - text: brief
+              type: word
+        - type: list
+          list_name:
+            text: user.abbreviation
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '{'
+            type: string_content
+          - text: abbreviation
+            type: string_content
+          - text: '}'
+            type: string_content

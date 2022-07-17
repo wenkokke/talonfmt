@@ -1,0 +1,192 @@
+input: "tag: user.code_functions_common\n-\ntoggle funk: user.code_toggle_functions()\n\
+  funk <user.code_common_function>:\n    user.code_insert_function(code_common_function,\
+  \ \"\")\nfunk cell <number>:\n    user.code_select_function(number - 1, \"\")\n\
+  funk wrap <user.code_common_function>:\n    user.code_insert_function(code_common_function,\
+  \ edit.selected_text())\nfunk wrap <number>:\n    user.code_select_function(number\
+  \ - 1, edit.selected_text())\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.code_functions_common'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: funk
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_toggle_functions
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: funk
+          type: word
+        - type: capture
+          capture_name:
+            text: user.code_common_function
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_insert_function
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: code_common_function
+                type: identifier
+            - type: string
+              children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: funk
+          type: word
+        - text: cell
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_select_function
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number
+                  type: identifier
+              operator:
+                text: '-'
+                type: operator
+              right:
+                text: '1'
+                type: integer
+            - type: string
+              children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: funk
+          type: word
+        - text: wrap
+          type: word
+        - type: capture
+          capture_name:
+            text: user.code_common_function
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_insert_function
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: code_common_function
+                type: identifier
+            - type: action
+              action_name:
+                text: edit.selected_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: funk
+          type: word
+        - text: wrap
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_select_function
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number
+                  type: identifier
+              operator:
+                text: '-'
+                type: operator
+              right:
+                text: '1'
+                type: integer
+            - type: action
+              action_name:
+                text: edit.selected_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children: []

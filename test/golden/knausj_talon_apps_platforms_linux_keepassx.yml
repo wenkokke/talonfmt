@@ -1,0 +1,348 @@
+input: "app: keepass\n-\n# Database\nopen database: key(ctrl-o)\nsave database: key(ctrl-s)\n\
+  close database: key(ctrl-w)\nlock database: key(ctrl-l)\nquit: key(ctrl-q)\n\n#\
+  \ Entries\n[add] new entry: key(ctrl-n)\nclone entry: key(ctrl-k)\n(view|edit) entry:\
+  \ key(ctrl-e)\ndelete entry: key(ctrl-d)\ncopy user [name]: key(ctrl-b)\ncopy password:\
+  \ key(ctrl-c)\nopen (earl|url|link): key(ctrl-u)\ncopy (earl|url|link): key(ctrl-alt-u)\n\
+  find: key(ctrl-f)\nfind <user.text>:\n    key(ctrl-f)\n    insert(\"{text}\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: app
+        type: identifier
+      pattern:
+        text: ' keepass'
+        type: implicit_string
+  - text: '# Database'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - text: database
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-o
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: save
+          type: word
+        - text: database
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: close
+          type: word
+        - text: database
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-w
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: lock
+          type: word
+        - text: database
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-l
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: quit
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-q
+            type: implicit_string
+  - text: '# Entries'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: add
+            type: word
+        - text: new
+          type: word
+        - text: entry
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: clone
+          type: word
+        - text: entry
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-k
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: view
+              type: word
+            - text: edit
+              type: word
+        - text: entry
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-e
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: delete
+          type: word
+        - text: entry
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-d
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - text: user
+          type: word
+        - type: optional
+          children:
+          - text: name
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - text: password
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-c
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: earl
+              type: word
+            - text: url
+              type: word
+            - text: link
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-u
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: earl
+              type: word
+            - text: url
+              type: word
+            - text: link
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-u
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: find
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-f
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-f
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: text
+                type: string_content
+              - text: '}'
+                type: string_content

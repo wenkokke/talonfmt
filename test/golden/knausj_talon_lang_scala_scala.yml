@@ -1,0 +1,340 @@
+input: "tag: user.scala\n-\ntag(): user.code_imperative\ntag(): user.code_object_oriented\n\
+  \ntag(): user.code_comment_line\ntag(): user.code_comment_block_c_like\ntag(): user.code_data_bool\n\
+  tag(): user.code_data_null\ntag(): user.code_functions\ntag(): user.code_libraries\n\
+  tag(): user.code_operators_array\ntag(): user.code_operators_assignment\ntag():\
+  \ user.code_operators_bitwise\ntag(): user.code_operators_lambda\ntag(): user.code_operators_math\n\
+  \n\nsettings():\n    user.code_private_function_formatter = \"PRIVATE_CAMEL_CASE\"\
+  \n    user.code_protected_function_formatter = \"PRIVATE_CAMEL_CASE\"\n    user.code_public_function_formatter\
+  \ = \"PRIVATE_CAMEL_CASE\"\n    user.code_private_variable_formatter = \"PRIVATE_CAMEL_CASE\"\
+  \n    user.code_protected_variable_formatter = \"PRIVATE_CAMEL_CASE\"\n    user.code_public_variable_formatter\
+  \ = \"PRIVATE_CAMEL_CASE\"\n\nstate {user.scala_modifier}:\n    insert(\"{user.scala_modifier}\
+  \ \")\n\nstate {user.scala_keyword}:\n    insert(\"{scala_keyword} \")\n\nop right\
+  \ arrow: \" -> \"\nop left arrow: \" <- \"\nop plus plus: \" ++ \"\nop subtype:\
+  \ \" <: \"\n\nstate match: user.code_state_switch()\n\nblock string:\n  insert('\"\
+  \"\"\"\"\"')\n  key(\"left left left\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.scala'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.code_imperative
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_object_oriented
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_comment_line
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_comment_block_c_like
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_data_bool
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_data_null
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_functions
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_libraries
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_array
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_assignment
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_bitwise
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_lambda
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_math
+      type: identifier
+  - type: settings
+    children:
+    - type: block
+      children:
+      - type: assignment
+        left:
+          text: user.code_private_function_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: PRIVATE_CAMEL_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_protected_function_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: PRIVATE_CAMEL_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_public_function_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: PRIVATE_CAMEL_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_private_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: PRIVATE_CAMEL_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_protected_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: PRIVATE_CAMEL_CASE
+            type: string_content
+      - type: assignment
+        left:
+          text: user.code_public_variable_formatter
+          type: identifier
+        right:
+          type: string
+          children:
+          - text: PRIVATE_CAMEL_CASE
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: list
+          list_name:
+            text: user.scala_modifier
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: user.scala_modifier
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: ' '
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: list
+          list_name:
+            text: user.scala_keyword
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: scala_keyword
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: ' '
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: right
+          type: word
+        - text: arrow
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' -> '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: left
+          type: word
+        - text: arrow
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' <- '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: plus
+          type: word
+        - text: plus
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' ++ '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: op
+          type: word
+        - text: subtype
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' <: '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: match
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_state_switch
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: block
+          type: word
+        - text: string
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '""""""'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"left left left"'
+            type: implicit_string

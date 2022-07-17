@@ -1,0 +1,396 @@
+input: "os: mac\napp: finder\n-\ntag(): user.file_manager\ntag(): user.tabs\npreferences:\
+  \ key(cmd-,)\noptions: key(cmd-j)\nsearch: key(cmd-alt-f)\n\n# bit of a mouthful,\
+  \ but it's probably not the kind of thing you'd be saying frequently\nsort by none:\
+  \ key(ctrl-alt-cmd-0)\nsort by name: key(ctrl-alt-cmd-1)\nsort by kind: key(ctrl-alt-cmd-2)\n\
+  sort by date opened: key(ctrl-alt-cmd-3)\nsort by date added: key(ctrl-alt-cmd-4)\n\
+  sort by date modified: key(ctrl-alt-cmd-5)\nsort by size: key(ctrl-alt-cmd-6)\n\n\
+  icon view: key(cmd-1)\ncolumn view: key(cmd-3)\nlist view: key(cmd-2)\ngallery view:\
+  \ key(cmd-4)\n\ncopy path: key(alt-cmd-c)\ntrash it: key(cmd-backspace)\n\nhide\
+  \ [finder]: key(cmd-h)\nhide others: app.window_hide_others()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' mac'
+          type: implicit_string
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' finder'
+          type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.file_manager
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: preferences
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-,
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: options
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-j
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: search
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-alt-f
+            type: implicit_string
+  - text: "# bit of a mouthful, but it's probably not the kind of thing you'd be saying\
+      \ frequently"
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: none
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-0
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: name
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: kind
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-2
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: date
+          type: word
+        - text: opened
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-3
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: date
+          type: word
+        - text: added
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-4
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: date
+          type: word
+        - text: modified
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-5
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: sort
+          type: word
+        - text: by
+          type: word
+        - text: size
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-alt-cmd-6
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: icon
+          type: word
+        - text: view
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-1
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: column
+          type: word
+        - text: view
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-3
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: list
+          type: word
+        - text: view
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-2
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: gallery
+          type: word
+        - text: view
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-4
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - text: path
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: alt-cmd-c
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: trash
+          type: word
+        - text: it
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-backspace
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hide
+          type: word
+        - type: optional
+          children:
+          - text: finder
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: cmd-h
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: hide
+          type: word
+        - text: others
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: app.window_hide_others
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

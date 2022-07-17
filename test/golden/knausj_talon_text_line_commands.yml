@@ -1,0 +1,1265 @@
+input: "tag: user.line_commands\n-\n#this defines some common line commands. More\
+  \ may be defined that are ide-specific.\nlend: edit.line_end()\nbend: edit.line_start()\n\
+  go <number>: edit.jump_line(number)\ngo <number> end:\n    edit.jump_line(number)\n\
+  \    edit.line_end()\ncomment [line] <number>:\n    user.select_range(number, number)\n\
+  \    code.toggle_comment()\ncomment <number> until <number>:\n    user.select_range(number_1,\
+  \ number_2)\n    code.toggle_comment()\nclear [line] <number>:\n    edit.jump_line(number)\n\
+  \    user.select_range(number, number)\n    edit.delete()\nclear <number> until\
+  \ <number>:\n    user.select_range(number_1, number_2)\n    edit.delete()\ncopy\
+  \ [line] <number>:\n    user.select_range(number, number)\n    edit.copy()\ncopy\
+  \ <number> until <number>:\n    user.select_range(number_1, number_2)\n    edit.copy()\n\
+  cut [line] <number>:\n    user.select_range(number, number)\n    edit.cut()\ncut\
+  \ [line] <number> until <number>:\n    user.select_range(number_1, number_2)\n \
+  \   edit.cut()\n(paste | replace) <number> until <number>:\n    user.select_range(number_1,\
+  \ number_2)\n    edit.paste()\n(select | cell | sell) [line] <number>: user.select_range(number,\
+  \ number)\n(select | cell | sell) <number> until <number>: user.select_range(number_1,\
+  \ number_2)\ntab that: edit.indent_more()\ntab [line] <number>:\n    edit.jump_line(number)\n\
+  \    edit.indent_more()\ntab <number> until <number>:\n    user.select_range(number_1,\
+  \ number_2)\n    edit.indent_more()\nretab that: edit.indent_less()\nretab [line]\
+  \ <number>:\n    user.select_range(number, number)\n    edit.indent_less()\nretab\
+  \ <number> until <number>:\n    user.select_range(number_1, number_2)\n    edit.indent_less()\n\
+  drag [line] down: edit.line_swap_down()\ndrag [line] up: edit.line_swap_up()\ndrag\
+  \ up [line] <number>:\n    user.select_range(number, number)\n    edit.line_swap_up()\n\
+  drag up <number> until <number>:\n    user.select_range(number_1, number_2)\n  \
+  \  edit.line_swap_up()\ndrag down [line] <number>:\n    user.select_range(number,\
+  \ number)\n    edit.line_swap_down()\ndrag down <number> until <number>:\n    user.select_range(number_1,\
+  \ number_2)\n    edit.line_swap_down()\nclone (line|that): edit.line_clone()\n\n\
+  select camel left: user.extend_camel_left()\nselect camel right: user.extend_camel_right()\n\
+  go camel left: user.camel_left()\ngo camel right: user.camel_right()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.line_commands'
+        type: implicit_string
+  - text: '#this defines some common line commands. More may be defined that are ide-specific.'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: lend
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_end
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: bend
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_start
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.jump_line
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: end
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.jump_line
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_end
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: comment
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: code.toggle_comment
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: comment
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: code.toggle_comment
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: clear
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.jump_line
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.delete
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: clear
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.delete
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.copy
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: copy
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.copy
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cut
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.cut
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: cut
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.cut
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: paste
+              type: word
+            - text: replace
+              type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.paste
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: select
+              type: word
+            - text: cell
+              type: word
+            - text: sell
+              type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: select
+              type: word
+            - text: cell
+              type: word
+            - text: sell
+              type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: tab
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.indent_more
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: tab
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.jump_line
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.indent_more
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: tab
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.indent_more
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: retab
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.indent_less
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: retab
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.indent_less
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: retab
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.indent_less
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_swap_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_swap_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - text: up
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_swap_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - text: up
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_swap_up
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - text: down
+          type: word
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_swap_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: drag
+          type: word
+        - text: down
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+        - text: until
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.select_range
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: number_1
+                type: identifier
+            - type: variable
+              variable_name:
+                text: number_2
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_swap_down
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: clone
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: line
+              type: word
+            - text: that
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: edit.line_clone
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: select
+          type: word
+        - text: camel
+          type: word
+        - text: left
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.extend_camel_left
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: select
+          type: word
+        - text: camel
+          type: word
+        - text: right
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.extend_camel_right
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: camel
+          type: word
+        - text: left
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.camel_left
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: camel
+          type: word
+        - text: right
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.camel_right
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

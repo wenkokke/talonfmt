@@ -1,0 +1,71 @@
+input: "os: windows\nand app.name: Windows PowerShell\nos: windows\nand app.exe: powershell.exe\n\
+  -\n# makes the commands in generic_terminal available\ntag(): terminal\n\n# activates\
+  \ the implementation of the commands/functions in generic_terminal\ntag(): user.generic_windows_shell\n\
+  \n# makes commands for certain applications available\n# you can deactivate them\
+  \ if you do not use the application\ntag(): user.git\ntag(): user.anaconda\n# tag():\
+  \ user.kubectl\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: and
+        children:
+        - type: match
+          key:
+            text: os
+            type: identifier
+          pattern:
+            text: ' windows'
+            type: implicit_string
+        - type: match
+          key:
+            text: app.name
+            type: identifier
+          pattern:
+            text: ' Windows PowerShell'
+            type: implicit_string
+      - type: and
+        children:
+        - type: match
+          key:
+            text: os
+            type: identifier
+          pattern:
+            text: ' windows'
+            type: implicit_string
+        - type: match
+          key:
+            text: app.exe
+            type: identifier
+          pattern:
+            text: ' powershell.exe'
+            type: implicit_string
+  - text: '# makes the commands in generic_terminal available'
+    type: comment
+  - type: include_tag
+    tag:
+      text: terminal
+      type: identifier
+  - text: '# activates the implementation of the commands/functions in generic_terminal'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.generic_windows_shell
+      type: identifier
+  - text: '# makes commands for certain applications available'
+    type: comment
+  - text: '# you can deactivate them if you do not use the application'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.git
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.anaconda
+      type: identifier
+  - text: '# tag(): user.kubectl'
+    type: comment

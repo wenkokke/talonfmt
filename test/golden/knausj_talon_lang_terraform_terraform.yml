@@ -1,0 +1,213 @@
+input: "tag: user.terraform\n-\ntag(): user.code_comment_block_c_like\ntag(): user.code_comment_line\n\
+  tag(): user.code_data_bool\ntag(): user.code_data_null\ntag(): user.code_imperative\n\
+  tag(): user.code_operators_assignment\ntag(): user.code_operators_lambda\ntag():\
+  \ user.code_operators_math\n\nstate {user.terraform_module_block}:\n    user.code_terraform_module_block(user.terraform_module_block)\n\
+  \nresource <user.text>:\n    user.code_terraform_resource(text)\n\ndata [source]\
+  \ <user.text>:\n    user.code_terraform_data_source(text)\n\n[state] prop {user.terraform_common_property}:\n\
+  \    insert(user.terraform_common_property)\n    user.code_operator_assignment()\n\
+  \ntype {user.code_type}: insert(\"{code_type}\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.terraform'
+        type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.code_comment_block_c_like
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_comment_line
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_data_bool
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_data_null
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_imperative
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_assignment
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_lambda
+      type: identifier
+  - type: include_tag
+    tag:
+      text: user.code_operators_math
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: list
+          list_name:
+            text: user.terraform_module_block
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_terraform_module_block
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.terraform_module_block
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: resource
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_terraform_resource
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: data
+          type: word
+        - type: optional
+          children:
+          - text: source
+            type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_terraform_data_source
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: state
+            type: word
+        - text: prop
+          type: word
+        - type: list
+          list_name:
+            text: user.terraform_common_property
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: user.terraform_common_property
+                type: identifier
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_operator_assignment
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: type
+          type: word
+        - type: list
+          list_name:
+            text: user.code_type
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: code_type
+                type: string_content
+              - text: '}'
+                type: string_content

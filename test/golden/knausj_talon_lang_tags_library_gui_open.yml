@@ -1,0 +1,48 @@
+input: "tag: user.code_libraries_gui_showing\n-\n# The show functions for this have\
+  \ language specific names, e.g. toggle imports for Python\n# but let's use a generic\
+  \ name for the close one. Having it behind this tag allows it to be closed\n# even\
+  \ if your editor isn't visible.\ntoggle libraries close: user.code_toggle_libraries()\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.code_libraries_gui_showing'
+        type: implicit_string
+  - text: '# The show functions for this have language specific names, e.g. toggle
+      imports for Python'
+    type: comment
+  - text: "# but let's use a generic name for the close one. Having it behind this\
+      \ tag allows it to be closed"
+    type: comment
+  - text: "# even if your editor isn't visible."
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: libraries
+          type: word
+        - text: close
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.code_toggle_libraries
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []

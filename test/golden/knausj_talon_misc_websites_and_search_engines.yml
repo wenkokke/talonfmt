@@ -1,0 +1,125 @@
+input: "open {user.website}: user.open_url(website)\n{user.search_engine} hunt <user.text>$:\
+  \ user.search_with_search_engine(search_engine, user.text)\n{user.search_engine}\
+  \ (that|this):\n    text = edit.selected_text()\n    user.search_with_search_engine(search_engine,\
+  \ text)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: open
+          type: word
+        - type: list
+          list_name:
+            text: user.website
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.open_url
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: website
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: list
+          list_name:
+            text: user.search_engine
+            type: identifier
+        - text: hunt
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.search_with_search_engine
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: search_engine
+                type: identifier
+            - type: variable
+              variable_name:
+                text: user.text
+                type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: list
+          list_name:
+            text: user.search_engine
+            type: identifier
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: that
+              type: word
+            - text: this
+              type: word
+    script:
+      type: block
+      children:
+      - type: assignment
+        left:
+          text: text
+          type: identifier
+        right:
+          type: action
+          action_name:
+            text: edit.selected_text
+            type: identifier
+          arguments:
+            type: argument_list
+            children: []
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.search_with_search_engine
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: variable
+              variable_name:
+                text: search_engine
+                type: identifier
+            - type: variable
+              variable_name:
+                text: text
+                type: identifier

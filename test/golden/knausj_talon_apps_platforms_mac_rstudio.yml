@@ -1,0 +1,1968 @@
+input: "os: mac\napp: RStudio\n-\n\nrun that: key(\"cmd-enter\")\nrun document:  \
+  \                  key(\"cmd-alt-r\")\nrun from top:                    key(\"cmd-alt-b\"\
+  )\nrun to end:                      key(\"cmd-alt-e\")\nrun (function|funk):   \
+  \          key(\"cmd-alt-f\")\nrun section:                     key(\"cmd-alt-t\"\
+  )\nrun previous chunks:             key(\"cmd-alt-p\")\nrun chunk:             \
+  \          key(\"cmd-alt-c\")\nrun next chunk:                  key(\"cmd-alt-n\"\
+  )\nrun all:                         key(\"cmd-shift-s\")\nrun knitter:         \
+  \            key(\"cmd-shift-k\")\nrun profiler:                    key(\"cmd-shift-alt-p\"\
+  )\n\n# Moving around and formatting\njump back:                       key(\"cmd-f9\"\
+  )\njump forward:                    key(\"cmd-f10\")\nclose all tabs:          \
+  \        key(\"cmd-shift-w\")\nindent lines:                    key(\"cmd-i\")\n\
+  toggle comment:                  key(\"cmd-shift-c\")\nreformat comment:       \
+  \         key(\"cmd-shift-/\")\nreformat R code:                 key(\"cmd-shift-a\"\
+  )\nline up:                         key(\"alt-up\")\nline down:                \
+  \       key(\"alt-down\")\nduplicate line up:               key(\"cmd-alt-up\")\n\
+  duplicate line [down]:           key(\"cmd-alt-down\")\nselect to paren:       \
+  \          key(\"ctrl-shift-e\")\nselect to matching paren:        key(\"ctrl-shift-alt-e\"\
+  )\njump to matching:                key(\"ctrl-p\")\nexpand selection:         \
+  \       key(\"shift-alt-cmd-up\")\nreduce selection:                key(\"shift-alt-cmd-down\"\
+  )\nadd cursor up:                   key(\"ctrl-alt-up\")\nadd cursor down:     \
+  \            key(\"ctrl-alt-down\")\nmove active cursor up:           key(\"ctrl-alt-shift-up\"\
+  )\nmove active cursor down:         key(\"ctrl-alt-shift-down\")\ndelete line: \
+  \                    key(\"cmd-d\")\ndelete word left:                key(\"alt-backspace\"\
+  )\ndelete word right:               key(\"alt-delete\")\nassign that:          \
+  \           key(\"alt--\")\npipe that:                       key(\"cmd-shift-m\"\
+  )\ninsert knitter chunk:            key(\"cmd-alt-i\")\n\n# Folding\nfold that:\
+  \                       key(\"cmd-alt-l\")\nunfold that:                     key(\"\
+  cmd-shift-alt-l\")\nfold all:                        key(\"cmd-alt-o\")\nunfold\
+  \ all:                      key(\"cmd-shift-alt-o\")\n\n# Find and replace\nfind\
+  \ and replace:                key(\"cmd-f\")\nfind next:                       key(\"\
+  cmd-g\")\nfind previous:                   key(\"cmd-shift-g\")\nfind with selection:\
+  \             key(\"cmd-e\")\nfind in files:                   key(\"cmd-shift-f\"\
+  )\nrun replace:                     key(\"cmd-shift-j\")\nrun spell check:     \
+  \            key(\"f7\")\n\n# Navigation and panels\ngo to source:             \
+  \       key(\"ctrl-1\")\ngo to console:                   key(\"ctrl-2\")\ngo to\
+  \ help:                      key(\"ctrl-3\")\ngo to history:                   key(\"\
+  ctrl-4\")\ngo to files:                     key(\"ctrl-5\")\ngo to (plots|plot):\
+  \              key(\"ctrl-6\")\ngo to packages:                  key(\"ctrl-7\"\
+  )\ngo to environment:               key(\"ctrl-8\")\ngo to git:                \
+  \       key(\"ctrl-9\")\ngo to build:                     key(\"ctrl-0\")\ngo to\
+  \ terminal:                  key(\"alt-shift-t\")\ngo to omni:                 \
+  \     key(\"ctrl-.\")\ngo to line:                      key(\"cmd-shift-alt-g\"\
+  )\ngo to section:                   key(\"cmd-shift-alt-j\")\ngo to tab:       \
+  \                key(\"ctrl-shift-.\")\ngo to previous tab:              key(\"\
+  ctrl-f11\")\ngo to next tab:                  key(\"ctrl-f12\")\ngo to first tab:\
+  \                 key(\"ctrl-shift-f11\")\ngo to last tab:                  key(\"\
+  ctrl-shift-f12\")\n\nzoom source:                     key(\"ctrl-shift-1\")\n(zoom|show)\
+  \ all:                 key(\"ctrl-shift-0\")\n\nhelp that:                     \
+  \  key(\"f1\")\ndefine that:                     key(\"f2\")\nprevious plot:   \
+  \                key(\"cmd-alt-f11\")\nnext plot:                       key(\"cmd-alt-f12\"\
+  )\n\n# devtools, package development, and session management\nrestart R session:\
+  \               key(\"cmd-shift-f10\")\ndev tools build:                 key(\"\
+  cmd-shift-b\")\ndev tools load all:              key(\"cmd-shift-l\")\ndev tools\
+  \ test:                  key(\"cmd-shift-t\")\ndev tools check:                \
+  \ key(\"cmd-shift-e\")\ndev tools document:              key(\"cmd-shift-d\")\n\n\
+  # Debugging\ntoggle breakpoint:               key(\"shift-f9\")\ndebug next:   \
+  \                   key(\"f10\")\ndebug step into (function|funk): key(\"shift-f4\"\
+  )\ndebug finish (function|funk):    key(\"shift-f6\")\ndebug continue:         \
+  \         key(\"shift-f5\")\ndebug stop:                      key(\"shift-f8\")\n\
+  \n# Git/SVN\nrun git diff:                    key(\"ctrl-alt-d\")\nrun git commit:\
+  \                  key(\"ctrl-alt-m\")\n\n# Other shortcuts that could be enabled\n\
+  # run line and stay:             key(\"alt-enter\")\n# run and echo all:       \
+  \       key(\"cmd-shift-enter\")\n# extract (function|funk):       key(\"cmd-alt-x\"\
+  )\n# extract variable:              key(\"cmd-alt-v\")\n# new terminal:        \
+  \          key(\"shift-alt-t\")\n# rename current terminal:       key(\"shift-alt-r\"\
+  )\n# clear current terminal:        key(\"ctrl-shift-l\")\n# previous terminal:\
+  \             key(\"ctrl-alt-f11\")\n# next terminal:                 key(\"ctrl-alt-f12\"\
+  )\n# clear console:                 key(\"ctrl-l\")\n# popup history:          \
+  \       key(\"cmd-up\")\n# change working directory:      key(\"ctrl-shift-h\")\n\
+  # new document:                  key(\"cmd-shift-n\")\n# new document (chrome only):\
+  \    key(\"cmd-shift-alt-n\")\n# insert code section:           key(\"cmd-shift-r\"\
+  )\n# scroll diff view:              key(\"ctrl-up/down\")\n# sync editor & pdf preview:\
+  \     key(\"cmd-f8\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' mac'
+          type: implicit_string
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' RStudio'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-enter"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: document
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-r"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: from
+          type: word
+        - text: top
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-b"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: to
+          type: word
+        - text: end
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-e"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: function
+              type: word
+            - text: funk
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-f"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: section
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-t"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: previous
+          type: word
+        - text: chunks
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-p"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: chunk
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-c"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: next
+          type: word
+        - text: chunk
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-n"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-s"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: knitter
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-k"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: profiler
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-alt-p"'
+            type: implicit_string
+  - text: '# Moving around and formatting'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: jump
+          type: word
+        - text: back
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-f9"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: jump
+          type: word
+        - text: forward
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-f10"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: close
+          type: word
+        - text: all
+          type: word
+        - text: tabs
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-w"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: indent
+          type: word
+        - text: lines
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-i"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: comment
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-c"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: reformat
+          type: word
+        - text: comment
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-/"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: reformat
+          type: word
+        - text: R
+          type: word
+        - text: code
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-a"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: line
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"alt-up"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: line
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"alt-down"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: duplicate
+          type: word
+        - text: line
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-up"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: duplicate
+          type: word
+        - text: line
+          type: word
+        - type: optional
+          children:
+          - text: down
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-down"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: select
+          type: word
+        - text: to
+          type: word
+        - text: paren
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-e"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: select
+          type: word
+        - text: to
+          type: word
+        - text: matching
+          type: word
+        - text: paren
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-alt-e"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: jump
+          type: word
+        - text: to
+          type: word
+        - text: matching
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-p"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: expand
+          type: word
+        - text: selection
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-alt-cmd-up"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: reduce
+          type: word
+        - text: selection
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-alt-cmd-down"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: add
+          type: word
+        - text: cursor
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-alt-up"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: add
+          type: word
+        - text: cursor
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-alt-down"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: move
+          type: word
+        - text: active
+          type: word
+        - text: cursor
+          type: word
+        - text: up
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-alt-shift-up"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: move
+          type: word
+        - text: active
+          type: word
+        - text: cursor
+          type: word
+        - text: down
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-alt-shift-down"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: delete
+          type: word
+        - text: line
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-d"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: delete
+          type: word
+        - text: word
+          type: word
+        - text: left
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"alt-backspace"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: delete
+          type: word
+        - text: word
+          type: word
+        - text: right
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"alt-delete"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: assign
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"alt--"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: pipe
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-m"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: insert
+          type: word
+        - text: knitter
+          type: word
+        - text: chunk
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-i"'
+            type: implicit_string
+  - text: '# Folding'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: fold
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-l"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: unfold
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-alt-l"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: fold
+          type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-o"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: unfold
+          type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-alt-o"'
+            type: implicit_string
+  - text: '# Find and replace'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: and
+          type: word
+        - text: replace
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-f"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: next
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-g"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: previous
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-g"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: with
+          type: word
+        - text: selection
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-e"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: find
+          type: word
+        - text: in
+          type: word
+        - text: files
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-f"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: replace
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-j"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: spell
+          type: word
+        - text: check
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"f7"'
+            type: implicit_string
+  - text: '# Navigation and panels'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: source
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-1"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: console
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-2"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: help
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-3"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: history
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-4"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: files
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-5"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: plots
+              type: word
+            - text: plot
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-6"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: packages
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-7"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: environment
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-8"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: git
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-9"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: build
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-0"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: terminal
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"alt-shift-t"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: omni
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-."'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: line
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-alt-g"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: section
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-alt-j"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: tab
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-."'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: previous
+          type: word
+        - text: tab
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-f11"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: next
+          type: word
+        - text: tab
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-f12"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: first
+          type: word
+        - text: tab
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-f11"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: to
+          type: word
+        - text: last
+          type: word
+        - text: tab
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-f12"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: zoom
+          type: word
+        - text: source
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-1"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: zoom
+              type: word
+            - text: show
+              type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-shift-0"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: help
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"f1"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: define
+          type: word
+        - text: that
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"f2"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: previous
+          type: word
+        - text: plot
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-f11"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: next
+          type: word
+        - text: plot
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-alt-f12"'
+            type: implicit_string
+  - text: '# devtools, package development, and session management'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: restart
+          type: word
+        - text: R
+          type: word
+        - text: session
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-f10"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: dev
+          type: word
+        - text: tools
+          type: word
+        - text: build
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-b"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: dev
+          type: word
+        - text: tools
+          type: word
+        - text: load
+          type: word
+        - text: all
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-l"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: dev
+          type: word
+        - text: tools
+          type: word
+        - text: test
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-t"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: dev
+          type: word
+        - text: tools
+          type: word
+        - text: check
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-e"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: dev
+          type: word
+        - text: tools
+          type: word
+        - text: document
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-shift-d"'
+            type: implicit_string
+  - text: '# Debugging'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: toggle
+          type: word
+        - text: breakpoint
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-f9"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: next
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"f10"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: step
+          type: word
+        - text: into
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: function
+              type: word
+            - text: funk
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-f4"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: finish
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: function
+              type: word
+            - text: funk
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-f6"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: continue
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-f5"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: debug
+          type: word
+        - text: stop
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"shift-f8"'
+            type: implicit_string
+  - text: '# Git/SVN'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: git
+          type: word
+        - text: diff
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-alt-d"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: run
+          type: word
+        - text: git
+          type: word
+        - text: commit
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"ctrl-alt-m"'
+            type: implicit_string
+  - text: '# Other shortcuts that could be enabled'
+    type: comment
+  - text: '# run line and stay:             key("alt-enter")'
+    type: comment
+  - text: '# run and echo all:              key("cmd-shift-enter")'
+    type: comment
+  - text: '# extract (function|funk):       key("cmd-alt-x")'
+    type: comment
+  - text: '# extract variable:              key("cmd-alt-v")'
+    type: comment
+  - text: '# new terminal:                  key("shift-alt-t")'
+    type: comment
+  - text: '# rename current terminal:       key("shift-alt-r")'
+    type: comment
+  - text: '# clear current terminal:        key("ctrl-shift-l")'
+    type: comment
+  - text: '# previous terminal:             key("ctrl-alt-f11")'
+    type: comment
+  - text: '# next terminal:                 key("ctrl-alt-f12")'
+    type: comment
+  - text: '# clear console:                 key("ctrl-l")'
+    type: comment
+  - text: '# popup history:                 key("cmd-up")'
+    type: comment
+  - text: '# change working directory:      key("ctrl-shift-h")'
+    type: comment
+  - text: '# new document:                  key("cmd-shift-n")'
+    type: comment
+  - text: '# new document (chrome only):    key("cmd-shift-alt-n")'
+    type: comment
+  - text: '# insert code section:           key("cmd-shift-r")'
+    type: comment
+  - text: '# scroll diff view:              key("ctrl-up/down")'
+    type: comment
+  - text: '# sync editor & pdf preview:     key("cmd-f8")'
+    type: comment

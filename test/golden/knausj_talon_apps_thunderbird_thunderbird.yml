@@ -1,0 +1,212 @@
+input: "app: thunderbird\nand not app: thunderbird_contacts\nand not app: thunderbird_composer\n\
+  -\n# Set tags\ntag(): user.tabs\n\n# navigate tabs\ngo (mails | messages | inbox):\
+  \ user.tab_jump(1)\ngo (calendar | lightning): user.thunderbird_mod(\"shift-c\"\
+  )\ngo tasks: user.thunderbird_mod(\"shift-d\")\n# open windows\n(open address [book]\
+  \ | address book | open contacts): user.thunderbird_mod(\"shift-b\")\ndev tools:\
+  \ user.thunderbird_mod(\"shift-i\")\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: and
+      children:
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' thunderbird'
+          type: implicit_string
+      - type: and
+        children:
+        - type: not
+          children:
+          - type: match
+            key:
+              text: app
+              type: identifier
+            pattern:
+              text: ' thunderbird_contacts'
+              type: implicit_string
+        - type: not
+          children:
+          - type: match
+            key:
+              text: app
+              type: identifier
+            pattern:
+              text: ' thunderbird_composer'
+              type: implicit_string
+  - text: '# Set tags'
+    type: comment
+  - type: include_tag
+    tag:
+      text: user.tabs
+      type: identifier
+  - text: '# navigate tabs'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: mails
+              type: word
+            - text: messages
+              type: word
+            - text: inbox
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.tab_jump
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - text: '1'
+              type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: calendar
+              type: word
+            - text: lightning
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_mod
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: shift-c
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: tasks
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_mod
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: shift-d
+                type: string_content
+  - text: '# open windows'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: parenthesized_rule
+        children:
+        - type: choice
+          children:
+          - type: seq
+            children:
+            - text: open
+              type: word
+            - text: address
+              type: word
+            - type: optional
+              children:
+              - text: book
+                type: word
+          - type: seq
+            children:
+            - text: address
+              type: word
+            - text: book
+              type: word
+          - type: seq
+            children:
+            - text: open
+              type: word
+            - text: contacts
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_mod
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: shift-b
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: dev
+          type: word
+        - text: tools
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.thunderbird_mod
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: shift-i
+                type: string_content

@@ -1,0 +1,492 @@
+input: "os: linux\ntag: user.tmux\n-\nmux: \"tmux \"\n\n#session management\nmux new\
+  \ session:\n    insert('tmux new ')\nmux sessions:\n    key(ctrl-b)\n    key(s)\n\
+  mux name session:\n    key(ctrl-b)\n    key($)\nmux kill session:\n    insert('tmux\
+  \ kill-session -t ')\n#window management\nmux new window:\n    key(ctrl-b)\n   \
+  \ key(c)\nmux window <number>:\n    key(ctrl-b )\n    key('{number}')\nmux previous\
+  \ window:\n    key(ctrl-b)\n    key(p)\nmux next window:\n    key(ctrl-b)\n    key(n)\n\
+  mux rename window:\n    key(ctrl-b)\n    key(,)\nmux close window:\n    key(ctrl-b)\n\
+  \    key(&)\n#pane management\nmux split horizontal:\n    key(ctrl-b)\n    key(%)\n\
+  mux split vertical:\n    key(ctrl-b)\n    key(\")\nmux next pane:\n    key(ctrl-b)\n\
+  \    key(o)\nmux move <user.arrow_key>:\n    key(ctrl-b)\n    key(arrow_key)\nmux\
+  \ close pane:\n    key(ctrl-b)\n    key(x)\n#Say a number right after this command,\
+  \ to switch to pane\nmux pane numbers:\n    key(ctrl-b)\n    key(q)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: os
+          type: identifier
+        pattern:
+          text: ' linux'
+          type: implicit_string
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' user.tmux'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: mux
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'tmux '
+            type: string_content
+  - text: '#session management'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: new
+          type: word
+        - text: session
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'tmux new '
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: sessions
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: s
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: name
+          type: word
+        - text: session
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: $
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: kill
+          type: word
+        - text: session
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'tmux kill-session -t '
+                type: string_content
+  - text: '#window management'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: new
+          type: word
+        - text: window
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: c
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: window
+          type: word
+        - type: capture
+          capture_name:
+            text: number
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: 'ctrl-b '
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: "'{number}'"
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: previous
+          type: word
+        - text: window
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: p
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: next
+          type: word
+        - text: window
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: n
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: rename
+          type: word
+        - text: window
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ','
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: close
+          type: word
+        - text: window
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '&'
+            type: implicit_string
+  - text: '#pane management'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: split
+          type: word
+        - text: horizontal
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '%'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: split
+          type: word
+        - text: vertical
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: next
+          type: word
+        - text: pane
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: o
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: move
+          type: word
+        - type: capture
+          capture_name:
+            text: user.arrow_key
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: arrow_key
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: close
+          type: word
+        - text: pane
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: x
+            type: implicit_string
+  - text: '#Say a number right after this command, to switch to pane'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: mux
+          type: word
+        - text: pane
+          type: word
+        - text: numbers
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: ctrl-b
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: q
+            type: implicit_string

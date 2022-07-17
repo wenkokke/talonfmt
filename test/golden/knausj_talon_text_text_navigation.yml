@@ -1,0 +1,608 @@
+input: "## (2021-03-09) This syntax is experimental and may change. See below for\
+  \ an explanation.\n## If you are having issues with this module not working in vscode\
+  \ try adding the vscode setting \"editor.emptySelectionClipboard\": false\nnavigate\
+  \ [{user.arrow_key}] [{user.navigation_action}] [{user.navigation_target_name}]\
+  \ [{user.before_or_after}] [<user.ordinals>] <user.navigation_target>:\n## If you\
+  \ use this command a lot, you may wish to have a shorter syntax that omits the navigate\
+  \ keyword. Note that you then at least have to say either a navigation_action or\
+  \ before_or_after:\n#({user.navigation_action} [{user.arrow_key}] [{user.navigation_target_name}]\
+  \ [{user.before_or_after}] | [{user.arrow_key}] {user.before_or_after}) [<user.ordinals>]\
+  \ <user.navigation_target>:\n\tuser.navigation(navigation_action or \"GO\", arrow_key\
+  \ or \"RIGHT\", navigation_target_name or \"DEFAULT\", before_or_after or \"DEFAULT\"\
+  , navigation_target, ordinals or 1)\n\n# ===== Examples of use =====\n#\n#   navigate\
+  \ comma: moves after the next \",\" on the line.\n#   navigate before five: moves\
+  \ before the next \"5\" on the line.\n#   navigate left underscore: moves before\
+  \ the previous \"_\" on the line.\n#   navigate left after second plex: moves after\
+  \ the second-previous \"x\" on the line.\n#\n# Besides characters, we can find phrases\
+  \ or move in predetermined units:\n#\n#   navigate phrase hello world: moves after\
+  \ the next \"hello world\" on the line.\n#   navigate left third word: moves left\
+  \ over three words.\n#   navigate before second big: moves before the second-next\
+  \ 'big' word (a chunk of anything except white space).\n#   navigate left second\
+  \ small: moves left over two 'small' words (chunks of a camelCase name).\n#\n# We\
+  \ can search several lines (default 10) above or below the cursor:\n#\n#   navigate\
+  \ up phrase john: moves before the previous \"john\" (case-insensitive) on the preceding\
+  \ lines.\n#   navigate down third period: moves after the third period on the following\
+  \ lines.\n#\n# Besides movement, we can cut, copy, select, clear (delete), or extend\
+  \ the current selection:\n#\n#   navigate cut after comma: cut the word following\
+  \ the next comma on the line.\n#   navigate left copy third word: copy the third\
+  \ word to the left.\n#   navigate extend third big: extend the selection three big\
+  \ words right.\n#   navigate down clear phrase I think: delete the next occurrence\
+  \ of \"I think\" on the following lines.\n#   navigate up select colon: select the\
+  \ closest colon on the preceeding lines.\n#\n# We can specify what gets selected\
+  \ before or after the given input:\n#\n#\tnavigate select parens after equals: Select\
+  \ the first \"(\" and everything until the first \")\" after the \"=\"\n#\tnavigate\
+  \ left copy all before equals: Copy everything from the start of the line until\
+  \ the first \"=\" you encounter while moving left\n#\tnavigate clear constant before\
+  \ semicolon: Delete the last word consisting of only uppercase characters or underscores\
+  \ before a \";\"\n#\n# ===== Explanation of the grammar =====\n#\n# [{user.arrow_key}]:\
+  \ left, right, up, down (default: right)\n#   Which direction to navigate in.\n\
+  #   left/right work on the current line.\n#   up/down work on the closest lines\
+  \ (default: 10) above or below.\n#\n# [{user.navigation_action}]: move, extend,\
+  \ select, clear, cut, copy (default: move)\n#   What action to perform.\n#\n# [{user.navigation_target_name}]:\
+  \ word, small, big, parens, squares, braces, quotes, angles, all, method, constant\
+  \ (default: word)\n#\tThe predetermined unit to select if before_or_after was specified.\n\
+  #\tDefaults to \"word\"\n#\n# [{user.before_or_after}]: before, after (default:\
+  \ special behavior)\n#   For move/extend: where to leave the cursor, before or after\
+  \ the target.\n#   Defaults to \"after\" for right/down and \"before\" for left/up.\n\
+  #\n#   For select/copy/cut: if absent, select/copy/cut the target iself. If\n# \
+  \  present, the navigation_target_name before/after the target.\n#\n# [<user.ordinals>]:\
+  \ an english ordinal, like \"second\" (default: first)\n#   Which occurrence of\
+  \ the target to navigate to.\n#\n# <user.navigation_target>: one of the following:\n\
+  #   - a character name, like \"comma\" or \"five\".\n#   - \"word\" or \"big\" or\
+  \ \"small\"\n#   - \"phrase <some text to search for>\"\n#   Specifies the target\
+  \ to search for/navigate to.\n\n# The functionality for all these commands is covered\
+  \ in the lines above, but these commands are kept here for convenience. Originally\
+  \ from word_selection.talon.\nword neck [<number_small>]: user.navigation_by_name(\"\
+  SELECT\", \"RIGHT\", \"DEFAULT\", \"word\", number_small or 1)\nword pre [<number_small>]:\
+  \ user.navigation_by_name(\"SELECT\", \"LEFT\", \"DEFAULT\", \"word\", number_small\
+  \ or 1)\nsmall word neck [<number_small>]: user.navigation_by_name(\"SELECT\", \"\
+  RIGHT\", \"DEFAULT\", \"small\", number_small or 1)\nsmall word pre [<number_small>]:\
+  \ user.navigation_by_name(\"SELECT\", \"LEFT\", \"DEFAULT\", \"small\", number_small\
+  \ or 1)\nbig word neck [<number_small>]: user.navigation_by_name(\"SELECT\", \"\
+  RIGHT\", \"DEFAULT\", \"big\", number_small or 1)\nbig word pre [<number_small>]:\
+  \ user.navigation_by_name(\"SELECT\", \"LEFT\", \"DEFAULT\", \"big\", number_small\
+  \ or 1)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children: []
+  - text: '## (2021-03-09) This syntax is experimental and may change. See below for
+      an explanation.'
+    type: comment
+  - text: '## If you are having issues with this module not working in vscode try
+      adding the vscode setting "editor.emptySelectionClipboard": false'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: navigate
+          type: word
+        - type: optional
+          children:
+          - type: list
+            list_name:
+              text: user.arrow_key
+              type: identifier
+        - type: optional
+          children:
+          - type: list
+            list_name:
+              text: user.navigation_action
+              type: identifier
+        - type: optional
+          children:
+          - type: list
+            list_name:
+              text: user.navigation_target_name
+              type: identifier
+        - type: optional
+          children:
+          - type: list
+            list_name:
+              text: user.before_or_after
+              type: identifier
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.ordinals
+              type: identifier
+        - type: capture
+          capture_name:
+            text: user.navigation_target
+            type: identifier
+    script:
+      text: '## If you use this command a lot, you may wish to have a shorter syntax
+        that omits the navigate keyword. Note that you then at least have to say either
+        a navigation_action or before_or_after:'
+      type: comment
+  - text: '# ===== Examples of use ====='
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '#   navigate comma: moves after the next "," on the line.'
+    type: comment
+  - text: '#   navigate before five: moves before the next "5" on the line.'
+    type: comment
+  - text: '#   navigate left underscore: moves before the previous "_" on the line.'
+    type: comment
+  - text: '#   navigate left after second plex: moves after the second-previous "x"
+      on the line.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# Besides characters, we can find phrases or move in predetermined units:'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '#   navigate phrase hello world: moves after the next "hello world" on
+      the line.'
+    type: comment
+  - text: '#   navigate left third word: moves left over three words.'
+    type: comment
+  - text: "#   navigate before second big: moves before the second-next 'big' word\
+      \ (a chunk of anything except white space)."
+    type: comment
+  - text: "#   navigate left second small: moves left over two 'small' words (chunks\
+      \ of a camelCase name)."
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# We can search several lines (default 10) above or below the cursor:'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '#   navigate up phrase john: moves before the previous "john" (case-insensitive)
+      on the preceding lines.'
+    type: comment
+  - text: '#   navigate down third period: moves after the third period on the following
+      lines.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# Besides movement, we can cut, copy, select, clear (delete), or extend
+      the current selection:'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '#   navigate cut after comma: cut the word following the next comma on
+      the line.'
+    type: comment
+  - text: '#   navigate left copy third word: copy the third word to the left.'
+    type: comment
+  - text: '#   navigate extend third big: extend the selection three big words right.'
+    type: comment
+  - text: '#   navigate down clear phrase I think: delete the next occurrence of "I
+      think" on the following lines.'
+    type: comment
+  - text: '#   navigate up select colon: select the closest colon on the preceeding
+      lines.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# We can specify what gets selected before or after the given input:'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: "#\tnavigate select parens after equals: Select the first \"(\" and everything\
+      \ until the first \")\" after the \"=\""
+    type: comment
+  - text: "#\tnavigate left copy all before equals: Copy everything from the start\
+      \ of the line until the first \"=\" you encounter while moving left"
+    type: comment
+  - text: "#\tnavigate clear constant before semicolon: Delete the last word consisting\
+      \ of only uppercase characters or underscores before a \";\""
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# ===== Explanation of the grammar ====='
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# [{user.arrow_key}]: left, right, up, down (default: right)'
+    type: comment
+  - text: '#   Which direction to navigate in.'
+    type: comment
+  - text: '#   left/right work on the current line.'
+    type: comment
+  - text: '#   up/down work on the closest lines (default: 10) above or below.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# [{user.navigation_action}]: move, extend, select, clear, cut, copy (default:
+      move)'
+    type: comment
+  - text: '#   What action to perform.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# [{user.navigation_target_name}]: word, small, big, parens, squares, braces,
+      quotes, angles, all, method, constant (default: word)'
+    type: comment
+  - text: "#\tThe predetermined unit to select if before_or_after was specified."
+    type: comment
+  - text: "#\tDefaults to \"word\""
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# [{user.before_or_after}]: before, after (default: special behavior)'
+    type: comment
+  - text: '#   For move/extend: where to leave the cursor, before or after the target.'
+    type: comment
+  - text: '#   Defaults to "after" for right/down and "before" for left/up.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '#   For select/copy/cut: if absent, select/copy/cut the target iself. If'
+    type: comment
+  - text: '#   present, the navigation_target_name before/after the target.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# [<user.ordinals>]: an english ordinal, like "second" (default: first)'
+    type: comment
+  - text: '#   Which occurrence of the target to navigate to.'
+    type: comment
+  - text: '#'
+    type: comment
+  - text: '# <user.navigation_target>: one of the following:'
+    type: comment
+  - text: '#   - a character name, like "comma" or "five".'
+    type: comment
+  - text: '#   - "word" or "big" or "small"'
+    type: comment
+  - text: '#   - "phrase <some text to search for>"'
+    type: comment
+  - text: '#   Specifies the target to search for/navigate to.'
+    type: comment
+  - text: '# The functionality for all these commands is covered in the lines above,
+      but these commands are kept here for convenience. Originally from word_selection.talon.'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: word
+          type: word
+        - text: neck
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: number_small
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.navigation_by_name
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: SELECT
+                type: string_content
+            - type: string
+              children:
+              - text: RIGHT
+                type: string_content
+            - type: string
+              children:
+              - text: DEFAULT
+                type: string_content
+            - type: string
+              children:
+              - text: word
+                type: string_content
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number_small
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                text: '1'
+                type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: word
+          type: word
+        - text: pre
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: number_small
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.navigation_by_name
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: SELECT
+                type: string_content
+            - type: string
+              children:
+              - text: LEFT
+                type: string_content
+            - type: string
+              children:
+              - text: DEFAULT
+                type: string_content
+            - type: string
+              children:
+              - text: word
+                type: string_content
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number_small
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                text: '1'
+                type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: small
+          type: word
+        - text: word
+          type: word
+        - text: neck
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: number_small
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.navigation_by_name
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: SELECT
+                type: string_content
+            - type: string
+              children:
+              - text: RIGHT
+                type: string_content
+            - type: string
+              children:
+              - text: DEFAULT
+                type: string_content
+            - type: string
+              children:
+              - text: small
+                type: string_content
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number_small
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                text: '1'
+                type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: small
+          type: word
+        - text: word
+          type: word
+        - text: pre
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: number_small
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.navigation_by_name
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: SELECT
+                type: string_content
+            - type: string
+              children:
+              - text: LEFT
+                type: string_content
+            - type: string
+              children:
+              - text: DEFAULT
+                type: string_content
+            - type: string
+              children:
+              - text: small
+                type: string_content
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number_small
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                text: '1'
+                type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: big
+          type: word
+        - text: word
+          type: word
+        - text: neck
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: number_small
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.navigation_by_name
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: SELECT
+                type: string_content
+            - type: string
+              children:
+              - text: RIGHT
+                type: string_content
+            - type: string
+              children:
+              - text: DEFAULT
+                type: string_content
+            - type: string
+              children:
+              - text: big
+                type: string_content
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number_small
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                text: '1'
+                type: integer
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: big
+          type: word
+        - text: word
+          type: word
+        - text: pre
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: number_small
+              type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.navigation_by_name
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: SELECT
+                type: string_content
+            - type: string
+              children:
+              - text: LEFT
+                type: string_content
+            - type: string
+              children:
+              - text: DEFAULT
+                type: string_content
+            - type: string
+              children:
+              - text: big
+                type: string_content
+            - type: binary_operator
+              left:
+                type: variable
+                variable_name:
+                  text: number_small
+                  type: identifier
+              operator:
+                text: or
+                type: operator
+              right:
+                text: '1'
+                type: integer

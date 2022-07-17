@@ -1,0 +1,138 @@
+input: "tag: terminal\nand tag: user.git\ntitle: /git add .*\\-p/\n-\nyank:\n  key(y)\n\
+  \  key(enter)\nnear:\n  key(n)\n  key(enter)\nquench:\n  key(q)\n  key(enter)\n\
+  drum:\n  key(d)\n  key(enter)\nair:\n  key(a)\n  key(enter)\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: and
+        children:
+        - type: match
+          key:
+            text: tag
+            type: identifier
+          pattern:
+            text: ' terminal'
+            type: implicit_string
+        - type: match
+          key:
+            text: tag
+            type: identifier
+          pattern:
+            text: ' user.git'
+            type: implicit_string
+      - type: match
+        key:
+          text: title
+          type: identifier
+        pattern:
+          text: ' /git add .*\-p/'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: yank
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: y
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: near
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: n
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: quench
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: q
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: drum
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: d
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: air
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: a
+            type: implicit_string
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: enter
+            type: implicit_string

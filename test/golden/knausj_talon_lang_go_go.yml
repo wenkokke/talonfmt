@@ -1,0 +1,2889 @@
+input: "tag: user.go\n-\nvariadic: \"...\"\nlogical and: \" && \"\nlogical or: \"\
+  \ || \"\n# Many of these add extra terrible spacing under the assumption that\n\
+  # gofmt/goimports will erase it.\nstate comment: \"// \"\n[line] comment <user.text>:\n\
+  \    key(\"cmd-right\")\n    insert(\" // \")\n    insert(user.formatted_text(text,\
+  \ \"sentence\"))\n\n# \"add comment <user.text> [over]:\n#     key(\"cmd-right\"\
+  )\n#     text_with_leading(\" // \")\n# ]\n# \"[state] context: insert(\"ctx\")\n\
+  state (funk | func | fun): \"func \"\nfunction (Annette | init) [over]: \"func init()\
+  \ {\\n\"\nfunction <user.text> [over]:\n    insert(\"func \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n    insert(\"(\")\n    sleep(100ms)\n\nmethod <user.text>\
+  \ [over]:\n    insert(\"meth \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n    sleep(100ms)\n\nstate var: \"var \"\nvariable [<user.text>] [over]:\n  \
+  \  insert(\"var \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n    # insert(\" \")\n    sleep(100ms)\n\nof type [<user.text>] [over]:\n   \
+  \ insert(\" \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\
+  \n# \"set <user.text> [over]:\n#     insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n#     insert(\" := \")\n#     sleep(100ms)\n# ]\nstate break: \"break\"\nstate\
+  \ (chan | channel): \" chan \"\nstate go: \"go \"\nstate if: \"if \"\nif <user.text>\
+  \ [over]:\n  insert(\"if \")\n  insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\nspawn <user.text> [over]:\n  insert(\"go \")\n  insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\nstate else if: \" else if \"\nelse if <user.text> [over]:\n\
+  \    insert(\" else if \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nstate else: \" else \"\nelse <user.text> [over]:\n    insert(\" else {\")\n\
+  \    key(\"enter\")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nstate while: \"while \"\nwhile <user.text> [over]:\n    insert(\"while \"\
+  )\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\nstate for: \"\
+  for \"\nfor <user.text> [over]:\n    insert(\"for \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nstate for range: \"forr \"\nrange <user.text> [over]:\n\
+  \    insert(\"forr \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nstate format: \"fmt\"\nformat <user.text> [over]:\n    insert(\"fmt.\")\n\
+  \    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nstate switch: \"\
+  switch \"\nswitch <user.text> [over]:\n    insert(\"switch \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nstate select: \"select \"\n# \"select <user.text>:insert(\"\
+  select \"), insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\")]\nstate (const\
+  \ | constant): \" const \"\nconstant <user.text> [over]:\n    insert(\"const \"\
+  )\n    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nstate case: \"\
+  \ case \"\nstate default: \" default:\"\ncase <user.text> [over]:\n    insert(\"\
+  case \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\nstate\
+  \ type: \" type \"\ntype <user.text> [over]:\n    insert(\"type \")\n    insert(user.formatted_text(text,\
+  \ \"PUBLIC_CAMEL_CASE\"))\nstate true: \" true \"\nstate false: \" false \"\nstate\
+  \ (start | struct | struck):\n  insert(\" struct {\")\n  key(\"enter\")\n(struct\
+  \ | struck) <user.text> [over]:\n    insert(\" struct {\")\n    key(\"enter\")\n\
+  \    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\n[state] empty interface:\
+  \ \" interface{} \"\nstate interface:\n  insert(\" interface {\")\n  key(\"enter\"\
+  )\ninterface <user.text> [over]:\n    insert(\" interface {\")\n    key(\"enter\"\
+  )\n    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nstate string:\
+  \ \" string \"\n[state] (int | integer | ant): \"int\"\nstate slice: \" []\"\nslice\
+  \ of: \"[]\"\n[state] (no | nil): \"nil\"\nstate (int | integer | ant) sixty four:\
+  \ \" int64 \"\nstate tag:\n  user.insert_between(\" `\", \"`\")\nfield tag <user.text>\
+  \ [over]:\n    user.insert_between(\" `\", \"`\")\n    sleep(100ms)\n    insert(user.formatted_text(text,\
+  \ \"snake\"))\n    insert(\" \")\n    sleep(100ms)\n\nstate return: \" return \"\
+  \nreturn  <user.text> [over]:\n    insert(\"return \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nmap of string to string: \" map[string]string \"\n\
+  map of <user.text> [over]:\n    insert(\"map[\")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n    key(\"right\")\n    sleep(100ms)\n\nreceive: \"\
+  \ <- \"\nmake: \"make(\"\nloggers [<user.text>] [over]:\n    insert(\"logrus.\"\
+  )\n    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nlength <user.text>\
+  \ [over]:\n    insert(\"len(\")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nappend <user.text> [over]:\n    insert(\"append(\")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nstate (air | err): \"err\"\nerror: \" err \"\nloop\
+  \ over [<user.text>] [over]:\n    insert(\"forr \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nitem <user.text> [over]:\n  insert(\", \")\n  insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nvalue <user.text> [over]:\n    insert(\": \")\n  \
+  \  insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\naddress of [<user.text>]\
+  \ [over]:\n    insert(\"&\")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\npointer to [<user.text>] [over]:\n    insert(\"*\")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nswipe [<user.text>] [over]:\n    key(\"right\")\n\
+  \    insert(\", \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: match
+      key:
+        text: tag
+        type: identifier
+      pattern:
+        text: ' user.go'
+        type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: variadic
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '...'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: logical
+          type: word
+        - text: and
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' && '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: logical
+          type: word
+        - text: or
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' || '
+            type: string_content
+  - text: '# Many of these add extra terrible spacing under the assumption that'
+    type: comment
+  - text: '# gofmt/goimports will erase it.'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: comment
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '// '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: line
+            type: word
+        - text: comment
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"cmd-right"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' // '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: sentence
+                    type: string_content
+  - text: '# "add comment <user.text> [over]:'
+    type: comment
+  - text: '#     key("cmd-right")'
+    type: comment
+  - text: '#     text_with_leading(" // ")'
+    type: comment
+  - text: '# ]'
+    type: comment
+  - text: '# "[state] context: insert("ctx")'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: funk
+              type: word
+            - text: func
+              type: word
+            - text: fun
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'func '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: function
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: Annette
+              type: word
+            - text: init
+              type: word
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'func init() '
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: \n
+            type: string_escape_sequence
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: function
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'func '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: (
+                type: string_content
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: method
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'meth '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: var
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'var '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: variable
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'var '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+      - text: '# insert(" ")'
+        type: comment
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: of
+          type: word
+        - text: type
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - text: '# "set <user.text> [over]:'
+    type: comment
+  - text: '#     insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))'
+    type: comment
+  - text: '#     insert(" := ")'
+    type: comment
+  - text: '#     sleep(100ms)'
+    type: comment
+  - text: '# ]'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: break
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: break
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: chan
+              type: word
+            - text: channel
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' chan '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: go
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'go '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: if
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'if '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: if
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'if '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: spawn
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'go '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: else
+          type: word
+        - text: if
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' else if '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: else
+          type: word
+        - text: if
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' else if '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: else
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' else '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: else
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' else '
+                type: string_content
+              - text: '{'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"enter"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: while
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'while '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: while
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'while '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: for
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'for '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: for
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'for '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: for
+          type: word
+        - text: range
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'forr '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: range
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'forr '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: format
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: fmt
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: format
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: fmt.
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PUBLIC_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: switch
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'switch '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: switch
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'switch '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: select
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: 'select '
+            type: string_content
+  - text: '# "select <user.text>:insert("select "), insert(user.formatted_text(text,
+      "PRIVATE_CAMEL_CASE")]'
+    type: comment
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: const
+              type: word
+            - text: constant
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' const '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: constant
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'const '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PUBLIC_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: case
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' case '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: default
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' default:'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: case
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'case '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: type
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' type '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: type
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'type '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PUBLIC_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: 'true'
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' true '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: 'false'
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' false '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: start
+              type: word
+            - text: struct
+              type: word
+            - text: struck
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' struct '
+                type: string_content
+              - text: '{'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"enter"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: struct
+              type: word
+            - text: struck
+              type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' struct '
+                type: string_content
+              - text: '{'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"enter"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PUBLIC_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: state
+            type: word
+        - text: empty
+          type: word
+        - text: interface
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' interface'
+            type: string_content
+          - text: '{'
+            type: string_content
+          - text: '}'
+            type: string_content
+          - text: ' '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: interface
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' interface '
+                type: string_content
+              - text: '{'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"enter"'
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: interface
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' interface '
+                type: string_content
+              - text: '{'
+                type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"enter"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PUBLIC_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: string
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' string '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: state
+            type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: int
+              type: word
+            - text: integer
+              type: word
+            - text: ant
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: int
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: slice
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' []'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: slice
+          type: word
+        - text: of
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '[]'
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - type: optional
+          children:
+          - text: state
+            type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: no
+              type: word
+            - text: nil
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: nil
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: int
+              type: word
+            - text: integer
+              type: word
+            - text: ant
+              type: word
+        - text: sixty
+          type: word
+        - text: four
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' int64 '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: tag
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_between
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' `'
+                type: string_content
+            - type: string
+              children:
+              - text: '`'
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: field
+          type: word
+        - text: tag
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.insert_between
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' `'
+                type: string_content
+            - type: string
+              children:
+              - text: '`'
+                type: string_content
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: snake
+                    type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ' '
+                type: string_content
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - text: return
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' return '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: return
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'return '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: map
+          type: word
+        - text: of
+          type: word
+        - text: string
+          type: word
+        - text: to
+          type: word
+        - text: string
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' map[string]string '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: map
+          type: word
+        - text: of
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: map[
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"right"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: sleep_action
+          arguments:
+            text: 100ms
+            type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: receive
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' <- '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: make
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: make(
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: loggers
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: logrus.
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PUBLIC_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: length
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: len(
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: append
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: append(
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: state
+          type: word
+        - type: parenthesized_rule
+          children:
+          - type: choice
+            children:
+            - text: air
+              type: word
+            - text: err
+              type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: err
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: error
+        type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: ' err '
+            type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: loop
+          type: word
+        - text: over
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: 'forr '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: item
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ', '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: value
+          type: word
+        - type: capture
+          capture_name:
+            text: user.text
+            type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ': '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: address
+          type: word
+        - text: of
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '&'
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: pointer
+          type: word
+        - text: to
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '*'
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: swipe
+          type: word
+        - type: optional
+          children:
+          - type: capture
+            capture_name:
+              text: user.text
+              type: identifier
+        - type: optional
+          children:
+          - text: over
+            type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: key_action
+          arguments:
+            text: '"right"'
+            type: implicit_string
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: ', '
+                type: string_content
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: insert
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: action
+              action_name:
+                text: user.formatted_text
+                type: identifier
+              arguments:
+                type: argument_list
+                children:
+                - type: variable
+                  variable_name:
+                    text: text
+                    type: identifier
+                - type: string
+                  children:
+                  - text: PRIVATE_CAMEL_CASE
+                    type: string_content

@@ -1,0 +1,123 @@
+input: "app: windows_explorer\napp: windows_file_browser\n-\ntag(): user.file_manager\n\
+  ^go <user.letter>$: user.file_manager_open_volume(\"{letter}:\")\ngo app data: user.file_manager_open_directory(\"\
+  %AppData%\")\ngo program files: user.file_manager_open_directory(\"%programfiles%\"\
+  )\n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: or
+      children:
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' windows_explorer'
+          type: implicit_string
+      - type: match
+        key:
+          text: app
+          type: identifier
+        pattern:
+          text: ' windows_file_browser'
+          type: implicit_string
+  - type: include_tag
+    tag:
+      text: user.file_manager
+      type: identifier
+  - type: command
+    rule:
+      type: rule
+      children:
+      - text: ^
+        type: start_anchor
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - type: capture
+          capture_name:
+            text: user.letter
+            type: identifier
+      - text: $
+        type: end_anchor
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.file_manager_open_volume
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '{'
+                type: string_content
+              - text: letter
+                type: string_content
+              - text: '}'
+                type: string_content
+              - text: ':'
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: app
+          type: word
+        - text: data
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.file_manager_open_directory
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '%AppData%'
+                type: string_content
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: seq
+        children:
+        - text: go
+          type: word
+        - text: program
+          type: word
+        - text: files
+          type: word
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: action
+          action_name:
+            text: user.file_manager_open_directory
+            type: identifier
+          arguments:
+            type: argument_list
+            children:
+            - type: string
+              children:
+              - text: '%programfiles%'
+                type: string_content

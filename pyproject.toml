@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel>=0.36.2"]
+build-backend = "setuptools.build_meta"
+
+[pytest]
+testpaths = [".", "test"]
+
+[tool.pytest.ini_options]
+enable_assertion_pass_hook = true
+filterwarnings = ["ignore::DeprecationWarning:.*:"]

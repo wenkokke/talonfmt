@@ -1,0 +1,37 @@
+input: "not tag: user.mouse_grid_showing\n-\n<user.number_string>: \"{number_string}\"\
+  \n"
+output:
+  type: source_file
+  children:
+  - type: context
+    children:
+    - type: not
+      children:
+      - type: match
+        key:
+          text: tag
+          type: identifier
+        pattern:
+          text: ' user.mouse_grid_showing'
+          type: implicit_string
+  - type: command
+    rule:
+      type: rule
+      children:
+      - type: capture
+        capture_name:
+          text: user.number_string
+          type: identifier
+    script:
+      type: block
+      children:
+      - type: expression
+        expression:
+          type: string
+          children:
+          - text: '{'
+            type: string_content
+          - text: number_string
+            type: string_content
+          - text: '}'
+            type: string_content
