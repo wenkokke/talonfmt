@@ -1,14 +1,15 @@
 from itertools import chain
 from talon_fmt.prettyprinter.doc import *
 from tree_sitter_talon import Node as Node, Point as Point, NodeTransformer
-from typing import Dict, Generic, Sequence, Union
-
-import tree_sitter_talon as talon
+from typing import Sequence
 
 
 @dataclass
 class TalonFormatter(NodeTransformer[Doc]):
     indent_size: int = 4
+
+    def format(self, node: Node) -> Doc:
+        return self.transform(Node)
 
     @overrides
     def transform_Action(
@@ -48,7 +49,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         right: Doc,
         **rest,
     ) -> Doc:
-        return Space.join((left, "=", right))
+        return Space.join(left, "=", right)
 
     @overrides
     def transform_BinaryOperator(
@@ -59,7 +60,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         right: Doc,
         **rest,
     ) -> Doc:
-        return Space.join((left, operator, right))
+        return Space.join(left, operator, right)
 
     @overrides
     def transform_Block(
@@ -383,7 +384,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         children: Sequence[Doc],
         **rest,
     ) -> Doc:
-        return between('"', children, '"')
+        return quote(children)
 
     @overrides
     def transform_StringContent(

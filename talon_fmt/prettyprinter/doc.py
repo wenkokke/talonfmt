@@ -1,81 +1,53 @@
 from abc import ABC
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
-from itertools import chain, filterfalse, repeat
-from typing import (
-    Generator,
-    Iterable,
-    Iterator,
-    Optional,
-    Tuple,
-    Type,
-    TypeAlias,
-    Union,
-    cast,
-)
-from py_singleton import singleton
+from itertools import chain, repeat
+from typing import Optional, TypeAlias, Union, cast
 from overrides import overrides
 from more_itertools import intersperse
 
+import re
 
-DocLike: TypeAlias = Union[str, "Doc"]
+
+DocLike: TypeAlias = Union[str, "Doc", Iterable["DocLike"]]  # type: ignore
+
+DocClassWithUnpack: TypeAlias = type[Iterable["Doc"]]
 
 
-def to_doc(doc_like: DocLike) -> "Doc":
-    if isinstance(doc_like, str):
-        lines = doc_like.splitlines()
-        if len(lines) > 1:
-            return cat(lines, separator=Line)
+def splat(
+    doclike: DocLike,
+    unpack: DocClassWithUnpack | tuple[DocClassWithUnpack, ...] = (),
+) -> Iterator["Doc"]:
+    """
+    Iterate over the elements any document-like object.
+    """
+    if not isinstance(unpack, tuple):
+        unpack = (unpack,)
+    if isinstance(doclike, str):
+        if Cat in unpack:
+            yield from Text.lines(doclike)
         else:
-            return Text(doc_like)
-    else:
-        return doc_like
-
-
-DocLikes: TypeAlias = Union[DocLike, Iterable[DocLike]]
-
-
-def to_docs(
-    doc_likes: DocLikes,
-) -> Generator["Doc", None, None]:
-    if isinstance(doc_likes, (str, Doc)):
-        yield to_doc(doc_likes)
-    else:
-        for doc_like in doc_likes:
-            yield to_doc(doc_like)
-
-
-def flatten(
-    doc_likes: Iterable[DocLike],
-    unpack_cls: Optional[Type[Iterable["Doc"]]] = None,
-) -> Generator["Doc", None, None]:
-    for doc_like in doc_likes:
-        if unpack_cls and isinstance(doc_like, unpack_cls):
-            for doc in iter(doc_like):
-                yield doc
+            yield Cat(tuple(Text.lines(doclike)))
+    elif isinstance(doclike, Doc):
+        if isinstance(doclike, unpack):
+            yield from cast(Iterable["Doc"], doclike)
         else:
-            yield to_doc(doc_like)
-
-
-def cat(
-    doc_likes: Iterable[DocLike],
-    separator: Optional[DocLike] = None,
-) -> "Doc":
-    docs = flatten(doc_likes, unpack_cls=Cat)
-    if docs:
-        if separator:
-            return Cat(intersperse(to_doc(separator), docs))
-        else:
-            return Cat(docs)
+            yield doclike
     else:
-        return Empty
+        for smaller_doclike in doclike:
+            yield from splat(smaller_doclike, unpack=unpack)
 
 
-def row(doc_likes: Iterable[DocLike]) -> "Row":
-    return Row(flatten(doc_likes, unpack_cls=Row))
+def cat(*doclike: DocLike) -> "Cat":
+    return Cat(tuple(splat(doclike, unpack=Cat)))
 
 
-def alt(doc_likes: Iterable[DocLike]) -> "Alt":
-    return Alt(flatten(doc_likes, unpack_cls=Alt))
+def row(*doclike: DocLike) -> "Row":
+    return Row(tuple(splat(doclike, unpack=Row)))
+
+
+def alt(*doclike: DocLike) -> "Alt":
+    return Alt(tuple(splat(doclike, unpack=Alt)))
 
 
 class Doc(ABC):
@@ -83,22 +55,18 @@ class Doc(ABC):
         """
         Compose two documents.
         """
-        return cat((self, other))
+        return cat(self, other)
 
-    def join(self, others: DocLikes) -> "Doc":
+    def join(self, *others: DocLike) -> "Doc":
         """
         Compose a series of documents separated by this document.
         """
-        return cat(to_docs(others), separator=self)
-
-    def nest(self, indent: int) -> "Doc":
-        """
-        Indent a document.
-        """
-        if indent <= 0:
-            return self
-        else:
-            return Nest(indent=indent, doc=self)
+        # NOTE: The first 'splat' is to ensure that a separator is
+        #       inserted between any two of the top-level Docs, but
+        #       not between Docs which are already part of a Cat.
+        #       The call to cat then flattens out any existing Cats,
+        #       without inserting additional separators.
+        return cat(intersperse(self, splat(others)))
 
     def __truediv__(self, other: DocLike) -> "Doc":
         """
@@ -110,76 +78,43 @@ class Doc(ABC):
         """
         Compose two documents.
         """
-        return to_doc(other).__truediv__(self)
+        return cat(other).then(self)
 
     def __floordiv__(self, other: DocLike) -> "Doc":
         """
         Compose two documents, separated by a space.
         """
-        other_doc = to_doc(other)
-        if other_doc is Space or other_doc is Empty:
-            return self.then(other_doc)
-        else:
-            return self.then(Space).then(other_doc)
+        return self.then(Space).then(other)
 
     def __rfloordiv__(self, other: DocLike) -> "Doc":
         """
         Compose two documents, separated by a space.
         """
-        return to_doc(other).__floordiv__(self)
+        return cat(other).then(Space).then(self)
 
     def __and__(self, other: DocLike) -> "Row":
         """
         Compose two documents, as columns in a row.
         """
-        return row((self, other))
+        return row(self, other)
 
     def __rand__(self, other: DocLike) -> "Row":
         """
         Compose two documents, as columns in a row.
         """
-        return to_doc(other).__and__(self)
+        return row(other, self)
 
     def __or__(self, other: DocLike) -> "Alt":
         """
         Combine two documents as alternatives.
         """
-        return alt((self, other))
+        return alt(self, other)
 
     def __ror__(self, other: DocLike) -> "Alt":
         """
         Combine two documents as alternatives.
         """
-        return to_doc(other).__or__(self)
-
-
-@singleton
-@dataclass
-class EmptyType(Doc):
-    """
-    The empty document.
-    """
-
-    @overrides
-    def nest(self, indent: int) -> Doc:
-        return self
-
-    def __bool__(self) -> bool:
-        return False
-
-    def __repr__(self):
-        return "Empty"
-
-
-@singleton
-@dataclass
-class LineType(Doc):
-    """
-    A line break.
-    """
-
-    def __repr__(self):
-        return "Line"
+        return alt(other, self)
 
 
 @dataclass
@@ -190,57 +125,66 @@ class Text(Doc):
 
     text: str
 
+    @staticmethod
+    def words(text: str) -> Doc:
+        return Space.join(map(Text, text.split()))
+
+    @staticmethod
+    def lines(text: str) -> Doc:
+        return Line.join(map(Text.words, text.splitlines()))
+
     @classmethod
     def intern(cls, name: str, text: str) -> "Text":
         if not hasattr(cls, name):
-            obj = super().__new__(Text)
-            obj.text = text
-            setattr(cls, name, obj)
+            instance = super().__new__(Text)
+            instance.text = text
+            setattr(cls, name, instance)
         return getattr(cls, name)
 
     def __new__(cls, text: str) -> "Text":
-        if text:
-            if text == " ":
-                return cls.intern("Space", " ")
-            instance = super().__new__(Text)
-            instance.text = text
-            return instance
-        else:
-            return cast(Text, Empty)
+        if text == "":
+            return cls.intern("Empty", "")
+        if text == " ":
+            return cls.intern("Space", " ")
+        if text == "\n":
+            return cls.intern("Line", "\n")
+        instance = super().__new__(Text)
+        instance.text = text
+        return instance
 
     def __init__(self, text: str) -> None:
-        # Invariant: The text does not contain newlines.
-        assert "\n" not in self.text
+        # Invariant: The text does not contain whitespace.
+        assert (
+            re.match(r"\S+", self.text)
+            or self is getattr(self, "Empty", None)
+            or self is getattr(self, "Space", None)
+            or self is getattr(self, "Line", None)
+        )
+
+    def __repr__(self) -> str:
+        if self is getattr(self, "Empty", None):
+            return "Empty"
+        if self is getattr(self, "Space", None):
+            return "Space"
+        if self is getattr(self, "Line", None):
+            return "Line"
+        return f"Text(text={self.text})"
 
     def __mul__(self, times: int) -> Doc:
         return cat(repeat(self, times))
 
     def __rmul__(self, times: int) -> Doc:
-        return self.__mul__(times)
+        return cat(repeat(self, times))
 
 
 @dataclass
 class HStretch(Doc):
-    char: Text
-
-    def __init__(self, char: DocLike) -> None:
-        char = to_doc(char)
-
-        # Invariant: The document is Text.
-        assert isinstance(char, Text)
-
-        self.char = char
-
-        # Invariant: The text is one character.
-        assert len(self.char.text) == 1
+    doc: Doc
 
 
 @dataclass
 class VStretch(Doc):
     doc: Doc
-
-    def __init__(self, doc: DocLike) -> None:
-        self.doc = to_doc(doc)
 
 
 @dataclass
@@ -256,26 +200,18 @@ class Nest(Doc):
     indent: int
     doc: Doc
 
-    def __init__(self, indent: int, doc: DocLike) -> None:
+    def __init__(self, indent: int, doc: Doc) -> None:
         if isinstance(doc, Nest):
             self.indent = indent + doc.indent
             self.doc = doc.doc
         else:
             self.indent = indent
-            self.doc = to_doc(doc)
+            self.doc = doc
 
         # Invariant: The doc is not Nest
         assert not isinstance(self.doc, Nest)
         # Invariant: The indent is greater than zero.
         assert self.indent > 0
-
-    @overrides
-    def nest(self, indent: int) -> Doc:
-        indent = self.indent + indent
-        if indent <= 0:
-            return self.doc
-        else:
-            return Nest(indent=indent, doc=self.doc)
 
 
 @dataclass
@@ -284,41 +220,15 @@ class Alt(Doc, Iterable[Doc]):
     Alternatives for the document layout.
     """
 
-    docs: Tuple[Doc, ...]
+    # Assume: The alternatives are listed in increasing order of width.
+    docs: tuple[Doc, ...]
 
-    @classmethod
-    def intern(cls, name: str, docs: Tuple[Doc, ...]) -> "Alt":
-        if not hasattr(cls, name):
-            obj = super().__new__(Alt)
-            obj.docs = docs
-            setattr(cls, name, obj)
-        return getattr(cls, name)
-
-    def __new__(cls, doc_likes: Iterable[DocLike]) -> "Alt":
-        docs = tuple(flatten(doc_likes, unpack_cls=Alt))
-        if docs:
-            if docs == (Empty, Line):
-                return cls.intern("SoftLine", (Empty, Line))
-            instance = super().__new__(Alt)
-            instance.docs = docs
-            return instance
-        else:
-            return cast(Alt, Empty)
-
-    def __init__(self, doc_likes: Iterable[DocLike]):
+    def __post_init__(self, **rest):
         # Invariant: None of docs is an instance of Alt.
         assert all(not isinstance(doc, Alt) for doc in self.docs)
-        # Invariant: The alternatives should be listed in increasing order of width.
-        # TODO: not asserted
 
     def __iter__(self) -> Iterator[Doc]:
         return iter(self.docs)
-
-    def __repr__(self) -> str:
-        if self is SoftLine:
-            return "SoftLine"
-        else:
-            return " | ".join(map(repr, self.docs))
 
 
 @dataclass
@@ -327,11 +237,9 @@ class Cat(Doc, Iterable[Doc]):
     Concatenated documents.
     """
 
-    docs: Tuple[Doc, ...]
+    docs: tuple[Doc, ...]
 
-    def __init__(self, doc_likes: Iterable[DocLike]) -> None:
-        self.docs = tuple(filterfalse(bool, flatten(doc_likes, unpack_cls=Cat)))
-
+    def __post_init__(self, **rest) -> None:
         # Invariant: None of docs is an instance of Cat.
         assert all(not isinstance(doc, Cat) for doc in self.docs)
         # Invariant: None of docs is Empty.
@@ -343,64 +251,52 @@ class Cat(Doc, Iterable[Doc]):
 
 @dataclass
 class Row(Doc, Iterable[Doc]):
-    """
-    Multicolumn documents.
-    """
+    cols: tuple[Doc, ...]
 
-    docs: Tuple[Doc, ...]
-
-    def __init__(self, doc_likes: Iterable[DocLike]) -> None:
-        self.docs = tuple(flatten(doc_likes, unpack_cls=Row))
-
-        # Invariant: None of docs is an instance of Row.
-        assert all(not isinstance(doc, Row) for doc in self.docs)
+    def __post_init__(self, **rest) -> None:
+        # Invariant: None of cols is an instance of Row.
+        assert all(not isinstance(col, Row) for col in self.cols)
 
     def __iter__(self) -> Iterator[Doc]:
-        return iter(self.docs)
+        return iter(self.cols)
 
 
-Empty = EmptyType()
+@dataclass
+class Table(Doc, Iterable[Row]):
+    rows: tuple[Row, ...]
 
-Line = LineType()
+    def __post_init__(self, **rest) -> None:
+        # Invariant: All of rows are an instance of Table.
+        assert all(isinstance(row, Row) for row in self.rows)
+
+    def __iter__(self) -> Iterator[Row]:
+        return iter(self.rows)
+
+
+Empty = Text("")
+
+Line = Text("\n")
 
 SoftLine = Empty | Line
 
 Space = Text(" ")
 
 
-def between(
-    open: DocLike,
-    doc_like_or_doc_likes: DocLike | Iterable[DocLike],
-    close: DocLike,
-    *,
-    separator: Optional[DocLike] = None
-) -> Doc:
-
-    return cat(
-        chain((open,), to_docs(doc_like_or_doc_likes), (close,)),
-        separator=separator,
-    )
+def parens(*doclike: DocLike) -> Doc:
+    return cat("(", doclike, ")")
 
 
-def parens(
-    doc_likes: DocLike | Iterable[DocLike], *, separator: Optional[DocLike] = None
-) -> Doc:
-    return between("(", doc_likes, ")", separator=separator)
+def brackets(*doclike: DocLike) -> Doc:
+    return cat("[", doclike, "]")
 
 
-def brackets(
-    doc_likes: DocLike | Iterable[DocLike], *, separator: Optional[DocLike] = None
-) -> Doc:
-    return between("[", doc_likes, "]", separator=separator)
+def braces(*doclike: DocLike) -> Doc:
+    return cat("{", doclike, "}")
 
 
-def braces(
-    doc_likes: DocLike | Iterable[DocLike], *, separator: Optional[DocLike] = None
-) -> Doc:
-    return between("{", doc_likes, "}", separator=separator)
+def angles(*doclike: DocLike) -> Doc:
+    return cat("<", doclike, ">")
 
 
-def angles(
-    doc_likes: DocLike | Iterable[DocLike], *, separator: Optional[DocLike] = None
-) -> Doc:
-    return between("<", doc_likes, ">", separator=separator)
+def quote(*doclike: DocLike) -> Doc:
+    return cat('"', doclike, '"')

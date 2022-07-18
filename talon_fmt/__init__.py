@@ -5,9 +5,12 @@ from typing import Dict, Generic, Sequence, Union
 
 import tree_sitter_talon as talon
 
+from talon_fmt.prettyprinter.render import SimpleDoc, SimpleDocRenderer
 
-def format(contents: Union[str, bytes], has_header: Optional[bool] = None) -> Doc:
-    node = talon.parse(contents)
+
+def format(contents: Union[str, bytes], has_header: Optional[bool] = None) -> str:
+    node = talon.parse(contents, has_header)
     formatter = TalonFormatter()
-    doc = formatter.transform(node)
-    return doc
+    doc: SimpleDoc = formatter.format(node)
+    renderer = SimpleDocRenderer()
+    return renderer.render(doc)
