@@ -24,10 +24,7 @@ def splat(
     if not isinstance(unpack, tuple):
         unpack = (unpack,)
     if isinstance(doclike, str):
-        if Cat in unpack:
-            yield from Text.lines(doclike)
-        else:
-            yield Cat(tuple(Text.lines(doclike)))
+        yield from splat(Text.lines(doclike), unpack=unpack)
     elif isinstance(doclike, Doc):
         if isinstance(doclike, unpack):
             yield from cast(Iterable["Doc"], doclike)

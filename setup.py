@@ -12,13 +12,13 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as f:
 
 
 setup(
-    name="talon_fmt",
+    name="talonfmt",
     version="0.0.1",
     maintainer="Wen Kokke",
     maintainer_email="me@wen.works",
     author="Wen Kokke",
     author_email="me@wen.works",
-    url="https://github.com/wenkokke/talon-fmt",
+    url="https://github.com/wenkokke/talonfmt",
     license="MIT",
     platforms=["any"],
     python_requires=">=3.3",
@@ -31,7 +31,7 @@ setup(
         "Topic :: Text Processing :: Linguistic",
     ],
     packages=["talon_fmt"],
-    project_urls={"Source": "https://github.com/wenkokke/talon-fmt"},
+    project_urls={"Source": "https://github.com/wenkokke/talonfmt"},
     install_requires=[
         "py_singleton",
         "overrides",

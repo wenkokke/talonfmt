@@ -1,4 +1,4 @@
-from talon_fmt.prettyprinter.doc import *
+from talonfmt.prettyprinter.doc import *
 
 
 def test_Text_intern_Empty():
@@ -28,5 +28,12 @@ def test_Line_repr():
 def test_DocLike_Line():
     assert cat("hello\nworld") == cat("hello", Line, "world")
 
+
 def test_DocLike_Space():
     assert cat("hello world") == cat("hello", Space, "world")
+
+
+def test_DocLike_Line_and_Space():
+    assert cat("hello world\nwello horld") == cat(
+        "hello", Space, "world", Line, "wello", Space, "horld"
+    )

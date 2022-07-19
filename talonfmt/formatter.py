@@ -1,5 +1,5 @@
 from itertools import chain
-from talon_fmt.prettyprinter.doc import *
+from talonfmt.prettyprinter.doc import *
 from tree_sitter_talon import Node as Node, Point as Point, NodeTransformer
 from typing import Sequence
 
@@ -98,7 +98,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         script: Doc,
         **rest,
     ) -> Doc:
-        return rule / ":" / Line / script.nest(self.indent_size)
+        return rule / ":" / Line / Nest(self.indent_size, script)
 
     @overrides
     def transform_Comment(
@@ -107,7 +107,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         text: str,
         **rest,
     ) -> Doc:
-        return VStretch("#") & text
+        return VStretch(Text("#")) & text
 
     @overrides
     def transform_Context(
@@ -125,7 +125,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         text: str,
         **rest,
     ) -> Doc:
-        return VStretch("###") & text
+        return VStretch(Text("###")) & text
 
     @overrides
     def transform_ERROR(
@@ -350,7 +350,7 @@ class TalonFormatter(NodeTransformer[Doc]):
         children: Doc,
         **rest,
     ) -> Doc:
-        return "settings():" / Line / children.nest(self.indent_size)
+        return "settings():" / Line / Nest(self.indent_size, children)
 
     @overrides
     def transform_SleepAction(
