@@ -1,90 +1,115 @@
 from functools import singledispatchmethod
-from io import StringIO
-from typing import TypeAlias
+from itertools import chain
 
 from .doc import *
 
-Token: TypeAlias = Text
-TokenStream: TypeAlias = Iterator[Text]
+import typing
+
+Token: typing.TypeAlias = Text
+TokenStream: typing.TypeAlias = Iterator[Text]
+
+
+class RenderError(Exception):
+    pass
+
+
+T = typing.TypeVar("T")
 
 
 @dataclass
 class SimpleDocRenderer:
     @singledispatchmethod
     def render(self, doc: Doc) -> TokenStream:
-        raise ValueError(doc)
+        raise TypeError(type(doc))
 
-    # def render(self, simple_doc: SimpleDoc) -> str:
-    #     buffer = StringIO()
-    #     tokens = self.transform(simple_doc)
-    #     for token in tokens:
-    #         if token is not None:
-    #             buffer.write(token)
-    #         else:
-    #             buffer.write("\n")
-    #     return buffer.getvalue()
+    @render.register
+    def _(self, doc: Text) -> TokenStream:
+        return iter([doc])
 
-    # @overrides
-    # def transform_Empty(self) -> TokenStream:
-    #     pass
+    @render.register
+    def _(self, doc: Alt) -> TokenStream:
+        if doc.alts:
+            return self.render(doc.alts[0])
+        else:
+            raise RenderError(doc)
 
-    # @overrides
-    # def transform_Space(self) -> TokenStream:
-    #     yield " "
+    @render.register
+    def _(self, doc: Cat) -> TokenStream:
+        return chain.from_iterable(self.render(subdoc) for subdoc in doc.docs)
 
-    # @overrides
-    # def transform_Line(self) -> TokenStream:
-    #     yield None
+    @render.register
+    def _(self, doc: Row) -> TokenStream:
+        # Calculate the number of columns
+        number_of_cols = len(doc.cols)
 
-    # @overrides
-    # def transform_Text(self, text: str) -> TokenStream:
-    #     yield text
+        token_buffer: list[Token] = []
 
-    # @overrides
-    # def transform_Nest(self, indent: int, doc: TokenStream, **rest) -> TokenStream:
-    #     leading = " " * indent
-    #     has_content: bool = False
-    #     line_buffer: list[Token] = []
-    #     for token in doc:
-    #         if token is not None:
-    #             if has_content:
-    #                 yield token
-    #             else:
-    #                 if token.isspace():
-    #                     line_buffer.append(token)
-    #                 else:
-    #                     has_content = True
-    #                     yield leading
-    #                     yield from line_buffer
-    #                     line_buffer.clear()
-    #                     yield token
-    #         else:
-    #             yield from line_buffer
-    #             line_buffer.clear()
-    #             yield token
-    #             has_content = False
+        # Emit the contents of each cell:
+        for j, cell in enumerate(doc.cols):
+            token_buffer.extend(self.render(cell))
 
-    # @overrides
-    # def transform_Cat(self, docs: Iterator[TokenStream], **rest) -> TokenStream:
-    #     for doc in docs:
-    #         yield from doc
+            # Emit the column separator, if required:
+            if j < number_of_cols - 1:
+                token_buffer.append(doc.info.hsep)
 
-    # @overrides
-    # def transform_Row(self, cols: Iterator[TokenStream], **rest) -> TokenStream:
-    #     pass
+        return iter(token_buffer)
 
-    # @overrides
-    # def transform_Table(self, rows: Iterator[TokenStream], **rest) -> TokenStream:
-    #     pass
+    @render.register
+    def _(self, doc: Table) -> TokenStream:
+        # Calculate the number of columns
+        number_of_cols = max(len(row.cols) for row in doc.rows)
 
-    # @overrides
-    # def transform_HStretch(self, doc: TokenStream, **rest) -> TokenStream:
-    #     yield from doc
+        # Render cells, and calculate the width of each column
+        table: list[list[tuple[RowInfo, tuple[Token, ...]]]] = []
+        col_width: list[int] = []
+        for i, row in enumerate(doc.rows):
+            table[i] = []
+            col_width[i] = 0
+            for j in range(0, number_of_cols):
+                if j < len(row.cols):
+                    col_tokens = tuple(self.render(row.cols[j]))
+                    table[i][j] = (row.info, col_tokens)
+                    col_width[i] = max(col_width[i], sum(map(length_hint, col_tokens)))
+                else:
+                    table[i][j] = (row.info, (Empty,))
 
-    # @overrides
-    # def transform_VStretch(self, doc: TokenStream, **rest) -> TokenStream:
-    #     yield from doc
+        # For each row and each cell:
+        token_buffer: list[Token] = []
+        for i in range(0, len(table)):
+            for j in range(0, number_of_cols):
+                info, cell, = table[
+                    i
+                ][j]
+                # Emit the contents of that cell:
+                cell_width: int = 0
+                for token in cell:
+                    assert token is not Line
+                    cell_width += len(token)
+                    token_buffer.append(token)
+                # Emit padding to up to the required width:
+                token_buffer.extend(repeat(info.hpad, col_width[j] - cell_width))
+                # Emit the column separator, if required:
+                if j < number_of_cols - 1:
+                    token_buffer.append(info.hsep)
+        return iter(token_buffer)
 
-    # @overrides
-    # def transform_Alt(self, *, docs_hist: tuple[Doc, ...]) -> TokenStream:
-    #     yield from self.transform(docs_hist[0])
+    @render.register
+    def _(self, doc: Nest) -> TokenStream:
+        has_content: bool = False
+        line_indent: int = 0
+        token_buffer: list[Token] = []
+        for token in self.render(doc.doc):
+            if token is Line:
+                has_content = False
+                token_buffer.append(Line)
+            else:
+                if has_content:
+                    token_buffer.append(token)
+                else:
+                    if token is Space:
+                        line_indent += 1
+                    else:
+                        has_content = True
+                        token_buffer.extend(repeat(Space, line_indent + doc.indent))
+                        token_buffer.append(token)
+        return iter(token_buffer)

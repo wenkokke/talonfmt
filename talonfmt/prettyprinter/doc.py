@@ -1,7 +1,8 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from itertools import chain, repeat
+from operator import length_hint
 from typing import Optional, TypeAlias, Union, cast
 from overrides import overrides
 from more_itertools import intersperse
@@ -12,39 +13,6 @@ import re
 DocLike: TypeAlias = Union[str, "Doc", Iterable["DocLike"]]  # type: ignore
 
 DocClassWithUnpack: TypeAlias = type[Iterable["Doc"]]
-
-
-def splat(
-    doclike: DocLike,
-    unpack: DocClassWithUnpack | tuple[DocClassWithUnpack, ...] = (),
-) -> Iterator["Doc"]:
-    """
-    Iterate over the elements any document-like object.
-    """
-    if not isinstance(unpack, tuple):
-        unpack = (unpack,)
-    if isinstance(doclike, str):
-        yield from splat(Text.lines(doclike), unpack=unpack)
-    elif isinstance(doclike, Doc):
-        if isinstance(doclike, unpack):
-            yield from cast(Iterable["Doc"], doclike)
-        else:
-            yield doclike
-    else:
-        for smaller_doclike in doclike:
-            yield from splat(smaller_doclike, unpack=unpack)
-
-
-def cat(*doclike: DocLike) -> "Cat":
-    return Cat(tuple(splat(doclike, unpack=Cat)))
-
-
-def row(*doclike: DocLike) -> "Row":
-    return Row(tuple(splat(doclike, unpack=Row)))
-
-
-def alt(*doclike: DocLike) -> "Alt":
-    return Alt(tuple(splat(doclike, unpack=Alt)))
 
 
 class Doc(ABC):
@@ -64,6 +32,10 @@ class Doc(ABC):
         #       The call to cat then flattens out any existing Cats,
         #       without inserting additional separators.
         return cat(intersperse(self, splat(others)))
+
+    @abstractmethod
+    def __length_hint__(self) -> int:
+        pass
 
     def __truediv__(self, other: DocLike) -> "Doc":
         """
@@ -88,18 +60,6 @@ class Doc(ABC):
         Compose two documents, separated by a space.
         """
         return cat(other).then(Space).then(self)
-
-    def __and__(self, other: DocLike) -> "Row":
-        """
-        Compose two documents, as columns in a row.
-        """
-        return row(self, other)
-
-    def __rand__(self, other: DocLike) -> "Row":
-        """
-        Compose two documents, as columns in a row.
-        """
-        return row(other, self)
 
     def __or__(self, other: DocLike) -> "Alt":
         """
@@ -138,13 +98,34 @@ class Text(Doc):
             setattr(cls, name, instance)
         return getattr(cls, name)
 
+    @classmethod
+    def intern_Empty(cls) -> "Text":
+        return cls.intern("Empty", "")
+
+    def is_Empty(self) -> bool:
+        return self is self.__class__.intern_Empty()
+
+    @classmethod
+    def intern_Space(cls) -> "Text":
+        return cls.intern("Space", " ")
+
+    def is_Space(self) -> bool:
+        return self is self.__class__.intern_Space()
+
+    @classmethod
+    def intern_Line(cls) -> "Text":
+        return cls.intern("Line", "\n")
+
+    def is_Line(self) -> bool:
+        return self is self.__class__.intern_Line()
+
     def __new__(cls, text: str) -> "Text":
-        if text == "":
-            return cls.intern("Empty", "")
-        if text == " ":
-            return cls.intern("Space", " ")
-        if text == "\n":
-            return cls.intern("Line", "\n")
+        if text == cls.intern_Empty().text:
+            return cls.intern_Empty()
+        if text == cls.intern_Space().text:
+            return cls.intern_Space()
+        if text == cls.intern_Line().text:
+            return cls.intern_Line()
         instance = super().__new__(Text)
         instance.text = text
         return instance
@@ -153,35 +134,166 @@ class Text(Doc):
         # Invariant: The text does not contain whitespace.
         assert (
             re.match(r"\S+", self.text)
-            or self is getattr(self, "Empty", None)
-            or self is getattr(self, "Space", None)
-            or self is getattr(self, "Line", None)
+            or self.is_Empty()
+            or self.is_Space()
+            or self.is_Line()
         )
 
     def __repr__(self) -> str:
-        if self is getattr(self, "Empty", None):
+        if self.is_Empty():
             return "Empty"
-        if self is getattr(self, "Space", None):
+        if self.is_Space():
             return "Space"
-        if self is getattr(self, "Line", None):
+        if self.is_Line():
             return "Line"
         return f"Text(text={self.text})"
 
-    def __mul__(self, times: int) -> Doc:
-        return cat(repeat(self, times))
+    @overrides
+    def __length_hint__(self) -> int:
+        return len(self.text)
 
-    def __rmul__(self, times: int) -> Doc:
-        return cat(repeat(self, times))
+    def __len__(self) -> int:
+        return len(self.text)
+
+
+Empty = Text.intern_Empty()
+
+Space = Text.intern_Space()
+
+Line = Text.intern_Line()
 
 
 @dataclass
-class HStretch(Doc):
-    doc: Doc
+class Alt(Doc, Iterable[Doc]):
+    """
+    Alternatives for the document layout.
+    """
+
+    # Assume: The alternatives are listed in increasing order of width.
+    alts: tuple[Doc, ...]
+
+    @classmethod
+    def intern(cls, name: str, alts: tuple[Doc, ...]) -> "Alt":
+        if not hasattr(cls, name):
+            instance = super().__new__(Alt)
+            instance.alts = alts
+            setattr(cls, name, instance)
+        return getattr(cls, name)
+
+    @classmethod
+    def intern_Fail(cls) -> "Alt":
+        return cls.intern("Fail", ())
+
+    def is_Fail(self) -> bool:
+        return self is self.__class__.intern_Fail()
+
+    @classmethod
+    def intern_SoftLine(cls) -> "Alt":
+        return cls.intern("SoftLine", (Line, Empty))
+
+    def is_SoftLine(self) -> bool:
+        return self is self.__class__.intern_SoftLine()
+
+    def __new__(cls, alts: tuple[Doc, ...]) -> "Alt":
+        if alts == cls.intern_Fail().alts:
+            return cls.intern_Fail()
+        if alts == cls.intern_SoftLine().alts:
+            return cls.intern_SoftLine()
+        instance = super().__new__(Alt)
+        instance.alts = alts
+        return instance
+
+    def __init__(self, alts: tuple[Doc, ...]):
+        # Invariant: None of alts is an instance of Alt.
+        assert all(not isinstance(doc, Alt) for doc in self.alts)
+
+    def __repr__(self) -> str:
+        if self.is_Fail():
+            return "Fail"
+        if self.is_SoftLine():
+            return "SoftLine"
+        return f"Alt(alts={self.alts})"
+
+    def __iter__(self) -> Iterator[Doc]:
+        return iter(self.alts)
+
+    @overrides
+    def __length_hint__(self) -> int:
+        if self.alts:
+            return length_hint(self.alts[0])
+        else:
+            return 0
+
+
+Fail = Alt.intern_Fail()
+
+
+SoftLine = Alt.intern_SoftLine()
 
 
 @dataclass
-class VStretch(Doc):
-    doc: Doc
+class Cat(Doc, Iterable[Doc]):
+    """
+    Concatenated documents.
+    """
+
+    docs: tuple[Doc, ...]
+
+    def __post_init__(self, **rest) -> None:
+        # Invariant: None of docs is an instance of Cat.
+        assert all(not isinstance(doc, Cat) for doc in self.docs)
+        # Invariant: None of docs is Empty.
+        assert all(doc is not Empty for doc in self.docs)
+
+    def __iter__(self) -> Iterator[Doc]:
+        return iter(self.docs)
+
+    @overrides
+    def __length_hint__(self) -> int:
+        return sum(map(length_hint, self.docs))
+
+
+@dataclass
+class RowInfo:
+    hpad: Text
+    hsep: Text
+
+
+@dataclass
+class Row(Doc, Iterable[Doc]):
+    cols: tuple[Doc, ...]
+    info: RowInfo
+
+    def __post_init__(self, **rest) -> None:
+        # Invariant: None of cols is an instance of Row.
+        assert all(not isinstance(col, Row) for col in self.cols)
+        # Invariant: The hpad text has width 1.
+        assert len(self.info.hpad.text) == 1
+
+    def __iter__(self) -> Iterator[Doc]:
+        return iter(self.cols)
+
+    @overrides
+    def __length_hint__(self) -> int:
+        return sum(
+            intersperse(length_hint(self.info.hsep), map(length_hint, self.cols))
+        )
+
+
+@dataclass
+class Table(Doc, Iterable[Row]):
+    rows: tuple[Row, ...]
+
+    def __post_init__(self, **rest) -> None:
+        # Invariant: All of rows are an instance of Table.
+        assert all(isinstance(row, Row) for row in self.rows)
+
+    def __iter__(self) -> Iterator[Row]:
+        return iter(self.rows)
+
+    @overrides
+    def __length_hint__(self) -> int:
+        return max(map(length_hint, self.rows))
 
 
 @dataclass
@@ -210,73 +322,60 @@ class Nest(Doc):
         # Invariant: The indent is greater than zero.
         assert self.indent > 0
 
+    @overrides
+    def __length_hint__(self) -> int:
+        return self.indent + length_hint(self.doc)
 
-@dataclass
-class Alt(Doc, Iterable[Doc]):
+
+def splat(
+    doclike: DocLike,
+    unpack: DocClassWithUnpack | tuple[DocClassWithUnpack, ...] = (),
+) -> Iterator["Doc"]:
     """
-    Alternatives for the document layout.
+    Iterate over the elements any document-like object.
     """
-
-    # Assume: The alternatives are listed in increasing order of width.
-    docs: tuple[Doc, ...]
-
-    def __post_init__(self, **rest):
-        # Invariant: None of docs is an instance of Alt.
-        assert all(not isinstance(doc, Alt) for doc in self.docs)
-
-    def __iter__(self) -> Iterator[Doc]:
-        return iter(self.docs)
-
-
-@dataclass
-class Cat(Doc, Iterable[Doc]):
-    """
-    Concatenated documents.
-    """
-
-    docs: tuple[Doc, ...]
-
-    def __post_init__(self, **rest) -> None:
-        # Invariant: None of docs is an instance of Cat.
-        assert all(not isinstance(doc, Cat) for doc in self.docs)
-        # Invariant: None of docs is Empty.
-        assert all(doc is not Empty for doc in self.docs)
-
-    def __iter__(self) -> Iterator[Doc]:
-        return iter(self.docs)
+    if not isinstance(unpack, tuple):
+        unpack = (unpack,)
+    if isinstance(doclike, str):
+        yield from splat(Text.lines(doclike), unpack=unpack)
+    elif isinstance(doclike, Doc):
+        if isinstance(doclike, unpack):
+            yield from cast(Iterable["Doc"], doclike)
+        else:
+            yield doclike
+    else:
+        for smaller_doclike in doclike:
+            yield from splat(smaller_doclike, unpack=unpack)
 
 
-@dataclass
-class Row(Doc, Iterable[Doc]):
-    cols: tuple[Doc, ...]
-
-    def __post_init__(self, **rest) -> None:
-        # Invariant: None of cols is an instance of Row.
-        assert all(not isinstance(col, Row) for col in self.cols)
-
-    def __iter__(self) -> Iterator[Doc]:
-        return iter(self.cols)
+def cat(*doclike: DocLike) -> "Cat":
+    return Cat(tuple(splat(doclike, unpack=Cat)))
 
 
-@dataclass
-class Table(Doc, Iterable[Row]):
-    rows: tuple[Row, ...]
+def row(
+    *doclike: DocLike,
+    hpad: str | Text = Space,
+    hsep: str | Text = Space,
+) -> "Row":
+    # Ensure padding and separators are Text
+    if isinstance(hpad, str):
+        hpad = Text(hpad)
+    if isinstance(hsep, str):
+        hsep = Text(hsep)
+    info = RowInfo(hpad=hpad, hsep=hsep)
+    # Ensure Row settings are preserved
+    cols: list[Doc] = []
+    for col_or_row in splat(doclike):
+        if isinstance(col_or_row, Row):
+            assert col_or_row.info == info
+            cols.extend(col_or_row.cols)
+        else:
+            cols.append(col_or_row)
+    return Row(tuple(cols), info=info)
 
-    def __post_init__(self, **rest) -> None:
-        # Invariant: All of rows are an instance of Table.
-        assert all(isinstance(row, Row) for row in self.rows)
 
-    def __iter__(self) -> Iterator[Row]:
-        return iter(self.rows)
-
-
-Empty = Text("")
-
-Line = Text("\n")
-
-SoftLine = Empty | Line
-
-Space = Text(" ")
+def alt(*doclike: DocLike) -> "Alt":
+    return Alt(tuple(splat(doclike, unpack=Alt)))
 
 
 def parens(*doclike: DocLike) -> Doc:

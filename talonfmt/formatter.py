@@ -1,423 +1,257 @@
+from collections.abc import Sequence
+from functools import singledispatchmethod
 from itertools import chain
 from talonfmt.prettyprinter.doc import *
-from tree_sitter_talon import Node as Node, Point as Point, NodeTransformer
-from typing import Sequence
+from tree_sitter_talon import *
 
 
 @dataclass
-class TalonFormatter(NodeTransformer[Doc]):
+class TalonFormatter:
     indent_size: int = 4
 
+    @singledispatchmethod
     def format(self, node: Node) -> Doc:
-        return self.transform(Node)
+        raise TypeError(type(node))
 
-    @overrides
-    def transform_Action(
-        self,
-        *,
-        action_name: Doc,
-        arguments: Doc,
-        **rest,
-    ) -> Doc:
+    def format_list(self, children: Sequence[Node]) -> Iterator[Doc]:
+        yield from map(self.format, children)
+
+    @format.register
+    def _(self, node: ERROR) -> Doc:
+        raise ValueError(node.start_position, node.end_position)
+
+    @format.register
+    def _(self, node: TalonAction) -> Doc:
+        action_name = self.format(node.action_name)
+        arguments = self.format(node.arguments)
         return action_name / parens(arguments)
 
-    @overrides
-    def transform_And(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonAnd) -> Doc:
         separator = Line / "and" / Space
+        children = self.format_list(node.children)
         return separator.join(children)
 
-    @overrides
-    def transform_ArgumentList(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonArgumentList) -> Doc:
         separator = "," / Space
-        return parens(separator.join(children))
+        children = self.format_list(node.children)
+        return separator.join(children)
 
-    @overrides
-    def transform_Assignment(
-        self,
-        *,
-        left: Doc,
-        right: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonAssignment) -> Doc:
+        left = self.format(node.left)
+        right = self.format(node.right)
         return Space.join(left, "=", right)
 
-    @overrides
-    def transform_BinaryOperator(
-        self,
-        *,
-        left: Doc,
-        operator: Doc,
-        right: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonBinaryOperator) -> Doc:
+        left = self.format(node.left)
+        operator = self.format(node.operator)
+        right = self.format(node.right)
         return Space.join(left, operator, right)
 
-    @overrides
-    def transform_Block(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonBlock) -> Doc:
+        children = self.format_list(node.children)
         return Line.join(children)
 
-    @overrides
-    def transform_Capture(
-        self,
-        *,
-        capture_name: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonCapture) -> Doc:
+        capture_name = self.format(node.capture_name)
         return angles(capture_name)
 
-    @overrides
-    def transform_Choice(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonChoice) -> Doc:
         operator = Space / "|" / Space
+        children = self.format_list(node.children)
         return operator.join(children)
 
-    @overrides
-    def transform_Command(
-        self,
-        *,
-        rule: Doc,
-        script: Doc,
-        **rest,
-    ) -> Doc:
-        return rule / ":" / Line / Nest(self.indent_size, script)
+    @format.register
+    def _(self, node: TalonCommand) -> Doc:
+        rule = self.format(node.rule)
+        script = self.format(node.script)
+        # (1): a line-break after the rule, e.g.,
+        #
+        # select camel left:
+        #     user.extend_camel_left()
+        #
+        alt1 = cat(rule, ":", Line, Nest(self.indent_size, script), Line)
 
-    @overrides
-    def transform_Comment(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return VStretch(Text("#")) & text
+        # (2): the rule and a single-line talon script on the same line, e.g.,
+        #
+        # select camel left: user.extend_camel_left()
+        #
+        if len(node.script.children) == 1:
+            alt2 = row(cat(rule, ":"), script)
 
-    @overrides
-    def transform_Context(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+        return alt1
+
+    @format.register
+    def _(self, node: TalonComment) -> Doc:
+        comment = node.text.lstrip().lstrip("#")
+        return "#" // Text.words(comment)
+
+    @format.register
+    def _(self, node: TalonContext) -> Doc:
+        children = self.format_list(node.children)
         return Line.join(chain(children, ("-",)))
 
-    @overrides
-    def transform_Docstring(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return VStretch(Text("###")) & text
+    @format.register
+    def _(self, node: TalonDocstring) -> Doc:
+        comment = node.text.lstrip().lstrip("#")
+        return "###" // Text.words(comment)
 
-    @overrides
-    def transform_ERROR(
-        self,
-        *,
-        start_position: Point,
-        end_position: Point,
-        **rest,
-    ) -> Doc:
-        raise ValueError(start_position, end_position)
-
-    @overrides
-    def transform_EndAnchor(
-        self,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonEndAnchor) -> Doc:
         return Text("$")
 
-    @overrides
-    def transform_Expression(
-        self,
-        *,
-        expression: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonExpression) -> Doc:
+        expression = self.format(node.expression)
         return expression
 
-    @overrides
-    def transform_Float(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonFloat) -> Doc:
+        return Text(node.text)
 
-    @overrides
-    def transform_Identifier(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonIdentifier) -> Doc:
+        return Text(node.text)
 
-    @overrides
-    def transform_ImplicitString(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonImplicitString) -> Doc:
+        return Text.words(node.text)
 
-    @overrides
-    def transform_IncludeTag(
-        self,
-        *,
-        tag: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonIncludeTag) -> Doc:
+        tag = self.format(node.tag)
         return "tag():" // tag
 
-    @overrides
-    def transform_Integer(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonInteger) -> Doc:
+        return Text(node.text)
 
-    @overrides
-    def transform_Interpolation(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonInterpolation) -> Doc:
+        children = self.format(node.children)
         return children
 
-    @overrides
-    def transform_KeyAction(
-        self,
-        *,
-        arguments: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonKeyAction) -> Doc:
+        arguments = self.format(node.arguments)
         return "key" / parens(arguments)
 
-    @overrides
-    def transform_List(
-        self,
-        *,
-        list_name: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonList) -> Doc:
+        list_name = self.format(node.list_name)
         return braces(list_name)
 
-    @overrides
-    def transform_Match(
-        self,
-        *,
-        key: Doc,
-        pattern: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonMatch) -> Doc:
+        key = self.format(node.key)
+        pattern = self.format(node.pattern)
         return key / ":" // pattern
 
-    @overrides
-    def transform_Not(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonNot) -> Doc:
+        children = self.format(node.children)
         return "not" // children
 
-    @overrides
-    def transform_Number(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonNumber) -> Doc:
+        children = self.format(node.children)
         return children
 
-    @overrides
-    def transform_Operator(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonOperator) -> Doc:
+        return Text(node.text)
 
-    @overrides
-    def transform_Optional(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonOptional) -> Doc:
+        children = self.format_list(node.children)
         return brackets(Space.join(children))
 
-    @overrides
-    def transform_Or(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonOr) -> Doc:
+        children = self.format_list(node.children)
         return Line.join(children)
 
-    @overrides
-    def transform_ParenthesizedExpression(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonParenthesizedExpression) -> Doc:
+        children = self.format(node.children)
         return parens(children)
 
-    @overrides
-    def transform_ParenthesizedRule(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonParenthesizedRule) -> Doc:
+        children = self.format_list(node.children)
         return parens(Space.join(children))
 
-    @overrides
-    def transform_RegexEscapeSequence(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonRegexEscapeSequence) -> Doc:
+        if node.children:
+            children = self.format(node.children)
+        else:
+            children = Empty
         return braces(children)
 
-    @overrides
-    def transform_Repeat(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonRepeat) -> Doc:
+        children = self.format(node.children)
         return children / "*"
 
-    @overrides
-    def transform_Repeat1(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonRepeat1) -> Doc:
+        children = self.format(node.children)
         return children / "+"
 
-    @overrides
-    def transform_Rule(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonRule) -> Doc:
+        children = self.format_list(node.children)
         return Space.join(children)
 
-    @overrides
-    def transform_Seq(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonSeq) -> Doc:
+        children = self.format_list(node.children)
         return Space.join(children)
 
-    @overrides
-    def transform_Settings(
-        self,
-        *,
-        children: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonSettings) -> Doc:
+        children = self.format(node.children)
         return "settings():" / Line / Nest(self.indent_size, children)
 
-    @overrides
-    def transform_SleepAction(
-        self,
-        *,
-        arguments: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonSleepAction) -> Doc:
+        arguments = self.format(node.arguments)
         return "sleep" / parens(arguments)
 
-    @overrides
-    def transform_SourceFile(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonSourceFile) -> Doc:
+        children = self.format_list(node.children)
         return Line.join(children)
 
-    @overrides
-    def transform_StartAnchor(
-        self,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonStartAnchor) -> Doc:
         return Text("^")
 
-    @overrides
-    def transform_String(
-        self,
-        *,
-        children: Sequence[Doc],
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonString) -> Doc:
+        children = self.format_list(node.children)
         return quote(children)
 
-    @overrides
-    def transform_StringContent(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonStringContent) -> Doc:
+        return Text(node.text)
 
-    @overrides
-    def transform_StringEscapeSequence(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonStringEscapeSequence) -> Doc:
+        return Text(node.text)
 
-    @overrides
-    def transform_Variable(
-        self,
-        *,
-        variable_name: Doc,
-        **rest,
-    ) -> Doc:
+    @format.register
+    def _(self, node: TalonVariable) -> Doc:
+        variable_name = self.format(node.variable_name)
         return variable_name
 
-    @overrides
-    def transform_Word(
-        self,
-        *,
-        text: str,
-        **rest,
-    ) -> Doc:
-        return Text(text)
+    @format.register
+    def _(self, node: TalonWord) -> Doc:
+        return Text(node.text)
