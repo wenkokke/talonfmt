@@ -13,7 +13,15 @@ class RenderError(Exception):
     pass
 
 
-T = typing.TypeVar("T")
+@dataclass
+class CellBuffer:
+    tokens: tuple[Token, ...]
+
+
+@dataclass
+class RowBuffer:
+    info: RowInfo
+    cells: tuple[CellBuffer, ...]
 
 
 @dataclass
@@ -56,42 +64,56 @@ class SimpleDocRenderer:
 
     @render.register
     def _(self, doc: Table) -> TokenStream:
-        # Calculate the number of columns
+        # Calculate the number of columns and rows
         number_of_cols = max(len(row.cols) for row in doc.rows)
+        number_of_rows = len(doc.rows)
 
         # Render cells, and calculate the width of each column
-        table: list[list[tuple[RowInfo, tuple[Token, ...]]]] = []
-        col_width: list[int] = []
-        for i, row in enumerate(doc.rows):
-            table[i] = []
-            col_width[i] = 0
+        table_buffer: list[RowBuffer] = []
+        cell_widths_per_row: list[tuple[int, ...]] = []
+        for row in doc.rows:
+            cells: list[CellBuffer] = []
+            widths: list[int] = []
             for j in range(0, number_of_cols):
                 if j < len(row.cols):
-                    col_tokens = tuple(self.render(row.cols[j]))
-                    table[i][j] = (row.info, col_tokens)
-                    col_width[i] = max(col_width[i], sum(map(length_hint, col_tokens)))
+                    tokens = tuple(self.render(row.cols[j]))
+                    cells.append(CellBuffer(tokens=tokens))
+                    widths.append(sum(map(len, tokens)))
                 else:
-                    table[i][j] = (row.info, (Empty,))
+                    cells.append(CellBuffer(tokens=(Empty,)))
+                    widths.append(0)
+            table_buffer.append(RowBuffer(info=row.info, cells=tuple(cells)))
+            cell_widths_per_row.append(tuple(widths))
 
-        # For each row and each cell:
-        token_buffer: list[Token] = []
-        for i in range(0, len(table)):
-            for j in range(0, number_of_cols):
-                info, cell, = table[
-                    i
-                ][j]
+        col_widths: list[int] = []
+        for n_col in range(0, number_of_cols):
+            col_width: int = 0
+            for n_row in range(0, number_of_rows):
+                col_width = max(col_width, cell_widths_per_row[n_row][n_col])
+            col_widths.append(col_width)
+
+        # For each row, iterate over the column buffers,
+        # and emit the contents of each cell for that column:
+        output_buffer: list[Token] = []
+        for n_row, row_buffer in enumerate(table_buffer):
+            for n_col, cell_buffer in enumerate(row_buffer.cells):
+
                 # Emit the contents of that cell:
-                cell_width: int = 0
-                for token in cell:
+                current_width: int = 0
+                for token in cell_buffer.tokens:
                     assert token is not Line
-                    cell_width += len(token)
-                    token_buffer.append(token)
+                    current_width += len(token)
+                    output_buffer.append(token)
                 # Emit padding to up to the required width:
-                token_buffer.extend(repeat(info.hpad, col_width[j] - cell_width))
+                padding_width = col_widths[n_col] - current_width
+                padding = repeat(row_buffer.info.hpad, padding_width)
+                output_buffer.extend(padding)
                 # Emit the column separator, if required:
-                if j < number_of_cols - 1:
-                    token_buffer.append(info.hsep)
-        return iter(token_buffer)
+                if n_col < number_of_cols - 1:
+                    output_buffer.append(row_buffer.info.hsep)
+                else:
+                    output_buffer.append(Line)
+        return iter(output_buffer)
 
     @render.register
     def _(self, doc: Nest) -> TokenStream:

@@ -84,6 +84,8 @@ formatter = TalonFormatter()
 
 doc = formatter.format(node)
 
+# print(doc)
+
 renderer = SimpleDocRenderer()
 
 tokens = renderer.render(doc)

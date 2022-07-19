@@ -76,16 +76,20 @@ class TalonFormatter:
         # select camel left:
         #     user.extend_camel_left()
         #
+        alt1: Doc
         alt1 = cat(rule, ":", Line, Nest(self.indent_size, script), Line)
 
         # (2): the rule and a single-line talon script on the same line, e.g.,
         #
         # select camel left: user.extend_camel_left()
         #
+        alt2: Doc
         if len(node.script.children) == 1:
             alt2 = row(cat(rule, ":"), script)
+        else:
+            alt2 = Fail
 
-        return alt1
+        return alt(alt1, alt2)
 
     @format.register
     def _(self, node: TalonComment) -> Doc:
@@ -227,7 +231,41 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonSourceFile) -> Doc:
-        children = self.format_list(node.children)
+        children: list[Doc] = []
+        table_buffer: list[Row] = []  # Keep all rows
+        child_buffer: list[Doc] = []  # Keep other alts
+        found_row: bool
+        for child in self.format_list(node.children):
+
+            # If child is a row, build a table:
+            found_row = False
+
+            if isinstance(child, Row):
+                table_buffer.append(child)
+                found_row = True
+
+            if isinstance(child, Alt):
+                # Traverse the alternatives, looking for a Row.
+                # If we find it, we add it to the table_buffer.
+                for child_alt in child.alts:
+                    if not found_row:
+                        if isinstance(child_alt, Row):
+                            table_buffer.append(child_alt)
+                            found_row = True
+
+            # If we didn't find a row, but there are some rows in the table_buffer,
+            # add the table as an alternative layout:
+            if not found_row:
+                if table_buffer:
+                    plain = Line.join(child_buffer)
+                    table = Table(tuple(table_buffer))
+                    children.append(plain | table)
+                    table_buffer.clear()
+                    child_buffer.clear()
+
+            # Add the child to the child_buffer as-is:
+            child_buffer.append(child)
+
         return Line.join(children)
 
     @format.register
