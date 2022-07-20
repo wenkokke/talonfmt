@@ -61,13 +61,13 @@ class Doc(ABC):
         """
         return cat(other).then(Space).then(self)
 
-    def __or__(self, other: DocLike) -> "Alt":
+    def __or__(self, other: DocLike) -> "Doc":
         """
         Combine two documents as alternatives.
         """
         return alt(self, other)
 
-    def __ror__(self, other: DocLike) -> "Alt":
+    def __ror__(self, other: DocLike) -> "Doc":
         """
         Combine two documents as alternatives.
         """
@@ -261,22 +261,22 @@ class RowInfo:
 
 @dataclass
 class Row(Doc, Iterable[Doc]):
-    cols: tuple[Doc, ...]
+    cells: tuple[Doc, ...]
     info: RowInfo
 
     def __post_init__(self, **rest) -> None:
-        # Invariant: None of cols is an instance of Row.
-        assert all(not isinstance(col, Row) for col in self.cols)
+        # Invariant: None of cells is an instance of Row.
+        assert all(not isinstance(cell, Row) for cell in self.cells)
         # Invariant: The hpad text has width 1.
         assert len(self.info.hpad.text) == 1
 
     def __iter__(self) -> Iterator[Doc]:
-        return iter(self.cols)
+        return iter(self.cells)
 
     @overrides
     def __length_hint__(self) -> int:
         return sum(
-            intersperse(length_hint(self.info.hsep), map(length_hint, self.cols))
+            intersperse(length_hint(self.info.hsep), map(length_hint, self.cells))
         )
 
 
@@ -348,7 +348,7 @@ def splat(
             yield from splat(smaller_doclike, unpack=unpack)
 
 
-def cat(*doclike: DocLike) -> "Cat":
+def cat(*doclike: DocLike) -> "Doc":
     return Cat(tuple(splat(doclike, unpack=Cat)))
 
 
@@ -356,7 +356,7 @@ def row(
     *doclike: DocLike,
     hpad: str | Text = Space,
     hsep: str | Text = Space,
-) -> "Row":
+) -> "Doc":
     # Ensure padding and separators are Text
     if isinstance(hpad, str):
         hpad = Text(hpad)
@@ -364,18 +364,26 @@ def row(
         hsep = Text(hsep)
     info = RowInfo(hpad=hpad, hsep=hsep)
     # Ensure Row settings are preserved
-    cols: list[Doc] = []
-    for col_or_row in splat(doclike):
-        if isinstance(col_or_row, Row):
-            assert col_or_row.info == info
-            cols.extend(col_or_row.cols)
+    cells: list[Doc] = []
+    for cell_or_row in splat(doclike):
+        if isinstance(cell_or_row, Row):
+            assert cell_or_row.info == info
+            cells.extend(cell_or_row.cells)
         else:
-            cols.append(col_or_row)
-    return Row(tuple(cols), info=info)
+            cells.append(cell_or_row)
+    return Row(tuple(cells), info=info)
 
 
-def alt(*doclike: DocLike) -> "Alt":
-    return Alt(tuple(splat(doclike, unpack=Alt)))
+def table(rows: Iterator[Row]) -> Doc:
+    return Table(tuple(rows))
+
+
+def alt(*doclike: DocLike) -> Doc:
+    alts = tuple(splat(doclike, unpack=Alt))
+    if len(alts) == 1:
+        return alts[0]
+    else:
+        return Alt(alts)
 
 
 def parens(*doclike: DocLike) -> Doc:

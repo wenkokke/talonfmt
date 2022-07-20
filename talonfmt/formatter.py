@@ -1,8 +1,11 @@
 from collections.abc import Sequence
 from functools import singledispatchmethod
-from itertools import chain
+from itertools import chain, groupby, tee
+import operator
 from talonfmt.prettyprinter.doc import *
 from tree_sitter_talon import *
+
+from talonfmt.prettyprinter.render import SimpleDocRenderer
 
 
 @dataclass
@@ -231,42 +234,33 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonSourceFile) -> Doc:
-        children: list[Doc] = []
-        table_buffer: list[Row] = []  # Keep all rows
-        child_buffer: list[Doc] = []  # Keep other alts
-        found_row: bool
-        for child in self.format_list(node.children):
+        def with_optional_row(doc: Doc) -> tuple[Doc, Optional[Row]]:
+            if isinstance(doc, Row):
+                return (doc, doc)
+            if isinstance(doc, Alt):
+                for rowalt in doc.alts:
+                    if isinstance(rowalt, Row):
+                        return (doc, rowalt)
+            return (doc, None)
 
-            # If child is a row, build a table:
-            found_row = False
+        def has_row(doc_with_optional_row: tuple[Doc, Optional[Row]]) -> bool:
+            return isinstance(doc_with_optional_row[1], Row)
 
-            if isinstance(child, Row):
-                table_buffer.append(child)
-                found_row = True
+        docs = self.format_list(node.children)
+        with_optional_rows = map(with_optional_row, docs)
+        grouped_by_tables = groupby(with_optional_rows, key=has_row)
 
-            if isinstance(child, Alt):
-                # Traverse the alternatives, looking for a Row.
-                # If we find it, we add it to the table_buffer.
-                for child_alt in child.alts:
-                    if not found_row:
-                        if isinstance(child_alt, Row):
-                            table_buffer.append(child_alt)
-                            found_row = True
+        buffer: list[Doc] = []
+        for is_table, group in grouped_by_tables:
+            if not is_table:
+                buffer.extend(doc for doc, _ in group)
+            else:
+                subdocs, subrows = zip(*group)
+                alt1 = Line.join(subdocs)
+                alt2 = Table(subrows)
+                buffer.append(alt2 | alt1)
 
-            # If we didn't find a row, but there are some rows in the table_buffer,
-            # add the table as an alternative layout:
-            if not found_row:
-                if table_buffer:
-                    plain = Line.join(child_buffer)
-                    table = Table(tuple(table_buffer))
-                    children.append(plain | table)
-                    table_buffer.clear()
-                    child_buffer.clear()
-
-            # Add the child to the child_buffer as-is:
-            child_buffer.append(child)
-
-        return Line.join(children)
+        return Line.join(buffer)
 
     @format.register
     def _(self, node: TalonStartAnchor) -> Doc:

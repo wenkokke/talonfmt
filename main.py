@@ -88,6 +88,4 @@ doc = formatter.format(node)
 
 renderer = SimpleDocRenderer()
 
-tokens = renderer.render(doc)
-
-print("".join(token.text for token in tokens))
+print(renderer.to_str(doc))
