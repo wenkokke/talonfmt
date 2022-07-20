@@ -1,11 +1,9 @@
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
+from dataclasses import dataclass
 from functools import singledispatchmethod
-from itertools import chain, groupby, tee
-import operator
-from talonfmt.prettyprinter.doc import *
+from itertools import chain
+from prettyprinter.doc import *
 from tree_sitter_talon import *
-
-from talonfmt.prettyprinter.render import SimpleDocRenderer
 
 
 @dataclass
@@ -234,33 +232,9 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonSourceFile) -> Doc:
-        def with_optional_row(doc: Doc) -> tuple[Doc, Optional[Row]]:
-            if isinstance(doc, Row):
-                return (doc, doc)
-            if isinstance(doc, Alt):
-                for rowalt in doc.alts:
-                    if isinstance(rowalt, Row):
-                        return (doc, rowalt)
-            return (doc, None)
-
-        def has_row(doc_with_optional_row: tuple[Doc, Optional[Row]]) -> bool:
-            return isinstance(doc_with_optional_row[1], Row)
-
         docs = self.format_list(node.children)
-        with_optional_rows = map(with_optional_row, docs)
-        grouped_by_tables = groupby(with_optional_rows, key=has_row)
-
-        buffer: list[Doc] = []
-        for is_table, group in grouped_by_tables:
-            if not is_table:
-                buffer.extend(doc for doc, _ in group)
-            else:
-                subdocs, subrows = zip(*group)
-                alt1 = Line.join(subdocs)
-                alt2 = Table(subrows)
-                buffer.append(alt2 | alt1)
-
-        return Line.join(buffer)
+        docs_with_tables = create_tables(docs, separator=Line)
+        return Line.join(docs_with_tables)
 
     @format.register
     def _(self, node: TalonStartAnchor) -> Doc:

@@ -1,4 +1,4 @@
-from talonfmt.prettyprinter.doc import *
+from prettyprinter.doc import *
 
 
 def test_Text_intern_Empty():

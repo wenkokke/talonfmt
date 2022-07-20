@@ -13,7 +13,7 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as f:
 
 setup(
     name="talonfmt",
-    version="0.0.1",
+    version="0.1.0",
     maintainer="Wen Kokke",
     maintainer_email="me@wen.works",
     author="Wen Kokke",
@@ -33,10 +33,14 @@ setup(
     packages=["talonfmt"],
     project_urls={"Source": "https://github.com/wenkokke/talonfmt"},
     install_requires=[
-        "overrides",
-        "more_itertools",
+        "click",
         "tree_sitter_talon @ git+https://github.com/wenkokke/py-tree-sitter-talon.git@v1.2.1#egg=tree_sitter_talon",
+        "prettyprinter @ git+https://github.com/wenkokke/py-prettyprinter.git@v0.1.4#egg=prettyprinter",
         "pytest",
         "pytest-golden",
     ],
+    entry_points='''
+        [console_scripts]
+        talonfmt=talonfmt:talonfmt
+    ''',
 )
