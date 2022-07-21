@@ -45,5 +45,5 @@ output: |
   find it:
       edit.find()
 
-  find it <phrase> $:
+  find it <phrase>$:
       # handle consecutive finds by first escaping out of any previous one

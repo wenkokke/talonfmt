@@ -96,7 +96,7 @@ class TalonFormatter:
             if hasattr(command, "script"):
                 if hasattr(command.script, "children"):
                     return len(node.script.children) == 1
-            return False
+            raise ValueError(command)
 
         alt2: Doc
         if self.align_short_commands and is_one_line(node):
