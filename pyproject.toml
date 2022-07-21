@@ -1,10 +1,44 @@
 [build-system]
-requires = ["setuptools>=43.0.0", "wheel>=0.36.2"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[pytest]
-testpaths = [".", "test"]
+[project]
+name = "talonfmt"
+version = "0.1.0"
+description = "A code formatter for Talon files"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["talonfmt"]
+authors = [{ name = "Wen Kokke" }]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Software Development :: Compilers",
+]
+dependencies = [
+  "click",
+  "tree_sitter_talon >= 1.3.0",
+  "doc-printer >= 0.3.1"
+]
 
-[tool.pytest.ini_options]
-enable_assertion_pass_hook = true
-filterwarnings = ["ignore::DeprecationWarning:.*:"]
+[project.optional-dependencies]
+test = ["pytest", "pytest-golden"]
+
+[project.urls]
+repository = "https://github.com/wenkokke/py-talonfmt"
+
+[project.scripts]
+talonfmt = "talonfmt:cli"
+
+[tool.setuptools.package-data]
+talonfmt = ["py.typed"]
+
+[tool.bumpver]
+current_version = "0.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']

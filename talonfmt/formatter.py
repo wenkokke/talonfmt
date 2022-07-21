@@ -2,13 +2,16 @@ from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 from functools import singledispatchmethod
 from itertools import chain
-from prettyprinter.doc import *
+from typing import Union
+from doc_printer import *
 from tree_sitter_talon import *
 
 
 @dataclass
 class TalonFormatter:
-    indent_size: int = 4
+    indent_size: int
+    align_match_context: Union[bool, int]
+    align_short_commands: Union[bool, int]
 
     @singledispatchmethod
     def format(self, node: Node) -> Doc:
@@ -29,6 +32,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonAnd) -> Doc:
+        # TODO: merge "and" into row-like children
         separator = Line / "and" / Space
         children = self.format_list(node.children)
         return separator.join(children)
@@ -85,8 +89,16 @@ class TalonFormatter:
         # select camel left: user.extend_camel_left()
         #
         alt2: Doc
-        if len(node.script.children) == 1:
-            alt2 = row(cat(rule, ":"), script)
+        if self.align_short_commands and len(node.script.children) == 1:
+            if self.align_short_commands is True:
+                alt2 = row(cat(rule, ":"), script, table_type="command")
+            else:
+                alt2 = row(
+                    cat(rule, ":"),
+                    script,
+                    table_type="command",
+                    min_col_widths=(self.align_short_commands,),
+                )
         else:
             alt2 = Fail
 
@@ -156,10 +168,26 @@ class TalonFormatter:
     def _(self, node: TalonMatch) -> Doc:
         key = self.format(node.key)
         pattern = self.format(node.pattern)
-        return key / ":" // pattern
+
+        alt1 = key / ":" // pattern
+
+        if self.align_match_context:
+            if self.align_match_context is True:
+                alt2 = row(key / ":", pattern, table_type="match")
+            else:
+                alt2 = row(
+                    key / ":",
+                    pattern,
+                    table_type="match",
+                    min_col_widths=(self.align_match_context,),
+                )
+        else:
+            alt2 = Fail
+        return alt1 | alt2
 
     @format.register
     def _(self, node: TalonNot) -> Doc:
+        # TODO: merge "not" into row-like children
         children = self.format(node.children)
         return "not" // children
 
