@@ -1,0 +1,63 @@
+input: "tag: user.css\n-\ntag(): user.code_comment_block_c_like\ntag(): user.code_functions_common\n\
+  tag(): user.code_libraries\ntag(): user.code_operators_math\n\nsettings():\n   \
+  \ user.code_public_variable_formatter = \"DASH_SEPARATED\"\n\nblock: user.code_block()\n\
+  \nattribute [<user.text>]:\n    name = user.formatted_text(text or \"\", \"DASH_SEPARATED\"\
+  )\n    user.insert_between(\"[{name}\", \"]\")\n\nprop <user.text>:\n    name =\
+  \ user.formatted_text(text, \"DASH_SEPARATED\")\n    user.insert_between(\"{name}:\
+  \ \", \";\")\n\n# for media/supports queries, or if you don't like prop\nrule <user.text>:\n\
+  \    name = user.formatted_text(text, \"DASH_SEPARATED\")\n    insert(\"{name}:\
+  \ \")\n\nvalue <user.number_string> [{user.css_unit}]:\n    \"{number_string}{css_unit\
+  \ or ''}\"\nvalue <user.number_string> point <digit_string> [{user.css_unit}]:\n\
+  \    \"{number_string}.{digit_string}{css_unit or ''}\"\n\n(value|state) {user.css_global_value}:\
+  \ \"{css_global_value}\"\nvalue <user.text>: user.insert_formatted(text, \"DASH_SEPARATED\"\
+  )\n\nvariable <user.text>:\n    name = user.formatted_text(text, settings.get(\"\
+  user.code_public_variable_formatter\"))\n    insert(\"var(--{name})\")\n\nop var:\
+  \ user.insert_between(\"var(--\", \")\")\n\nat {user.css_at_rule}: \"@{css_at_rule}\
+  \ \"\nunit {user.css_unit}: insert(css_unit)\n\n[value] current color: \"currentColor\"\
+  \nop important: \" !important\"\n"
+output: |
+  tag: user.css
+
+  -
+  tag(): user.code_comment_block_c_like
+  tag(): user.code_functions_common
+  tag(): user.code_libraries
+  tag(): user.code_operators_math
+  settings():
+      user.code_public_variable_formatter = "DASH_SEPARATED"
+  block:                           user.code_block()
+
+  attribute [<user.text>]:
+      name = user.formatted_text(text or "", "DASH_SEPARATED")
+      user.insert_between("[{name}", "]")
+
+  prop <user.text>:
+      name = user.formatted_text(text, "DASH_SEPARATED")
+      user.insert_between("{name}:", ";")
+
+  # for media/supports queries, or if you don't like prop
+  rule <user.text>:
+      name = user.formatted_text(text, "DASH_SEPARATED")
+      insert("{name}:")
+
+  value <user.number_string> [{user.css_unit}]:
+      "{number_string}{css_unit or ''}"
+
+  value <user.number_string> point <digit_string> [{user.css_unit}]:
+      "{number_string}.{digit_string}{css_unit or ''}"
+
+  (value | state) {user.css_global_value}:
+      "{css_global_value}"
+
+  value <user.text>:
+      user.insert_formatted(text, "DASH_SEPARATED")
+
+  variable <user.text>:
+      name = user.formatted_text(text, settings.get("user.code_public_variable_formatter"))
+      insert("var(--{name})")
+
+  op var:                          user.insert_between("var(--", ")")
+  at {user.css_at_rule}:           "@{css_at_rule}"
+  unit {user.css_unit}:            insert(css_unit)
+  [value] current color:           "currentColor"
+  op important:                    "!important"

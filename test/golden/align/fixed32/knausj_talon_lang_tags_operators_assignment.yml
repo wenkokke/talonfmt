@@ -1,0 +1,35 @@
+input: "tag: user.code_operators_assignment\n-\ntag(): user.code_operators_math\n\
+  tag(): user.code_operators_bitwise\n\n# assignment\nop (equals | assign): user.code_operator_assignment()\n\
+  \n# combined computation and assignment\nop (minus | subtract) equals: user.code_operator_subtraction_assignment()\n\
+  op (plus | add) equals: user.code_operator_addition_assignment()\nop (times | multiply)\
+  \ equals: user.code_operator_multiplication_assignment()\nop divide equals: user.code_operator_division_assignment()\n\
+  op mod equals: user.code_operator_modulo_assignment()\n[op] increment: user.code_operator_increment()\n\
+  \n#bitwise operators\n(op | logical | bitwise) (ex | exclusive) or equals: user.code_operator_bitwise_exclusive_or_assignment()\n\
+  [(op | logical | bitwise)] (left shift | shift left) equals: user.code_operator_bitwise_left_shift_assignment()\n\
+  [(op | logical | bitwise)] (right shift | shift right) equals: user.code_operator_bitwise_right_shift_assignment()\n"
+output: |
+  tag: user.code_operators_assignment
+
+  -
+  tag(): user.code_operators_math
+  tag(): user.code_operators_bitwise
+  # assignment
+  op (equals | assign):            user.code_operator_assignment()
+
+  # combined computation and assignment
+  op (minus | subtract) equals:    user.code_operator_subtraction_assignment()
+  op (plus | add) equals:          user.code_operator_addition_assignment()
+  op (times | multiply) equals:    user.code_operator_multiplication_assignment()
+  op divide equals:                user.code_operator_division_assignment()
+  op mod equals:                   user.code_operator_modulo_assignment()
+  [op] increment:                  user.code_operator_increment()
+
+  # bitwise operators
+  (op | logical | bitwise) (ex | exclusive) or equals:
+      user.code_operator_bitwise_exclusive_or_assignment()
+
+  [(op | logical | bitwise)] (left shift | shift left) equals:
+      user.code_operator_bitwise_left_shift_assignment()
+
+  [(op | logical | bitwise)] (right shift | shift right) equals:
+      user.code_operator_bitwise_right_shift_assignment()

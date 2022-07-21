@@ -1,0 +1,126 @@
+input: "mode: dictation\n-\n^press <user.modifiers>$: key(modifiers)\n^press <user.keys>$:\
+  \ key(keys)\n\n# Everything here should call `auto_insert()` (instead of `insert()`),\
+  \ to preserve the state to correctly auto-capitalize/auto-space.\n# (Talonscript\
+  \ string literals implicitly call `auto_insert`, so there's no need to wrap those)\n\
+  <user.raw_prose>: auto_insert(raw_prose)\ncap: user.dictation_format_cap()\n# Hyphenated\
+  \ variants are for Dragon.\n(no cap | no-caps): user.dictation_format_no_cap()\n\
+  (no space | no-space): user.dictation_format_no_space()\n^cap that$: user.dictation_reformat_cap()\n\
+  ^(no cap | no-caps) that$: user.dictation_reformat_no_cap()\n^(no space | no-space)\
+  \ that$: user.dictation_reformat_no_space()\n\n# Navigation\ngo up <number_small>\
+  \ (line|lines):\n    edit.up()\n    repeat(number_small - 1)\ngo down <number_small>\
+  \ (line|lines):\n    edit.down()\n    repeat(number_small - 1)\ngo left <number_small>\
+  \ (word|words):\n    edit.word_left()\n    repeat(number_small - 1)\ngo right <number_small>\
+  \ (word|words):\n    edit.word_right()\n    repeat(number_small - 1)\ngo line start:\
+  \ edit.line_start()\ngo line end: edit.line_end()\n\n# Selection\nselect left <number_small>\
+  \ (word|words):\n    edit.extend_word_left()\n    repeat(number_small - 1)\nselect\
+  \ right <number_small> (word|words):\n    edit.extend_word_right()\n    repeat(number_small\
+  \ - 1)\nselect left <number_small> (character|characters):\n    edit.extend_left()\n\
+  \    repeat(number_small - 1)\nselect right <number_small> (character|characters):\n\
+  \    edit.extend_right()\n    repeat(number_small - 1)\nclear left <number_small>\
+  \ (word|words):\n    edit.extend_word_left()\n    repeat(number_small - 1)\n   \
+  \ edit.delete()\nclear right <number_small> (word|words):\n    edit.extend_word_right()\n\
+  \    repeat(number_small - 1)\n    edit.delete()\nclear left <number_small> (character|characters):\n\
+  \    edit.extend_left()\n    repeat(number_small - 1)\n    edit.delete()\nclear\
+  \ right <number_small> (character|characters):\n    edit.extend_right()\n    repeat(number_small\
+  \ - 1)\n    edit.delete()\n\n# Formatting\nformatted <user.format_text>:\n    user.dictation_insert_raw(format_text)\n\
+  ^format selection <user.formatters>$:\n    user.formatters_reformat_selection(formatters)\n\
+  \n# Corrections\nscratch that: user.clear_last_phrase()\nscratch selection: edit.delete()\n\
+  select that: user.select_last_phrase()\nspell that <user.letters>: auto_insert(letters)\n\
+  spell that <user.formatters> <user.letters>:\n    result = user.formatted_text(letters,\
+  \ formatters)\n    user.dictation_insert_raw(result)\n\n# Escape, type things that\
+  \ would otherwise be commands\n^escape <user.text>$:\n    auto_insert(user.text)\n"
+output: |
+  mode: dictation
+
+  -
+  ^ press <user.modifiers> $: key(modifiers)
+  ^ press <user.keys> $:      key(keys)
+
+  # Everything here should call `auto_insert()` (instead of `insert()`), to preserve the state to correctly auto-capitalize/auto-space.
+  # (Talonscript string literals implicitly call `auto_insert`, so there's no need to wrap those)
+  <user.raw_prose>: auto_insert(raw_prose)
+  cap:              user.dictation_format_cap()
+
+  # Hyphenated variants are for Dragon.
+  (no cap | no-caps):             user.dictation_format_no_cap()
+  (no space | no-space):          user.dictation_format_no_space()
+  ^ cap that $:                   user.dictation_reformat_cap()
+  ^ (no cap | no-caps) that $:    user.dictation_reformat_no_cap()
+  ^ (no space | no-space) that $: user.dictation_reformat_no_space()
+
+  # Navigation
+  go up <number_small> (line | lines):
+      edit.up()
+      repeat(number_small - 1)
+
+  go down <number_small> (line | lines):
+      edit.down()
+      repeat(number_small - 1)
+
+  go left <number_small> (word | words):
+      edit.word_left()
+      repeat(number_small - 1)
+
+  go right <number_small> (word | words):
+      edit.word_right()
+      repeat(number_small - 1)
+
+  go line start: edit.line_start()
+  go line end:   edit.line_end()
+
+  # Selection
+  select left <number_small> (word | words):
+      edit.extend_word_left()
+      repeat(number_small - 1)
+
+  select right <number_small> (word | words):
+      edit.extend_word_right()
+      repeat(number_small - 1)
+
+  select left <number_small> (character | characters):
+      edit.extend_left()
+      repeat(number_small - 1)
+
+  select right <number_small> (character | characters):
+      edit.extend_right()
+      repeat(number_small - 1)
+
+  clear left <number_small> (word | words):
+      edit.extend_word_left()
+      repeat(number_small - 1)
+      edit.delete()
+
+  clear right <number_small> (word | words):
+      edit.extend_word_right()
+      repeat(number_small - 1)
+      edit.delete()
+
+  clear left <number_small> (character | characters):
+      edit.extend_left()
+      repeat(number_small - 1)
+      edit.delete()
+
+  clear right <number_small> (character | characters):
+      edit.extend_right()
+      repeat(number_small - 1)
+      edit.delete()
+
+  # Formatting
+  formatted <user.format_text>:
+      user.dictation_insert_raw(format_text)
+
+  ^ format selection <user.formatters> $:
+      user.formatters_reformat_selection(formatters)
+
+  # Corrections
+  scratch that:              user.clear_last_phrase()
+  scratch selection:         edit.delete()
+  select that:               user.select_last_phrase()
+  spell that <user.letters>: auto_insert(letters)
+
+  spell that <user.formatters> <user.letters>:
+      result = user.formatted_text(letters, formatters)
+      user.dictation_insert_raw(result)
+
+  # Escape, type things that would otherwise be commands
+  ^ escape <user.text> $: auto_insert(user.text)

@@ -1,0 +1,54 @@
+input: "tag: user.splits\n-\nsplit right: user.split_window_right()\nsplit left: user.split_window_left()\n\
+  split down: user.split_window_down()\nsplit up: user.split_window_up()\nsplit (vertically\
+  \ | vertical): user.split_window_vertically()\nsplit (horizontally | horizontal):\
+  \ user.split_window_horizontally()\nsplit flip: user.split_flip()\nsplit max: user.split_maximize()\n\
+  split reset: user.split_reset()\nsplit window: user.split_window()\nsplit clear:\
+  \ user.split_clear()\nsplit clear all: user.split_clear_all()\nsplit next: user.split_next()\n\
+  split last: user.split_last()\ngo split <number>: user.split_number(number)\n"
+output: |
+  tag: user.splits
+  -
+  split right:
+      user.split_window_right()
+
+  split left:
+      user.split_window_left()
+
+  split down:
+      user.split_window_down()
+
+  split up:
+      user.split_window_up()
+
+  split (vertically | vertical):
+      user.split_window_vertically()
+
+  split (horizontally | horizontal):
+      user.split_window_horizontally()
+
+  split flip:
+      user.split_flip()
+
+  split max:
+      user.split_maximize()
+
+  split reset:
+      user.split_reset()
+
+  split window:
+      user.split_window()
+
+  split clear:
+      user.split_clear()
+
+  split clear all:
+      user.split_clear_all()
+
+  split next:
+      user.split_next()
+
+  split last:
+      user.split_last()
+
+  go split <number>:
+      user.split_number(number)

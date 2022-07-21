@@ -1,0 +1,7 @@
+input: "macro record: user.macro_record()\nmacro stop: user.macro_stop()\nmacro play:\
+  \ user.macro_play()\n"
+output: |
+  -
+  macro record:                    user.macro_record()
+  macro stop:                      user.macro_stop()
+  macro play:                      user.macro_play()

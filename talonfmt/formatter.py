@@ -18,7 +18,11 @@ class TalonFormatter:
         raise TypeError(type(node))
 
     def format_list(self, children: Sequence[Node]) -> Iterator[Doc]:
-        yield from map(self.format, children)
+        for child in children:
+            if isinstance(child, Sequence):
+                yield from self.format_list(child)
+            else:
+                yield self.format(child)
 
     @format.register
     def _(self, node: ERROR) -> Doc:
@@ -88,8 +92,14 @@ class TalonFormatter:
         #
         # select camel left: user.extend_camel_left()
         #
+        def is_one_line(command: TalonCommand) -> bool:
+            if hasattr(command, "script"):
+                if hasattr(command.script, "children"):
+                    return len(node.script.children) == 1
+            return False
+
         alt2: Doc
-        if self.align_short_commands and len(node.script.children) == 1:
+        if self.align_short_commands and is_one_line(node):
             if self.align_short_commands is True:
                 alt2 = row(cat(rule, ":"), script, table_type="command")
             else:
@@ -130,11 +140,11 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonFloat) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonIdentifier) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonImplicitString) -> Doc:
@@ -147,7 +157,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonInteger) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonInterpolation) -> Doc:
@@ -188,8 +198,13 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonNot) -> Doc:
         # TODO: merge "not" into row-like children
-        children = self.format(node.children)
-        return "not" // children
+        if isinstance(node.children, list):
+            separator = Line / "not" / Space
+            children = self.format_list(node.children)
+            return separator.join(children)
+        else:
+            child = self.format(node.children)
+            return "not" // child
 
     @format.register
     def _(self, node: TalonNumber) -> Doc:
@@ -198,7 +213,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonOperator) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonOptional) -> Doc:
@@ -230,12 +245,18 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonRepeat) -> Doc:
-        children = self.format(node.children)
+        if isinstance(node.children, list):
+            children = parens(self.format_list(node.children))
+        else:
+            children = self.format(node.children)
         return children / "*"
 
     @format.register
     def _(self, node: TalonRepeat1) -> Doc:
-        children = self.format(node.children)
+        if isinstance(node.children, list):
+            children = parens(self.format_list(node.children))
+        else:
+            children = self.format(node.children)
         return children / "+"
 
     @format.register
@@ -250,7 +271,10 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonSettings) -> Doc:
-        children = self.format(node.children)
+        if isinstance(node.children, list):
+            children = Line.join(self.format_list(node.children))
+        else:
+            children = self.format(node.children.children)
         return "settings():" / Line / Nest(self.indent_size, children)
 
     @format.register
@@ -275,11 +299,11 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonStringContent) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonStringEscapeSequence) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonVariable) -> Doc:
@@ -288,4 +312,4 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonWord) -> Doc:
-        return Text(node.text)
+        return Text.words(node.text)

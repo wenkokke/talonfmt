@@ -1,0 +1,18 @@
+input: "tag: user.code_operators_lambda\n-\n\n# In many languages, anonymous functions\
+  \ aren't merely infix syntax:\n#\n#       Haskell  '\\x -> bla'\n#       OCaml \
+  \   'fun x -> bla'\n#       Rust     '|x| { bla }'\n#\n# Therefore a revision of\
+  \ this command may be in order.\n\n# syntax for anonymous functions\nop lambda:\
+  \ user.code_operator_lambda()\n"
+output: |
+  tag: user.code_operators_lambda
+  -
+  # In many languages, anonymous functions aren't merely infix syntax:
+  # 
+  # Haskell '\x -> bla'
+  # OCaml 'fun x -> bla'
+  # Rust '|x| { bla }'
+  # 
+  # Therefore a revision of this command may be in order.
+  # syntax for anonymous functions
+  op lambda:
+      user.code_operator_lambda()

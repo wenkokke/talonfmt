@@ -1,0 +1,15 @@
+input: "#defines modes specific to Dragon.\nspeech.engine: dragon\nmode: all\n-\n\
+  # wakes Dragon on Mac, deactivates talon speech commands\ndragon mode: user.dragon_mode()\n\
+  #sleep dragon on Mac, activates talon speech commands\ntalon mode: user.talon_mode()\n"
+output: |
+  # defines modes specific to Dragon.
+  speech.engine: dragon
+
+  mode: all
+
+  -
+  # wakes Dragon on Mac, deactivates talon speech commands
+  dragon mode:                     user.dragon_mode()
+
+  # sleep dragon on Mac, activates talon speech commands
+  talon mode:                      user.talon_mode()

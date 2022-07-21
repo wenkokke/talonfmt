@@ -1,0 +1,161 @@
+input: "# https://support.office.com/en-us/article/keyboard-shortcuts-for-outlook-3cdeb221-7ae5-4c1d-8c1d-9e63216c1efd#PickTab=Web\n\
+  # the shortcuts below our based half of the bill in short cut menu, but the\n# link\
+  \ above has significantly more that could so be added\n\nos: linux\ntag: browser\n\
+  win.title: /Outlook/\n-\n\n# write email\nnew message: key(n)\nsend [this] message:\
+  \ key(alt-s)\nreply [to] [this] message: key(r)\nreply all [to] [this] message:\
+  \ key(ctrl-shift-r)\nforward [this] message: key(ctrl-shift-f)\nsave [draft]: key(ctrl-s)\n\
+  discard [draft]: key(esc)\ninsert [a] [hyper] link: key(ctrl-k)\n\n# email list\n\
+  (select|unselect) [this] message: key(ctrl-space)\nselect all [messages]: key(ctrl-a)\n\
+  clear all [messages]: key(esc)\nselect first [message]: key(home)\nselect last [message]:\
+  \ key(and)\n\n# read email\nopen [this] message: key(o)\nopen [this] message [in]\
+  \ [a] new window: key(shift-enter)\nclose [this] message: key(esc)\n[open] [the]\
+  \ next (item|message): key(ctrl-.)\n[open] [the] (prev|previous) item: key(ctrl-,)\n\
+  next reading [pane] (item|message): key(.)\n(prev|previous) [pane] (item|message):\
+  \ key(,)\n(expand|collapse) [conversation]: key(x)\n\n# go to\ngo [to] mail: key(ctrl-shift-1)\n\
+  go [to] calendar: key(ctrl-shift-2)\ngo [to] people: key(ctrl-shift-3)\ngo [to]\
+  \ to do: key(ctrl-shift-4)\ngo [to] inbox:\n    key(g)\n    key(i)\ngo to drafts:\n\
+  \    key(g)\n    key(d)\ngo to sent:\n    key(g)\n    key(s)\nsearch [email]: key(alt-q)\n\
+  show help: key(?)\n\n# email actions\nundo [last] [action]: key(ctrl-z)\ndelete\
+  \ [this] [message]: key(delete)\n(perm|permanently) delete [this] [message]: key(shift+delete)\n\
+  new folder: key(shift-e)\nmark [this] [(item|message)] as read: key(q)\nmark [this]\
+  \ [(item|message)] as unread: key(u)\nflag [this] [(item|message)]: key(insert)\n\
+  archive: key(e)\nmark [this] [message] [as] junk: key(j)\nmoved to [a] folder: key(v)\n\
+  categorize [this] message: key(c)\n"
+output: |
+  # https://support.office.com/en-us/article/keyboard-shortcuts-for-outlook-3cdeb221-7ae5-4c1d-8c1d-9e63216c1efd#PickTab=Web
+  # the shortcuts below our based half of the bill in short cut menu, but the
+  # link above has significantly more that could so be added
+  os: linux
+  tag: browser
+  win.title: /Outlook/
+  -
+  # write email
+  new message:
+      key(n)
+
+  send [this] message:
+      key(alt-s)
+
+  reply [to] [this] message:
+      key(r)
+
+  reply all [to] [this] message:
+      key(ctrl-shift-r)
+
+  forward [this] message:
+      key(ctrl-shift-f)
+
+  save [draft]:
+      key(ctrl-s)
+
+  discard [draft]:
+      key(esc)
+
+  insert [a] [hyper] link:
+      key(ctrl-k)
+
+  # email list
+  (select | unselect) [this] message:
+      key(ctrl-space)
+
+  select all [messages]:
+      key(ctrl-a)
+
+  clear all [messages]:
+      key(esc)
+
+  select first [message]:
+      key(home)
+
+  select last [message]:
+      key(and)
+
+  # read email
+  open [this] message:
+      key(o)
+
+  open [this] message [in] [a] new window:
+      key(shift-enter)
+
+  close [this] message:
+      key(esc)
+
+  [open] [the] next (item | message):
+      key(ctrl-.)
+
+  [open] [the] (prev | previous) item:
+      key(ctrl-,)
+
+  next reading [pane] (item | message):
+      key(.)
+
+  (prev | previous) [pane] (item | message):
+      key(,)
+
+  (expand | collapse) [conversation]:
+      key(x)
+
+  # go to
+  go [to] mail:
+      key(ctrl-shift-1)
+
+  go [to] calendar:
+      key(ctrl-shift-2)
+
+  go [to] people:
+      key(ctrl-shift-3)
+
+  go [to] to do:
+      key(ctrl-shift-4)
+
+  go [to] inbox:
+      key(g)
+      key(i)
+
+  go to drafts:
+      key(g)
+      key(d)
+
+  go to sent:
+      key(g)
+      key(s)
+
+  search [email]:
+      key(alt-q)
+
+  show help:
+      key(?)
+
+  # email actions
+  undo [last] [action]:
+      key(ctrl-z)
+
+  delete [this] [message]:
+      key(delete)
+
+  (perm | permanently) delete [this] [message]:
+      key(shift+delete)
+
+  new folder:
+      key(shift-e)
+
+  mark [this] [(item | message)] as read:
+      key(q)
+
+  mark [this] [(item | message)] as unread:
+      key(u)
+
+  flag [this] [(item | message)]:
+      key(insert)
+
+  archive:
+      key(e)
+
+  mark [this] [message] [as] junk:
+      key(j)
+
+  moved to [a] folder:
+      key(v)
+
+  categorize [this] message:
+      key(c)

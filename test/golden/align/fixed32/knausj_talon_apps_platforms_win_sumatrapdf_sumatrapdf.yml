@@ -1,0 +1,8 @@
+input: "app: sumatrapdf\n-\n# Set tags\ntag(): user.pages\ntag(): user.tabs\n"
+output: |-
+  app: sumatrapdf
+
+  -
+  # Set tags
+  tag(): user.pages
+  tag(): user.tabs

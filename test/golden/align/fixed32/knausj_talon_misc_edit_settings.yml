@@ -1,0 +1,8 @@
+input: "customize {user.talon_settings_csv}:\n  user.edit_text_file(talon_settings_csv)\n\
+  \  sleep(500ms)\n  edit.file_end()\n"
+output: |
+  -
+  customize {user.talon_settings_csv}:
+      user.edit_text_file(talon_settings_csv)
+      sleep(500ms)
+      edit.file_end()

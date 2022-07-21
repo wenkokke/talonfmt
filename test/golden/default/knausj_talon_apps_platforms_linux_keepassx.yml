@@ -1,0 +1,56 @@
+input: "app: keepass\n-\n# Database\nopen database: key(ctrl-o)\nsave database: key(ctrl-s)\n\
+  close database: key(ctrl-w)\nlock database: key(ctrl-l)\nquit: key(ctrl-q)\n\n#\
+  \ Entries\n[add] new entry: key(ctrl-n)\nclone entry: key(ctrl-k)\n(view|edit) entry:\
+  \ key(ctrl-e)\ndelete entry: key(ctrl-d)\ncopy user [name]: key(ctrl-b)\ncopy password:\
+  \ key(ctrl-c)\nopen (earl|url|link): key(ctrl-u)\ncopy (earl|url|link): key(ctrl-alt-u)\n\
+  find: key(ctrl-f)\nfind <user.text>:\n    key(ctrl-f)\n    insert(\"{text}\")\n"
+output: |
+  app: keepass
+  -
+  # Database
+  open database:
+      key(ctrl-o)
+
+  save database:
+      key(ctrl-s)
+
+  close database:
+      key(ctrl-w)
+
+  lock database:
+      key(ctrl-l)
+
+  quit:
+      key(ctrl-q)
+
+  # Entries
+  [add] new entry:
+      key(ctrl-n)
+
+  clone entry:
+      key(ctrl-k)
+
+  (view | edit) entry:
+      key(ctrl-e)
+
+  delete entry:
+      key(ctrl-d)
+
+  copy user [name]:
+      key(ctrl-b)
+
+  copy password:
+      key(ctrl-c)
+
+  open (earl | url | link):
+      key(ctrl-u)
+
+  copy (earl | url | link):
+      key(ctrl-alt-u)
+
+  find:
+      key(ctrl-f)
+
+  find <user.text>:
+      key(ctrl-f)
+      insert("{text}")

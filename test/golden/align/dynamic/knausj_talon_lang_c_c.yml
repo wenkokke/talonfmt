@@ -1,0 +1,122 @@
+input: "tag: user.c\n-\ntag(): user.code_imperative\n\ntag(): user.code_comment_line\n\
+  tag(): user.code_comment_block_c_like\ntag(): user.code_data_bool\ntag(): user.code_data_null\n\
+  tag(): user.code_functions\ntag(): user.code_functions_common\ntag(): user.code_libraries\n\
+  tag(): user.code_libraries_gui\ntag(): user.code_operators_array\ntag(): user.code_operators_assignment\n\
+  tag(): user.code_operators_bitwise\ntag(): user.code_operators_math\ntag(): user.code_operators_pointer\n\
+  \nsettings():\n    user.code_private_function_formatter = \"SNAKE_CASE\"\n    user.code_protected_function_formatter\
+  \ = \"SNAKE_CASE\"\n    user.code_public_function_formatter = \"SNAKE_CASE\"\n \
+  \   user.code_private_variable_formatter = \"SNAKE_CASE\"\n    user.code_protected_variable_formatter\
+  \ = \"SNAKE_CASE\"\n    user.code_public_variable_formatter = \"SNAKE_CASE\"\n \
+  \   # whether or not to use uint_8 style datatypes\n    #    user.use_stdint_datatypes\
+  \ = 1\n\n# NOTE: migrated from generic, as they were only used here, though once\
+  \ cpp support is added, perhaps these should be migrated to a tag together with\
+  \ the commands below\nstate include:\n    insert('#include ')\nstate include system:\n\
+  \    user.insert_between(\"#include <\", \">\")\nstate include local:\n    user.insert_between('#include\
+  \ \"', '\"')\nstate type deaf:\n    insert('typedef ')\nstate type deaf struct:\n\
+  \    insert('typedef struct')\n    insert('{\\n\\n}')\n    edit.up()\n    key('tab')\n\
+  \n\n# XXX - create a preprocessor tag for these, as they will match cpp, etc\nstate\
+  \ define: \"#define \"\nstate undefine: \"#undef \"\nstate if define: \"#ifdef \"\
+  \n\n# XXX - preprocessor instead of pre?\nstate pre if: \"#if \"\nstate error: \"\
+  #error \"\nstate pre else if: \"#elif \"\nstate pre end: \"#endif \"\nstate pragma:\
+  \ \"#pragma \"\nstate default: \"default:\\nbreak;\"\n\n#control flow\n#best used\
+  \ with a push like command\n#the below example may not work in editors that automatically\
+  \ add the closing bracket\n#if so uncomment the two lines and comment out the rest\
+  \ accordingly\npush brackets:\n    edit.line_end()\n    #insert(\"{\")\n    #key(enter)\n\
+  \    insert(\"{}\")\n    edit.left()\n    key(enter)\n    key(enter)\n    edit.up()\n\
+  \n# Declare variables or structs etc.\n# Ex. * int myList\n<user.c_variable> <phrase>:\n\
+  \    insert(\"{c_variable} \")\n    insert(user.formatted_text(phrase, \"PRIVATE_CAMEL_CASE,NO_SPACES\"\
+  ))\n\n<user.c_variable> <user.letter>:\n    insert(\"{c_variable} {letter} \")\n\
+  \n# Ex. (int *)\ncast to <user.c_cast>: \"{c_cast}\"\nstandard cast to <user.stdint_cast>:\
+  \ \"{stdint_cast}\"\n<user.c_types>: \"{c_types}\"\n<user.c_pointers>: \"{c_pointers}\"\
+  \n<user.c_keywords>: \"{c_keywords}\"\n<user.c_signed>: \"{c_signed}\"\nstandard\
+  \ <user.stdint_types>: \"{stdint_types}\"\nint main:\n    user.insert_between(\"\
+  int main(\", \")\")\n\ntoggle includes: user.code_toggle_libraries()\ninclude <user.code_libraries>:\n\
+  \    user.code_insert_library(code_libraries, \"\")\n    key(end enter)\n"
+output: |
+  tag: user.c
+
+  -
+  tag(): user.code_imperative
+  tag(): user.code_comment_line
+  tag(): user.code_comment_block_c_like
+  tag(): user.code_data_bool
+  tag(): user.code_data_null
+  tag(): user.code_functions
+  tag(): user.code_functions_common
+  tag(): user.code_libraries
+  tag(): user.code_libraries_gui
+  tag(): user.code_operators_array
+  tag(): user.code_operators_assignment
+  tag(): user.code_operators_bitwise
+  tag(): user.code_operators_math
+  tag(): user.code_operators_pointer
+  settings():
+      user.code_private_function_formatter = "SNAKE_CASE"
+      user.code_protected_function_formatter = "SNAKE_CASE"
+      user.code_public_function_formatter = "SNAKE_CASE"
+      user.code_private_variable_formatter = "SNAKE_CASE"
+      user.code_protected_variable_formatter = "SNAKE_CASE"
+      user.code_public_variable_formatter = "SNAKE_CASE"
+      # whether or not to use uint_8 style datatypes
+      # user.use_stdint_datatypes = 1
+  # NOTE: migrated from generic, as they were only used here, though once cpp support is added, perhaps these should be migrated to a tag together with the commands below
+  state include:        insert("#include")
+  state include system: user.insert_between("#include <", ">")
+  state include local:  user.insert_between("#include "", """)
+  state type deaf:      insert("typedef")
+
+  state type deaf struct:
+      insert("typedef struct")
+      insert("{\n\n}")
+      edit.up()
+      key('tab')
+
+  # XXX - create a preprocessor tag for these, as they will match cpp, etc
+  state define:    "#define"
+  state undefine:  "#undef"
+  state if define: "#ifdef"
+
+  # XXX - preprocessor instead of pre?
+  state pre if:      "#if"
+  state error:       "#error"
+  state pre else if: "#elif"
+  state pre end:     "#endif"
+  state pragma:      "#pragma"
+  state default:     "default:\nbreak;"
+
+  # control flow
+  # best used with a push like command
+  # the below example may not work in editors that automatically add the closing bracket
+  # if so uncomment the two lines and comment out the rest accordingly
+  push brackets:
+      edit.line_end()
+      # insert("{")
+      # key(enter)
+      insert("{}")
+      edit.left()
+      key(enter)
+      key(enter)
+      edit.up()
+
+  # Declare variables or structs etc.
+  # Ex. * int myList
+  <user.c_variable> <phrase>:
+      insert("{c_variable}")
+      insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
+
+  <user.c_variable> <user.letter>: insert("{c_variable}{letter}")
+
+  # Ex. (int *)
+  cast to <user.c_cast>:               "{c_cast}"
+  standard cast to <user.stdint_cast>: "{stdint_cast}"
+  <user.c_types>:                      "{c_types}"
+  <user.c_pointers>:                   "{c_pointers}"
+  <user.c_keywords>:                   "{c_keywords}"
+  <user.c_signed>:                     "{c_signed}"
+  standard <user.stdint_types>:        "{stdint_types}"
+  int main:                            user.insert_between("int main(", ")")
+  toggle includes:                     user.code_toggle_libraries()
+
+  include <user.code_libraries>:
+      user.code_insert_library(code_libraries, "")
+      key(end enter)

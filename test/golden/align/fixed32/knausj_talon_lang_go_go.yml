@@ -1,0 +1,293 @@
+input: "tag: user.go\n-\nvariadic: \"...\"\nlogical and: \" && \"\nlogical or: \"\
+  \ || \"\n# Many of these add extra terrible spacing under the assumption that\n\
+  # gofmt/goimports will erase it.\nstate comment: \"// \"\n[line] comment <user.text>:\n\
+  \    key(\"cmd-right\")\n    insert(\" // \")\n    insert(user.formatted_text(text,\
+  \ \"sentence\"))\n\n# \"add comment <user.text> [over]:\n#     key(\"cmd-right\"\
+  )\n#     text_with_leading(\" // \")\n# ]\n# \"[state] context: insert(\"ctx\")\n\
+  state (funk | func | fun): \"func \"\nfunction (Annette | init) [over]: \"func init()\
+  \ {\\n\"\nfunction <user.text> [over]:\n    insert(\"func \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n    insert(\"(\")\n    sleep(100ms)\n\nmethod <user.text>\
+  \ [over]:\n    insert(\"meth \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n    sleep(100ms)\n\nstate var: \"var \"\nvariable [<user.text>] [over]:\n  \
+  \  insert(\"var \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n    # insert(\" \")\n    sleep(100ms)\n\nof type [<user.text>] [over]:\n   \
+  \ insert(\" \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\
+  \n# \"set <user.text> [over]:\n#     insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n#     insert(\" := \")\n#     sleep(100ms)\n# ]\nstate break: \"break\"\nstate\
+  \ (chan | channel): \" chan \"\nstate go: \"go \"\nstate if: \"if \"\nif <user.text>\
+  \ [over]:\n  insert(\"if \")\n  insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\nspawn <user.text> [over]:\n  insert(\"go \")\n  insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\nstate else if: \" else if \"\nelse if <user.text> [over]:\n\
+  \    insert(\" else if \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nstate else: \" else \"\nelse <user.text> [over]:\n    insert(\" else {\")\n\
+  \    key(\"enter\")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nstate while: \"while \"\nwhile <user.text> [over]:\n    insert(\"while \"\
+  )\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\nstate for: \"\
+  for \"\nfor <user.text> [over]:\n    insert(\"for \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nstate for range: \"forr \"\nrange <user.text> [over]:\n\
+  \    insert(\"forr \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nstate format: \"fmt\"\nformat <user.text> [over]:\n    insert(\"fmt.\")\n\
+  \    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nstate switch: \"\
+  switch \"\nswitch <user.text> [over]:\n    insert(\"switch \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nstate select: \"select \"\n# \"select <user.text>:insert(\"\
+  select \"), insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\")]\nstate (const\
+  \ | constant): \" const \"\nconstant <user.text> [over]:\n    insert(\"const \"\
+  )\n    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nstate case: \"\
+  \ case \"\nstate default: \" default:\"\ncase <user.text> [over]:\n    insert(\"\
+  case \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\nstate\
+  \ type: \" type \"\ntype <user.text> [over]:\n    insert(\"type \")\n    insert(user.formatted_text(text,\
+  \ \"PUBLIC_CAMEL_CASE\"))\nstate true: \" true \"\nstate false: \" false \"\nstate\
+  \ (start | struct | struck):\n  insert(\" struct {\")\n  key(\"enter\")\n(struct\
+  \ | struck) <user.text> [over]:\n    insert(\" struct {\")\n    key(\"enter\")\n\
+  \    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\n[state] empty interface:\
+  \ \" interface{} \"\nstate interface:\n  insert(\" interface {\")\n  key(\"enter\"\
+  )\ninterface <user.text> [over]:\n    insert(\" interface {\")\n    key(\"enter\"\
+  )\n    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nstate string:\
+  \ \" string \"\n[state] (int | integer | ant): \"int\"\nstate slice: \" []\"\nslice\
+  \ of: \"[]\"\n[state] (no | nil): \"nil\"\nstate (int | integer | ant) sixty four:\
+  \ \" int64 \"\nstate tag:\n  user.insert_between(\" `\", \"`\")\nfield tag <user.text>\
+  \ [over]:\n    user.insert_between(\" `\", \"`\")\n    sleep(100ms)\n    insert(user.formatted_text(text,\
+  \ \"snake\"))\n    insert(\" \")\n    sleep(100ms)\n\nstate return: \" return \"\
+  \nreturn  <user.text> [over]:\n    insert(\"return \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nmap of string to string: \" map[string]string \"\n\
+  map of <user.text> [over]:\n    insert(\"map[\")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n    key(\"right\")\n    sleep(100ms)\n\nreceive: \"\
+  \ <- \"\nmake: \"make(\"\nloggers [<user.text>] [over]:\n    insert(\"logrus.\"\
+  )\n    insert(user.formatted_text(text, \"PUBLIC_CAMEL_CASE\"))\n\nlength <user.text>\
+  \ [over]:\n    insert(\"len(\")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\nappend <user.text> [over]:\n    insert(\"append(\")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nstate (air | err): \"err\"\nerror: \" err \"\nloop\
+  \ over [<user.text>] [over]:\n    insert(\"forr \")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nitem <user.text> [over]:\n  insert(\", \")\n  insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nvalue <user.text> [over]:\n    insert(\": \")\n  \
+  \  insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"))\n\naddress of [<user.text>]\
+  \ [over]:\n    insert(\"&\")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n\npointer to [<user.text>] [over]:\n    insert(\"*\")\n    insert(user.formatted_text(text,\
+  \ \"PRIVATE_CAMEL_CASE\"))\n\nswipe [<user.text>] [over]:\n    key(\"right\")\n\
+  \    insert(\", \")\n    insert(user.formatted_text(text, \"PRIVATE_CAMEL_CASE\"\
+  ))\n"
+output: |
+  tag: user.go
+
+  -
+  variadic:                        "..."
+  logical and:                     "&&"
+  logical or:                      "||"
+
+  # Many of these add extra terrible spacing under the assumption that
+  # gofmt/goimports will erase it.
+  state comment:                   "//"
+
+  [line] comment <user.text>:
+      key("cmd-right")
+      insert("//")
+      insert(user.formatted_text(text, "sentence"))
+
+  # "add comment <user.text> [over]:
+  # key("cmd-right")
+  # text_with_leading(" // ")
+  # ]
+  # "[state] context: insert("ctx")
+  state (funk | func | fun):        "func"
+  function (Annette | init) [over]: "func init(){\n"
+
+  function <user.text> [over]:
+      insert("func")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+      insert("(")
+      sleep(100ms)
+
+  method <user.text> [over]:
+      insert("meth")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+      sleep(100ms)
+
+  state var:                       "var"
+
+  variable [<user.text>] [over]:
+      insert("var")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+      # insert(" ")
+      sleep(100ms)
+
+  of type [<user.text>] [over]:
+      insert("")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  # "set <user.text> [over]:
+  # insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+  # insert(" := ")
+  # sleep(100ms)
+  # ]
+  state break:                     "break"
+  state (chan | channel):          "chan"
+  state go:                        "go"
+  state if:                        "if"
+
+  if <user.text> [over]:
+      insert("if")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  spawn <user.text> [over]:
+      insert("go")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state else if:                   "else if"
+
+  else if <user.text> [over]:
+      insert("else if")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state else:                      "else"
+
+  else <user.text> [over]:
+      insert("else{")
+      key("enter")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state while:                     "while"
+
+  while <user.text> [over]:
+      insert("while")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state for:                       "for"
+
+  for <user.text> [over]:
+      insert("for")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state for range:                 "forr"
+
+  range <user.text> [over]:
+      insert("forr")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state format:                    "fmt"
+
+  format <user.text> [over]:
+      insert("fmt.")
+      insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
+  state switch:                    "switch"
+
+  switch <user.text> [over]:
+      insert("switch")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state select:                    "select"
+
+  # "select <user.text>:insert("select "), insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE")]
+  state (const | constant):        "const"
+
+  constant <user.text> [over]:
+      insert("const")
+      insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
+  state case:                      "case"
+  state default:                   "default:"
+
+  case <user.text> [over]:
+      insert("case")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state type:                      "type"
+
+  type <user.text> [over]:
+      insert("type")
+      insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
+  state true:                      "true"
+  state false:                     "false"
+
+  state (start | struct | struck):
+      insert("struct{")
+      key("enter")
+
+  (struct | struck) <user.text> [over]:
+      insert("struct{")
+      key("enter")
+      insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
+  [state] empty interface:         "interface{}"
+
+  state interface:
+      insert("interface{")
+      key("enter")
+
+  interface <user.text> [over]:
+      insert("interface{")
+      key("enter")
+      insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
+  state string:                           "string"
+  [state] (int | integer | ant):          "int"
+  state slice:                            "[]"
+  slice of:                               "[]"
+  [state] (no | nil):                     "nil"
+  state (int | integer | ant) sixty four: "int64"
+  state tag:                              user.insert_between("`", "`")
+
+  field tag <user.text> [over]:
+      user.insert_between("`", "`")
+      sleep(100ms)
+      insert(user.formatted_text(text, "snake"))
+      insert("")
+      sleep(100ms)
+
+  state return:                    "return"
+
+  return <user.text> [over]:
+      insert("return")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  map of string to string:         "map[string]string"
+
+  map of <user.text> [over]:
+      insert("map[")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+      key("right")
+      sleep(100ms)
+
+  receive:                         "<-"
+  make:                            "make("
+
+  loggers [<user.text>] [over]:
+      insert("logrus.")
+      insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
+  length <user.text> [over]:
+      insert("len(")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  append <user.text> [over]:
+      insert("append(")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  state (air | err):               "err"
+  error:                           "err"
+
+  loop over [<user.text>] [over]:
+      insert("forr")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  item <user.text> [over]:
+      insert(",")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  value <user.text> [over]:
+      insert(":")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  address of [<user.text>] [over]:
+      insert("&")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  pointer to [<user.text>] [over]:
+      insert("*")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
+
+  swipe [<user.text>] [over]:
+      key("right")
+      insert(",")
+      insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))

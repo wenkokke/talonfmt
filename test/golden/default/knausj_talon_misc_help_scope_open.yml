@@ -1,0 +1,6 @@
+input: "mode: user.help_scope\n-\n\nscope (hide | close)$:   user.help_scope_toggle()\n"
+output: |
+  mode: user.help_scope
+  -
+  scope (hide | close) $:
+      user.help_scope_toggle()

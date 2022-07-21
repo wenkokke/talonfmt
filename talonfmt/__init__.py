@@ -1,13 +1,55 @@
 from doc_printer import SmartDocRenderer, TokenStream
 from pathlib import Path
 from talonfmt.formatter import TalonFormatter
-from typing import Optional, Union
+from typing import Iterator, Optional, TextIO, Union
 
 import click
 import io
 import sys
 import tokenize
 import tree_sitter_talon
+
+
+def talonfmt(
+    contents: str,
+    *,
+    encoding: str = "utf-8",
+    indent_size: int = 4,
+    max_line_width: int = 80,
+    align_match_context: bool = False,
+    align_match_context_at: Optional[int] = None,
+    align_short_commands: bool = False,
+    align_short_commands_at: Optional[int] = None,
+) -> str:
+    # Enable align_match_context if align_match_context_at is set:
+    merged_match_context: Union[bool, int]
+    if isinstance(align_match_context_at, int):
+        merged_match_context = align_match_context_at
+    else:
+        merged_match_context = align_match_context
+
+    # Enable align_short_commands if align_short_commands_at is set:
+    merged_short_commands: Union[bool, int]
+    if isinstance(align_short_commands_at, int):
+        merged_short_commands = align_short_commands_at
+    else:
+        merged_short_commands = align_short_commands
+
+    # Create an instance of TalonFormatter
+    talon_formatter = TalonFormatter(
+        indent_size=indent_size,
+        align_match_context=merged_match_context,
+        align_short_commands=merged_short_commands,
+    )
+
+    # Create an instance of DocRenderer
+    doc_renderer = SmartDocRenderer(
+        max_line_width=max_line_width,
+    )
+
+    ast = tree_sitter_talon.parse(contents, encoding=encoding)
+    doc = talon_formatter.format(ast)
+    return doc_renderer.to_str(doc)
 
 
 @click.command(name="talonfmt")
@@ -54,63 +96,48 @@ def cli(
     align_short_commands_at: Optional[int],
     in_place: bool,
 ):
-    # Enable align_match_context if align_match_context_at is set:
-    merged_match_context: Union[bool, int]
-    if isinstance(align_match_context_at, int):
-        merged_match_context = align_match_context_at
-    else:
-        merged_match_context = align_match_context
-
-    # Enable align_short_commands if align_short_commands_at is set:
-    merged_short_commands: Union[bool, int]
-    if isinstance(align_short_commands_at, int):
-        merged_short_commands = align_short_commands_at
-    else:
-        merged_short_commands = align_short_commands
-
-    # Create an instance of TalonFormatter
-    talon_formatter = TalonFormatter(
-        indent_size=indent_size,
-        align_match_context=merged_match_context,
-        align_short_commands=merged_short_commands,
-    )
-
-    # Create an instance of DocRenderer
-    doc_renderer = SmartDocRenderer(
-        max_line_width=max_line_width,
-    )
-
-    # Create a formatting function
-    def talon_format(contents: str, *, encoding: str = "utf-8") -> None:
-        ast = tree_sitter_talon.parse(contents, encoding=encoding)
-        doc = talon_formatter.format(ast)
-        if in_place:
-            with filename.open(mode="w", encoding=encoding) as fp:
-                for token in doc_renderer.render(doc):
-                    fp.write(token.text)
-        else:
-            for token in doc_renderer.render(doc):
-                sys.stdout.write(token.text)
-
-    def talon_format_file(filename: Path) -> None:
+    def readfile(filename: Path) -> tuple[str, str]:
         with filename.open(mode="rb") as fp:
             bytes_on_disk = fp.read()
         encoding, _ = tokenize.detect_encoding(io.BytesIO(bytes_on_disk).readline)
         with io.TextIOWrapper(io.BytesIO(bytes_on_disk), encoding) as wrapper:
             contents = wrapper.read()
-        talon_format(contents, encoding=encoding)
+        return (contents, encoding)
+
+    def format(contents: str, *, encoding: str) -> str:
+        return talonfmt(
+            contents,
+            encoding=encoding,
+            indent_size=indent_size,
+            max_line_width=max_line_width,
+            align_match_context=align_match_context,
+            align_match_context_at=align_match_context_at,
+            align_short_commands=align_short_commands,
+            align_short_commands_at=align_short_commands_at,
+        )
+
+    def format_file(filename: Path):
+        contents, encoding = readfile(filename)
+        output = format(contents, encoding=encoding)
+        if in_place:
+            with filename.open(mode="w") as handle:
+                handle.write(output)
+        else:
+            sys.stdout.write(output)
 
     if input:
         if input.is_file():
-            talon_format_file(input)
+            format_file(input)
         if input.is_dir():
             for filename in input.glob("**/*.talon"):
-                talon_format_file(filename)
+                format_file(filename)
     else:
         contents = "\n".join(sys.stdin.readlines())
-        talon_format(contents, encoding=sys.stdin.encoding)
+        encoding = sys.stdin.encoding
+        sys.stdout.write(format(contents, encoding=encoding))
 
 
+# with filename.open(mode="w", encoding=encoding) as fp:
 def main():
     cli(prog_name="talonfmt")
 

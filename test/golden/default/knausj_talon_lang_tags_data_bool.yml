@@ -1,0 +1,10 @@
+input: "tag: user.code_data_bool\n-\nstate true: user.code_insert_true()\nstate false:\
+  \ user.code_insert_false()\n"
+output: |
+  tag: user.code_data_bool
+  -
+  state true:
+      user.code_insert_true()
+
+  state false:
+      user.code_insert_false()

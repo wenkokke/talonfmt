@@ -1,0 +1,6 @@
+input: "tag: user.typescript\n-\ntag(): user.javascript\n"
+output: |-
+  tag: user.typescript
+
+  -
+  tag(): user.javascript

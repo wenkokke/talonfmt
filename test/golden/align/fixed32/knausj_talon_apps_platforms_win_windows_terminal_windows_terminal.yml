@@ -1,0 +1,37 @@
+input: "app: windows_terminal\n-\n# makes the commands in generic_terminal available\n\
+  tag(): terminal\n\n# activates the implementation of the commands/functions in generic_terminal\n\
+  tag(): user.generic_windows_shell\n\n# makes commands for certain applications available\n\
+  # you can deactivate them if you do not use the application\ntag(): user.git\ntag():\
+  \ user.anaconda\n# tag(): user.kubectl\n\ntag(): user.tabs\n# TODO: file_manager\n\
+  tag(): user.splits\n\nsettings open : key(ctrl-,)\nfocus left: key(ctrl-alt-shift-left)\n\
+  focus right: key(ctrl-alt-shift-right)\nfocus up: key(ctrl-alt-shift-up)\nfocus\
+  \ down: key(ctrl-alt-shift-down)\nterm menu: key(ctrl-shift-f1)\n\nfind it:\n  \
+  \  edit.find()\n\nfind it <phrase>$:\n    # handle consecutive finds by first escaping\
+  \ out of any previous one\n    key(escape)\n    # make it so\n    edit.find(\"{phrase}\\\
+  n\")\n"
+output: |
+  app: windows_terminal
+
+  -
+  # makes the commands in generic_terminal available
+  tag(): terminal
+  # activates the implementation of the commands/functions in generic_terminal
+  tag(): user.generic_windows_shell
+  # makes commands for certain applications available
+  # you can deactivate them if you do not use the application
+  tag(): user.git
+  tag(): user.anaconda
+  # tag(): user.kubectl
+  tag(): user.tabs
+  # TODO: file_manager
+  tag(): user.splits
+  settings open:                   key(ctrl-,)
+  focus left:                      key(ctrl-alt-shift-left)
+  focus right:                     key(ctrl-alt-shift-right)
+  focus up:                        key(ctrl-alt-shift-up)
+  focus down:                      key(ctrl-alt-shift-down)
+  term menu:                       key(ctrl-shift-f1)
+  find it:                         edit.find()
+
+  find it <phrase> $:
+      # handle consecutive finds by first escaping out of any previous one

@@ -1,0 +1,6 @@
+input: "tag: user.snippets_showing\n-\nsnip close: user.snippet_hide()\n"
+output: |
+  tag: user.snippets_showing
+  -
+  snip close:
+      user.snippet_hide()

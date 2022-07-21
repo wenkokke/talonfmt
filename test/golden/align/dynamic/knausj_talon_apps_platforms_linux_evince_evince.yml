@@ -1,0 +1,7 @@
+input: "app: evince\n-\n# Set tags\ntag(): user.pages\n"
+output: |-
+  app: evince
+
+  -
+  # Set tags
+  tag(): user.pages

@@ -1,0 +1,18 @@
+input: "tag: user.multiple_cursors\n-\ncursor multiple: user.multi_cursor_enable()\n\
+  cursor stop: user.multi_cursor_disable()\ncursor up: user.multi_cursor_add_above()\n\
+  cursor down: user.multi_cursor_add_below()\ncursor less: user.multi_cursor_select_fewer_occurrences()\n\
+  cursor more: user.multi_cursor_select_more_occurrences()\ncursor skip: user.multi_cursor_skip_occurrence()\n\
+  cursor all: user.multi_cursor_select_all_occurrences()\ncursor lines: user.multi_cursor_add_to_line_ends()\n"
+output: |
+  tag: user.multiple_cursors
+
+  -
+  cursor multiple: user.multi_cursor_enable()
+  cursor stop:     user.multi_cursor_disable()
+  cursor up:       user.multi_cursor_add_above()
+  cursor down:     user.multi_cursor_add_below()
+  cursor less:     user.multi_cursor_select_fewer_occurrences()
+  cursor more:     user.multi_cursor_select_more_occurrences()
+  cursor skip:     user.multi_cursor_skip_occurrence()
+  cursor all:      user.multi_cursor_select_all_occurrences()
+  cursor lines:    user.multi_cursor_add_to_line_ends()

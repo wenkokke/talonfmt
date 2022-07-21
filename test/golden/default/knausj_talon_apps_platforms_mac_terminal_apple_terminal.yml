@@ -1,0 +1,28 @@
+input: "app: apple_terminal\n-\n# makes the commands in generic_terminal available\n\
+  tag(): terminal\n\n# activates the implementation of the commands/functions in generic_terminal\n\
+  tag(): user.generic_unix_shell\n\n# makes commands for certain applications available\n\
+  # you can deactivate them if you do not use the application\ntag(): user.git\ntag():\
+  \ user.anaconda\ntag(): user.kubectl\n\n# TODO: explain\ntag(): user.tabs\ntag():\
+  \ user.file_manager\n\nsuspend:\n    key(ctrl-z)\nresume:\n    insert(\"fg\")\n\
+  \    key(enter)\n"
+output: |
+  app: apple_terminal
+  -
+  # makes the commands in generic_terminal available
+  tag(): terminal
+  # activates the implementation of the commands/functions in generic_terminal
+  tag(): user.generic_unix_shell
+  # makes commands for certain applications available
+  # you can deactivate them if you do not use the application
+  tag(): user.git
+  tag(): user.anaconda
+  tag(): user.kubectl
+  # TODO: explain
+  tag(): user.tabs
+  tag(): user.file_manager
+  suspend:
+      key(ctrl-z)
+
+  resume:
+      insert("fg")
+      key(enter)

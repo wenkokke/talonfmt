@@ -1,0 +1,11 @@
+input: "app: evernote\nos: mac\n-\nsettings():\n    # Necessary to stop commands like\
+  \ 'slap' getting jumbled\n    key_wait = 9.0\n"
+output: |-
+  app: evernote
+
+  os: mac
+
+  -
+  settings():
+      # Necessary to stop commands like 'slap' getting jumbled
+      key_wait = 9.0

@@ -1,0 +1,16 @@
+input: "app: firefox\n-\ntag(): browser\ntag(): user.tabs\ntab search:\n    browser.focus_address()\n\
+  \    insert(\"% \")\ntab search <user.text>$:\n    browser.focus_address()\n   \
+  \ insert(\"% {text}\")\n    key(down)\n"
+output: |
+  app: firefox
+  -
+  tag(): browser
+  tag(): user.tabs
+  tab search:
+      browser.focus_address()
+      insert("%")
+
+  tab search <user.text> $:
+      browser.focus_address()
+      insert("%{text}")
+      key(down)

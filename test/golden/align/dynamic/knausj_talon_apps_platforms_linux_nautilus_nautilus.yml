@@ -1,0 +1,8 @@
+input: "app: nautilus\n-\n# Set tags\ntag(): user.tabs\ntag(): user.file_manager\n"
+output: |-
+  app: nautilus
+
+  -
+  # Set tags
+  tag(): user.tabs
+  tag(): user.file_manager

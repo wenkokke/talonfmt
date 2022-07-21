@@ -1,0 +1,9 @@
+input: "os: windows\napp.exe: ConEmu64.exe\n-\n\ntag(): terminal\ntag(): user.git\n"
+output: |-
+  os: windows
+
+  app.exe: ConEmu64.exe
+
+  -
+  tag(): terminal
+  tag(): user.git

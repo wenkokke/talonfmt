@@ -1,0 +1,209 @@
+input: "os: windows\napp: visual_studio\n-\ntag(): user.tabs\ntag(): user.line_commands\n\
+  tag(): user.find_and_replace\ntag(): user.snippets\ntag(): user.multiple_cursors\n\
+  #multiple_cursor.py support end\n\n# Panels\npanel solution: key(ctrl-alt-l)\npanel\
+  \ properties: key(f4)\npanel output: key(ctrl-alt-o)\npanel class: key(ctrl-shift-c)\n\
+  panel errors: key(ctrl-\\ ctrl-e)\npanel design: key(shift-f7)\npanel marks: key(ctrl-k\
+  \ ctrl-w)\npanel breakpoints: key(ctrl-alt-b)\n\n# Settings\nshow settings: key(alt-t\
+  \ o)\n#show shortcuts:\n#show snippets:\n\n# Display\nfullscreen switch: key(shift-alt-enter)\n\
+  wrap switch: key(ctrl-e ctrl-w)\n\n# File Commands\nfile hunt [<user.text>]:\n \
+  \   key(ctrl-shift-t)\n    insert(text or \"\")\nfile create: key(ctrl-n)\n#file\
+  \ open folder:\nfile rename: key(ctrl-[ s f2)\nfile reveal: key(ctrl-[ s)\n\n# Language\
+  \ Features\nhint show: key(ctrl-shift-space)\ndefinition show: key(f12)\ndefinition\
+  \ peek: key(alt-f12)\nreferences find: key(shift-f12)\nformat that: key(ctrl-k ctrl-d)\n\
+  format selection: key(ctrl-k ctrl-f)\nimports fix: key(ctrl-r ctrl-g)\n\n# problem\
+  \ next:\n# problem last:\n# problem fix:\nrefactor field: key(ctrl-r ctrl-e)\nrefactor\
+  \ interface: key(ctrl-r ctrl-i)\nrefactor method: key(ctrl-r ctrl-m)\nrefactor reorder\
+  \ parameters: key(ctrl-r ctrl-o)\nrefactor remove parameters: key(ctrl-r ctrl-v)\n\
+  refactor that: key(ctrl-r ctrl-r)\n\n#code navigation\n(go declaration | follow):\
+  \ key(ctrl-f12)\ngo back: key(ctrl--)\ngo forward: key(ctrl-shift--)\ngo implementation:\
+  \ key(f12)\ngo recent [<user.text>]:\n    key(ctrl-1 ctrl-r)\n    sleep(100ms)\n\
+  \    insert(text or \"\")\ngo type [<user.text>]:\n    key(ctrl-1 ctrl-t)\n    sleep(100ms)\n\
+  \    insert(text or \"\")\ngo member [<user.text>]:\n    key(alt-\\)\n    sleep(100ms)\n\
+  \    insert(text or \"\")\ngo usage: key(shift-f12)\n\n# Bookmarks.\ngo marks: key(ctrl-k\
+  \ ctrl-w)\ntoggle mark: key(ctrl-k ctrl-k)\ngo next mark: key(ctrl-k ctrl-n)\ngo\
+  \ last mark: key(ctrl-k ctrl-p)\n\n# Folding\nfold toggle: key(ctrl-m ctrl-m)\n\
+  fold toggle all: key(ctrl-m ctrl-l)\nfold definitions: key(ctrl-m ctrl-o)\n\n#Debugging\n\
+  break point: key(f9)\nstep over: key(f10)\ndebug step into: key(f11)\ndebug step\
+  \ out [of]: key(f10)\ndebug start: key(f5)\ndebug stopper: key(shift-f5)\ndebug\
+  \ continue: key(f5)\n"
+output: |
+  os: windows
+  app: visual_studio
+  -
+  tag(): user.tabs
+  tag(): user.line_commands
+  tag(): user.find_and_replace
+  tag(): user.snippets
+  tag(): user.multiple_cursors
+  # multiple_cursor.py support end
+  # Panels
+  panel solution:
+      key(ctrl-alt-l)
+
+  panel properties:
+      key(f4)
+
+  panel output:
+      key(ctrl-alt-o)
+
+  panel class:
+      key(ctrl-shift-c)
+
+  panel errors:
+      key(ctrl-\ ctrl-e)
+
+  panel design:
+      key(shift-f7)
+
+  panel marks:
+      key(ctrl-k ctrl-w)
+
+  panel breakpoints:
+      key(ctrl-alt-b)
+
+  # Settings
+  show settings:
+      key(alt-t o)
+
+  # show shortcuts:
+  # show snippets:
+  # Display
+  fullscreen switch:
+      key(shift-alt-enter)
+
+  wrap switch:
+      key(ctrl-e ctrl-w)
+
+  # File Commands
+  file hunt [<user.text>]:
+      key(ctrl-shift-t)
+      insert(text or "")
+
+  file create:
+      key(ctrl-n)
+
+  # file open folder:
+  file rename:
+      key(ctrl-[ s f2)
+
+  file reveal:
+      key(ctrl-[ s)
+
+  # Language Features
+  hint show:
+      key(ctrl-shift-space)
+
+  definition show:
+      key(f12)
+
+  definition peek:
+      key(alt-f12)
+
+  references find:
+      key(shift-f12)
+
+  format that:
+      key(ctrl-k ctrl-d)
+
+  format selection:
+      key(ctrl-k ctrl-f)
+
+  imports fix:
+      key(ctrl-r ctrl-g)
+
+  # problem next:
+  # problem last:
+  # problem fix:
+  refactor field:
+      key(ctrl-r ctrl-e)
+
+  refactor interface:
+      key(ctrl-r ctrl-i)
+
+  refactor method:
+      key(ctrl-r ctrl-m)
+
+  refactor reorder parameters:
+      key(ctrl-r ctrl-o)
+
+  refactor remove parameters:
+      key(ctrl-r ctrl-v)
+
+  refactor that:
+      key(ctrl-r ctrl-r)
+
+  # code navigation
+  (go declaration | follow):
+      key(ctrl-f12)
+
+  go back:
+      key(ctrl--)
+
+  go forward:
+      key(ctrl-shift--)
+
+  go implementation:
+      key(f12)
+
+  go recent [<user.text>]:
+      key(ctrl-1 ctrl-r)
+      sleep(100ms)
+      insert(text or "")
+
+  go type [<user.text>]:
+      key(ctrl-1 ctrl-t)
+      sleep(100ms)
+      insert(text or "")
+
+  go member [<user.text>]:
+      key(alt-\)
+      sleep(100ms)
+      insert(text or "")
+
+  go usage:
+      key(shift-f12)
+
+  # Bookmarks.
+  go marks:
+      key(ctrl-k ctrl-w)
+
+  toggle mark:
+      key(ctrl-k ctrl-k)
+
+  go next mark:
+      key(ctrl-k ctrl-n)
+
+  go last mark:
+      key(ctrl-k ctrl-p)
+
+  # Folding
+  fold toggle:
+      key(ctrl-m ctrl-m)
+
+  fold toggle all:
+      key(ctrl-m ctrl-l)
+
+  fold definitions:
+      key(ctrl-m ctrl-o)
+
+  # Debugging
+  break point:
+      key(f9)
+
+  step over:
+      key(f10)
+
+  debug step into:
+      key(f11)
+
+  debug step out [of]:
+      key(f10)
+
+  debug start:
+      key(f5)
+
+  debug stopper:
+      key(shift-f5)
+
+  debug continue:
+      key(f5)

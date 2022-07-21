@@ -1,0 +1,7 @@
+input: "app: kindle\n-\n# Set tags\ntag(): user.pages\n"
+output: |-
+  app: kindle
+
+  -
+  # Set tags
+  tag(): user.pages

@@ -1,0 +1,83 @@
+input: "os: linux\ntag: user.tmux\n-\nmux: \"tmux \"\n\n#session management\nmux new\
+  \ session:\n    insert('tmux new ')\nmux sessions:\n    key(ctrl-b)\n    key(s)\n\
+  mux name session:\n    key(ctrl-b)\n    key($)\nmux kill session:\n    insert('tmux\
+  \ kill-session -t ')\n#window management\nmux new window:\n    key(ctrl-b)\n   \
+  \ key(c)\nmux window <number>:\n    key(ctrl-b )\n    key('{number}')\nmux previous\
+  \ window:\n    key(ctrl-b)\n    key(p)\nmux next window:\n    key(ctrl-b)\n    key(n)\n\
+  mux rename window:\n    key(ctrl-b)\n    key(,)\nmux close window:\n    key(ctrl-b)\n\
+  \    key(&)\n#pane management\nmux split horizontal:\n    key(ctrl-b)\n    key(%)\n\
+  mux split vertical:\n    key(ctrl-b)\n    key(\")\nmux next pane:\n    key(ctrl-b)\n\
+  \    key(o)\nmux move <user.arrow_key>:\n    key(ctrl-b)\n    key(arrow_key)\nmux\
+  \ close pane:\n    key(ctrl-b)\n    key(x)\n#Say a number right after this command,\
+  \ to switch to pane\nmux pane numbers:\n    key(ctrl-b)\n    key(q)\n"
+output: |
+  os: linux
+
+  tag: user.tmux
+
+  -
+  mux:                             "tmux"
+
+  # session management
+  mux new session:                 insert("tmux new")
+
+  mux sessions:
+      key(ctrl-b)
+      key(s)
+
+  mux name session:
+      key(ctrl-b)
+      key($)
+
+  mux kill session:                insert("tmux kill-session -t")
+
+  # window management
+  mux new window:
+      key(ctrl-b)
+      key(c)
+
+  mux window <number>:
+      key(ctrl-b)
+      key('{number}')
+
+  mux previous window:
+      key(ctrl-b)
+      key(p)
+
+  mux next window:
+      key(ctrl-b)
+      key(n)
+
+  mux rename window:
+      key(ctrl-b)
+      key(,)
+
+  mux close window:
+      key(ctrl-b)
+      key(&)
+
+  # pane management
+  mux split horizontal:
+      key(ctrl-b)
+      key(%)
+
+  mux split vertical:
+      key(ctrl-b)
+      key(")
+
+  mux next pane:
+      key(ctrl-b)
+      key(o)
+
+  mux move <user.arrow_key>:
+      key(ctrl-b)
+      key(arrow_key)
+
+  mux close pane:
+      key(ctrl-b)
+      key(x)
+
+  # Say a number right after this command, to switch to pane
+  mux pane numbers:
+      key(ctrl-b)
+      key(q)

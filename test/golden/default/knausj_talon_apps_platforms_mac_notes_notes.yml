@@ -1,0 +1,98 @@
+input: "os: mac\nand app: notes\n-\n\nnew note: key(cmd-n)\nduplicate note: key(cmd-d)\n\
+  new folder: key(shift-cmd-n)\ntoggle folders: key(alt-cmd-s)\nshow main: key(cmd-0)\n\
+  list view: key(cmd-1)\ngallery view: key(cmd-2)\ntoggle attachments: key(cmd-3)\n\
+  find all: key(alt-cmd-f)\nprint note: key(cmd-p)\nattach file: key(shift-cmd-a)\n\
+  create link: key(cmd-k)\ninsert table: key(alt-cmd-t)\napply title: key(shift-cmd-t)\n\
+  apply heading: key(shift-cmd-h)\napply subheading: key(shift-cmd-j)\napply body:\
+  \ key(shift-cmd-b)\napply mono: key(shift-cmd-m)\napply bullet: key(shift-cmd-7)\n\
+  apply dash: key(shift-cmd-8)\napply number: key(shift-cmd-9)\napply checklist: key(shift-cmd-l)\n\
+  increase font: key(cmd-+)\ndecrease font: key(cmd--)\nline break: key(ctrl-enter)\n\
+  mark: key(shift-cmd-u)\ndrag [line] down: key('ctrl-cmd-down')\ndrag [line] up:\
+  \ key('ctrl-cmd-up')\n"
+output: |
+  os: mac
+  and app: notes
+  -
+  new note:
+      key(cmd-n)
+
+  duplicate note:
+      key(cmd-d)
+
+  new folder:
+      key(shift-cmd-n)
+
+  toggle folders:
+      key(alt-cmd-s)
+
+  show main:
+      key(cmd-0)
+
+  list view:
+      key(cmd-1)
+
+  gallery view:
+      key(cmd-2)
+
+  toggle attachments:
+      key(cmd-3)
+
+  find all:
+      key(alt-cmd-f)
+
+  print note:
+      key(cmd-p)
+
+  attach file:
+      key(shift-cmd-a)
+
+  create link:
+      key(cmd-k)
+
+  insert table:
+      key(alt-cmd-t)
+
+  apply title:
+      key(shift-cmd-t)
+
+  apply heading:
+      key(shift-cmd-h)
+
+  apply subheading:
+      key(shift-cmd-j)
+
+  apply body:
+      key(shift-cmd-b)
+
+  apply mono:
+      key(shift-cmd-m)
+
+  apply bullet:
+      key(shift-cmd-7)
+
+  apply dash:
+      key(shift-cmd-8)
+
+  apply number:
+      key(shift-cmd-9)
+
+  apply checklist:
+      key(shift-cmd-l)
+
+  increase font:
+      key(cmd-+)
+
+  decrease font:
+      key(cmd--)
+
+  line break:
+      key(ctrl-enter)
+
+  mark:
+      key(shift-cmd-u)
+
+  drag [line] down:
+      key('ctrl-cmd-down')
+
+  drag [line] up:
+      key('ctrl-cmd-up')

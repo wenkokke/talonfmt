@@ -1,0 +1,21 @@
+input: "mouse grid:\n    user.grid_select_screen(1)\n    user.grid_activate()\n\n\
+  grid win:\n    user.grid_place_window()\n    user.grid_activate()\n\ngrid <user.number_key>+:\n\
+  \    user.grid_activate()\n    user.grid_narrow_list(number_key_list)\n\ngrid screen\
+  \ [<number>]:\n    user.grid_select_screen(number or 1)\n    user.grid_activate()\n"
+output: |
+  -
+  mouse grid:
+      user.grid_select_screen(1)
+      user.grid_activate()
+
+  grid win:
+      user.grid_place_window()
+      user.grid_activate()
+
+  grid (<user.number_key>)+:
+      user.grid_activate()
+      user.grid_narrow_list(number_key_list)
+
+  grid screen [<number>]:
+      user.grid_select_screen(number or 1)
+      user.grid_activate()
