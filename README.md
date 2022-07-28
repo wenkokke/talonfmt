@@ -1,2 +1,3 @@
-# talon-fmt
-Formatter for Talon files
+# talonfmt
+
+Code formatter for Talon files.
