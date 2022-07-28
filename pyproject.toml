@@ -16,7 +16,7 @@ classifiers = [
 ]
 dependencies = [
   "click",
-  "tree_sitter_talon >= 1.3.0",
+  "tree_sitter_talon >= 1.4.2",
   "doc-printer >= 0.3.1"
 ]
 

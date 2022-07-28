@@ -1,7 +1,8 @@
 input: "not tag: user.mouse_grid_showing\n-\n<user.number_string>: \"{number_string}\"\
   \n"
-output: |
-  tag: user.mouse_grid_showing
+output: |-
+  not tag: user.mouse_grid_showing
   -
+
   <user.number_string>:
       "{number_string}"

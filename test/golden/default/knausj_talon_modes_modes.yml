@@ -2,17 +2,17 @@ input: "not mode: sleep\n-\n^dictation mode$:\n    mode.disable(\"sleep\")\n    
   command\")\n    mode.enable(\"dictation\")\n    user.code_clear_language_mode()\n\
   \    mode.disable(\"user.gdb\")\n^command mode$:\n    mode.disable(\"sleep\")\n\
   \    mode.disable(\"dictation\")\n    mode.enable(\"command\")\n"
-output: |
-  mode: sleep
+output: |-
+  not mode: sleep
   -
-  ^ dictation mode $:
+
+  ^dictation mode$:
       mode.disable("sleep")
       mode.disable("command")
       mode.enable("dictation")
       user.code_clear_language_mode()
       mode.disable("user.gdb")
-
-  ^ command mode $:
+  ^command mode$:
       mode.disable("sleep")
       mode.disable("dictation")
       mode.enable("command")

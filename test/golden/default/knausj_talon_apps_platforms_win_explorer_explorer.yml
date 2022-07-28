@@ -2,16 +2,16 @@ input: "app: windows_explorer\napp: windows_file_browser\n-\ntag(): user.file_ma
   ^go <user.letter>$: user.file_manager_open_volume(\"{letter}:\")\ngo app data: user.file_manager_open_directory(\"\
   %AppData%\")\ngo program files: user.file_manager_open_directory(\"%programfiles%\"\
   )\n"
-output: |
-  app: windows_explorer
-  app: windows_file_browser
-  -
-  tag(): user.file_manager
-  ^ go <user.letter> $:
-      user.file_manager_open_volume("{letter}:")
+output: |2-
+   app: windows_explorer
 
+   app: windows_file_browser
+  -
+
+  tag(): user.file_manager
+  ^go <user.letter>$:
+      user.file_manager_open_volume("{letter}:")
   go app data:
       user.file_manager_open_directory("%AppData%")
-
   go program files:
       user.file_manager_open_directory("%programfiles%")

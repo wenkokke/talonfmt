@@ -1,7 +1,9 @@
 input: "tag: user.code_operators_array\n-\n\n# array subscription\nop subscript: user.code_operator_subscript()\n"
-output: |
-  tag: user.code_operators_array
+output: |2-
+   tag: user.code_operators_array
   -
+
   # array subscription
+
   op subscript:
       user.code_operator_subscript()

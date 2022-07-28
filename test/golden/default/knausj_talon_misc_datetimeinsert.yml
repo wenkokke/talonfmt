@@ -4,22 +4,18 @@ input: "date insert:\n    insert(user.time_format(\"%Y-%m-%d\"))\ndate insert UT
   %Y-%m-%d %H:%M:%S.%f\"))\ntimestamp insert UTC:\n    insert(user.time_format_utc(\"\
   %Y-%m-%d %H:%M:%S\"))\ntimestamp insert UTC high resolution:\n    insert(user.time_format_utc(\"\
   %Y-%m-%d %H:%M:%S.%f\"))\n"
-output: |
+output: |-
   -
+
   date insert:
       insert(user.time_format("%Y-%m-%d"))
-
   date insert UTC:
       insert(user.time_format_utc("%Y-%m-%d"))
-
   timestamp insert:
       insert(user.time_format("%Y-%m-%d %H:%M:%S"))
-
   timestamp insert high resolution:
       insert(user.time_format("%Y-%m-%d %H:%M:%S.%f"))
-
   timestamp insert UTC:
       insert(user.time_format_utc("%Y-%m-%d %H:%M:%S"))
-
   timestamp insert UTC high resolution:
       insert(user.time_format_utc("%Y-%m-%d %H:%M:%S.%f"))

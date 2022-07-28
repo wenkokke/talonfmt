@@ -20,69 +20,70 @@ input: "win.title:/repl/\nwin.title:/Talon - REPL/\n-\ntag(): user.talon_python\
   )\n    key(enter)\n^debug all windows$:\n    insert(\"actions.user.talon_pretty_print(ui.windows())\"\
   )\n    key(enter)\n^debug {user.running} windows$:\n    insert(\"actions.user.talon_debug_app_windows('{running}')\"\
   )\n    key(enter)\n"
-output: |
-  win.title: /repl/
-  win.title: /Talon - REPL/
+output: |2-
+   win.title: /repl/
+
+   win.title: /Talon - REPL/
   -
+
   tag(): user.talon_python
   # uncomment user.talon_populate_lists tag to activate talon-specific lists of actions, scopes, modes etcetera.
+
   # Do not enable this tag with dragon, as it will be unusable.
+
   # with conformer, the latency increase may also be unacceptable depending on your cpu
+
   # see https://github.com/knausj85/knausj_talon/issues/600
+
   # tag(): user.talon_populate_lists
-  ^ test last $:
+
+  ^test last$:
       phrase = user.history_get(1)
       command = "sim('{phrase}')"
       insert(command)
       key(enter)
-
-  ^ test <phrase> $:
+  ^test <phrase>$:
       insert("sim('{phrase}')")
       key(enter)
-
-  ^ test numb <number_small> $:
+  ^test numb <number_small>$:
       phrase = user.history_get(number_small)
       command = "sim('{phrase}')"
       # to do: shouldn't this work?
+
       # user.paste("sim({phrase})")
+
       insert(command)
       key(enter)
-
   # requires user.talon_populate_lists tag. do not use with dragon
-  ^ debug action {user.talon_actions} $:
+
+  ^debug action {user.talon_actions}$:
       insert("actions.find('{user.talon_actions}')")
       key(enter)
-
   # requires user.talon_populate_lists tag. do not use with dragon
-  ^ debug list {user.talon_lists} $:
+
+  ^debug list {user.talon_lists}$:
       insert("actions.user.talon_pretty_print(registry.lists['{talon_lists}'])")
       key(enter)
-
-  ^ debug tags $:
+  ^debug tags$:
       insert("actions.user.talon_pretty_print(registry.tags)")
       key(enter)
-
-  ^ debug settings $:
+  ^debug settings$:
       insert("actions.user.talon_pretty_print(registry.settings)")
       key(enter)
-
-  ^ debug modes $:
+  ^debug modes$:
       insert("actions.user.talon_pretty_print(scope.get('mode'))")
       key(enter)
-
   # requires user.talon_populate_lists tag. do not use with dragon
-  ^ debug scope {user.talon_scopes} $:
+
+  ^debug scope {user.talon_scopes}$:
       insert("actions.user.talon_pretty_print(scope.get('{talon_scopes}'))")
       key(enter)
-
-  ^ debug running apps $:
+  ^debug running apps$:
       insert("actions.user.talon_pretty_print(ui.apps(background=False))")
       key(enter)
-
-  ^ debug all windows $:
+  ^debug all windows$:
       insert("actions.user.talon_pretty_print(ui.windows())")
       key(enter)
-
-  ^ debug {user.running} windows $:
+  ^debug {user.running} windows$:
       insert("actions.user.talon_debug_app_windows('{running}')")
       key(enter)

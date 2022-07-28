@@ -4,39 +4,31 @@ input: "tag: user.protobuf\n-\n\n# this is pretty bare-bones, further contributi
   \ \"\nstate import public: \"import public \"\nstate option: \"option \"\nstate\
   \ repeated: \"repeated \"\n\ntype {user.code_type}: \"{code_type}\"\nrepeated type\
   \ {user.code_type}: \"repeated {code_type}\"\n"
-output: |
-  tag: user.protobuf
+output: |2-
+   tag: user.protobuf
   -
+
   # this is pretty bare-bones, further contributions welcome
+
   state message:
       "message"
-
   state package:
       "package"
-
   state reserved:
       "reserved"
-
   state enum:
       "enum"
-
   op equals:
       "="
-
   state import:
       "import"
-
   state import public:
       "import public"
-
   state option:
       "option"
-
   state repeated:
       "repeated"
-
   type {user.code_type}:
       "{code_type}"
-
   repeated type {user.code_type}:
       "repeated{code_type}"

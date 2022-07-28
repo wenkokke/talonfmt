@@ -1,6 +1,7 @@
 input: "tag: user.code_keywords\n-\nkeyword (<user.code_keyword>+): user.code_keyword(code_keyword_list)\n"
-output: |
-  tag: user.code_keywords
+output: |2-
+   tag: user.code_keywords
   -
-  keyword ((<user.code_keyword>)+):
+
+  keyword (<user.code_keyword>+):
       user.code_keyword(code_keyword_list)

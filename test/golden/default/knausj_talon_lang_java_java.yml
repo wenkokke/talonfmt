@@ -13,9 +13,10 @@ input: "tag: user.java\n-\ntag(): user.code_imperative\ntag(): user.code_object_
   type {user.code_type} array:\n    insert(user.code_type)\n    user.code_operator_subscript()\n\
   \n[state] {user.java_modifier}:\n    insert(user.java_modifier + \" \")\n\nop array:\n\
   \    user.code_operator_subscript()\n\nop new:\n    insert(\"new \")\n"
-output: |
-  tag: user.java
+output: |2-
+   tag: user.java
   -
+
   tag(): user.code_imperative
   tag(): user.code_object_oriented
   tag(): user.code_comment_line
@@ -37,22 +38,19 @@ output: |
       user.code_protected_variable_formatter = "PRIVATE_CAMEL_CASE"
       user.code_public_variable_formatter = "PRIVATE_CAMEL_CASE"
   # Types Commands
+
   boxed [type] {user.java_boxed_type}:
       insert(user.java_boxed_type + "")
-
   generic [type] {user.java_generic_data_structure}:
       user.insert_between(java_generic_data_structure + "<", ">")
-
   # Arrays
+
   type {user.code_type} array:
       insert(user.code_type)
       user.code_operator_subscript()
-
   [state] {user.java_modifier}:
       insert(user.java_modifier + "")
-
   op array:
       user.code_operator_subscript()
-
   op new:
       insert("new")

@@ -1,11 +1,11 @@
 input: "tag: user.draft_editor_active\nand tag: user.draft_editor_app_focused\n-\n\
   \ndraft submit:    user.draft_editor_submit()\ndraft discard:   user.draft_editor_discard()\n"
-output: |
-  tag: user.draft_editor_active
-  and tag: user.draft_editor_app_focused
+output: |2-
+   tag: user.draft_editor_active
+   tag: user.draft_editor_app_focused
   -
+
   draft submit:
       user.draft_editor_submit()
-
   draft discard:
       user.draft_editor_discard()

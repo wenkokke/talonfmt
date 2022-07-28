@@ -1,5 +1,6 @@
 input: "-\n(abbreviate|abreviate|brief) {user.abbreviation}: \"{abbreviation}\"\n"
-output: |
+output: |-
   -
+
   (abbreviate | abreviate | brief) {user.abbreviation}:
       "{abbreviation}"

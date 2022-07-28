@@ -2,11 +2,15 @@ input: "tag: user.code_libraries_gui_showing\n-\n# The show functions for this h
   \ language specific names, e.g. toggle imports for Python\n# but let's use a generic\
   \ name for the close one. Having it behind this tag allows it to be closed\n# even\
   \ if your editor isn't visible.\ntoggle libraries close: user.code_toggle_libraries()\n"
-output: |
-  tag: user.code_libraries_gui_showing
+output: |2-
+   tag: user.code_libraries_gui_showing
   -
+
   # The show functions for this have language specific names, e.g. toggle imports for Python
+
   # but let's use a generic name for the close one. Having it behind this tag allows it to be closed
+
   # even if your editor isn't visible.
+
   toggle libraries close:
       user.code_toggle_libraries()

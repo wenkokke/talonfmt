@@ -1,6 +1,8 @@
 input: "app: atril\n-\n# Set tags\ntag(): user.pages\n"
-output: |-
-  app: atril
+output: |2-
+   app: atril
   -
+
   # Set tags
+
   tag(): user.pages

@@ -1,7 +1,9 @@
 input: "app: nitro_reader_five\n-\n# Set tags\ntag(): user.pages\ntag(): user.tabs\n"
-output: |-
-  app: nitro_reader_five
+output: |2-
+   app: nitro_reader_five
   -
+
   # Set tags
+
   tag(): user.pages
   tag(): user.tabs

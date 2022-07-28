@@ -1,5 +1,6 @@
 input: "screen numbers:   user.screens_show_numbering()\n"
-output: |
+output: |-
   -
+
   screen numbers:
       user.screens_show_numbering()

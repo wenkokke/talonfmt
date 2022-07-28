@@ -10,9 +10,10 @@ input: "tag: user.php\n-\ntag(): user.code_imperative\ntag(): user.code_object_o
   \ not equal: \" != \"\n\nstate try: \"try {\\n\"\nstate catch: \"catch (\\\\Throwable\
   \ $exception) {\\n\"\n\nvar <phrase> [over]:\n    insert(\"$\")\n    insert(user.formatted_text(phrase,\
   \ \"PRIVATE_CAMEL_CASE\"))\n"
-output: |
-  tag: user.php
+output: |2-
+   tag: user.php
   -
+
   tag(): user.code_imperative
   tag(): user.code_object_oriented
   tag(): user.code_libraries
@@ -33,16 +34,12 @@ output: |
       user.code_public_variable_formatter = "PRIVATE_CAMEL_CASE"
   (op | is) loosely equal:
       "=="
-
   (op | is) loosely not equal:
       "!="
-
   state try:
       "try{\n"
-
   state catch:
       "catch (\\Throwable $exception){\n"
-
   var <phrase> [over]:
       insert("$")
       insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE"))

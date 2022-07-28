@@ -1,6 +1,7 @@
 input: "tag: user.code_comment_documentation\n-\ndock comment: user.code_comment_documentation()\n"
-output: |
-  tag: user.code_comment_documentation
+output: |2-
+   tag: user.code_comment_documentation
   -
+
   dock comment:
       user.code_comment_documentation()

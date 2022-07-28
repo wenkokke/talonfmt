@@ -1,12 +1,11 @@
 input: "^microphone show$: user.microphone_selection_toggle()\n^microphone close$:\
   \ user.microphone_selection_hide()\n^microphone pick <number_small>$: user.microphone_select(number_small)\n"
-output: |
+output: |-
   -
-  ^ microphone show $:
+
+  ^microphone show$:
       user.microphone_selection_toggle()
-
-  ^ microphone close $:
+  ^microphone close$:
       user.microphone_selection_hide()
-
-  ^ microphone pick <number_small> $:
+  ^microphone pick <number_small>$:
       user.microphone_select(number_small)

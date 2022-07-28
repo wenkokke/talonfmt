@@ -12,9 +12,10 @@ input: "tag: user.ruby\n-\ntag(): user.code_imperative\ntag(): user.code_object_
   \ in Ruby.\ndock string:\n    user.code_comment_documentation()\n\nstate end: \"\
   end\"\nstate begin: \"begin\"\nstate rescue: \"rescue \"\nstate module: \"module\
   \ \"\n\n^instance <user.text>$:\n    insert(\"@\")\n    user.code_public_variable_formatter(text)\n"
-output: |
-  tag: user.ruby
+output: |2-
+   tag: user.ruby
   -
+
   tag(): user.code_imperative
   tag(): user.code_object_oriented
   tag(): user.code_comment_line
@@ -37,23 +38,18 @@ output: |
       user.code_public_variable_formatter = "SNAKE_CASE"
   args pipe:
       user.insert_between("|", "|")
-
   # NOTE: this command is created for backward compatibility, but the documentation comments are not actually strings in Ruby.
+
   dock string:
       user.code_comment_documentation()
-
   state end:
       "end"
-
   state begin:
       "begin"
-
   state rescue:
       "rescue"
-
   state module:
       "module"
-
-  ^ instance <user.text> $:
+  ^instance <user.text>$:
       insert("@")
       user.code_public_variable_formatter(text)

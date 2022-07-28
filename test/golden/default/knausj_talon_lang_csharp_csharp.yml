@@ -8,9 +8,10 @@ input: "tag: user.csharp\n-\ntag(): user.code_imperative\ntag(): user.code_objec
   \n    user.code_public_function_formatter = \"PUBLIC_CAMEL_CASE\"\n    user.code_private_variable_formatter\
   \ = \"PRIVATE_CAMEL_CASE\"\n    user.code_protected_variable_formatter = \"PUBLIC_CAMEL_CASE\"\
   \n    user.code_public_variable_formatter = \"PUBLIC_CAMEL_CASE\"\n"
-output: |-
-  tag: user.csharp
+output: |2-
+   tag: user.csharp
   -
+
   tag(): user.code_imperative
   tag(): user.code_object_oriented
   tag(): user.code_comment_line
