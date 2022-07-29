@@ -24,7 +24,7 @@ dependencies = [
 test = ["pytest", "pytest-golden"]
 
 [project.urls]
-repository = "https://github.com/wenkokke/py-talonfmt"
+repository = "https://github.com/wenkokke/talonfmt"
 
 [project.scripts]
 talonfmt = "talonfmt:cli"
