@@ -1,4 +1,9 @@
-input: "app: calibre_viewer\n-\n# Set tags\ntag(): user.pages\ntag(): user.chapters\n"
+input: |
+  app: calibre_viewer
+  -
+  # Set tags
+  tag(): user.pages
+  tag(): user.chapters
 output: |-
   app: calibre_viewer
 

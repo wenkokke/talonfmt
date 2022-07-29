@@ -1,34 +1,71 @@
-input: "os: mac\napp: slack\n-\ntag(): user.messaging\ntag(): user.emoji\n# Workspace\n\
-  workspace <number>: key(\"cmd-{number}\")\n# Channel\n(slack | lack) [channel] info:\
-  \ key(cmd-shift-i)\n# Navigation\nfocus (move | next): key(ctrl-`)\n(section | zone)\
-  \ [next]: key(f6)\n(section | zone) (previous | last): key(shift-f6)\n(slack | lack)\
-  \ [direct] messages: key(cmd-shift-k)\n(slack | lack) threads: key(cmd-shift-t)\n\
-  (slack | lack) (history [next] | back | backward): key(cmd-[)\n(slack | lack) forward:\
-  \ key(cmd-])\n(element | bit) [next]: key(tab)\n(element | bit) (previous | last):\
-  \ key(shift-tab)\n(slack | lack) (my stuff | activity): key(cmd-shift-m)\n(slack\
-  \ | lack) directory: key(cmd-shift-e)\n(slack | lack) (starred [items] | stars):\
-  \ key(cmd-shift-s)\n(slack | lack) unread [messages]: key(cmd-shift-a)\n(go | undo\
-  \ | toggle) full: key(ctrl-cmd-f)\n# Messaging\ngrab left: key(shift-up)\ngrab right:\
-  \ key(shift-down)\nadd line: key(shift-enter)\n(slack | lack) (slap | slaw | slapper):\
-  \ key(cmd-right shift-enter)\n(slack | lack) (react | reaction): key(cmd-shift-\\\
-  )\n(insert command | commandify): key(cmd-shift-c)\ninsert link: key(cmd-shift-u)\n\
-  insert code: key(cmd-shift-alt-c)\n(slack | lack) (bull | bullet | bulleted) [list]:\
-  \ key(cmd-shift-8)\n(slack | lack) (number | numbered) [list]: key(cmd-shift-7)\n\
-  (slack | lack) (quotes | quotation): key(cmd-shift->)\nbold: key(cmd-b)\n(italic\
-  \ | italicize): key(cmd-i)\n(strike | strikethrough): key(cmd-shift-x)\n(slack |\
-  \ lack) snippet: key(cmd-shift-enter)\n# Calls\n([toggle] mute | unmute): key(m)\n\
-  (slack | lack) huddle: key(cmd-shift-h)\n(slack | lack) ([toggle] video): key(v)\n\
-  (slack | lack) invite: key(a)\n# Miscellaneous\n(slack | lack) shortcuts: key(cmd-/)\n\
-  emote <user.text>: \"{text}\"\ntoggle left sidebar: key(cmd-shift-d)\ntoggle right\
-  \ sidebar: key(cmd-.)\n\n# DEPRECATED\n(move | next) focus:\n    app.notify(\"please\
-  \ use the voice command 'focus next' instead of 'next focus'\")\n    key(ctrl-`)\n\
-  [next] (section | zone):\n    app.notify(\"please use the voice command 'section\
-  \ next' instead of 'next section'\")\n    key(f6)\n(previous | last) (section |\
-  \ zone):\n    app.notify(\"please use the voice command 'section last' instead of\
-  \ 'last section'\")\n    key(shift-f6)\n[next] (element | bit):\n    app.notify(\"\
-  please use the voice command 'element next' instead of 'next element'\")\n    key(tab)\n\
-  (previous | last) (element | bit):\n    app.notify(\"please use the voice command\
-  \ 'element last' instead of 'last element'\")\n    key(shift-tab)\n"
+input: |
+  os: mac
+  app: slack
+  -
+  tag(): user.messaging
+  tag(): user.emoji
+  # Workspace
+  workspace <number>: key("cmd-{number}")
+  # Channel
+  (slack | lack) [channel] info: key(cmd-shift-i)
+  # Navigation
+  focus (move | next): key(ctrl-`)
+  (section | zone) [next]: key(f6)
+  (section | zone) (previous | last): key(shift-f6)
+  (slack | lack) [direct] messages: key(cmd-shift-k)
+  (slack | lack) threads: key(cmd-shift-t)
+  (slack | lack) (history [next] | back | backward): key(cmd-[)
+  (slack | lack) forward: key(cmd-])
+  (element | bit) [next]: key(tab)
+  (element | bit) (previous | last): key(shift-tab)
+  (slack | lack) (my stuff | activity): key(cmd-shift-m)
+  (slack | lack) directory: key(cmd-shift-e)
+  (slack | lack) (starred [items] | stars): key(cmd-shift-s)
+  (slack | lack) unread [messages]: key(cmd-shift-a)
+  (go | undo | toggle) full: key(ctrl-cmd-f)
+  # Messaging
+  grab left: key(shift-up)
+  grab right: key(shift-down)
+  add line: key(shift-enter)
+  (slack | lack) (slap | slaw | slapper): key(cmd-right shift-enter)
+  (slack | lack) (react | reaction): key(cmd-shift-\)
+  (insert command | commandify): key(cmd-shift-c)
+  insert link: key(cmd-shift-u)
+  insert code: key(cmd-shift-alt-c)
+  (slack | lack) (bull | bullet | bulleted) [list]: key(cmd-shift-8)
+  (slack | lack) (number | numbered) [list]: key(cmd-shift-7)
+  (slack | lack) (quotes | quotation): key(cmd-shift->)
+  bold: key(cmd-b)
+  (italic | italicize): key(cmd-i)
+  (strike | strikethrough): key(cmd-shift-x)
+  (slack | lack) snippet: key(cmd-shift-enter)
+  # Calls
+  ([toggle] mute | unmute): key(m)
+  (slack | lack) huddle: key(cmd-shift-h)
+  (slack | lack) ([toggle] video): key(v)
+  (slack | lack) invite: key(a)
+  # Miscellaneous
+  (slack | lack) shortcuts: key(cmd-/)
+  emote <user.text>: "{text}"
+  toggle left sidebar: key(cmd-shift-d)
+  toggle right sidebar: key(cmd-.)
+
+  # DEPRECATED
+  (move | next) focus:
+      app.notify("please use the voice command 'focus next' instead of 'next focus'")
+      key(ctrl-`)
+  [next] (section | zone):
+      app.notify("please use the voice command 'section next' instead of 'next section'")
+      key(f6)
+  (previous | last) (section | zone):
+      app.notify("please use the voice command 'section last' instead of 'last section'")
+      key(shift-f6)
+  [next] (element | bit):
+      app.notify("please use the voice command 'element next' instead of 'next element'")
+      key(tab)
+  (previous | last) (element | bit):
+      app.notify("please use the voice command 'element last' instead of 'last element'")
+      key(shift-tab)
 output: |
   os: mac
 

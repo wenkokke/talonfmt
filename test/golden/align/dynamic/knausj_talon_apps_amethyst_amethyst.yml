@@ -1,9 +1,16 @@
-input: "user.running: amethyst\n-\nwindow next: key(\"alt-shift-j\")\nwindow previous:\
-  \ key(\"alt-shift-k\")\n# window move desk: key(\"ctrl-alt-shift-h\")\nwindow full:\
-  \ key(\"alt-shift-d\")\nwindow tall: key(\"alt-shift-a\")\nwindow middle: key(\"\
-  alt-shift-`\")\nwindow move main: key(\"alt-shift-enter\")\nwindow grow: key(\"\
-  alt-shift-l\")\nwindow shrink: key(\"alt-shift-h\")\nwindow reevaluate: key(\"alt-shift-z\"\
-  )\n"
+input: |
+  user.running: amethyst
+  -
+  window next: key("alt-shift-j")
+  window previous: key("alt-shift-k")
+  # window move desk: key("ctrl-alt-shift-h")
+  window full: key("alt-shift-d")
+  window tall: key("alt-shift-a")
+  window middle: key("alt-shift-`")
+  window move main: key("alt-shift-enter")
+  window grow: key("alt-shift-l")
+  window shrink: key("alt-shift-h")
+  window reevaluate: key("alt-shift-z")
 output: |
   user.running: amethyst
 

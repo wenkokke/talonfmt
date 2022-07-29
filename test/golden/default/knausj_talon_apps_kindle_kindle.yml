@@ -1,8 +1,10 @@
-input: "app: kindle\n-\n# Set tags\ntag(): user.pages\n"
-output: |2-
-   app: kindle
+input: |
+  app: kindle
   -
-
   # Set tags
-
+  tag(): user.pages
+output: |-
+  app: kindle
+  -
+  # Set tags
   tag(): user.pages

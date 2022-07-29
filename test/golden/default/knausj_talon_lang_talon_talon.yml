@@ -1,50 +1,77 @@
-input: "tag: user.talon\n-\ntag(): user.code_operators_math\ntag(): user.code_operators_assignment\n\
-  tag(): user.code_comment_line\ntag(): user.code_functions_common\n# uncomment user.talon_populate_lists\
-  \ tag to activate talon-specific lists of actions, scopes, modes etcetera.\n# Do\
-  \ not enable this tag with dragon, as it will be unusable.\n# with conformer, the\
-  \ latency increase may also be unacceptable depending on your cpu\n# see https://github.com/knausj85/knausj_talon/issues/600\n\
-  # tag(): user.talon_populate_lists\n\ndot talon: insert(\".talon\")\n#defintion\
-  \ blocks for the context\naction block:\n    user.insert_between(\"action(\", \"\
-  ):\")\nsetting block:\n    insert(\"settings():\\n\\t\")\nsetting {user.talon_settings}:\n\
-  \    user.paste(\"{talon_settings} = \")\n#context requirements\nwin require:\n\
-  \    insert(\"os: windows\\n\")\nmac require:\n    insert(\"os: mac\\n\")\nlinux\
-  \ require:\n    insert(\"os: linux\\n\")\ntitle require:\n    insert(\"win.title:\
-  \ \")\napplication [require] [{user.talon_apps}]:\n    app = talon_apps or \"\"\n\
-  \    user.paste(\"app: {app}\")\nmode require [{user.talon_modes}]:\n    mode =\
-  \ talon_modes or \"\"\n    user.paste(\"mode: {mode}\")\ntag require [{user.talon_tags}]:\n\
-  \    tag = talon_tags or \"\"\n    user.paste(\"tag: {tag}\")\ntag set [{user.talon_tags}]:\n\
-  \    tag = talon_tags or \"\"\n    user.paste(\"tag(): {tag}\")\n# requires user.talon_populate_lists\
-  \ tag. do not use with dragon\nlist {user.talon_lists}: \"{{{talon_lists}}}\"\n\
-  # requires user.talon_populate_lists tag. do not use with dragon\ncapture {user.talon_captures}:\
-  \ \"<{talon_captures}>\"\n\n#commands for dictating key combos\nkey <user.keys>\
-  \ over: \"{keys}\"\nkey <user.modifiers> over: \"{modifiers}\"\n\n# all actions\
-  \ (requires uncommenting user.talon_populate_lists tag above)\nfunk {user.talon_actions}:\
-  \ user.code_insert_function(talon_actions, edit.selected_text())\nfunk cell <number>:\n\
-  \    user.code_select_function(number - 1, \"\")\nfunk wrap <user.code_common_function>:\n\
-  \    user.code_insert_function(code_common_function, edit.selected_text())\nfunk\
-  \ wrap <number>:\n    user.code_select_function(number - 1, edit.selected_text())\n"
-output: |2-
-   tag: user.talon
+input: |
+  tag: user.talon
   -
-
   tag(): user.code_operators_math
   tag(): user.code_operators_assignment
   tag(): user.code_comment_line
   tag(): user.code_functions_common
   # uncomment user.talon_populate_lists tag to activate talon-specific lists of actions, scopes, modes etcetera.
-
   # Do not enable this tag with dragon, as it will be unusable.
-
   # with conformer, the latency increase may also be unacceptable depending on your cpu
-
   # see https://github.com/knausj85/knausj_talon/issues/600
-
   # tag(): user.talon_populate_lists
 
+  dot talon: insert(".talon")
+  #defintion blocks for the context
+  action block:
+      user.insert_between("action(", "):")
+  setting block:
+      insert("settings():\n\t")
+  setting {user.talon_settings}:
+      user.paste("{talon_settings} = ")
+  #context requirements
+  win require:
+      insert("os: windows\n")
+  mac require:
+      insert("os: mac\n")
+  linux require:
+      insert("os: linux\n")
+  title require:
+      insert("win.title: ")
+  application [require] [{user.talon_apps}]:
+      app = talon_apps or ""
+      user.paste("app: {app}")
+  mode require [{user.talon_modes}]:
+      mode = talon_modes or ""
+      user.paste("mode: {mode}")
+  tag require [{user.talon_tags}]:
+      tag = talon_tags or ""
+      user.paste("tag: {tag}")
+  tag set [{user.talon_tags}]:
+      tag = talon_tags or ""
+      user.paste("tag(): {tag}")
+  # requires user.talon_populate_lists tag. do not use with dragon
+  list {user.talon_lists}: "{{{talon_lists}}}"
+  # requires user.talon_populate_lists tag. do not use with dragon
+  capture {user.talon_captures}: "<{talon_captures}>"
+
+  #commands for dictating key combos
+  key <user.keys> over: "{keys}"
+  key <user.modifiers> over: "{modifiers}"
+
+  # all actions (requires uncommenting user.talon_populate_lists tag above)
+  funk {user.talon_actions}: user.code_insert_function(talon_actions, edit.selected_text())
+  funk cell <number>:
+      user.code_select_function(number - 1, "")
+  funk wrap <user.code_common_function>:
+      user.code_insert_function(code_common_function, edit.selected_text())
+  funk wrap <number>:
+      user.code_select_function(number - 1, edit.selected_text())
+output: |-
+  tag: user.talon
+  -
+  tag(): user.code_operators_math
+  tag(): user.code_operators_assignment
+  tag(): user.code_comment_line
+  tag(): user.code_functions_common
+  # uncomment user.talon_populate_lists tag to activate talon-specific lists of actions, scopes, modes etcetera.
+  # Do not enable this tag with dragon, as it will be unusable.
+  # with conformer, the latency increase may also be unacceptable depending on your cpu
+  # see https://github.com/knausj85/knausj_talon/issues/600
+  # tag(): user.talon_populate_lists
   dot talon:
       insert(".talon")
   # defintion blocks for the context
-
   action block:
       user.insert_between("action(", "):")
   setting block:
@@ -52,7 +79,6 @@ output: |2-
   setting {user.talon_settings}:
       user.paste("{talon_settings}=")
   # context requirements
-
   win require:
       insert("os: windows\n")
   mac require:
@@ -74,21 +100,17 @@ output: |2-
       tag = talon_tags or ""
       user.paste("tag():{tag}")
   # requires user.talon_populate_lists tag. do not use with dragon
-
   list {user.talon_lists}:
       "{{{talon_lists}}}"
   # requires user.talon_populate_lists tag. do not use with dragon
-
   capture {user.talon_captures}:
       "<{talon_captures}>"
   # commands for dictating key combos
-
   key <user.keys> over:
       "{keys}"
   key <user.modifiers> over:
       "{modifiers}"
   # all actions (requires uncommenting user.talon_populate_lists tag above)
-
   funk {user.talon_actions}:
       user.code_insert_function(talon_actions, edit.selected_text())
   funk cell <number>:

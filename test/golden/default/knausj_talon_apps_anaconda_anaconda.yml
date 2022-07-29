@@ -1,26 +1,48 @@
-input: "tag: terminal\nand tag: user.anaconda\n-\nanaconda:         \"conda \"\nanaconda\
-  \ help:    \"conda --help\\n\"\nanaconda version: \"conda --version\\n\"\n\nanaconda\
-  \ environment list:   \"conda env list\\n\"\nanaconda environment create: \"conda\
-  \ env create -f \"\nanaconda environment remove: \"conda env remove -n \"\n\nanaconda\
-  \ activate:  \"conda activate \"\nanaconda clean:     \"conda clean \"\nanaconda\
-  \ compare:   \"conda compare \"\nanaconda config:    \"conda config \"\nanaconda\
-  \ create:    \"conda create \"\nanaconda info:      \"conda info \"\nanaconda init:\
-  \      \"conda init \"\nanaconda install:   \"conda install \"\nanaconda list: \
-  \     \"conda list \"\nanaconda package:   \"conda package \"\nanaconda remove:\
-  \    \"conda remove \"\nanaconda uninstall: \"conda uninstall \"\nanaconda run:\
-  \       \"conda run \"\nanaconda search:    \"conda search \"\nanaconda update:\
-  \    \"conda update \"\nanaconda upgrade:   \"conda upgrade \"\n\nanaconda build:\
-  \       \"conda build \"\nanaconda convert:     \"conda convert \"\nanaconda debug:\
-  \       \"conda debug \"\nanaconda develop:     \"conda develop \"\nanaconda environment:\
-  \ \"conda env \"\nanaconda index:       \"conda index \"\nanaconda inspect:    \
-  \ \"conda inspect \"\nanaconda metapackage: \"conda metapackage \"\nanaconda render:\
-  \      \"conda render \"\nanaconda server:      \"conda server \"\nanaconda skeleton:\
-  \    \"conda skeleton \"\nanaconda verify:      \"conda verify \"\n"
-output: |2-
-   tag: terminal
-   tag: user.anaconda
+input: |
+  tag: terminal
+  and tag: user.anaconda
   -
+  anaconda:         "conda "
+  anaconda help:    "conda --help\n"
+  anaconda version: "conda --version\n"
 
+  anaconda environment list:   "conda env list\n"
+  anaconda environment create: "conda env create -f "
+  anaconda environment remove: "conda env remove -n "
+
+  anaconda activate:  "conda activate "
+  anaconda clean:     "conda clean "
+  anaconda compare:   "conda compare "
+  anaconda config:    "conda config "
+  anaconda create:    "conda create "
+  anaconda info:      "conda info "
+  anaconda init:      "conda init "
+  anaconda install:   "conda install "
+  anaconda list:      "conda list "
+  anaconda package:   "conda package "
+  anaconda remove:    "conda remove "
+  anaconda uninstall: "conda uninstall "
+  anaconda run:       "conda run "
+  anaconda search:    "conda search "
+  anaconda update:    "conda update "
+  anaconda upgrade:   "conda upgrade "
+
+  anaconda build:       "conda build "
+  anaconda convert:     "conda convert "
+  anaconda debug:       "conda debug "
+  anaconda develop:     "conda develop "
+  anaconda environment: "conda env "
+  anaconda index:       "conda index "
+  anaconda inspect:     "conda inspect "
+  anaconda metapackage: "conda metapackage "
+  anaconda render:      "conda render "
+  anaconda server:      "conda server "
+  anaconda skeleton:    "conda skeleton "
+  anaconda verify:      "conda verify "
+output: |-
+  tag: terminal
+  and tag: user.anaconda
+  -
   anaconda:
       "conda"
   anaconda help:

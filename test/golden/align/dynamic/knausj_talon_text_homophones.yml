@@ -1,11 +1,22 @@
-input: "phones <user.homophones_canonical>: user.homophones_show(homophones_canonical)\n\
-  phones that: user.homophones_show_selection()\nphones force <user.homophones_canonical>:\
-  \ user.homophones_force_show(homophones_canonical)\nphones force: user.homophones_force_show_selection()\n\
-  phones hide: user.homophones_hide()\nphones word:\n  edit.select_word()\n  user.homophones_show_selection()\n\
-  phones [<user.ordinals>] word left:\n  n = ordinals or 1\n  user.words_left(n -\
-  \ 1)\n  edit.extend_word_left()\n  user.homophones_show_selection()\nphones [<user.ordinals>]\
-  \ word right:\n  n = ordinals or 1\n  user.words_right(n - 1)\n  edit.extend_word_right()\n\
-  \  user.homophones_show_selection()\n"
+input: |
+  phones <user.homophones_canonical>: user.homophones_show(homophones_canonical)
+  phones that: user.homophones_show_selection()
+  phones force <user.homophones_canonical>: user.homophones_force_show(homophones_canonical)
+  phones force: user.homophones_force_show_selection()
+  phones hide: user.homophones_hide()
+  phones word:
+    edit.select_word()
+    user.homophones_show_selection()
+  phones [<user.ordinals>] word left:
+    n = ordinals or 1
+    user.words_left(n - 1)
+    edit.extend_word_left()
+    user.homophones_show_selection()
+  phones [<user.ordinals>] word right:
+    n = ordinals or 1
+    user.words_right(n - 1)
+    edit.extend_word_right()
+    user.homophones_show_selection()
 output: |
   -
   phones <user.homophones_canonical>:

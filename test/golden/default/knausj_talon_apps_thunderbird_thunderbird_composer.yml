@@ -1,16 +1,23 @@
-input: "app: thunderbird_composer\n-\n# mail\n(draft | mail | message) save: user.thunderbird_mod(\"\
-  s\")\n(draft | mail | message) print: user.thunderbird_mod(\"p\")\n(draft | mail\
-  \ | message) send: user.thunderbird_mod(\"enter\")\n# layout\ntoggle contacts: key(f9)\n\
-  # navigation\ngo (inbox | thunderbird | main): user.thunderbird_mod(\"1\")\n# edit\n\
-  cite paste: user.thunderbird_mod(\"shift-o\")\n(unformatted | raw) paste: user.thunderbird_mod(\"\
-  shift-v\")\nlink new: user.thunderbird_mod(\"k\")\nlink delete: user.thunderbird_mod(\"\
-  shift-k\")\n"
-output: |2-
-   app: thunderbird_composer
+input: |
+  app: thunderbird_composer
   -
-
   # mail
-
+  (draft | mail | message) save: user.thunderbird_mod("s")
+  (draft | mail | message) print: user.thunderbird_mod("p")
+  (draft | mail | message) send: user.thunderbird_mod("enter")
+  # layout
+  toggle contacts: key(f9)
+  # navigation
+  go (inbox | thunderbird | main): user.thunderbird_mod("1")
+  # edit
+  cite paste: user.thunderbird_mod("shift-o")
+  (unformatted | raw) paste: user.thunderbird_mod("shift-v")
+  link new: user.thunderbird_mod("k")
+  link delete: user.thunderbird_mod("shift-k")
+output: |-
+  app: thunderbird_composer
+  -
+  # mail
   (draft | mail | message) save:
       user.thunderbird_mod("s")
   (draft | mail | message) print:
@@ -18,15 +25,12 @@ output: |2-
   (draft | mail | message) send:
       user.thunderbird_mod("enter")
   # layout
-
   toggle contacts:
       key(f9)
   # navigation
-
   go (inbox | thunderbird | main):
       user.thunderbird_mod("1")
   # edit
-
   cite paste:
       user.thunderbird_mod("shift-o")
   (unformatted | raw) paste:

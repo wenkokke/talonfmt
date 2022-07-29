@@ -1,11 +1,19 @@
-input: "os: windows\nand app: Outlook\n-\narchive: key(alt h o 1)\nnew e-mail: key(ctrl-n)\n\
-  calendar: key(ctrl-2)\ninbox: key(ctrl-1)\nReply: key(ctrl-r)\nReply all: key(ctrl-shift-r)\n\
-  Forward: key(ctrl-f)\naccept: key(shift-f10 c c enter)\n"
-output: |2-
-   os: windows
-   app: Outlook
+input: |
+  os: windows
+  and app: Outlook
   -
-
+  archive: key(alt h o 1)
+  new e-mail: key(ctrl-n)
+  calendar: key(ctrl-2)
+  inbox: key(ctrl-1)
+  Reply: key(ctrl-r)
+  Reply all: key(ctrl-shift-r)
+  Forward: key(ctrl-f)
+  accept: key(shift-f10 c c enter)
+output: |-
+  os: windows
+  and app: Outlook
+  -
   archive:
       key(alt h o 1)
   new e-mail:

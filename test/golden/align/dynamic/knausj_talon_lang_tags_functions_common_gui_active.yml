@@ -1,5 +1,8 @@
-input: "tag: user.code_functions_common_gui_active\n-\n# Toggle prefix to be mentally\
-  \ similar to the 'toggle funk' show command\ntoggle funk: user.code_toggle_functions()\n"
+input: |
+  tag: user.code_functions_common_gui_active
+  -
+  # Toggle prefix to be mentally similar to the 'toggle funk' show command
+  toggle funk: user.code_toggle_functions()
 output: |
   tag: user.code_functions_common_gui_active
 

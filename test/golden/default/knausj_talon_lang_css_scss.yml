@@ -1,6 +1,8 @@
-input: "tag: user.scss\n-\ntag(): user.css\n"
-output: |2-
-   tag: user.scss
+input: |
+  tag: user.scss
   -
-
+  tag(): user.css
+output: |-
+  tag: user.scss
+  -
   tag(): user.css

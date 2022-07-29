@@ -1,20 +1,24 @@
-input: "#provide both anchored and unachored commands via 'over'\nphrase <user.text>$:\
-  \ user.insert_with_history(text)\nphrase <user.text> over: user.insert_with_history(text)\n\
-  {user.prose_formatter} <user.prose>$: user.insert_formatted(prose, prose_formatter)\n\
-  {user.prose_formatter} <user.prose> over: user.insert_formatted(prose, prose_formatter)\n\
-  <user.format_text>+$: user.insert_many(format_text_list)\n<user.format_text>+ over:\
-  \ user.insert_many(format_text_list)\n<user.formatters> that: user.formatters_reformat_selection(user.formatters)\n\
-  word <user.word>: user.insert_with_history(user.word)\nrecent list: user.toggle_phrase_history()\n\
-  recent close: user.phrase_history_hide()\nrecent repeat <number_small>: user.insert_with_history(user.get_recent_phrase(number_small))\n\
-  recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))\n\
-  select that: user.select_last_phrase()\nbefore that: user.before_last_phrase()\n\
-  nope that | scratch that: user.clear_last_phrase()\nnope that was <user.formatters>:\
-  \ user.formatters_reformat_last(formatters)\n"
+input: |
+  #provide both anchored and unachored commands via 'over'
+  phrase <user.text>$: user.insert_with_history(text)
+  phrase <user.text> over: user.insert_with_history(text)
+  {user.prose_formatter} <user.prose>$: user.insert_formatted(prose, prose_formatter)
+  {user.prose_formatter} <user.prose> over: user.insert_formatted(prose, prose_formatter)
+  <user.format_text>+$: user.insert_many(format_text_list)
+  <user.format_text>+ over: user.insert_many(format_text_list)
+  <user.formatters> that: user.formatters_reformat_selection(user.formatters)
+  word <user.word>: user.insert_with_history(user.word)
+  recent list: user.toggle_phrase_history()
+  recent close: user.phrase_history_hide()
+  recent repeat <number_small>: user.insert_with_history(user.get_recent_phrase(number_small))
+  recent copy <number_small>: clip.set_text(user.get_recent_phrase(number_small))
+  select that: user.select_last_phrase()
+  before that: user.before_last_phrase()
+  nope that | scratch that: user.clear_last_phrase()
+  nope that was <user.formatters>: user.formatters_reformat_last(formatters)
 output: |-
   -
-
   # provide both anchored and unachored commands via 'over'
-
   phrase <user.text>$:
       user.insert_with_history(text)
   phrase <user.text> over:

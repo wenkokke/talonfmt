@@ -1,9 +1,12 @@
-input: "tag: user.emoji\n-\nemoticon {user.emoticon}: \"{emoticon}\"\nemoji {user.emoji}:\
-  \ user.paste(emoji)\nkaomoji {user.kaomoji}: user.paste(kaomoji)\n"
-output: |2-
-   tag: user.emoji
+input: |
+  tag: user.emoji
   -
-
+  emoticon {user.emoticon}: "{emoticon}"
+  emoji {user.emoji}: user.paste(emoji)
+  kaomoji {user.kaomoji}: user.paste(kaomoji)
+output: |-
+  tag: user.emoji
+  -
   emoticon {user.emoticon}:
       "{emoticon}"
   emoji {user.emoji}:

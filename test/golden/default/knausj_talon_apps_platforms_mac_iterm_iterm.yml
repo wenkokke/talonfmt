@@ -1,17 +1,21 @@
-input: "os: mac\napp: iterm2\n-\ntag(): terminal\n# todo: filemanager support\n#tag():\
-  \ user.file_manager\ntag(): user.generic_unix_shell\ntag(): user.git\ntag(): user.kubectl\n\
-  tag(): user.tabs\n"
-output: |2-
-   os: mac
-
-   app: iterm2
+input: |
+  os: mac
+  app: iterm2
   -
-
   tag(): terminal
   # todo: filemanager support
-
+  #tag(): user.file_manager
+  tag(): user.generic_unix_shell
+  tag(): user.git
+  tag(): user.kubectl
+  tag(): user.tabs
+output: |-
+  os: mac
+  app: iterm2
+  -
+  tag(): terminal
+  # todo: filemanager support
   # tag(): user.file_manager
-
   tag(): user.generic_unix_shell
   tag(): user.git
   tag(): user.kubectl

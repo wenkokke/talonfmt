@@ -1,4 +1,5 @@
-input: "{user.file_extension}: \"{file_extension}\"\n"
+input: |
+  {user.file_extension}: "{file_extension}"
 output: |
   -
   {user.file_extension}:           "{file_extension}"

@@ -1,4 +1,8 @@
-input: "app: evince\n-\n# Set tags\ntag(): user.pages\n"
+input: |
+  app: evince
+  -
+  # Set tags
+  tag(): user.pages
 output: |-
   app: evince
 

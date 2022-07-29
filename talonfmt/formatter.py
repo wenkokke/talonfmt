@@ -1,8 +1,9 @@
 from collections.abc import Iterator, Sequence
 from contextlib import contextmanager
-from functools import singledispatchmethod
-from itertools import chain
-from typing import Any, Iterable, TypeVar, Union, cast
+from functools import reduce, singledispatchmethod
+from itertools import chain, repeat
+import operator
+from typing import Any, Iterable, NewType, Optional, TypeVar, Union, cast
 from doc_printer import *
 from tree_sitter_talon import *
 
@@ -23,12 +24,8 @@ class TalonFormatter:
     def format(self, node: Node) -> Doc:
         raise TypeError(type(node))
 
-    def format_children(
-        self, children: Iterable[Node], store_comments: bool = True
-    ) -> Iterator[Doc]:
-        if store_comments:
-            children = self.store_comments(children)
-        for child in children:
+    def format_children(self, children: Iterable[Node]) -> Iterator[Doc]:
+        for child in self.store_comments(children):
             if isinstance(child, Iterable):
                 yield from self.format_children(child)
             else:
@@ -38,33 +35,63 @@ class TalonFormatter:
     def _(self, node: TalonError) -> Doc:
         raise ValueError(node.start_position, node.end_position)
 
-    # Source File
+    ###########################################################################
+    # Documents
+    ###########################################################################
 
     @format.register
     def _(self, node: TalonSourceFile) -> Doc:
-        docs = self.format_children(node.children, store_comments=False)
-        docs_with_tables = create_tables(docs, separator=Line)
-        return cat(docs_with_tables)
-
-    def aligned_command(self, *doclike: DocLike, is_one_line: bool) -> Doc:
-        if self.align_short_commands and is_one_line:
-            if self.align_short_commands is True:
-                return row(*doclike, table_type="command")
+        header: list[Doc] = []
+        body: list[Doc] = []
+        for child in self.store_comments(node.children):
+            if isinstance(child, TalonContext):
+                header.extend(self.get_comments())
+                context = self.format(child)
+                if context:
+                    header.append(context)
             else:
-                return row(
-                    *doclike,
-                    table_type="command",
-                    min_col_widths=(self.align_short_commands,),
-                )
-        else:
-            return Fail
+                body.extend(self.get_comments())
+                body.append(self.format(child))
+        body_with_tables = create_tables(iter(body))
+        return Line.join(header, "-", body_with_tables)
+
+    ###########################################################################
+    # Tag Includes
+    ###########################################################################
+
+    @format.register
+    def _(self, node: TalonIncludeTag) -> Doc:
+        # NOTE: top-level constructs should not include a trailing newline
+        self.only_comment_children(node)
+        include_tag = "tag():" // self.format(node.tag)
+        return Line.join(self.get_comments(), include_tag)
+
+    ###########################################################################
+    # Settings
+    ###########################################################################
+
+    @format.register
+    def _(self, node: TalonSettings) -> Doc:
+        # NOTE: top-level constructs should not include a trailing newline
+        settings = (
+            "settings():"
+            / Line
+            / Nest(self.indent_size, self.format(self.get_only_child(node)))
+        )
+        return Line.join(self.get_comments(), settings)
+
+    ###########################################################################
+    # Commands
+    ###########################################################################
 
     @format.register
     def _(self, node: TalonCommand) -> Doc:
+        # NOTE: top-level constructs should not include a trailing newline
+
         rule_doc = self.format(node.rule)
-        rule_comments = list(self.comments())
+        rule_comments = list(self.get_comments())
         script_doc = self.format(node.script)
-        script_comments = list(self.comments())
+        script_comments = list(self.get_comments())
         # (1): a line-break after the rule, e.g.,
         #
         # select camel left:
@@ -85,20 +112,35 @@ class TalonFormatter:
         alt2 = self.aligned_command(
             rule_doc / ":",
             Line.join(script_comments, script_doc),
-            is_one_line=len(script_comments) + len(node.script.children) == 1,
+            multiline=len(script_comments) + len(node.script.children) > 1,
         )
 
         alts = alt1 | alt2
-        return cat(rule_comments, alts) if rule_comments else alts
+        return Line.join(rule_comments, alts) if rule_comments else alts
 
-    # Statements
+    def aligned_command(self, *doclike: DocLike, multiline: bool) -> Doc:
+        if self.align_short_commands and not multiline:
+            if self.align_short_commands is True:
+                return row(*doclike, table_type="command")
+            else:
+                return row(
+                    *doclike,
+                    table_type="command",
+                    min_col_widths=(self.align_short_commands,),
+                )
+        else:
+            return Fail
+
+    ###########################################################################
+    # Statements and Blocks
+    ###########################################################################
 
     @format.register
     def _(self, node: TalonBlock) -> Doc:
         docs: list[Doc] = []
         for stmt in node.children:
             doc = self.format(stmt)
-            docs.extend(self.comments())
+            docs.extend(self.get_comments())
             docs.append(doc)
         return Line.join(docs)
 
@@ -110,8 +152,13 @@ class TalonFormatter:
         return Space.join(left, "=", right)
 
     @format.register
+    def _(self, node: TalonComment) -> Doc:
+        comment = node.text.strip().lstrip("#").lstrip()
+        return "#" // Text.words(comment)
+
+    @format.register
     def _(self, node: TalonDocstring) -> Doc:
-        comment = node.text.lstrip().lstrip("#")
+        comment = node.text.strip().lstrip("#").lstrip()
         return "###" // Text.words(comment)
 
     @format.register
@@ -120,14 +167,16 @@ class TalonFormatter:
         expression = self.format(node.expression)
         return expression
 
+    ###########################################################################
+    # Expressions
+    ###########################################################################
+
     @format.register
     def _(self, node: TalonAction) -> Doc:
         self.only_comment_children(node)
         action_name = self.format(node.action_name)
         arguments = self.format(node.arguments)
         return action_name / parens(arguments)
-
-    # Expressions
 
     @format.register
     def _(self, node: TalonArgumentList) -> Doc:
@@ -156,17 +205,12 @@ class TalonFormatter:
         return Text.words(node.text)
 
     @format.register
-    def _(self, node: TalonIncludeTag) -> Doc:
-        self.only_comment_children(node)
-        return "tag():" // self.format(node.tag)
-
-    @format.register
     def _(self, node: TalonInteger) -> Doc:
         return Text.words(node.text)
 
     @format.register
     def _(self, node: TalonInterpolation) -> Doc:
-        return self.format(self.get_noncomment_child(node))
+        return self.format(self.get_only_child(node))
 
     @format.register
     def _(self, node: TalonKeyAction) -> Doc:
@@ -175,7 +219,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonNumber) -> Doc:
-        return self.format(self.get_noncomment_child(node))
+        return self.format(self.get_only_child(node))
 
     @format.register
     def _(self, node: TalonOperator) -> Doc:
@@ -183,7 +227,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonParenthesizedExpression) -> Doc:
-        return parens(self.format(self.get_noncomment_child(node)))
+        return parens(self.format(self.get_only_child(node)))
 
     @format.register
     def _(self, node: TalonRegexEscapeSequence) -> Doc:
@@ -191,14 +235,6 @@ class TalonFormatter:
             return braces(self.format_children(node.children))
         else:
             return braces(Empty)
-
-    @format.register
-    def _(self, node: TalonSettings) -> Doc:
-        return cat(
-            "settings():",
-            Line,
-            Nest(self.indent_size, self.format(self.get_noncomment_child(node))),
-        )
 
     @format.register
     def _(self, node: TalonSleepAction) -> Doc:
@@ -222,7 +258,9 @@ class TalonFormatter:
         self.only_comment_children(node)
         return self.format(node.variable_name)
 
+    ###########################################################################
     # Rules
+    ###########################################################################
 
     @format.register
     def _(self, node: TalonCapture) -> Doc:
@@ -246,22 +284,22 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonOptional) -> Doc:
-        child = self.get_noncomment_child(node)
+        child = self.get_only_child(node)
         return brackets(self.format(child))
 
     @format.register
     def _(self, node: TalonParenthesizedRule) -> Doc:
-        child = self.get_noncomment_child(node)
+        child = self.get_only_child(node)
         return parens(self.format(child))
 
     @format.register
     def _(self, node: TalonRepeat) -> Doc:
-        child = self.get_noncomment_child(node)
+        child = self.get_only_child(node)
         return self.format(child) / "*"
 
     @format.register
     def _(self, node: TalonRepeat1) -> Doc:
-        return self.format(self.get_noncomment_child(node)) / "+"
+        return self.format(self.get_only_child(node)) / "+"
 
     @format.register
     def _(self, node: TalonRule) -> Doc:
@@ -279,8 +317,11 @@ class TalonFormatter:
     def _(self, node: TalonWord) -> Doc:
         return Text.words(node.text)
 
+    ###########################################################################
     # Comments
+    ###########################################################################
 
+    # Used to buffer comments encountered inline, e.g., inside a binary operator
     _comment_buffer: list[TalonComment] = dataclasses.field(
         default_factory=list, init=False
     )
@@ -292,7 +333,7 @@ class TalonFormatter:
             else:
                 yield child
 
-    def comments(self) -> Iterator[Doc]:
+    def get_comments(self) -> Iterator[Doc]:
         try:
             for comment in self._comment_buffer:
                 yield self.format(comment)
@@ -306,7 +347,7 @@ class TalonFormatter:
                 len(rest) == 0
             ), f"There should be no non-comment children, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
 
-    def get_noncomment_child(self, branch: Branch) -> Node:
+    def get_only_child(self, branch: Branch) -> Node:
         assert branch.children is not None
         if isinstance(branch.children, Sequence):
             rest = tuple(self.store_comments(branch.children))
@@ -317,87 +358,88 @@ class TalonFormatter:
         else:
             return branch.children
 
-    @format.register
-    def _(self, node: TalonComment) -> Doc:
-        comment = node.text.lstrip().lstrip("#")
-        return "#" // Text.words(comment) / Line
-
-    # Contexts and Matches
-
-    @format.register
-    def _(self, node: TalonAnd) -> Doc:
-        first_child, *children = self.store_comments(node.children)
-        first_doc = self.format(first_child)
-        with self.context_and():
-            docs = self.format_children(children, store_comments=False)
-        return cat(first_doc, docs)
+    ###########################################################################
+    # Context Header
+    ###########################################################################
 
     @format.register
     def _(self, node: TalonContext) -> Doc:
-        return cat(self.format_children(node.children, store_comments=False), "-", Line)
+        docstrings: list[Doc] = []
+        buffer: list[Doc] = []
+        for child in node.children:
+            if isinstance(child, TalonDocstring):
+                docstrings.append(self.format(child))
+            elif isinstance(child, TalonComment):
+                buffer.append(self.format(child))
+            else:
+                buffer.extend(self.format_matches(child, False, False))
+        if not docstrings and not buffer:
+            return Empty
+        else:
+            return Line.join(docstrings, buffer)
 
-    @format.register
-    def _(self, node: TalonMatch) -> Doc:
-        key = self.format(node.key)
-        pattern = self.format(node.pattern)
-        kwds = self.context_kwds()
-        alt1 = kwds // key / ":" // pattern / Line
-        alt2 = self.aligned_match(kwds // key / ":", pattern)
-        return alt1 | alt2
+    @singledispatchmethod
+    def format_matches(
+        self,
+        match: Union[TalonAnd, TalonNot, TalonMatch, TalonOr],
+        *,
+        under_and: bool,
+        under_not: bool,
+    ) -> Iterator[Doc]:
+        raise TypeError(type(match))
 
-    @format.register
-    def _(self, node: TalonNot) -> Doc:
-        # NOTE: there should only be one non-comment child
-        (match,) = list(self.store_comments(node.children))
-        with self.context_not():
-            return self.format(match)
+    @format_matches.register
+    def _(self, match: TalonAnd, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        for child in match.children:
+            if isinstance(child, TalonComment):
+                yield self.format(child)
+            else:
+                yield from self.format_matches(child, under_and, under_not)
+                under_and = True
 
-    @format.register
-    def _(self, node: TalonOr) -> Doc:
-        docs: list[Doc] = []
-        for child in self.store_comments(node.children):
-            doc = self.format(child)
-            docs.extend(comment / Line for comment in self.comments())
-            docs.append(doc)
-        return cat(create_tables(iter(docs)))
+    @format_matches.register
+    def _(self, match: TalonNot, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        for child in match.children:
+            if isinstance(child, TalonComment):
+                yield self.format(child)
+            else:
+                yield from self.format_matches(child, under_and, under_not)
+                under_not = True
 
-    _under_and: bool = dataclasses.field(default=False, init=False)
+    @format_matches.register
+    def _(self, match: TalonOr, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        for child in match.children:
+            if isinstance(child, TalonComment):
+                yield self.format(child)
+            else:
+                yield from self.format_matches(child, under_and, under_not)
 
-    @contextmanager
-    def context_and(self) -> Iterator[None]:
-        self._under_and = True
-        try:
-            yield None
-        finally:
-            self._under_and = False
+    @format_matches.register
+    def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        kwds = self.match_keywords(under_and, under_not)
+        key = cat(kwds, self.format(match.key), ":")
+        pattern = self.format(match.pattern)
+        yield alt(self.create_match_alts(key, pattern))
 
-    _under_not: bool = dataclasses.field(default=False, init=False)
+    def match_keywords(self, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        if under_and:
+            yield Text("and")
+            yield Space
+        if under_not:
+            yield Text("not")
+            yield Space
 
-    @contextmanager
-    def context_not(self) -> Iterator[None]:
-        self._under_not = True
-        try:
-            yield None
-        finally:
-            self._under_not = False
+    def create_match_alts(self, *doclike: DocLike) -> Iterator[Doc]:
+        # Standard
+        yield Space.join(doclike)
 
-    def context_kwds(self) -> Doc:
-        kwds = []
-        if self._under_and:
-            kwds.append(Text("and"))
-        if self._under_not:
-            kwds.append(Text("not"))
-        return Space.join(kwds)
-
-    def aligned_match(self, *doclike: DocLike) -> Doc:
+        # Aligned alternative
         if self.align_match_context:
             if self.align_match_context is True:
-                return row(*doclike, table_type="match")
+                yield row(*doclike, table_type="match")
             else:
-                return row(
+                yield row(
                     *doclike,
                     table_type="match",
                     min_col_widths=(self.align_match_context,),
                 )
-        else:
-            return Fail

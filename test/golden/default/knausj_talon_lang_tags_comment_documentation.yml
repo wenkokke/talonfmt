@@ -1,7 +1,9 @@
-input: "tag: user.code_comment_documentation\n-\ndock comment: user.code_comment_documentation()\n"
-output: |2-
-   tag: user.code_comment_documentation
+input: |
+  tag: user.code_comment_documentation
   -
-
+  dock comment: user.code_comment_documentation()
+output: |-
+  tag: user.code_comment_documentation
+  -
   dock comment:
       user.code_comment_documentation()

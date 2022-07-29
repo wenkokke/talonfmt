@@ -1,13 +1,34 @@
-input: "os: linux\ntag: terminal\nand tag: user.taskwarrior\n-\n# general\ntask version:\
-  \ \"task --version\\n\"\ntask commands: \"task commands\\n\"\ntask help: \"task\
-  \ help\\n\"\n\n# task list\ntask list: \"task list\\n\"\ntask list orphans: \"task\
-  \ project: list\\n\"\ntask list untagged: \"task tags.none: list\\n\"\ntask list\
-  \ <user.text>: \"task list {text}\\n\"\ntask list project: \"task list project:\
-  \ \"\ntask list project <user.text>: \"task list project:{text}\\n\"\n\n# task add\n\
-  task add: \"task add \"\ntask add <user.text>: \"task add {text}\\n\"\ntask undo:\
-  \ \"task undo\\n\"\n\n(tasks|task next): \"task next\\n\"\n\n# task editing\ntask\
-  \ <number> edit$: \"task {number} edit\"\n\n# task completion\ntask <number> done$:\
-  \ \"task {number} done\"\ntask <number> delete$: \"task {number} delete\"\n"
+input: |
+  os: linux
+  tag: terminal
+  and tag: user.taskwarrior
+  -
+  # general
+  task version: "task --version\n"
+  task commands: "task commands\n"
+  task help: "task help\n"
+
+  # task list
+  task list: "task list\n"
+  task list orphans: "task project: list\n"
+  task list untagged: "task tags.none: list\n"
+  task list <user.text>: "task list {text}\n"
+  task list project: "task list project: "
+  task list project <user.text>: "task list project:{text}\n"
+
+  # task add
+  task add: "task add "
+  task add <user.text>: "task add {text}\n"
+  task undo: "task undo\n"
+
+  (tasks|task next): "task next\n"
+
+  # task editing
+  task <number> edit$: "task {number} edit"
+
+  # task completion
+  task <number> done$: "task {number} done"
+  task <number> delete$: "task {number} delete"
 output: |
   os: linux
 

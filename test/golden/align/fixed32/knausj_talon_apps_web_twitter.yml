@@ -1,14 +1,41 @@
-input: "tag: browser\nbrowser.host: twitter.com\n#win.title: /Twitter/\n-\n\n# navigation\n\
-  (show shortcuts|shortcuts help): key(?)\nnext tweet: key(j)\nprevious tweet: key(k)\n\
-  page down: key(space)\nload new tweet: key(.)\ngo home: insert(\"gh\")\ngo explore:\
-  \ insert(\"ge\")\ngo notifications: insert(\"gn\")\ngo mentions: insert(\"gr\")\n\
-  go profile: insert(\"gp\")\ngo likes: insert(\"gl\")\ngo lists: insert(\"gi\")\n\
-  go direct messages: insert(\"gm\")\ngo settings: insert(\"gs\")\ngo book marks:\
-  \ insert(\"gb\")\ngo to user: insert(\"gu\")\ndisplay settings: insert(\"gd\")\n\
-  # actions\nnew tweet: key(n)\nsend tweet: key(ctrl-enter)\nnew direct message: key(m)\n\
-  search: key(/)\nlike message: key(l)\nreply message: key(r)\nre tweet [message]:\
-  \ key(t)\nshare tweet: key(s)\nbookmark: key(b)\nmute account: key(urge)\nblock\
-  \ account: key(x)\nopen details: key(enter)\nexpand photo: key(o)\n"
+input: |
+  tag: browser
+  browser.host: twitter.com
+  #win.title: /Twitter/
+  -
+
+  # navigation
+  (show shortcuts|shortcuts help): key(?)
+  next tweet: key(j)
+  previous tweet: key(k)
+  page down: key(space)
+  load new tweet: key(.)
+  go home: insert("gh")
+  go explore: insert("ge")
+  go notifications: insert("gn")
+  go mentions: insert("gr")
+  go profile: insert("gp")
+  go likes: insert("gl")
+  go lists: insert("gi")
+  go direct messages: insert("gm")
+  go settings: insert("gs")
+  go book marks: insert("gb")
+  go to user: insert("gu")
+  display settings: insert("gd")
+  # actions
+  new tweet: key(n)
+  send tweet: key(ctrl-enter)
+  new direct message: key(m)
+  search: key(/)
+  like message: key(l)
+  reply message: key(r)
+  re tweet [message]: key(t)
+  share tweet: key(s)
+  bookmark: key(b)
+  mute account: key(urge)
+  block account: key(x)
+  open details: key(enter)
+  expand photo: key(o)
 output: |
   tag: browser
 

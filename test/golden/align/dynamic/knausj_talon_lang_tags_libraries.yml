@@ -1,4 +1,7 @@
-input: "tag: user.code_libraries\n-\nstate import: user.code_import()\n"
+input: |
+  tag: user.code_libraries
+  -
+  state import: user.code_import()
 output: |
   tag: user.code_libraries
 

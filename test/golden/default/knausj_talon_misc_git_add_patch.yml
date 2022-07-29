@@ -1,13 +1,28 @@
-input: "tag: terminal\nand tag: user.git\ntitle: /git add .*\\-p/\n-\nyank:\n  key(y)\n\
-  \  key(enter)\nnear:\n  key(n)\n  key(enter)\nquench:\n  key(q)\n  key(enter)\n\
-  drum:\n  key(d)\n  key(enter)\nair:\n  key(a)\n  key(enter)\n"
-output: |2-
-   tag: terminal
-   tag: user.git
-
-   title: /git add .*\-p/
+input: |
+  tag: terminal
+  and tag: user.git
+  title: /git add .*\-p/
   -
-
+  yank:
+    key(y)
+    key(enter)
+  near:
+    key(n)
+    key(enter)
+  quench:
+    key(q)
+    key(enter)
+  drum:
+    key(d)
+    key(enter)
+  air:
+    key(a)
+    key(enter)
+output: |-
+  tag: terminal
+  and tag: user.git
+  title: /git add .*\-p/
+  -
   yank:
       key(y)
       key(enter)

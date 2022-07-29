@@ -1,54 +1,115 @@
-input: "os: linux\n# XXX - this matches .gdb files atm\n#win.title: /gdb/\ntag: terminal\n\
-  mode: user.gdb\n-\ntag(): user.gdb\ntag(): user.debugger\nuntil <number>: \"until\
-  \ {number}\"\nforce clear all break points:\n    insert(\"d br\\n\")\n    insert(\"\
-  y\\n\")\nbreak [on] clipboard:\n    insert(\"break \")\n    key(ctrl-shift-v)\n\
-  \    key(enter)\n\n# information\nlist [source]: \"list\\n\"\ninfo source: \"info\
-  \ source\\n\"\n\nprint: \"p \"\nprint [variable] <user.text>: \"p {text}\"\nprint\
-  \ hex: \"p/x \"\nprint hex [variable] <user.text>: \"p/x {text}\"\nprint string:\
-  \ \"p/s \"\n\n# hexdumping\n# XXX - switch the sizes to a list in python?\n# XXX\
-  \ - should cache the last used size\nhex dump <number> bytes: \"x/{number}bx \"\n\
-  hex dump <number> (half|short) words: \"x/{number}hx \"\nhex dump <number> (d|long)\
-  \ words: \"x/{number}dx \"\nhex dump <number> quad words: \"x/{number}gx \"\n# this\
-  \ is some arbitrary default for convenience\nhex dump: \"x/100gx \"\nhex dump highlighted:\n\
-  \    insert(\"x/100gx \")\n    edit.copy()\n    edit.paste()\n    key(enter)\nhex\
-  \ dump clipboard:\n    insert(\"x/100gx \")\n    edit.paste()\n    key(enter)\n\n\
-  \n# execution\nsource: \"source \\t\\t\"\n\n# displays\n# XXX - move thee invoke\
-  \ command into a python script\n(list|show|info) display: \"info display\\n\"\n\
-  display assembly line$: \"display /i $pc\\n\"\ndisplay source: \"display \"\nenable\
-  \ display <number_small>: \"enable display {number_small}\\n\"\ndisable display\
-  \ <number_small>: \"disable display {number_small}\\n\"\nundisplay: \"undisplay\\\
-  n\"\n\n# variables\n(list|show|info) local: \"info local \"\n(list|show|info) local\
-  \ typed: \"info local -t \"\n(list|show|info) variable: \"info variable \"\n(list|show|info)\
-  \ variable typed: \"info variable -t \"\n(list|show|info) locals: \"info local\\\
-  n\"\n(list|show|info) variables: \"info variables\\n\"\n\n# threads\ninfo threads:\
-  \ \"info threads\\n\"\n\nrestart [program]: \"r\\n\"\ncontinue: \"c\\n\"\nback trace:\
-  \ \"bt\\n\"\ndebug quit: \"quit\\n\"\n# more quickly quit when there are inferiors\n\
-  debug force quit: \"quit\\ny\\n\"\n(show|info) (inf|inferiors): \"info inferiors\\\
-  n\"\ninferior <number_small>$: \"inferior {number_small}\\n\"\ninferior: \"inferior\
-  \ \"\nresume main (inf|inferior):\n    insert(\"inferior 1\\n\")\n    insert(\"\
-  c\\n\")\nresume [from] (inf|inferior) <number_small>$:\n    insert(\"inferior {number_small}\\\
-  n\")\n    insert(\"c\\n\")\n\n# arguments\nset args: \"set args \"\n\n# settings\n\
-  show follow (fork|forks) [mode]: \"show follow-fork-mode\\n\"\n[set] follow (fork|forks)\
-  \ [mode] child: \"set follow-fork-mode child\\n\"\n[set] follow (fork|forks) [mode]\
-  \ parent: \"set follow-fork-mode parent\\n\"\n\nshow detach on fork: \"show detach-on-fork\\\
-  n\"\nset detach on fork: \"set detach-on-fork on\\n\"\nunset detach on fork: \"\
-  set detach-on-fork off\\n\"\n\n# list\nshow list size: \"show listsize\\n\"\nset\
-  \ list size <number_small>: \"set listsize {number_small}\\n\"\n\n# misc\nclear\
-  \ screen: \"shell clear\\n\"\n"
-output: |2-
-   os: linux
-
+input: |
+  os: linux
   # XXX - this matches .gdb files atm
-
-
-  # win.title: /gdb/
-
-
-   tag: terminal
-
-   mode: user.gdb
+  #win.title: /gdb/
+  tag: terminal
+  mode: user.gdb
   -
+  tag(): user.gdb
+  tag(): user.debugger
+  until <number>: "until {number}"
+  force clear all break points:
+      insert("d br\n")
+      insert("y\n")
+  break [on] clipboard:
+      insert("break ")
+      key(ctrl-shift-v)
+      key(enter)
 
+  # information
+  list [source]: "list\n"
+  info source: "info source\n"
+
+  print: "p "
+  print [variable] <user.text>: "p {text}"
+  print hex: "p/x "
+  print hex [variable] <user.text>: "p/x {text}"
+  print string: "p/s "
+
+  # hexdumping
+  # XXX - switch the sizes to a list in python?
+  # XXX - should cache the last used size
+  hex dump <number> bytes: "x/{number}bx "
+  hex dump <number> (half|short) words: "x/{number}hx "
+  hex dump <number> (d|long) words: "x/{number}dx "
+  hex dump <number> quad words: "x/{number}gx "
+  # this is some arbitrary default for convenience
+  hex dump: "x/100gx "
+  hex dump highlighted:
+      insert("x/100gx ")
+      edit.copy()
+      edit.paste()
+      key(enter)
+  hex dump clipboard:
+      insert("x/100gx ")
+      edit.paste()
+      key(enter)
+
+
+  # execution
+  source: "source \t\t"
+
+  # displays
+  # XXX - move thee invoke command into a python script
+  (list|show|info) display: "info display\n"
+  display assembly line$: "display /i $pc\n"
+  display source: "display "
+  enable display <number_small>: "enable display {number_small}\n"
+  disable display <number_small>: "disable display {number_small}\n"
+  undisplay: "undisplay\n"
+
+  # variables
+  (list|show|info) local: "info local "
+  (list|show|info) local typed: "info local -t "
+  (list|show|info) variable: "info variable "
+  (list|show|info) variable typed: "info variable -t "
+  (list|show|info) locals: "info local\n"
+  (list|show|info) variables: "info variables\n"
+
+  # threads
+  info threads: "info threads\n"
+
+  restart [program]: "r\n"
+  continue: "c\n"
+  back trace: "bt\n"
+  debug quit: "quit\n"
+  # more quickly quit when there are inferiors
+  debug force quit: "quit\ny\n"
+  (show|info) (inf|inferiors): "info inferiors\n"
+  inferior <number_small>$: "inferior {number_small}\n"
+  inferior: "inferior "
+  resume main (inf|inferior):
+      insert("inferior 1\n")
+      insert("c\n")
+  resume [from] (inf|inferior) <number_small>$:
+      insert("inferior {number_small}\n")
+      insert("c\n")
+
+  # arguments
+  set args: "set args "
+
+  # settings
+  show follow (fork|forks) [mode]: "show follow-fork-mode\n"
+  [set] follow (fork|forks) [mode] child: "set follow-fork-mode child\n"
+  [set] follow (fork|forks) [mode] parent: "set follow-fork-mode parent\n"
+
+  show detach on fork: "show detach-on-fork\n"
+  set detach on fork: "set detach-on-fork on\n"
+  unset detach on fork: "set detach-on-fork off\n"
+
+  # list
+  show list size: "show listsize\n"
+  set list size <number_small>: "set listsize {number_small}\n"
+
+  # misc
+  clear screen: "shell clear\n"
+output: |-
+  os: linux
+  # XXX - this matches .gdb files atm
+  # win.title: /gdb/
+  tag: terminal
+  mode: user.gdb
+  -
   tag(): user.gdb
   tag(): user.debugger
   until <number>:
@@ -61,7 +122,6 @@ output: |2-
       key(ctrl-shift-v)
       key(enter)
   # information
-
   list [source]:
       "list\n"
   info source:
@@ -77,11 +137,8 @@ output: |2-
   print string:
       "p/s"
   # hexdumping
-
   # XXX - switch the sizes to a list in python?
-
   # XXX - should cache the last used size
-
   hex dump <number> bytes:
       "x/{number}bx"
   hex dump <number> (half | short) words:
@@ -91,7 +148,6 @@ output: |2-
   hex dump <number> quad words:
       "x/{number}gx"
   # this is some arbitrary default for convenience
-
   hex dump:
       "x/100gx"
   hex dump highlighted:
@@ -104,13 +160,10 @@ output: |2-
       edit.paste()
       key(enter)
   # execution
-
   source:
       "source\t\t"
   # displays
-
   # XXX - move thee invoke command into a python script
-
   (list | show | info) display:
       "info display\n"
   display assembly line$:
@@ -124,7 +177,6 @@ output: |2-
   undisplay:
       "undisplay\n"
   # variables
-
   (list | show | info) local:
       "info local"
   (list | show | info) local typed:
@@ -138,7 +190,6 @@ output: |2-
   (list | show | info) variables:
       "info variables\n"
   # threads
-
   info threads:
       "info threads\n"
   restart [program]:
@@ -150,7 +201,6 @@ output: |2-
   debug quit:
       "quit\n"
   # more quickly quit when there are inferiors
-
   debug force quit:
       "quit\ny\n"
   (show | info) (inf | inferiors):
@@ -166,11 +216,9 @@ output: |2-
       insert("inferior{number_small}\n")
       insert("c\n")
   # arguments
-
   set args:
       "set args"
   # settings
-
   show follow (fork | forks) [mode]:
       "show follow-fork-mode\n"
   [set] follow (fork | forks) [mode] child:
@@ -184,12 +232,10 @@ output: |2-
   unset detach on fork:
       "set detach-on-fork off\n"
   # list
-
   show list size:
       "show listsize\n"
   set list size <number_small>:
       "set listsize{number_small}\n"
   # misc
-
   clear screen:
       "shell clear\n"

@@ -1,4 +1,7 @@
-input: "tag: user.javascriptreact\n-\ntag(): user.javascript\n"
+input: |
+  tag: user.javascriptreact
+  -
+  tag(): user.javascript
 output: |-
   tag: user.javascriptreact
 

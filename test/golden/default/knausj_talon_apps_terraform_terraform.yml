@@ -1,15 +1,23 @@
-input: "tag: terminal\nand tag: user.terraform_client\n-\nterraform: \"terraform \"\
-  \n\nterraform apply: \"terraform apply \"\nterraform destroy: \"terraform destroy\
-  \ \"\nterraform format recursive: \"terraform fmt -recursive\\n\"\nterraform format:\
-  \ \"terraform fmt\\n\"\nterraform help: \"terraform -help\"\nterraform init upgrade:\
-  \ \"terraform init -upgrade\\n\"\nterraform init: \"terraform init\\n\"\nterraform\
-  \ plan: \"terraform plan\\n\"\nterraform state move: \"terraform state mv \"\nterraform\
-  \ validate: \"terraform validate\\n\"\n"
-output: |2-
-   tag: terminal
-   tag: user.terraform_client
+input: |
+  tag: terminal
+  and tag: user.terraform_client
   -
+  terraform: "terraform "
 
+  terraform apply: "terraform apply "
+  terraform destroy: "terraform destroy "
+  terraform format recursive: "terraform fmt -recursive\n"
+  terraform format: "terraform fmt\n"
+  terraform help: "terraform -help"
+  terraform init upgrade: "terraform init -upgrade\n"
+  terraform init: "terraform init\n"
+  terraform plan: "terraform plan\n"
+  terraform state move: "terraform state mv "
+  terraform validate: "terraform validate\n"
+output: |-
+  tag: terminal
+  and tag: user.terraform_client
+  -
   terraform:
       "terraform"
   terraform apply:

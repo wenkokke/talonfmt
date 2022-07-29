@@ -1,4 +1,8 @@
-input: "app: okular\n-\n# Set tags\ntag(): user.pages\n"
+input: |
+  app: okular
+  -
+  # Set tags
+  tag(): user.pages
 output: |-
   app: okular
 

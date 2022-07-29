@@ -1,23 +1,51 @@
-input: "double dash: \"--\"\ntriple quote: \"'''\"\n(triple grave | triple back tick\
-  \ | gravy):\n    insert(\"```\")\n(dot dot | dotdot): \"..\"\nellipses: \"...\"\n\
-  (comma and | spamma): \", \"\narrow: \"->\"\ndub arrow: \"=>\"\nnew line: \"\\\\\
-  n\"\ncarriage return: \"\\\\r\"\nline feed: \"\\\\r\\\\n\"\nempty dubstring: user.insert_between('\"\
-  ', '\"')\nempty escaped (dubstring|dub quotes): user.insert_between('\\\\\"', '\\\
-  \\\"')\nempty string: user.insert_between(\"'\", \"'\")\nempty escaped string: user.insert_between(\"\
-  \\\\'\", \"\\\\'\")\n(inside parens | args): user.insert_between(\"(\", \")\")\n\
-  inside (squares | square brackets | list): user.insert_between(\"[\", \"]\")\ninside\
-  \ (bracket | braces): user.insert_between(\"{\", \"}\")\ninside percent: user.insert_between(\"\
-  %\", \"%\")\ninside (quotes | string): user.insert_between(\"'\", \"'\")\ninside\
-  \ (double quotes | dubquotes): user.insert_between('\"', '\"')\ninside (graves |\
-  \ back ticks): user.insert_between(\"`\", \"`\")\nangle that:\n    text = edit.selected_text()\n\
-  \    user.paste(\"<{text}>\")\n(square | square bracket) that:\n    text = edit.selected_text()\n\
-  \    user.paste(\"[{text}]\")\n(bracket | brace) that:\n    text = edit.selected_text()\n\
-  \    user.paste(\"{{{text}}}\")\n(parens | args) that:\n    text = edit.selected_text()\n\
-  \    user.paste(\"({text})\")\npercent that:\n    text = edit.selected_text()\n\
-  \    user.paste(\"%{text}%\")\nquote that:\n    text = edit.selected_text()\n  \
-  \  user.paste(\"'{text}'\")\n(double quote | dubquote) that:\n    text = edit.selected_text()\n\
-  \    user.paste('\"{text}\"')\n(grave | back tick) that:\n    text = edit.selected_text()\n\
-  \    user.paste('`{text}`')\n"
+input: |
+  double dash: "--"
+  triple quote: "'''"
+  (triple grave | triple back tick | gravy):
+      insert("```")
+  (dot dot | dotdot): ".."
+  ellipses: "..."
+  (comma and | spamma): ", "
+  arrow: "->"
+  dub arrow: "=>"
+  new line: "\\n"
+  carriage return: "\\r"
+  line feed: "\\r\\n"
+  empty dubstring: user.insert_between('"', '"')
+  empty escaped (dubstring|dub quotes): user.insert_between('\\"', '\\"')
+  empty string: user.insert_between("'", "'")
+  empty escaped string: user.insert_between("\\'", "\\'")
+  (inside parens | args): user.insert_between("(", ")")
+  inside (squares | square brackets | list): user.insert_between("[", "]")
+  inside (bracket | braces): user.insert_between("{", "}")
+  inside percent: user.insert_between("%", "%")
+  inside (quotes | string): user.insert_between("'", "'")
+  inside (double quotes | dubquotes): user.insert_between('"', '"')
+  inside (graves | back ticks): user.insert_between("`", "`")
+  angle that:
+      text = edit.selected_text()
+      user.paste("<{text}>")
+  (square | square bracket) that:
+      text = edit.selected_text()
+      user.paste("[{text}]")
+  (bracket | brace) that:
+      text = edit.selected_text()
+      user.paste("{{{text}}}")
+  (parens | args) that:
+      text = edit.selected_text()
+      user.paste("({text})")
+  percent that:
+      text = edit.selected_text()
+      user.paste("%{text}%")
+  quote that:
+      text = edit.selected_text()
+      user.paste("'{text}'")
+  (double quote | dubquote) that:
+      text = edit.selected_text()
+      user.paste('"{text}"')
+  (grave | back tick) that:
+      text = edit.selected_text()
+      user.paste('`{text}`')
 output: |
   -
   double dash:                               "--"

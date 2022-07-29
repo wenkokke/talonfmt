@@ -1,9 +1,21 @@
-input: "#defines the commands that sleep/wake Talon\nmode: all\n-\n^welcome back$:\n\
-  \    user.mouse_wake()\n    user.history_enable()\n    user.talon_mode()\n^sleep\
-  \ all [<phrase>]$:\n    user.switcher_hide_running()\n    user.history_disable()\n\
-  \    user.homophones_hide()\n    user.help_hide()\n    user.mouse_sleep()\n    speech.disable()\n\
-  \    user.engine_sleep()\n^talon sleep [<phrase>]$: speech.disable()\n^talon wake$:\
-  \ speech.enable()\n"
+input: |
+  #defines the commands that sleep/wake Talon
+  mode: all
+  -
+  ^welcome back$:
+      user.mouse_wake()
+      user.history_enable()
+      user.talon_mode()
+  ^sleep all [<phrase>]$:
+      user.switcher_hide_running()
+      user.history_disable()
+      user.homophones_hide()
+      user.help_hide()
+      user.mouse_sleep()
+      speech.disable()
+      user.engine_sleep()
+  ^talon sleep [<phrase>]$: speech.disable()
+  ^talon wake$: speech.enable()
 output: |
   # defines the commands that sleep/wake Talon
   mode: all
