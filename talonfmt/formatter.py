@@ -1,9 +1,6 @@
 from collections.abc import Iterator, Sequence
-from contextlib import contextmanager
-from functools import reduce, singledispatchmethod
-from itertools import chain, repeat
-import operator
-from typing import Any, Iterable, NewType, Optional, TypeVar, Union, cast
+from functools import singledispatchmethod
+from typing import Iterable, Union
 from doc_printer import *
 from tree_sitter_talon import *
 
@@ -76,7 +73,7 @@ class TalonFormatter:
         settings = (
             "settings():"
             / Line
-            / Nest(self.indent_size, self.format(self.get_only_child(node)))
+            / nest(self.indent_size, self.format(self.get_only_child(node)))
         )
         return Line.join(self.get_comments(), settings)
 
@@ -99,7 +96,7 @@ class TalonFormatter:
         #
         alt1 = Line.join(
             rule_doc / ":",
-            Nest(
+            nest(
                 self.indent_size,
                 Line.join(script_comments, script_doc),
             ),

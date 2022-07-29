@@ -62,7 +62,7 @@ input: |
   edit page: key(e)
 output: |-
   # Shortcuts taken from: https://docs.gitlab.com/ee/user/shortcuts.html
-  # 
+  #
   tag: browser
   browser.host: /gitlab\.com/
   # win.title: /GitLab/
