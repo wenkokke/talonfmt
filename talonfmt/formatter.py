@@ -70,10 +70,9 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonSettings) -> Doc:
         # NOTE: top-level constructs should not include a trailing newline
-        settings = (
-            "settings():"
-            / Line
-            / nest(self.indent_size, self.format(self.get_only_child(node)))
+        settings = cat(
+            "settings():",
+            nest(self.indent_size, Line, self.format(self.get_only_child(node))),
         )
         return Line.join(self.get_comments(), settings)
 
@@ -94,10 +93,11 @@ class TalonFormatter:
         # select camel left:
         #     user.extend_camel_left()
         #
-        alt1 = Line.join(
+        alt1 = cat(
             rule_doc / ":",
             nest(
                 self.indent_size,
+                Line,
                 Line.join(script_comments, script_doc),
             ),
         )
