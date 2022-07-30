@@ -122,8 +122,8 @@ def cli(
             filename = filename or "stdin"
             sys.stderr.write(" ".join((
                 f"Parse error in {filename}",
-                f"from {e.start_position.row}:{e.start_position.column}",
-                f"to {e.end_position.row}:{e.end_position.column}"
+                f"from line {e.start_position.row}, column {e.start_position.column}",
+                f"to line {e.end_position.row}, column {e.end_position.column}"
             )))
             return None
 
