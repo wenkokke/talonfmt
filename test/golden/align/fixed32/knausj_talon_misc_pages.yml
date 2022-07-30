@@ -6,7 +6,7 @@ input: |
   go page <number>: user.page_jump(number)
   go page final: user.page_final()
 output: |
-  tag: user.pages
+  tag:  user.pages
 
   -
   page next:                       user.page_next()

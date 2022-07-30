@@ -76,8 +76,8 @@ input: |
   (raise|lower) hand: key(super-shift-k)
   leave team meeting: key(super-shift-h)
 output: |-
-  os: mac
-  app: com.microsoft.teams
+  os:  mac
+  app:  com.microsoft.teams
   -
   open history:
       key(super-shift-h)

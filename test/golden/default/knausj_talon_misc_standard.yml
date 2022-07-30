@@ -40,6 +40,6 @@ output: |-
   file save:
       edit.save()
   (pad | padding):
-      user.insert_between("", "")
+      user.insert_between(" ", " ")
   slap:
       edit.line_insert_down()

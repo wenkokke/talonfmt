@@ -54,8 +54,8 @@ input: |
 output: |-
   # XXX - trigger alt-1 to hit command window for necessary commands?
   # ex: user.windbg_insert_in_cmd()
-  # edit.left()
-  mode: user.windbg
+  #    edit.left()
+  mode:  user.windbg
   -
   tag(): user.debugger
   tag(): user.windbg
@@ -74,7 +74,7 @@ output: |-
   loaded modules:
       insert("lm l\n")
   display pointers:
-      insert("dps")
+      insert("dps ")
   # XXX - should be generic
   dereference pointer:
       user.insert_between("poi(", ")")

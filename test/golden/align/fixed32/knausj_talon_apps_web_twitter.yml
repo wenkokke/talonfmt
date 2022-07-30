@@ -37,11 +37,11 @@ input: |
   open details: key(enter)
   expand photo: key(o)
 output: |
-  tag: browser
+  tag:  browser
 
-  browser.host: twitter.com
+  browser.host:  twitter.com
 
-  # win.title: /Twitter/
+  #win.title: /Twitter/
   -
   # navigation
   (show shortcuts | shortcuts help): key(?)

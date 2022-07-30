@@ -16,28 +16,28 @@ input: |
   type {user.code_type}: "{code_type}"
   repeated type {user.code_type}: "repeated {code_type}"
 output: |-
-  tag: user.protobuf
+  tag:  user.protobuf
   -
   # this is pretty bare-bones, further contributions welcome
   state message:
-      "message"
+      "message "
   state package:
-      "package"
+      "package "
   state reserved:
-      "reserved"
+      "reserved "
   state enum:
-      "enum"
+      "enum "
   op equals:
-      "="
+      " = "
   state import:
-      "import"
+      "import "
   state import public:
-      "import public"
+      "import public "
   state option:
-      "option"
+      "option "
   state repeated:
-      "repeated"
+      "repeated "
   type {user.code_type}:
       "{code_type}"
   repeated type {user.code_type}:
-      "repeated{code_type}"
+      "repeated {code_type}"

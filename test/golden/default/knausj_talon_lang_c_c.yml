@@ -95,7 +95,7 @@ input: |
       user.code_insert_library(code_libraries, "")
       key(end enter)
 output: |-
-  tag: user.c
+  tag:  user.c
   -
   tag(): user.code_imperative
   tag(): user.code_comment_line
@@ -119,16 +119,16 @@ output: |-
       user.code_protected_variable_formatter = "SNAKE_CASE"
       user.code_public_variable_formatter = "SNAKE_CASE"
       # whether or not to use uint_8 style datatypes
-      # user.use_stdint_datatypes = 1
+      #    user.use_stdint_datatypes = 1
   # NOTE: migrated from generic, as they were only used here, though once cpp support is added, perhaps these should be migrated to a tag together with the commands below
   state include:
-      insert("#include")
+      insert("#include ")
   state include system:
       user.insert_between("#include <", ">")
   state include local:
-      user.insert_between("#include "", """)
+      user.insert_between("#include \"", "\"")
   state type deaf:
-      insert("typedef")
+      insert("typedef ")
   state type deaf struct:
       insert("typedef struct")
       insert("{\n\n}")
@@ -136,32 +136,32 @@ output: |-
       key('tab')
   # XXX - create a preprocessor tag for these, as they will match cpp, etc
   state define:
-      "#define"
+      "#define "
   state undefine:
-      "#undef"
+      "#undef "
   state if define:
-      "#ifdef"
+      "#ifdef "
   # XXX - preprocessor instead of pre?
   state pre if:
-      "#if"
+      "#if "
   state error:
-      "#error"
+      "#error "
   state pre else if:
-      "#elif"
+      "#elif "
   state pre end:
-      "#endif"
+      "#endif "
   state pragma:
-      "#pragma"
+      "#pragma "
   state default:
       "default:\nbreak;"
-  # control flow
-  # best used with a push like command
-  # the below example may not work in editors that automatically add the closing bracket
-  # if so uncomment the two lines and comment out the rest accordingly
+  #control flow
+  #best used with a push like command
+  #the below example may not work in editors that automatically add the closing bracket
+  #if so uncomment the two lines and comment out the rest accordingly
   push brackets:
       edit.line_end()
-      # insert("{")
-      # key(enter)
+      #insert("{")
+      #key(enter)
       insert("{}")
       edit.left()
       key(enter)
@@ -170,10 +170,10 @@ output: |-
   # Declare variables or structs etc.
   # Ex. * int myList
   <user.c_variable> <phrase>:
-      insert("{c_variable}")
+      insert("{c_variable} ")
       insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
   <user.c_variable> <user.letter>:
-      insert("{c_variable}{letter}")
+      insert("{c_variable} {letter} ")
   # Ex. (int *)
   cast to <user.c_cast>:
       "{c_cast}"

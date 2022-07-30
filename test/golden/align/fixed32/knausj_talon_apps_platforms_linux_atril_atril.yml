@@ -4,7 +4,7 @@ input: |
   # Set tags
   tag(): user.pages
 output: |-
-  app: atril
+  app:  atril
 
   -
   # Set tags

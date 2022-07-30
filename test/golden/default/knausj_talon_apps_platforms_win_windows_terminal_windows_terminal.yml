@@ -33,7 +33,7 @@ input: |
       # make it so
       edit.find("{phrase}\n")
 output: |-
-  app: windows_terminal
+  app:  windows_terminal
   -
   # makes the commands in generic_terminal available
   tag(): terminal

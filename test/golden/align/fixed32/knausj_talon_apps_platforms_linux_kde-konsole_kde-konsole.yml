@@ -18,9 +18,9 @@ input: |
   tag(): user.tabs
   # TODO: add file_manager support
 output: |-
-  os: linux
+  os:  linux
 
-  and app.name: konsole
+  and app.name:  konsole
 
   -
   # makes the commands in generic_terminal available

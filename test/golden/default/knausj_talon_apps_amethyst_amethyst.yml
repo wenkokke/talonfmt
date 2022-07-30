@@ -12,7 +12,7 @@ input: |
   window shrink: key("alt-shift-h")
   window reevaluate: key("alt-shift-z")
 output: |-
-  user.running: amethyst
+  user.running:  amethyst
   -
   window next:
       key("alt-shift-j")

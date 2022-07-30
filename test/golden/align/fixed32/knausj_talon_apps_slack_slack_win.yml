@@ -65,21 +65,23 @@ input: |
   (previous | last) (element | bit):
       app.notify("please use the voice command 'element last' instead of 'last element'")
       key(shift-tab)
-output: |
-  os: windows
+output: |-
+  os:  windows
 
-  os: linux
+  os:  linux
 
-  app: slack
+  app:  slack
 
-  # todo: some sort of plugin, consolidate with teams or something?
+  #todo: some sort of plugin, consolidate with teams or something?
   -
   tag(): user.messaging
   tag(): user.emoji
   # Workspaces
   workspace <number>:              key("ctrl-{number}")
+  workspace <number>:              key("ctrl-{number}")
 
   # Channel
+  (slack | lack) [channel] info:   key(ctrl-shift-i)
   (slack | lack) [channel] info:   key(ctrl-shift-i)
 
   # Navigation
@@ -102,7 +104,7 @@ output: |
   grab right:                      key(shift-down)
   add line:                        key(shift-enter)
 
-  # "(slack | lack) (slap | slaw | slapper): [key(cmd-right) key(shift-enter")],
+  #"(slack | lack) (slap | slaw | slapper): [key(cmd-right) key(shift-enter")],
   (slack | lack) (react | reaction):                key(ctrl-shift-\)
   (insert command | commandify):                    key(ctrl-shift-c)
   insert code:                                      insert("```")
@@ -129,19 +131,15 @@ output: |
   (move | next) focus:
       app.notify("please use the voice command 'focus next' instead of 'next focus'")
       key(ctrl-`)
-
   [next] (section | zone):
       app.notify("please use the voice command 'section next' instead of 'next section'")
       key(f6)
-
   (previous | last) (section | zone):
       app.notify("please use the voice command 'section last' instead of 'last section'")
       key(shift-f6)
-
   [next] (element | bit):
       app.notify("please use the voice command 'element next' instead of 'next element'")
       key(tab)
-
   (previous | last) (element | bit):
       app.notify("please use the voice command 'element last' instead of 'last element'")
       key(shift-tab)

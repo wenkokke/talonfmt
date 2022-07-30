@@ -22,8 +22,8 @@ input: |
   resume:
       insert("fg")
       key(enter)
-output: |
-  app: apple_terminal
+output: |-
+  app:  apple_terminal
 
   -
   # makes the commands in generic_terminal available
@@ -38,6 +38,7 @@ output: |
   # TODO: explain
   tag(): user.tabs
   tag(): user.file_manager
+  suspend: key(ctrl-z)
   suspend: key(ctrl-z)
 
   resume:

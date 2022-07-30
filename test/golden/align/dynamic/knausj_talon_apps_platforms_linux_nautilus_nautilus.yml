@@ -5,7 +5,7 @@ input: |
   tag(): user.tabs
   tag(): user.file_manager
 output: |-
-  app: nautilus
+  app:  nautilus
 
   -
   # Set tags

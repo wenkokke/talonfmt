@@ -21,7 +21,7 @@ input: |
       sleep(50ms)
       edit.paste()
 output: |-
-  tag: terminal
+  tag:  terminal
   -
   # tags should be activated for each specific terminal in the respective talon file
   lisa:
@@ -33,7 +33,7 @@ output: |-
   katie root:
       user.terminal_change_directory_root()
   go <user.system_path>:
-      insert("cd\"{system_path}\"\n")
+      insert("cd \"{system_path}\"\n")
   clear screen:
       user.terminal_clear_screen()
   run last:

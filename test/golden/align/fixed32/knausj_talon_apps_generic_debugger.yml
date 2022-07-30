@@ -73,7 +73,7 @@ input: |
   # Convenience
   clear line: user.debugger_clear_line()
 output: |
-  tag: debugger
+  tag:  debugger
 
   -
   # Code execution
@@ -96,6 +96,7 @@ output: |
 
   # Register
   show registers:                  user.debugger_show_registers()
+  show registers:                  user.debugger_show_registers()
 
   # XXX -
   get register:                    user.debugger_get_register()
@@ -104,46 +105,32 @@ output: |
   # Breakpoints
   break now:
       user.debugger_break_now()
+  break here: user.debugger_break_here()
 
-  break here:
-      user.debugger_break_here()
+  (list | show) (breaks | break points): user.debugger_show_breakpoints()
 
-  (list | show) (breaks | break points):
-      user.debugger_show_breakpoints()
+  (set | add) (break | break point): user.debugger_add_sw_breakpoint()
 
-  (set | add) (break | break point):
-      user.debugger_add_sw_breakpoint()
+  (set | add) hardware (break | break point): user.debugger_add_hw_breakpoint()
 
-  (set | add) hardware (break | break point):
-      user.debugger_add_hw_breakpoint()
+  clear all (breaks | break points): user.debugger_clear_all_breakpoints()
 
-  clear all (breaks | break points):
-      user.debugger_clear_all_breakpoints()
-
-  clear (break | break point):
-      user.debugger_clear_breakpoint()
+  clear (break | break point): user.debugger_clear_breakpoint()
 
   clear (break | break point) <number_small>:
       user.debugger_clear_breakpoint_id(number_small)
+  disable all (breaks | break points): user.debugger_disable_all_breakpoints()
 
-  disable all (breaks | break points):
-      user.debugger_disable_all_breakpoints()
-
-  disable (break | break point):
-      user.debugger_disable_breakpoint()
+  disable (break | break point): user.debugger_disable_breakpoint()
 
   disable (break | break point) <number_small>:
       user.debugger_disable_breakpoint_id(number_small)
+  enable all (breaks | break points): user.debugger_enable_all_breakpoints()
 
-  enable all (breaks | break points):
-      user.debugger_enable_all_breakpoints()
-
-  enable (break | break point):
-      user.debugger_enable_breakpoint()
+  enable (break | break point): user.debugger_enable_breakpoint()
 
   enable (break | break point) <number_small>:
       user.debugger_enable_breakpoint_id(number_small)
-
   # Navigation
   # Memory Inspection
   (stack | back) trace:            user.debugger_backtrace()
@@ -160,8 +147,10 @@ output: |
 
   # Type inspection
   inspect type:                    user.debugger_inspect_type()
+  inspect type:                    user.debugger_inspect_type()
 
   # Hex Dumping Memory
-  # hex dump register:
+  #hex dump register:
   # Convenience
+  clear line:                      user.debugger_clear_line()
   clear line:                      user.debugger_clear_line()

@@ -32,8 +32,8 @@ input: |
   drag [line] down: key('ctrl-cmd-down')
   drag [line] up: key('ctrl-cmd-up')
 output: |-
-  os: mac
-  and app: notes
+  os:  mac
+  and app:  notes
   -
   new note:
       key(cmd-n)

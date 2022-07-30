@@ -4,7 +4,7 @@ input: |
   # Set tags
   tag(): user.pages
 output: |-
-  app: kindle
+  app:  kindle
   -
   # Set tags
   tag(): user.pages

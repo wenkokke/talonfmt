@@ -95,15 +95,15 @@ input: |
   debug stopper: key(shift-f5)
   debug continue: key(f5)
 output: |-
-  os: windows
-  app: visual_studio
+  os:  windows
+  app:  visual_studio
   -
   tag(): user.tabs
   tag(): user.line_commands
   tag(): user.find_and_replace
   tag(): user.snippets
   tag(): user.multiple_cursors
-  # multiple_cursor.py support end
+  #multiple_cursor.py support end
   # Panels
   panel solution:
       key(ctrl-alt-l)
@@ -124,8 +124,8 @@ output: |-
   # Settings
   show settings:
       key(alt-t o)
-  # show shortcuts:
-  # show snippets:
+  #show shortcuts:
+  #show snippets:
   # Display
   fullscreen switch:
       key(shift-alt-enter)
@@ -137,7 +137,7 @@ output: |-
       insert(text or "")
   file create:
       key(ctrl-n)
-  # file open folder:
+  #file open folder:
   file rename:
       key(ctrl-[ s f2)
   file reveal:
@@ -172,7 +172,7 @@ output: |-
       key(ctrl-r ctrl-v)
   refactor that:
       key(ctrl-r ctrl-r)
-  # code navigation
+  #code navigation
   (go declaration | follow):
       key(ctrl-f12)
   go back:
@@ -211,7 +211,7 @@ output: |-
       key(ctrl-m ctrl-l)
   fold definitions:
       key(ctrl-m ctrl-o)
-  # Debugging
+  #Debugging
   break point:
       key(f9)
   step over:

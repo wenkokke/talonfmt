@@ -71,8 +71,8 @@ input: |
   fullscreen toggle: key(shift-f)
 output: |-
   # https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts
-  tag: browser
-  browser.host: github.com
+  tag:  browser
+  browser.host:  github.com
   -
   # site wide shortcuts
   focus search:

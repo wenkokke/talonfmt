@@ -39,7 +39,7 @@ input: |
       insert("@")
       user.code_public_variable_formatter(text)
 output: |-
-  tag: user.ruby
+  tag:  user.ruby
   -
   tag(): user.code_imperative
   tag(): user.code_object_oriented
@@ -71,9 +71,9 @@ output: |-
   state begin:
       "begin"
   state rescue:
-      "rescue"
+      "rescue "
   state module:
-      "module"
+      "module "
   ^instance <user.text>$:
       insert("@")
       user.code_public_variable_formatter(text)

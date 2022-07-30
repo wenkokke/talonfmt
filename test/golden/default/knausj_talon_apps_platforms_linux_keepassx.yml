@@ -22,7 +22,7 @@ input: |
       key(ctrl-f)
       insert("{text}")
 output: |-
-  app: keepass
+  app:  keepass
   -
   # Database
   open database:

@@ -19,9 +19,9 @@ input: |
     key(a)
     key(enter)
 output: |-
-  tag: terminal
-  and tag: user.git
-  title: /git add .*\-p/
+  tag:  terminal
+  and tag:  user.git
+  title:  /git add .*\-p/
   -
   yank:
       key(y)

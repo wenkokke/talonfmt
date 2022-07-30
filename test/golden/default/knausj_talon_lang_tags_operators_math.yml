@@ -29,7 +29,7 @@ input: |
   # TODO: This operator should either be abstracted into a function or removed.
   (op | pad) colon: " : "
 output: |-
-  tag: user.code_operators_math
+  tag:  user.code_operators_math
   -
   # math operators
   op (minus | subtract):
@@ -69,4 +69,4 @@ output: |-
       user.code_operator_not_in()
   # TODO: This operator should either be abstracted into a function or removed.
   (op | pad) colon:
-      ":"
+      " : "

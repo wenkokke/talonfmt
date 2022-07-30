@@ -5,7 +5,7 @@ input: |
   tag(): user.pages
   tag(): user.chapters
 output: |-
-  app: calibre_viewer
+  app:  calibre_viewer
   -
   # Set tags
   tag(): user.pages

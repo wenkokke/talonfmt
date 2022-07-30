@@ -15,15 +15,15 @@ input: |
   terraform state move: "terraform state mv "
   terraform validate: "terraform validate\n"
 output: |-
-  tag: terminal
-  and tag: user.terraform_client
+  tag:  terminal
+  and tag:  user.terraform_client
   -
   terraform:
-      "terraform"
+      "terraform "
   terraform apply:
-      "terraform apply"
+      "terraform apply "
   terraform destroy:
-      "terraform destroy"
+      "terraform destroy "
   terraform format recursive:
       "terraform fmt -recursive\n"
   terraform format:
@@ -37,6 +37,6 @@ output: |-
   terraform plan:
       "terraform plan\n"
   terraform state move:
-      "terraform state mv"
+      "terraform state mv "
   terraform validate:
       "terraform validate\n"

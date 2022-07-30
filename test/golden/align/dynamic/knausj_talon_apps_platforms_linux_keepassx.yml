@@ -21,8 +21,8 @@ input: |
   find <user.text>:
       key(ctrl-f)
       insert("{text}")
-output: |
-  app: keepass
+output: |-
+  app:  keepass
 
   -
   # Database

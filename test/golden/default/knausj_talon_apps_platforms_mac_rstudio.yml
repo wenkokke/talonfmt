@@ -127,8 +127,8 @@ input: |
   # scroll diff view:              key("ctrl-up/down")
   # sync editor & pdf preview:     key("cmd-f8")
 output: |-
-  os: mac
-  app: RStudio
+  os:  mac
+  app:  RStudio
   -
   run that:
       key("cmd-enter")
@@ -313,3 +313,21 @@ output: |-
       key("ctrl-alt-d")
   run git commit:
       key("ctrl-alt-m")
+  # Other shortcuts that could be enabled
+  # run line and stay:             key("alt-enter")
+  # run and echo all:              key("cmd-shift-enter")
+  # extract (function|funk):       key("cmd-alt-x")
+  # extract variable:              key("cmd-alt-v")
+  # new terminal:                  key("shift-alt-t")
+  # rename current terminal:       key("shift-alt-r")
+  # clear current terminal:        key("ctrl-shift-l")
+  # previous terminal:             key("ctrl-alt-f11")
+  # next terminal:                 key("ctrl-alt-f12")
+  # clear console:                 key("ctrl-l")
+  # popup history:                 key("cmd-up")
+  # change working directory:      key("ctrl-shift-h")
+  # new document:                  key("cmd-shift-n")
+  # new document (chrome only):    key("cmd-shift-alt-n")
+  # insert code section:           key("cmd-shift-r")
+  # scroll diff view:              key("ctrl-up/down")
+  # sync editor & pdf preview:     key("cmd-f8")

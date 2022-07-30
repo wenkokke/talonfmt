@@ -39,7 +39,7 @@ input: |
       user.draft_show(text)
 output: |-
   # These are available globally (in command mode)
-  mode: command
+  mode:  command
   -
   ^draft show:
       user.draft_hide()

@@ -59,7 +59,7 @@ output: |-
   ellipses:
       "..."
   (comma and | spamma):
-      ","
+      ", "
   arrow:
       "->"
   dub arrow:
@@ -71,9 +71,9 @@ output: |-
   line feed:
       "\\r\\n"
   empty dubstring:
-      user.insert_between(""", """)
+      user.insert_between("\"", "\"")
   empty escaped (dubstring | dub quotes):
-      user.insert_between("\\"", "\\"")
+      user.insert_between("\\\"", "\\\"")
   empty string:
       user.insert_between("'", "'")
   empty escaped string:
@@ -89,7 +89,7 @@ output: |-
   inside (quotes | string):
       user.insert_between("'", "'")
   inside (double quotes | dubquotes):
-      user.insert_between(""", """)
+      user.insert_between("\"", "\"")
   inside (graves | back ticks):
       user.insert_between("`", "`")
   angle that:
@@ -112,7 +112,7 @@ output: |-
       user.paste("'{text}'")
   (double quote | dubquote) that:
       text = edit.selected_text()
-      user.paste(""{text}"")
+      user.paste("\"{text}\"")
   (grave | back tick) that:
       text = edit.selected_text()
       user.paste("`{text}`")

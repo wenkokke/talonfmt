@@ -66,11 +66,11 @@ input: |
   join [from] meeting [details]: key(alt-shift-j)
   go to suggested time: key(alt-shift-s)
 output: |
-  app: microsoft_teams
+  app:  microsoft_teams
 
-  os: windows
+  os:  windows
 
-  os: linux
+  os:  linux
 
   -
   # Shortcut reference

@@ -8,7 +8,7 @@ input: |
   help refresh$: user.help_refresh()
   help close$: user.help_hide()
 output: |-
-  mode: user.help
+  mode:  user.help
   -
   help next$:
       user.help_next()

@@ -10,7 +10,7 @@ input: |
   go tab final: user.tab_final()
   tab duplicate: user.tab_duplicate()
 output: |
-  tag: user.tabs
+  tag:  user.tabs
 
   -
   tab (open | new):                app.tab_open()

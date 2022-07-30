@@ -44,7 +44,7 @@ input: |
   [value] current color: "currentColor"
   op important: " !important"
 output: |-
-  tag: user.css
+  tag:  user.css
   -
   tag(): user.code_comment_block_c_like
   tag(): user.code_functions_common
@@ -59,11 +59,11 @@ output: |-
       user.insert_between("[{name}", "]")
   prop <user.text>:
       name = user.formatted_text(text, "DASH_SEPARATED")
-      user.insert_between("{name}:", ";")
+      user.insert_between("{name}: ", ";")
   # for media/supports queries, or if you don't like prop
   rule <user.text>:
       name = user.formatted_text(text, "DASH_SEPARATED")
-      insert("{name}:")
+      insert("{name}: ")
   value <user.number_string> [{user.css_unit}]:
       "{number_string}{css_unit or ''}"
   value <user.number_string> point <digit_string> [{user.css_unit}]:
@@ -78,10 +78,10 @@ output: |-
   op var:
       user.insert_between("var(--", ")")
   at {user.css_at_rule}:
-      "@{css_at_rule}"
+      "@{css_at_rule} "
   unit {user.css_unit}:
       insert(css_unit)
   [value] current color:
       "currentColor"
   op important:
-      "!important"
+      " !important"

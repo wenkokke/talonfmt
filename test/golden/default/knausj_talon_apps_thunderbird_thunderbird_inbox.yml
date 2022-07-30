@@ -29,7 +29,7 @@ input: |
   (mail | message) save: user.thunderbird_mod("s")
   (mail | message) print: user.thunderbird_mod("p")
 output: |-
-  app: thunderbird_inbox
+  app:  thunderbird_inbox
   -
   # navigate
   (mail | message) open:

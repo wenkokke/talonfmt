@@ -80,7 +80,7 @@ input: |
   ^escape <user.text>$:
       auto_insert(user.text)
 output: |-
-  mode: dictation
+  mode:  dictation
   -
   ^press <user.modifiers>$:
       key(modifiers)

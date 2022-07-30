@@ -49,7 +49,7 @@ input: |
       user.formatters_reformat_selection(user.formatters)
 output: |-
   # These are active when we have focus on the draft window
-  title: Talon Draft
+  title:  Talon Draft
   -
   settings():
       # Enable 'Smart dictation mode', see https://github.com/knausj85/knausj_talon/pull/356

@@ -11,7 +11,7 @@ input: |
   funk wrap <number>:
       user.code_select_function(number - 1, edit.selected_text())
 output: |-
-  tag: user.code_functions_common
+  tag:  user.code_functions_common
   -
   toggle funk:
       user.code_toggle_functions()

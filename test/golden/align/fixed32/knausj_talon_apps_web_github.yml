@@ -71,9 +71,9 @@ input: |
   fullscreen toggle: key(shift-f)
 output: |
   # https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts
-  tag: browser
+  tag:  browser
 
-  browser.host: github.com
+  browser.host:  github.com
 
   -
   # site wide shortcuts
@@ -96,6 +96,7 @@ output: |
   go to discussions:               insert("gg")
 
   # source code editing
+  [web] editor open:               key(.)
   [web] editor open:               key(.)
 
   # source code browsing

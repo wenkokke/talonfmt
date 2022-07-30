@@ -66,10 +66,10 @@ input: |
       app.notify("please use the voice command 'element last' instead of 'last element'")
       key(shift-tab)
 output: |-
-  os: windows
-  os: linux
-  app: slack
-  # todo: some sort of plugin, consolidate with teams or something?
+  os:  windows
+  os:  linux
+  app:  slack
+  #todo: some sort of plugin, consolidate with teams or something?
   -
   tag(): user.messaging
   tag(): user.emoji
@@ -113,7 +113,7 @@ output: |-
       key(shift-down)
   add line:
       key(shift-enter)
-  # "(slack | lack) (slap | slaw | slapper): [key(cmd-right) key(shift-enter")],
+  #"(slack | lack) (slap | slaw | slapper): [key(cmd-right) key(shift-enter")],
   (slack | lack) (react | reaction):
       key(ctrl-shift-\)
   (insert command | commandify):

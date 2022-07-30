@@ -30,9 +30,9 @@ input: |
   task <number> done$: "task {number} done"
   task <number> delete$: "task {number} delete"
 output: |-
-  os: linux
-  tag: terminal
-  and tag: user.taskwarrior
+  os:  linux
+  tag:  terminal
+  and tag:  user.taskwarrior
   -
   # general
   task version:
@@ -49,25 +49,25 @@ output: |-
   task list untagged:
       "task tags.none: list\n"
   task list <user.text>:
-      "task list{text}\n"
+      "task list {text}\n"
   task list project:
-      "task list project:"
+      "task list project: "
   task list project <user.text>:
       "task list project:{text}\n"
   # task add
   task add:
-      "task add"
+      "task add "
   task add <user.text>:
-      "task add{text}\n"
+      "task add {text}\n"
   task undo:
       "task undo\n"
   (tasks | task next):
       "task next\n"
   # task editing
   task <number> edit$:
-      "task{number}edit"
+      "task {number} edit"
   # task completion
   task <number> done$:
-      "task{number}done"
+      "task {number} done"
   task <number> delete$:
-      "task{number}delete"
+      "task {number} delete"

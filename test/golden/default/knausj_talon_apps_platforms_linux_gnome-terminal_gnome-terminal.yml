@@ -8,7 +8,7 @@ input: |
   tag(): user.git
   tag(): user.kubectl
 output: |-
-  app: gnome_terminal
+  app:  gnome_terminal
   -
   # Set tags
   tag(): terminal

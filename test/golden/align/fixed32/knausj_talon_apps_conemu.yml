@@ -6,9 +6,9 @@ input: |
   tag(): terminal
   tag(): user.git
 output: |-
-  os: windows
+  os:  windows
 
-  app.exe: ConEmu64.exe
+  app.exe:  ConEmu64.exe
 
   -
   tag(): terminal

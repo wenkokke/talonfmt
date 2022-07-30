@@ -23,7 +23,7 @@ input: |
   answer call: user.discord_answer_call()
   decline call: user.discord_decline_call()
 output: |
-  app: discord
+  app:  discord
 
   -
   tag(): user.messaging

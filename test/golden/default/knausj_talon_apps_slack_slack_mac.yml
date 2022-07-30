@@ -67,8 +67,8 @@ input: |
       app.notify("please use the voice command 'element last' instead of 'last element'")
       key(shift-tab)
 output: |-
-  os: mac
-  app: slack
+  os:  mac
+  app:  slack
   -
   tag(): user.messaging
   tag(): user.emoji

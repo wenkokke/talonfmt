@@ -10,7 +10,7 @@ input: |
       insert(user.formatted_text(result, formatters))
       user.homophones_hide()
 output: |-
-  mode: user.homophones
+  mode:  user.homophones
   -
   choose <number_small>:
       result = user.homophones_select(number_small)

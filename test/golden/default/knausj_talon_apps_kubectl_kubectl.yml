@@ -67,106 +67,106 @@ input: |
   cube shell:
       user.insert_between("kubectl exec -it ", " -- /bin/bash")
 output: |-
-  tag: terminal
-  and tag: user.kubectl
+  tag:  terminal
+  and tag:  user.kubectl
   -
   cube [control]:
-      "kubectl"
+      "kubectl "
   cube create:
-      "kubectl create"
+      "kubectl create "
   cube expose:
-      "kubectl expose"
+      "kubectl expose "
   cube run:
-      "kubectl run"
+      "kubectl run "
   cube set:
-      "kubectl set"
+      "kubectl set "
   cube run container:
-      "kubectl run-container"
+      "kubectl run-container "
   cube explain:
-      "kubectl explain"
+      "kubectl explain "
   cube get:
-      "kubectl get"
+      "kubectl get "
   cube edit:
-      "kubectl edit"
+      "kubectl edit "
   cube delete:
-      "kubectl delete"
+      "kubectl delete "
   cube rollout:
-      "kubectl rollout"
+      "kubectl rollout "
   cube rolling update:
-      "kubectl rolling-update"
+      "kubectl rolling-update "
   cube scale:
-      "kubectl scale"
+      "kubectl scale "
   cube auto scale:
-      "kubectl autoscale"
+      "kubectl autoscale "
   cube certificate:
-      "kubectl certificate"
+      "kubectl certificate "
   cube top:
-      "kubectl top"
+      "kubectl top "
   cube drain:
-      "kubectl drain"
+      "kubectl drain "
   cube taint:
-      "kubectl taint"
+      "kubectl taint "
   cube (cord | cordon):
-      "kubectl cordon"
+      "kubectl cordon "
   cube (uncord | uncordon):
-      "kubectl uncordon"
+      "kubectl uncordon "
   cube cluster (info | information):
-      "kubectl cluster-info"
+      "kubectl cluster-info "
   cube describe:
-      "kubectl describe"
+      "kubectl describe "
   cube logs:
-      "kubectl logs"
+      "kubectl logs "
   cube attach:
-      "kubectl attach"
+      "kubectl attach "
   cube exec:
-      "kubectl exec"
+      "kubectl exec "
   cube port forward:
-      "kubectl port-forward"
+      "kubectl port-forward "
   cube proxy:
-      "kubectl proxy"
+      "kubectl proxy "
   cube copy:
-      "kubectl cp"
+      "kubectl cp "
   cube auth:
-      "kubectl auth"
+      "kubectl auth "
   cube diff:
-      "kubectl diff"
+      "kubectl diff "
   cube apply:
-      "kubectl apply"
+      "kubectl apply "
   cube patch:
-      "kubectl patch"
+      "kubectl patch "
   cube replace:
-      "kubectl replace"
+      "kubectl replace "
   cube wait:
-      "kubectl wait"
+      "kubectl wait "
   cube convert:
-      "kubectl convert"
+      "kubectl convert "
   cube customize:
-      "kubectl kustomize"
+      "kubectl kustomize "
   cube label:
-      "kubectl label"
+      "kubectl label "
   cube annotate:
-      "kubectl annotate"
+      "kubectl annotate "
   cube completion:
-      "kubectl completion"
+      "kubectl completion "
   cube (interface | API):
-      "kubectl api"
+      "kubectl api "
   cube interface resources:
-      "kubectl api-resources"
+      "kubectl api-resources "
   cube interface versions:
-      "kubectl api-versions"
+      "kubectl api-versions "
   cube config:
-      "kubectl config"
+      "kubectl config "
   cube help:
-      "kubectl help"
+      "kubectl help "
   cube plugin:
-      "kubectl plugin"
+      "kubectl plugin "
   cube version:
-      "kubectl version"
+      "kubectl version "
   cube {user.kubectl_action} [{user.kubectl_object}]:
-      insert("kubectl{kubectl_action}")
+      insert("kubectl {kubectl_action} ")
       insert(kubectl_object or "")
   cube detach:
       key("ctrl-p")
       key("ctrl-q")
   cube shell:
-      user.insert_between("kubectl exec -it", "-- /bin/bash")
+      user.insert_between("kubectl exec -it ", " -- /bin/bash")

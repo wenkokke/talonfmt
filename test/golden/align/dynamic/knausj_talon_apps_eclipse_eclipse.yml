@@ -149,8 +149,8 @@ input: |
   copy line down: key(ctrl-alt-down)
   copy line up: key(ctrl-alt-up)
 output: |
-  # custom eclipse commands go here
-  app: eclipse
+  #custom eclipse commands go here
+  app:  eclipse
 
   -
   tag(): user.find_and_replace
@@ -163,11 +163,12 @@ output: |
   please [<user.text>]:
       key(ctrl-3)
       insert(user.text or "")
-
   # Sidebar
+  bar explore: key(alt-shift-w p)
   bar explore: key(alt-shift-w p)
 
   # bar extensions:
+  bar outline: key(alt-shift-q o)
   bar outline: key(alt-shift-q o)
 
   # bar run:
@@ -179,39 +180,33 @@ output: |
       key(alt-shift-q)
       sleep(200ms)
       key(c)
-
   panel problems:
       key(alt-shift-q)
       sleep(200ms)
       key(x)
-
   panel errors:
       key(alt-shift-q)
       sleep(200ms)
       key(l)
-
   panel breakpoints:
       key(alt-shift-q)
       sleep(200ms)
       key(b)
-
   panel search:
       key(alt-shift-q)
       sleep(200ms)
       key(s)
-
   panel variables:
       key(alt-shift-q)
       sleep(200ms)
       key(v)
-
   # panel switch:
   # panel terminal:
   # Settings
   show settings:  key(alt-w p)
   show shortcuts: key(ctrl-shift-l)
 
-  # show snippets:
+  #show snippets:
   # Display
   # centered switch:
   # fullscreen switch:
@@ -223,7 +218,6 @@ output: |
       key(ctrl-shift-r)
       sleep(50ms)
       insert(text or "")
-
   # file copy path:
   # file create sibling:
   file create:      key(ctrl-n)
@@ -242,6 +236,7 @@ output: |
   # format that:
   # format selection:
   imports fix: key(ctrl-shift-o)
+  imports fix: key(ctrl-shift-o)
 
   # problem last:
   # problem fix:
@@ -252,7 +247,7 @@ output: |
   refactor rename: key(alt-shift-r)
   refactor this:   key(alt-shift-i)
 
-  # code navigation
+  #code navigation
   (go declaration | follow): key(f3)
   go back:                   key(alt-left)
   go forward:                key(alt-right)
@@ -262,7 +257,7 @@ output: |
   # go type:
   # go usage:
   # Bookmarks.
-  # requires https://marketplace.eclipse.org/content/quick-bookmarks
+  #requires https://marketplace.eclipse.org/content/quick-bookmarks
   go marks:     key(alt-end)
   toggle mark:  key(ctrl-alt-b down enter)
   go next mark: key(alt-pagedown)
@@ -276,18 +271,19 @@ output: |
   # fold all:
   # unfold all:
   # fold comments:
-  # Debugging
+  #Debugging
   break point:         key(ctrl-shift-b)
   step over:           key(f6)
   debug step into:     key(f5)
   debug step out [of]: key(f7)
 
-  # debug start: user.vscode("workbench.action.debug.start")
-  # debug pause:
-  # debug stopper:
+  #debug start: user.vscode("workbench.action.debug.start")
+  #debug pause:
+  #debug stopper:
+  debug continue: key(f8)
   debug continue: key(f8)
 
-  # debug restart:
+  #debug restart:
   # Terminal
   # terminal external: user.vscode("workbench.action.terminal.openNativeConsole")
   # terminal new: user.vscode("workbench.action.terminal.new")
@@ -297,6 +293,6 @@ output: |
   # terminal trash: user.vscode("Terminal:Kill")
   # terminal scroll up: user.vscode("Terminal:ScrollUp")
   # terminal scroll down: user.vscode("Terminal:ScrollDown")
-  # TODO: should this be added to linecommands?
+  #TODO: should this be added to linecommands?
   copy line down: key(ctrl-alt-down)
   copy line up:   key(ctrl-alt-up)

@@ -104,7 +104,7 @@ input: |
   inner dock comment: user.code_comment_documentation_inner()
   inner block dock comment: user.code_comment_documentation_block_inner()
 output: |-
-  tag: user.rust
+  tag:  user.rust
   -
   tag(): user.code_comment_line
   tag(): user.code_comment_block_c_like
@@ -131,15 +131,15 @@ output: |-
   # rust-specific grammars
   # for unsafe rust
   state unsafe:
-      "unsafe"
+      "unsafe "
   unsafe block:
       user.code_state_unsafe()
   # rust centric struct and enum definitions
   state (struct | structure) <user.text>:
-      insert("struct")
+      insert("struct ")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
   state enum <user.text>:
-      insert("enum")
+      insert("enum ")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
   toggle use:
       user.code_toggle_libraries()
@@ -147,39 +147,39 @@ output: |-
   borrow:
       "&"
   borrow mutable:
-      "&mut"
+      "&mut "
   state (pub | public):
-      "pub"
+      "pub "
   state (pub | public) crate:
-      "pub(crate)"
+      "pub(crate) "
   state (dyn | dynamic):
-      "dyn"
+      "dyn "
   state constant:
-      "const"
+      "const "
   state (funk | func | function):
-      "fn"
+      "fn "
   state (imp | implements):
-      "impl"
+      "impl "
   state let mute:
-      "let mut"
+      "let mut "
   state let:
-      "let"
+      "let "
   state (mute | mutable):
-      "mut"
+      "mut "
   state (mod | module):
-      "mod"
+      "mod "
   state ref (mute | mutable):
-      "ref mut"
+      "ref mut "
   state ref:
-      "ref"
+      "ref "
   state trait:
-      "trait"
+      "trait "
   state match:
       user.code_state_switch()
   state (some | sum):
       "Some"
   state static:
-      "static"
+      "static "
   self taught:
       "self."
   state use:
@@ -202,18 +202,18 @@ output: |-
   is implemented trait {user.code_trait}:
       user.code_insert_trait_annotation(code_trait)
   is implemented trait:
-      ": impl"
+      ": impl "
   returns implemented trait {user.code_trait}:
       user.code_insert_return_trait(code_trait)
   returns implemented trait:
-      "-> impl"
+      " -> impl "
   # for generic reference of traits
   trait {user.code_trait}:
       insert("{code_trait}")
   implemented trait {user.code_trait}:
-      insert("impl{code_trait}")
+      insert("impl {code_trait}")
   dynamic trait {user.code_trait}:
-      insert("dyn{code_trait}")
+      insert("dyn {code_trait}")
   # for generic reference of macro
   macro {user.code_macros}:
       user.code_insert_macro(code_macros, "")

@@ -11,14 +11,14 @@ input: |
       insert("% {text}")
       key(down)
 output: |-
-  app: firefox
+  app:  firefox
   -
   tag(): browser
   tag(): user.tabs
   tab search:
       browser.focus_address()
-      insert("%")
+      insert("% ")
   tab search <user.text>$:
       browser.focus_address()
-      insert("%{text}")
+      insert("% {text}")
       key(down)

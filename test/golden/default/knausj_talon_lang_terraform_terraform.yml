@@ -25,7 +25,7 @@ input: |
 
   type {user.code_type}: insert("{code_type}")
 output: |-
-  tag: user.terraform
+  tag:  user.terraform
   -
   tag(): user.code_comment_block_c_like
   tag(): user.code_comment_line

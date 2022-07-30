@@ -13,7 +13,7 @@ input: |
   view multi [week]: user.thunderbird_calendar_view(3)
   view month: user.thunderbird_calendar_view(4)
 output: |
-  app: thunderbird_calendar
+  app:  thunderbird_calendar
 
   -
   # event/task

@@ -12,7 +12,7 @@ input: |
   state class:
         user.code_define_class()
 output: |-
-  tag: user.code_object_oriented
+  tag:  user.code_object_oriented
   -
   self dot:
       user.code_self()

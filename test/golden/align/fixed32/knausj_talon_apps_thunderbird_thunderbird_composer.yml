@@ -15,7 +15,7 @@ input: |
   link new: user.thunderbird_mod("k")
   link delete: user.thunderbird_mod("shift-k")
 output: |
-  app: thunderbird_composer
+  app:  thunderbird_composer
 
   -
   # mail
@@ -25,8 +25,10 @@ output: |
 
   # layout
   toggle contacts:                 key(f9)
+  toggle contacts:                 key(f9)
 
   # navigation
+  go (inbox | thunderbird | main): user.thunderbird_mod("1")
   go (inbox | thunderbird | main): user.thunderbird_mod("1")
 
   # edit

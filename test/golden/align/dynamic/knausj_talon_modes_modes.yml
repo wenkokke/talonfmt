@@ -11,18 +11,17 @@ input: |
       mode.disable("sleep")
       mode.disable("dictation")
       mode.enable("command")
-output: |
-  mode: sleep
+output: |-
+  mode:  sleep
 
   -
-  ^ dictation mode $:
+  ^dictation mode$:
       mode.disable("sleep")
       mode.disable("command")
       mode.enable("dictation")
       user.code_clear_language_mode()
       mode.disable("user.gdb")
-
-  ^ command mode $:
+  ^command mode$:
       mode.disable("sleep")
       mode.disable("dictation")
       mode.enable("command")

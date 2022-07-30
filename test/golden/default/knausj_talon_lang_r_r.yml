@@ -43,7 +43,7 @@ input: |
 
   named arg {user.code_parameter_name}: user.code_insert_named_argument(code_parameter_name)
 output: |-
-  tag: user.r
+  tag:  user.r
   -
   tag(): user.code_imperative
   tag(): user.code_comment_line
@@ -65,7 +65,7 @@ output: |-
       user.code_public_variable_formatter = "SNAKE_CASE"
   # NOTE: migrated from generic as it is only use here
   (op | is) in:
-      "%in%"
+      " %in% "
   toggle library:
       user.code_toggle_libraries()
   library <user.code_libraries>:
@@ -74,7 +74,7 @@ output: |-
   # R specific commands
   (chain | pipe that):
       key(end)
-      "%>%"
+      " %>%"
       key(enter)
   state na:
       insert("NA")

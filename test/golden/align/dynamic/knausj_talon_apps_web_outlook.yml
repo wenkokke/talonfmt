@@ -68,11 +68,11 @@ output: |
   # https://support.office.com/en-us/article/keyboard-shortcuts-for-outlook-3cdeb221-7ae5-4c1d-8c1d-9e63216c1efd#PickTab=Web
   # the shortcuts below our based half of the bill in short cut menu, but the
   # link above has significantly more that could so be added
-  os: linux
+  os:  linux
 
-  tag: browser
+  tag:  browser
 
-  win.title: /Outlook/
+  win.title:  /Outlook/
 
   -
   # write email
@@ -111,15 +111,12 @@ output: |
   go [to] inbox:
       key(g)
       key(i)
-
   go to drafts:
       key(g)
       key(d)
-
   go to sent:
       key(g)
       key(s)
-
   search [email]: key(alt-q)
   show help:      key(?)
 

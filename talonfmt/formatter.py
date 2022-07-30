@@ -1,55 +1,26 @@
 from collections.abc import Iterator, Sequence
 from functools import singledispatchmethod
-from typing import Iterable, Optional, Union
+from typing import Iterable, Union
 from doc_printer import *
 from tree_sitter_talon import *
+from .parse_error import ParseError
 
 import dataclasses
 
+def node_dict_simplify(node_dict) -> None:
+    if len(node_dict) > 4:
+        del node_dict["text"]
 
-@dataclasses.dataclass
-class ParseError(Exception):
-    start_position: Point
-    end_position: Point
+    del node_dict["start_position"]
+    del node_dict["end_position"]
 
-    @staticmethod
-    def point_to_str(point: Point) -> str:
-        return f"line {point.row}, column {point.column}"
-
-    def range(self) -> str:
-        if self.start_position.row == self.end_position.row:
-            return f"on line {self.start_position.row} between column {self.start_position.column} and {self.end_position.column}"
-        else:
-            return f" between {self.point_to_str(self.start_position)} and {self.point_to_str(self.end_position)}"
-
-    def annotated_region(self, contents: str) -> str:
-        def annotated_lines(lines: Sequence[str]) -> Iterator[str]:
-            for l, line in enumerate(lines):
-                yield line
-                is_first_line = l == 0
-                is_last_line = l == len(lines) - 1
-                start = self.start_position.column if is_first_line else 0
-                end = self.end_position.column if is_last_line else len(line)
-                print(0, start, end, len(line))
-                annotation: list[str] = []
-                for c, _ in enumerate(line):
-                    if c <= start or end < c:
-                        annotation.append(" ")
-                    else:
-                        annotation.append("^")
-                yield "".join(annotation)
-        lines = contents.splitlines()
-        lines = lines[self.start_position.row:self.end_position.row+1]
-        return "\n".join(annotated_lines(lines))
-
-
-    def message(self, *, contents: str, filename: Optional[str]) -> str:
-        return "".join((
-            f"Parse error ",
-            f"in {filename} " if filename else "",
-            f"{self.range()}:\n",
-            f"{self.annotated_region(contents)}\n",
-        ))
+    for key in node_dict.keys():
+        if isinstance(node_dict[key], dict):
+            node_dict_simplify(node_dict[key])
+        if isinstance(node_dict[key], list):
+            for val in node_dict[key]:
+                if isinstance(val, dict):
+                    node_dict_simplify(val)
 
 @dataclasses.dataclass
 class TalonFormatter:
@@ -91,6 +62,8 @@ class TalonFormatter:
             else:
                 body.extend(self.get_comments())
                 body.append(self.format(child))
+        # NOTE: append any trailing comments
+        body.extend(self.get_comments())
         body_with_tables = create_tables(iter(body))
         return Line.join(header, "-", body_with_tables)
 
@@ -192,13 +165,13 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonComment) -> Doc:
-        comment = node.text.strip().lstrip("#").lstrip()
-        return "#" // Text.words(comment)
+        comment = node.text.lstrip("#")
+        return "#" / Text.words(comment, collapse_whitespace=False)
 
     @format.register
     def _(self, node: TalonDocstring) -> Doc:
-        comment = node.text.strip().lstrip("#").lstrip()
-        return "###" // Text.words(comment)
+        comment = node.text.lstrip("#")
+        return "###" / Text.words(comment, collapse_whitespace=False)
 
     @format.register
     def _(self, node: TalonExpression) -> Doc:
@@ -232,24 +205,8 @@ class TalonFormatter:
         return Space.join(left, operator, right)
 
     @format.register
-    def _(self, node: TalonFloat) -> Doc:
-        return Text.words(node.text)
-
-    @format.register
     def _(self, node: TalonIdentifier) -> Doc:
-        return Text.words(node.text)
-
-    @format.register
-    def _(self, node: TalonImplicitString) -> Doc:
-        return Text.words(node.text)
-
-    @format.register
-    def _(self, node: TalonInteger) -> Doc:
-        return Text.words(node.text)
-
-    @format.register
-    def _(self, node: TalonInterpolation) -> Doc:
-        return self.format(self.get_only_child(node))
+        return Text.words(node.text, collapse_whitespace=True)
 
     @format.register
     def _(self, node: TalonKeyAction) -> Doc:
@@ -257,12 +214,8 @@ class TalonFormatter:
         return "key" / parens(self.format(node.arguments))
 
     @format.register
-    def _(self, node: TalonNumber) -> Doc:
-        return self.format(self.get_only_child(node))
-
-    @format.register
     def _(self, node: TalonOperator) -> Doc:
-        return Text.words(node.text)
+        return Text.words(node.text, collapse_whitespace=True)
 
     @format.register
     def _(self, node: TalonParenthesizedExpression) -> Doc:
@@ -281,8 +234,41 @@ class TalonFormatter:
         return "sleep" / parens(self.format(node.arguments))
 
     @format.register
+    def _(self, node: TalonVariable) -> Doc:
+        self.only_comment_children(node)
+        return self.format(node.variable_name)
+
+    ###########################################################################
+    # Expressions - Numbers
+    ###########################################################################
+
+    @format.register
+    def _(self, node: TalonFloat) -> Doc:
+        return Text.words(node.text, collapse_whitespace=True)
+
+    @format.register
+    def _(self, node: TalonInteger) -> Doc:
+        return Text.words(node.text, collapse_whitespace=True)
+
+    @format.register
+    def _(self, node: TalonNumber) -> Doc:
+        return self.format(self.get_only_child(node))
+
+    ###########################################################################
+    # Expressions - Strings
+    ###########################################################################
+
+    @format.register
+    def _(self, node: TalonImplicitString) -> Doc:
+        return Text.words(node.text, collapse_whitespace=True)
+
+    @format.register
+    def _(self, node: TalonInterpolation) -> Doc:
+        return self.format(self.get_only_child(node))
+
+    @format.register
     def _(self, node: TalonString) -> Doc:
-        return quote(self.format_children(node.children))
+        return double_quote(self.format_children(node.children))
 
     @format.register
     def _(self, node: TalonStringContent) -> Doc:
@@ -291,11 +277,6 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonStringEscapeSequence) -> Doc:
         return Text.words(node.text)
-
-    @format.register
-    def _(self, node: TalonVariable) -> Doc:
-        self.only_comment_children(node)
-        return self.format(node.variable_name)
 
     ###########################################################################
     # Rules
@@ -355,47 +336,6 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonWord) -> Doc:
         return Text.words(node.text)
-
-    ###########################################################################
-    # Comments
-    ###########################################################################
-
-    # Used to buffer comments encountered inline, e.g., inside a binary operator
-    _comment_buffer: list[TalonComment] = dataclasses.field(
-        default_factory=list, init=False
-    )
-
-    def store_comments(self, children: Iterable[Node]) -> Iterator[Node]:
-        for child in children:
-            if isinstance(child, TalonComment):
-                self._comment_buffer.append(child)
-            else:
-                yield child
-
-    def get_comments(self) -> Iterator[Doc]:
-        try:
-            for comment in self._comment_buffer:
-                yield self.format(comment)
-        finally:
-            self._comment_buffer.clear()
-
-    def only_comment_children(self, branch: Branch) -> None:
-        if isinstance(branch.children, list):
-            rest = tuple(self.store_comments(branch.children))
-            assert (
-                len(rest) == 0
-            ), f"There should be no non-comment children, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
-
-    def get_only_child(self, branch: Branch) -> Node:
-        assert branch.children is not None
-        if isinstance(branch.children, Sequence):
-            rest = tuple(self.store_comments(branch.children))
-            assert (
-                len(rest) == 1
-            ), f"There should be only one non-comment child, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
-            return rest[0]
-        else:
-            return branch.children
 
     ###########################################################################
     # Context Header
@@ -482,3 +422,44 @@ class TalonFormatter:
                     table_type="match",
                     min_col_widths=(self.align_match_context,),
                 )
+
+    ###########################################################################
+    # Comments
+    ###########################################################################
+
+    # Used to buffer comments encountered inline, e.g., inside a binary operator
+    _comment_buffer: list[TalonComment] = dataclasses.field(
+        default_factory=list, init=False
+    )
+
+    def store_comments(self, children: Iterable[Node]) -> Iterator[Node]:
+        for child in children:
+            if isinstance(child, TalonComment):
+                self._comment_buffer.append(child)
+            else:
+                yield child
+
+    def get_comments(self) -> Iterator[Doc]:
+        try:
+            for comment in self._comment_buffer:
+                yield self.format(comment)
+        finally:
+            self._comment_buffer.clear()
+
+    def only_comment_children(self, branch: Branch) -> None:
+        if isinstance(branch.children, list):
+            rest = tuple(self.store_comments(branch.children))
+            assert (
+                len(rest) == 0
+            ), f"There should be no non-comment children, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
+
+    def get_only_child(self, branch: Branch) -> Node:
+        assert branch.children is not None
+        if isinstance(branch.children, Sequence):
+            rest = tuple(self.store_comments(branch.children))
+            assert (
+                len(rest) == 1
+            ), f"There should be only one non-comment child, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
+            return rest[0]
+        else:
+            return branch.children

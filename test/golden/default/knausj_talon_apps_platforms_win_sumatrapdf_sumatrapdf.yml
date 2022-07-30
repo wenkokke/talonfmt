@@ -5,7 +5,7 @@ input: |
   tag(): user.pages
   tag(): user.tabs
 output: |-
-  app: sumatrapdf
+  app:  sumatrapdf
   -
   # Set tags
   tag(): user.pages

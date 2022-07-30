@@ -5,7 +5,7 @@ input: |
   tag(): user.pages
   tag(): user.tabs
 output: |-
-  app: nitro_reader_five
+  app:  nitro_reader_five
 
   -
   # Set tags

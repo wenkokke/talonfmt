@@ -149,8 +149,8 @@ input: |
   copy line down: key(ctrl-alt-down)
   copy line up: key(ctrl-alt-up)
 output: |-
-  # custom eclipse commands go here
-  app: eclipse
+  #custom eclipse commands go here
+  app:  eclipse
   -
   tag(): user.find_and_replace
   tag(): user.line_commands
@@ -204,7 +204,7 @@ output: |-
       key(alt-w p)
   show shortcuts:
       key(ctrl-shift-l)
-  # show snippets:
+  #show snippets:
   # Display
   # centered switch:
   # fullscreen switch:
@@ -248,7 +248,7 @@ output: |-
       key(alt-shift-r)
   refactor this:
       key(alt-shift-i)
-  # code navigation
+  #code navigation
   (go declaration | follow):
       key(f3)
   go back:
@@ -260,7 +260,7 @@ output: |-
   # go type:
   # go usage:
   # Bookmarks.
-  # requires https://marketplace.eclipse.org/content/quick-bookmarks
+  #requires https://marketplace.eclipse.org/content/quick-bookmarks
   go marks:
       key(alt-end)
   toggle mark:
@@ -277,7 +277,7 @@ output: |-
   # fold all:
   # unfold all:
   # fold comments:
-  # Debugging
+  #Debugging
   break point:
       key(ctrl-shift-b)
   step over:
@@ -286,12 +286,12 @@ output: |-
       key(f5)
   debug step out [of]:
       key(f7)
-  # debug start: user.vscode("workbench.action.debug.start")
-  # debug pause:
-  # debug stopper:
+  #debug start: user.vscode("workbench.action.debug.start")
+  #debug pause:
+  #debug stopper:
   debug continue:
       key(f8)
-  # debug restart:
+  #debug restart:
   # Terminal
   # terminal external: user.vscode("workbench.action.terminal.openNativeConsole")
   # terminal new: user.vscode("workbench.action.terminal.new")
@@ -301,7 +301,7 @@ output: |-
   # terminal trash: user.vscode("Terminal:Kill")
   # terminal scroll up: user.vscode("Terminal:ScrollUp")
   # terminal scroll down: user.vscode("Terminal:ScrollDown")
-  # TODO: should this be added to linecommands?
+  #TODO: should this be added to linecommands?
   copy line down:
       key(ctrl-alt-down)
   copy line up:

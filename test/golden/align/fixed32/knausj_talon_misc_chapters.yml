@@ -6,7 +6,7 @@ input: |
   go chapter <number>: user.chapter_jump(number)
   go chapter final: user.chapter_final()
 output: |
-  tag: user.chapters
+  tag:  user.chapters
 
   -
   chapter next:                    user.chapter_next()

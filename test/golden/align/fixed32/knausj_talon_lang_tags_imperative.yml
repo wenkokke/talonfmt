@@ -17,7 +17,7 @@ input: |
   state break: user.code_break()
   state next: user.code_next()
 output: |
-  tag: user.code_imperative
+  tag:  user.code_imperative
 
   -
   block:                           user.code_block()

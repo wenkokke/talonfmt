@@ -14,9 +14,9 @@ input: |
   (open address [book] | address book | open contacts): user.thunderbird_mod("shift-b")
   dev tools: user.thunderbird_mod("shift-i")
 output: |-
-  app: thunderbird
-  and app: thunderbird_contacts
-  and app: thunderbird_composer
+  app:  thunderbird
+  and app:  thunderbird_contacts
+  and app:  thunderbird_composer
   -
   # Set tags
   tag(): user.tabs

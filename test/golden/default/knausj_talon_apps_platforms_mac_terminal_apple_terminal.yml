@@ -23,7 +23,7 @@ input: |
       insert("fg")
       key(enter)
 output: |-
-  app: apple_terminal
+  app:  apple_terminal
   -
   # makes the commands in generic_terminal available
   tag(): terminal

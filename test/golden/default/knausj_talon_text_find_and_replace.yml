@@ -85,7 +85,7 @@ input: |
   select last clip: user.select_previous_occurrence(clip.text())
   select next clip: user.select_next_occurrence(clip.text())
 output: |-
-  tag: user.find_and_replace
+  tag:  user.find_and_replace
   -
   hunt this:
       user.find("")
@@ -115,7 +115,7 @@ output: |-
       user.replace_confirm()
   replace confirm all:
       user.replace_confirm_all()
-  # quick replace commands, modeled after jetbrains
+  #quick replace commands, modeled after jetbrains
   clear last <user.text> [over]:
       user.select_previous_occurrence(text)
       sleep(100ms)

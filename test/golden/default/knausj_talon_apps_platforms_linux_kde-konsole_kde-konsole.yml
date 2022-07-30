@@ -18,8 +18,8 @@ input: |
   tag(): user.tabs
   # TODO: add file_manager support
 output: |-
-  os: linux
-  and app.name: konsole
+  os:  linux
+  and app.name:  konsole
   -
   # makes the commands in generic_terminal available
   tag(): terminal
@@ -31,3 +31,4 @@ output: |-
   tag(): user.anaconda
   # tag(): user.kubectl
   tag(): user.tabs
+  # TODO: add file_manager support

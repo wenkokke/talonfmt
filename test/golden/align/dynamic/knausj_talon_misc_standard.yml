@@ -27,5 +27,5 @@ output: |
   redo that:       edit.redo()
   paste match:     edit.paste_match_style()
   file save:       edit.save()
-  (pad | padding): user.insert_between("", "")
+  (pad | padding): user.insert_between(" ", " ")
   slap:            edit.line_insert_down()

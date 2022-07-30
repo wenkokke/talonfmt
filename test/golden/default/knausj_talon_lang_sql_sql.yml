@@ -42,7 +42,7 @@ input: |
 
   date: user.insert_between("DATE '", "'")
 output: |-
-  tag: user.sql
+  tag:  user.sql
   -
   tag(): user.code_operators_math
   tag(): user.code_comment_line
@@ -50,48 +50,48 @@ output: |-
   tag(): user.code_data_null
   tag(): user.code_functions_common
   select:
-      "SELECT"
+      "SELECT "
   distinct:
-      "DISTINCT"
+      "DISTINCT "
   from:
-      "FROM"
+      "FROM "
   select star from:
-      "SELECT *\nFROM"
+      "SELECT *\nFROM "
   where:
-      "WHERE"
+      "WHERE "
   order by:
-      "ORDER BY"
+      "ORDER BY "
   group by:
-      "GROUP BY"
+      "GROUP BY "
   having:
-      "HAVING"
+      "HAVING "
   descending:
-      "DESC"
+      " DESC"
   ascending:
-      "ASC"
+      " ASC"
   dot i d:
       ".id"
   inner join:
-      user.insert_between("INNER JOIN", "ON")
+      user.insert_between("INNER JOIN ", " ON ")
   inner join using:
-      user.insert_between("INNER JOIN", "USING")
+      user.insert_between("INNER JOIN ", " USING ")
   left outer join:
-      user.insert_between("LEFT OUTER JOIN", "ON")
+      user.insert_between("LEFT OUTER JOIN ", " ON ")
   right outer join:
-      user.insert_between("RIGHT OUTER JOIN", "ON")
+      user.insert_between("RIGHT OUTER JOIN ", " ON ")
   with:
       key(enter up)
-      "WITH AS ("
+      "WITH  AS ("
       key(enter tab)
-      "SELECT"
+      "SELECT "
       key(enter shift-tab)
       edit.extend_line_end()
       edit.delete()
-      ")"
+      ") "
       key(delete up:2 right:3)
   column:
       key(return)
-      ","
+      ", "
   count:
       user.code_insert_function("Count", "")
   date:

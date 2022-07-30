@@ -8,7 +8,7 @@ input: |
   # layout
   toggle today: key(f11)
 output: |-
-  app: thunderbird_tasks
+  app:  thunderbird_tasks
   -
   # event/task
   event new:

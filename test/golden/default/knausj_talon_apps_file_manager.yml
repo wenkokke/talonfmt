@@ -42,7 +42,7 @@ input: |
   file next: user.file_manager_next_file_page()
   file last: user.file_manager_previous_file_page()
 output: |-
-  tag: user.file_manager
+  tag:  user.file_manager
   -
   title force:
       user.file_manager_refresh_title()
@@ -80,10 +80,10 @@ output: |-
       user.file_manager_select_file(file_manager_files)
   ^(select | cell) file {user.file_manager_files}$:
       user.file_manager_select_file(file_manager_files)
-  # new folder
+  #new folder
   folder new <user.text>:
       user.file_manager_new_folder(text)
-  # show properties
+  #show properties
   properties show:
       user.file_manager_show_properties()
   # open terminal at location

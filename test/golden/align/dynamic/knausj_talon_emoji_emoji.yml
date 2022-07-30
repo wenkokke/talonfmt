@@ -5,7 +5,7 @@ input: |
   emoji {user.emoji}: user.paste(emoji)
   kaomoji {user.kaomoji}: user.paste(kaomoji)
 output: |
-  tag: user.emoji
+  tag:  user.emoji
 
   -
   emoticon {user.emoticon}: "{emoticon}"

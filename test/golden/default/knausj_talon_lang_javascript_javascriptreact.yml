@@ -3,6 +3,6 @@ input: |
   -
   tag(): user.javascript
 output: |-
-  tag: user.javascriptreact
+  tag:  user.javascriptreact
   -
   tag(): user.javascript

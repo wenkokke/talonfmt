@@ -253,7 +253,7 @@ input: |
   blacken: user.idea("action BLACKReformatCode")
 output: |-
   # Requires https://plugins.jetbrains.com/plugin/10504-voice-code-idea
-  app: jetbrains
+  app:  jetbrains
   -
   tag(): user.line_commands
   tag(): user.multiple_cursors
@@ -308,7 +308,7 @@ output: |-
       user.idea("action ReformatCode")
   fix imports:
       user.idea("action OptimizeImports")
-  # navigation
+  #navigation
   (go declaration | follow):
       user.idea("action GotoDeclaration")
   go implementation:
@@ -594,7 +594,7 @@ output: |-
       user.idea("action EditorUnSelectWord")
   select (more | this):
       user.idea("action EditorSelectWord")
-  # jet brains-specific line commands. see line_commands.talon for generic ones
+  #jet brains-specific line commands. see line_commands.talon for generic ones
   expand <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action ExpandRegion")
@@ -609,35 +609,35 @@ output: |-
       user.idea("action Refactorings.QuickListPopupAction")
   clone <number>:
       user.line_clone(number)
-  # find/replace
+  #find/replace
   clear last <user.text> [over]:
-      user.idea("find prev{text}, action EditorBackSpace")
+      user.idea("find prev {text}, action EditorBackSpace")
   clear next <user.text> [over]:
-      user.idea("find next{text}, action EditorBackSpace")
+      user.idea("find next {text}, action EditorBackSpace")
   comment last <user.text> [over]:
-      user.idea("find prev{text}, action CommentByLineComment")
+      user.idea("find prev {text}, action CommentByLineComment")
   comment next <user.text> [over]:
-      user.idea("find next{text}, action CommentByLineComment")
+      user.idea("find next {text}, action CommentByLineComment")
   go last <user.text> [over]:
-      user.idea("find prev{text}, action EditorRight")
+      user.idea("find prev {text}, action EditorRight")
   go next <user.text> [over]:
-      user.idea("find next{text}, action EditorRight")
+      user.idea("find next {text}, action EditorRight")
   paste last <user.text> [over]:
-      user.idea("find prev{text}, action EditorRight, action EditorPaste")
+      user.idea("find prev {text}, action EditorRight, action EditorPaste")
   paste next <user.text> [over]:
-      user.idea("find next{text}, action EditorRight, action EditorPaste")
+      user.idea("find next {text}, action EditorRight, action EditorPaste")
   refactor last <user.text> [over]:
-      user.idea("find prev{text}, action Refactorings.QuickListPopupAction")
+      user.idea("find prev {text}, action Refactorings.QuickListPopupAction")
   refactor next <user.text> [over]:
-      user.idea("find next{text}, action Refactorings.QuickListPopupAction")
+      user.idea("find next {text}, action Refactorings.QuickListPopupAction")
   replace last <user.text> [over]:
-      user.idea("find prev{text}, action EditorPaste")
+      user.idea("find prev {text}, action EditorPaste")
   replace next <user.text> [over]:
-      user.idea("find next{text}, action EditorPaste")
+      user.idea("find next {text}, action EditorPaste")
   select last <user.text> [over]:
-      user.idea("find prev{text}")
+      user.idea("find prev {text}")
   select next <user.text> [over]:
-      user.idea("find next{text}")
+      user.idea("find next {text}")
   select camel left:
       user.extend_camel_left()
   select camel right:

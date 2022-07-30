@@ -81,8 +81,8 @@ input: |
   exit contact: key(left)
   save contact: key(ctrl-s)
 output: |-
-  tag: browser
-  win.title: /ProtonMail/
+  tag:  browser
+  win.title:  /ProtonMail/
   -
   # General
   # Application

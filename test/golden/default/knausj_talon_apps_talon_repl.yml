@@ -56,8 +56,8 @@ input: |
       insert("actions.user.talon_debug_app_windows('{running}')")
       key(enter)
 output: |-
-  win.title: /repl/
-  win.title: /Talon - REPL/
+  win.title:  /repl/
+  win.title:  /Talon - REPL/
   -
   tag(): user.talon_python
   # uncomment user.talon_populate_lists tag to activate talon-specific lists of actions, scopes, modes etcetera.
@@ -76,8 +76,8 @@ output: |-
   ^test numb <number_small>$:
       phrase = user.history_get(number_small)
       command = "sim('{phrase}')"
-      # to do: shouldn't this work?
-      # user.paste("sim({phrase})")
+      #to do: shouldn't this work?
+      #user.paste("sim({phrase})")
       insert(command)
       key(enter)
   # requires user.talon_populate_lists tag. do not use with dragon

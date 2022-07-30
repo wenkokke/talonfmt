@@ -73,9 +73,9 @@ input: |
   go camel left: user.camel_left()
   go camel right: user.camel_right()
 output: |-
-  tag: user.line_commands
+  tag:  user.line_commands
   -
-  # this defines some common line commands. More may be defined that are ide-specific.
+  #this defines some common line commands. More may be defined that are ide-specific.
   lend:
       edit.line_end()
   bend:

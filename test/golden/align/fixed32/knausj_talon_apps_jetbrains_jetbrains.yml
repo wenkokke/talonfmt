@@ -253,7 +253,7 @@ input: |
   blacken: user.idea("action BLACKReformatCode")
 output: |
   # Requires https://plugins.jetbrains.com/plugin/10504-voice-code-idea
-  app: jetbrains
+  app:  jetbrains
 
   -
   tag(): user.line_commands
@@ -264,34 +264,29 @@ output: |
   # Auto complete
   complete:
       user.idea("action CodeCompletion")
+  perfect: user.idea("action CodeCompletion,action CodeCompletion")
 
-  perfect:
-      user.idea("action CodeCompletion,action CodeCompletion")
+  smart: user.idea("action SmartTypeCompletion")
 
-  smart:
-      user.idea("action SmartTypeCompletion")
-
-  (done | finish):
-      user.idea("action EditorCompleteStatement")
+  (done | finish): user.idea("action EditorCompleteStatement")
 
   # Copying
   grab <number>:                   user.idea_grab(number)
+  grab <number>:                   user.idea_grab(number)
 
   # Actions
+  (action | please):               user.idea("action GotoAction")
   (action | please):               user.idea("action GotoAction")
 
   (action | please) <user.text>:
       user.idea("action GotoAction")
       insert(text)
-
   # Refactoring
   refactor:
       user.idea("action Refactorings.QuickListPopupAction")
-
   refactor <user.text>:
       user.idea("action Refactorings.QuickListPopupAction")
       insert(text)
-
   extract variable:                user.idea("action IntroduceVariable")
   extract field:                   user.idea("action IntroduceField")
   extract constant:                user.idea("action IntroduceConstant")
@@ -305,7 +300,7 @@ output: |
   fix (format | formatting):       user.idea("action ReformatCode")
   fix imports:                     user.idea("action OptimizeImports")
 
-  # navigation
+  #navigation
   (go declaration | follow):       user.idea("action GotoDeclaration")
   go implementation:               user.idea("action GotoImplementation")
   go usage:                        user.idea("action FindUsages")
@@ -316,40 +311,38 @@ output: |
 
   # Search
   find (everywhere | all):         user.idea("action SearchEverywhere")
+  find (everywhere | all):         user.idea("action SearchEverywhere")
 
   find (everywhere | all) <user.text> [over]:
       user.idea("action SearchEverywhere")
       sleep(500ms)
       insert(text)
-
   (search | find) class:           user.idea("action GotoClass")
   (search | find) file:            user.idea("action GotoFile")
   (search | find) path:            user.idea("action FindInPath")
   (search | find) symbol:          user.idea("action GotoSymbol")
 
-  (search | find) symbol <user.text> $:
+  (search | find) symbol <user.text>$:
       user.idea("action GotoSymbol")
       insert(text)
       key("enter")
-
+  recent:                          user.idea("action RecentFiles")
   recent:                          user.idea("action RecentFiles")
 
   surround [this] with <user.text> [over]:
       idea("action SurroundWith")
       sleep(500ms)
       insert(text)
-
   # Making these longer to reduce collisions with real code dictation.
   insert generated <user.text> [over]:
       user.idea("action Generate")
       sleep(500ms)
       insert(text)
-
   insert template <user.text> [over]:
       idea("action InsertLiveTemplate")
       sleep(500ms)
       insert(text)
-
+  create (template | snippet):     user.idea("action SaveAsTemplate")
   create (template | snippet):     user.idea("action SaveAsTemplate")
 
   # Recording
@@ -362,7 +355,6 @@ output: |
       insert(text)
       sleep(500ms)
       Key("enter")
-
   # Marks
   go mark:                         user.idea("action ShowBookmarks")
   toggle mark:                     user.idea("action ToggleBookmark")
@@ -390,19 +382,19 @@ output: |
 
   # File Creation
   create sibling:                  user.idea("action NewElementSamePlace")
+  create sibling:                  user.idea("action NewElementSamePlace")
 
   create sibling <user.text> [over]:
       user.idea("action NewElementSamePlace")
       sleep(500ms)
       insert(text)
-
+  create file:                     user.idea("action NewElement")
   create file:                     user.idea("action NewElement")
 
   create file <user.text> [over]:
       user.idea("action NewElement")
       sleep(500ms)
       insert(text)
-
   # Task Management
   go task:                         user.idea("action tasks.goto")
   go browser task:                 user.idea("action tasks.open.in.browser")
@@ -413,80 +405,55 @@ output: |
   # Git / Github (not using verb-noun-adjective pattern, mirroring terminal commands.)
   git pull:
       user.idea("action Vcs.UpdateProject")
+  git commit: user.idea("action CheckinProject")
 
-  git commit:
-      user.idea("action CheckinProject")
+  git push: user.idea("action CheckinProject")
 
-  git push:
-      user.idea("action CheckinProject")
+  git log: user.idea("action Vcs.ShowTabbedFileHistory")
 
-  git log:
-      user.idea("action Vcs.ShowTabbedFileHistory")
+  git browse: user.idea("action Github.Open.In.Browser")
 
-  git browse:
-      user.idea("action Github.Open.In.Browser")
+  git (gets | gist): user.idea("action Github.Create.Gist")
 
-  git (gets | gist):
-      user.idea("action Github.Create.Gist")
-
-  git (pull request | request):
-      user.idea("action Github.Create.Pull.Request")
+  git (pull request | request): user.idea("action Github.Create.Pull.Request")
 
   git (view | show | list) (requests | request):
       user.idea("action Github.View.Pull.Request")
+  git (annotate | blame): user.idea("action Annotate")
 
-  git (annotate | blame):
-      user.idea("action Annotate")
-
-  git menu:
-      user.idea("action Vcs.QuickListPopupAction")
+  git menu: user.idea("action Vcs.QuickListPopupAction")
 
   # Tool windows:
   # Toggling various tool windows
   toggle project:
       user.idea("action ActivateProjectToolWindow")
+  toggle find: user.idea("action ActivateFindToolWindow")
 
-  toggle find:
-      user.idea("action ActivateFindToolWindow")
+  toggle run: user.idea("action ActivateRunToolWindow")
 
-  toggle run:
-      user.idea("action ActivateRunToolWindow")
+  toggle debug: user.idea("action ActivateDebugToolWindow")
 
-  toggle debug:
-      user.idea("action ActivateDebugToolWindow")
+  toggle events: user.idea("action ActivateEventLogToolWindow")
 
-  toggle events:
-      user.idea("action ActivateEventLogToolWindow")
+  toggle terminal: user.idea("action ActivateTerminalToolWindow")
 
-  toggle terminal:
-      user.idea("action ActivateTerminalToolWindow")
+  toggle git: user.idea("action ActivateVersionControlToolWindow")
 
-  toggle git:
-      user.idea("action ActivateVersionControlToolWindow")
+  toggle structure: user.idea("action ActivateStructureToolWindow")
 
-  toggle structure:
-      user.idea("action ActivateStructureToolWindow")
+  toggle database: user.idea("action ActivateDatabaseToolWindow")
 
-  toggle database:
-      user.idea("action ActivateDatabaseToolWindow")
+  toggle database changes: user.idea("action ActivateDatabaseChangesToolWindow")
 
-  toggle database changes:
-      user.idea("action ActivateDatabaseChangesToolWindow")
+  toggle make: user.idea("action ActivatemakeToolWindow")
 
-  toggle make:
-      user.idea("action ActivatemakeToolWindow")
+  toggle to do: user.idea("action ActivateTODOToolWindow")
 
-  toggle to do:
-      user.idea("action ActivateTODOToolWindow")
+  toggle docker: user.idea("action ActivateDockerToolWindow")
 
-  toggle docker:
-      user.idea("action ActivateDockerToolWindow")
+  toggle favorites: user.idea("action ActivateFavoritesToolWindow")
 
-  toggle favorites:
-      user.idea("action ActivateFavoritesToolWindow")
-
-  toggle last:
-      user.idea("action JumpToLastWindow")
+  toggle last: user.idea("action JumpToLastWindow")
 
   # Pin/dock/float
   toggle pinned:                   user.idea("action TogglePinnedMode")
@@ -504,27 +471,19 @@ output: |
   # Active editor settings
   toggle power save:
       user.idea("action TogglePowerSave")
+  toggle whitespace: user.idea("action EditorToggleShowWhitespaces")
 
-  toggle whitespace:
-      user.idea("action EditorToggleShowWhitespaces")
+  toggle indents: user.idea("action EditorToggleShowIndentLines")
 
-  toggle indents:
-      user.idea("action EditorToggleShowIndentLines")
-
-  toggle line numbers:
-      user.idea("action EditorToggleShowLineNumbers")
+  toggle line numbers: user.idea("action EditorToggleShowLineNumbers")
 
   toggle (bread crumbs | breadcrumbs):
       user.idea("action EditorToggleShowBreadcrumbs")
+  toggle gutter icons: user.idea("action EditorToggleShowGutterIcons")
 
-  toggle gutter icons:
-      user.idea("action EditorToggleShowGutterIcons")
+  toggle wrap: user.idea("action EditorToggleUseSoftWraps")
 
-  toggle wrap:
-      user.idea("action EditorToggleUseSoftWraps")
-
-  toggle parameters:
-      user.idea("action ToggleInlineHintsAction")
+  toggle parameters: user.idea("action ToggleInlineHintsAction")
 
   # Toggleable views
   toggle fullscreen:               user.idea("action ToggleFullScreen")
@@ -533,8 +492,10 @@ output: |
 
   # Toggle additionals
   toggle comment:                  code.toggle_comment()
+  toggle comment:                  code.toggle_comment()
 
   # Quick popups
+  change scheme:                   user.idea("action QuickChangeScheme")
   change scheme:                   user.idea("action QuickChangeScheme")
 
   # Always javadoc
@@ -570,88 +531,66 @@ output: |
   fix next (error | air):
       user.idea("action GotoNextError")
       user.idea("action ShowIntentionActions")
-
   fix last (error | air):
       user.idea("action GotoPreviousError")
       user.idea("action ShowIntentionActions")
-
   # Special Selects
   select less:                     user.idea("action EditorUnSelectWord")
   select (more | this):            user.idea("action EditorSelectWord")
 
-  # jet brains-specific line commands. see line_commands.talon for generic ones
+  #jet brains-specific line commands. see line_commands.talon for generic ones
   expand <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action ExpandRegion")
-
   collapse <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action CollapseRegion")
-
   paste <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action EditorPaste")
-
   refactor <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action Refactorings.QuickListPopupAction")
-
+  clone <number>:                  user.line_clone(number)
   clone <number>:                  user.line_clone(number)
 
-  # find/replace
+  #find/replace
   clear last <user.text> [over]:
-      user.idea("find prev{text}, action EditorBackSpace")
-
+      user.idea("find prev {text}, action EditorBackSpace")
   clear next <user.text> [over]:
-      user.idea("find next{text}, action EditorBackSpace")
-
+      user.idea("find next {text}, action EditorBackSpace")
   comment last <user.text> [over]:
-      user.idea("find prev{text}, action CommentByLineComment")
-
+      user.idea("find prev {text}, action CommentByLineComment")
   comment next <user.text> [over]:
-      user.idea("find next{text}, action CommentByLineComment")
+      user.idea("find next {text}, action CommentByLineComment")
+  go last <user.text> [over]: user.idea("find prev {text}, action EditorRight")
 
-  go last <user.text> [over]:
-      user.idea("find prev{text}, action EditorRight")
-
-  go next <user.text> [over]:
-      user.idea("find next{text}, action EditorRight")
+  go next <user.text> [over]: user.idea("find next {text}, action EditorRight")
 
   paste last <user.text> [over]:
-      user.idea("find prev{text}, action EditorRight, action EditorPaste")
-
+      user.idea("find prev {text}, action EditorRight, action EditorPaste")
   paste next <user.text> [over]:
-      user.idea("find next{text}, action EditorRight, action EditorPaste")
-
+      user.idea("find next {text}, action EditorRight, action EditorPaste")
   refactor last <user.text> [over]:
-      user.idea("find prev{text}, action Refactorings.QuickListPopupAction")
-
+      user.idea("find prev {text}, action Refactorings.QuickListPopupAction")
   refactor next <user.text> [over]:
-      user.idea("find next{text}, action Refactorings.QuickListPopupAction")
-
+      user.idea("find next {text}, action Refactorings.QuickListPopupAction")
   replace last <user.text> [over]:
-      user.idea("find prev{text}, action EditorPaste")
-
+      user.idea("find prev {text}, action EditorPaste")
   replace next <user.text> [over]:
-      user.idea("find next{text}, action EditorPaste")
+      user.idea("find next {text}, action EditorPaste")
+  select last <user.text> [over]: user.idea("find prev {text}")
 
-  select last <user.text> [over]:
-      user.idea("find prev{text}")
+  select next <user.text> [over]: user.idea("find next {text}")
 
-  select next <user.text> [over]:
-      user.idea("find next{text}")
+  select camel left: user.extend_camel_left()
 
-  select camel left:
-      user.extend_camel_left()
+  select camel right: user.extend_camel_right()
 
-  select camel right:
-      user.extend_camel_right()
+  go camel left: user.camel_left()
 
-  go camel left:
-      user.camel_left()
-
-  go camel right:
-      user.camel_right()
+  go camel right: user.camel_right()
 
   # requires plug-in: black-pycharm
+  blacken:                         user.idea("action BLACKReformatCode")
   blacken:                         user.idea("action BLACKReformatCode")

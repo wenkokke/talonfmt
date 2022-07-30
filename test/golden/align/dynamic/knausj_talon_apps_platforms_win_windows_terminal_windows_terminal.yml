@@ -32,8 +32,8 @@ input: |
       key(escape)
       # make it so
       edit.find("{phrase}\n")
-output: |
-  app: windows_terminal
+output: |-
+  app:  windows_terminal
 
   -
   # makes the commands in generic_terminal available
@@ -56,5 +56,7 @@ output: |
   term menu:     key(ctrl-shift-f1)
   find it:       edit.find()
 
-  find it <phrase> $:
-      # handle consecutive finds by first escaping out of any previous one
+  find it <phrase>$:
+      key(escape)
+      # make it so
+      edit.find("{phrase}\n")

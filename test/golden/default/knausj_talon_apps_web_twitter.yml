@@ -37,9 +37,9 @@ input: |
   open details: key(enter)
   expand photo: key(o)
 output: |-
-  tag: browser
-  browser.host: twitter.com
-  # win.title: /Twitter/
+  tag:  browser
+  browser.host:  twitter.com
+  #win.title: /Twitter/
   -
   # navigation
   (show shortcuts | shortcuts help):

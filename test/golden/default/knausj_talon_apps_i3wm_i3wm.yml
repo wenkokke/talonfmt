@@ -96,11 +96,11 @@ input: |
       user.system_command("i3-msg scratchpad show")
 output: |-
   # NOTE: If you want to use i3wm you must enable the tag settings.talon. ex: `tag(): user.i3wm`
-  os: linux
-  tag: user.i3wm
+  os:  linux
+  tag:  user.i3wm
   -
   port <number_small>:
-      user.system_command("i3-msg workspace number{number_small}")
+      user.system_command("i3-msg workspace number {number_small}")
   port ten:
       user.system_command("i3-msg workspace number 10")
   (port flip | flipper):
@@ -138,14 +138,14 @@ output: |-
   center window:
       user.system_command("i3-msg move position center")
   resize mode:
-      user.system_command("i3-msg mode "resize"")
+      user.system_command("i3-msg mode \"resize\"")
   focus parent:
       user.system_command("i3-msg focus parent")
   focus child:
       user.system_command("i3-msg focus child")
   # resize helpers
   grow window:
-      user.system_command("i3-msg mode "resize"")
+      user.system_command("i3-msg mode \"resize\"")
       key(right:10)
       key(down:10)
       # escape resize mode
@@ -155,7 +155,7 @@ output: |-
       user.system_command("i3-msg move position center")
   # resize helpers
   shrink window:
-      user.system_command("i3-msg mode "resize"")
+      user.system_command("i3-msg mode \"resize\"")
       key(left:10)
       key(up:10)
       # escape resize mode
@@ -172,7 +172,7 @@ output: |-
   # XXX - just replace with shuffle eventually?
   # XXX - like also need to match the generic talon commands
   (shuffle | move (win | window) [to] port) <number_small>:
-      user.system_command("i3-msg move container to workspace number{number_small}")
+      user.system_command("i3-msg move container to workspace number {number_small}")
   (shuffle | move (win | window) [to] port ten):
       user.system_command("i3-msg move container to workspace number 10")
   (shuffle | move (win | window) [to] last port):

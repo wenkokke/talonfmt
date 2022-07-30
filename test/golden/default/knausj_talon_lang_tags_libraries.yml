@@ -3,7 +3,7 @@ input: |
   -
   state import: user.code_import()
 output: |-
-  tag: user.code_libraries
+  tag:  user.code_libraries
   -
   state import:
       user.code_import()

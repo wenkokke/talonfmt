@@ -9,7 +9,7 @@ input: |
   contact up: key(up)
   contact down: key(down)
 output: |-
-  app: thunderbird_contacts
+  app:  thunderbird_contacts
   -
   contact new:
       user.thunderbird_mod("n")

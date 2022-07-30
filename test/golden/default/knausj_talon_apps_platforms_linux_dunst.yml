@@ -9,7 +9,7 @@ input: |
   #dunce resume: user.system_command('notify-send "DUNST_COMMAND_RESUME"')
   #test notification: user.system_command('notify-send "Hello from Talon"')
 output: |-
-  os: linux
+  os:  linux
   -
   show notifications:
       key(ctrl-`)
@@ -17,3 +17,6 @@ output: |-
       user.system_command("dunstctl close")
   dismiss all [notifications]:
       user.system_command("dunstctl close-all")
+  #dunce pause: user.system_command('notify-send "DUNST_COMMAND_PAUSE"')
+  #dunce resume: user.system_command('notify-send "DUNST_COMMAND_RESUME"')
+  #test notification: user.system_command('notify-send "Hello from Talon"')
