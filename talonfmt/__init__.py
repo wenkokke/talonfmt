@@ -1,6 +1,6 @@
 from doc_printer import SmartDocRenderer, TokenStream
 from pathlib import Path
-from talonfmt.formatter import TalonFormatter
+from talonfmt.formatter import ParseError, TalonFormatter
 from typing import Iterator, Optional, TextIO, Union
 
 import click
@@ -104,26 +104,39 @@ def cli(
             contents = wrapper.read()
         return (contents, encoding)
 
-    def format(contents: str, *, encoding: str) -> str:
-        return talonfmt(
-            contents,
-            encoding=encoding,
-            indent_size=indent_size,
-            max_line_width=max_line_width,
-            align_match_context=align_match_context,
-            align_match_context_at=align_match_context_at,
-            align_short_commands=align_short_commands,
-            align_short_commands_at=align_short_commands_at,
-        )
+    def format(
+        contents: str, *, encoding: str, filename: Optional[str] = None
+    ) -> Optional[str]:
+        try:
+            return talonfmt(
+                contents,
+                encoding=encoding,
+                indent_size=indent_size,
+                max_line_width=max_line_width,
+                align_match_context=align_match_context,
+                align_match_context_at=align_match_context_at,
+                align_short_commands=align_short_commands,
+                align_short_commands_at=align_short_commands_at,
+            )
+        except ParseError as e:
+            filename = filename or "stdin"
+            sys.stderr.write(" ".join((
+                f"Parse error in {filename}",
+                f"from {e.start_position.row}:{e.start_position.column}",
+                f"to {e.end_position.row}:{e.end_position.column}"
+            )))
+            return None
 
     def format_file(filename: Path):
         contents, encoding = readfile(filename)
-        output = format(contents, encoding=encoding)
-        if in_place:
-            with filename.open(mode="w") as handle:
-                handle.write(output)
-        else:
-            sys.stdout.write(output)
+        output = format(contents, encoding=encoding, filename=str(filename))
+        if output:
+            if in_place:
+                print(f"Format {filename}...")
+                with filename.open(mode="w") as handle:
+                    handle.write(output)
+            else:
+                sys.stdout.write(output)
 
     if input:
         if input.is_file():
@@ -134,10 +147,11 @@ def cli(
     else:
         contents = "\n".join(sys.stdin.readlines())
         encoding = sys.stdin.encoding
-        sys.stdout.write(format(contents, encoding=encoding))
+        output = format(contents, encoding=encoding)
+        if output:
+            sys.stdout.write(output)
 
 
-# with filename.open(mode="w", encoding=encoding) as fp:
 def main():
     cli(prog_name="talonfmt")
 

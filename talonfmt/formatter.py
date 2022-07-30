@@ -7,8 +7,10 @@ from tree_sitter_talon import *
 import dataclasses
 
 
-class FormatError(Exception):
-    pass
+@dataclasses.dataclass
+class ParseError(Exception):
+    start_position: Point
+    end_position: Point
 
 
 @dataclasses.dataclass
@@ -30,7 +32,9 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonError) -> Doc:
-        raise ValueError(node.start_position, node.end_position)
+        raise ParseError(
+            start_position=node.start_position, end_position=node.end_position
+        )
 
     ###########################################################################
     # Documents
