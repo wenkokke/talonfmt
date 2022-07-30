@@ -119,12 +119,7 @@ def cli(
                 align_short_commands_at=align_short_commands_at,
             )
         except ParseError as e:
-            filename = filename or "stdin"
-            sys.stderr.write(" ".join((
-                f"Parse error in {filename}",
-                f"from line {e.start_position.row}, column {e.start_position.column}",
-                f"to line {e.end_position.row}, column {e.end_position.column}"
-            )))
+            sys.stderr.write(e.message(contents=contents, filename=filename))
             return None
 
     def format_file(filename: Path):
