@@ -1,4 +1,6 @@
-from . import *
+import pytest
+
+from . import format_smart80, format_smart80_align_dynamic, format_smart80_align_fixed32
 
 
 @pytest.mark.golden_test("golden/smart80/default/*.yml")

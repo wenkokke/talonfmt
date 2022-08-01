@@ -1,4 +1,6 @@
-from . import *
+import pytest
+
+from . import format_simple, format_simple_align_dynamic, format_simple_align_fixed32
 
 
 @pytest.mark.golden_test("golden/simple/default/*.yml")

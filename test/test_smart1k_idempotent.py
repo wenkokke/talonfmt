@@ -1,4 +1,6 @@
-from . import *
+import pytest
+
+from . import format_smart1k, format_smart1k_align_dynamic, format_smart1k_align_fixed32
 
 
 @pytest.mark.golden_test("golden/smart1k/default/*.yml")
