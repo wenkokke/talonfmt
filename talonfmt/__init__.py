@@ -103,6 +103,11 @@ def talonfmt(
     default=False,
     show_default=True,
 )
+@click.option(
+    "--verbose/--quiet",
+    default=True,
+    show_default=True,
+)
 def cli(
     *,
     path: tuple[Path, ...],
@@ -115,6 +120,7 @@ def cli(
     in_place: bool,
     fail_on_change: bool,
     fail_on_error: bool,
+    verbose: bool,
 ):
     files_changed: list[str] = []
 
@@ -130,7 +136,8 @@ def cli(
         contents: str, *, encoding: str, filename: Optional[str] = None
     ) -> Optional[str]:
         try:
-            sys.stderr.write(f"{filename}\n")
+            if verbose:
+                sys.stderr.write(f"Formatting {filename}...\n")
             output = talonfmt(
                 contents,
                 encoding=encoding,
@@ -142,6 +149,8 @@ def cli(
                 align_short_commands_at=align_short_commands_at,
             )
             if contents != output and filename:
+                if fail_on_change and verbose:
+                    sys.stderr.write(f"File changed!")
                 files_changed.append(filename)
             return output
         except ParseError as e:
