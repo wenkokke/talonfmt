@@ -116,6 +116,8 @@ def cli(
     fail_on_change: bool,
     fail_on_error: bool,
 ):
+    files_changed: list[str] = []
+
     def readfile(filename: Path) -> tuple[str, str]:
         with filename.open(mode="rb") as fp:
             bytes_on_disk = fp.read()
@@ -128,7 +130,7 @@ def cli(
         contents: str, *, encoding: str, filename: Optional[str] = None
     ) -> Optional[str]:
         try:
-            sys.stderr.write(f"Format: {filename}\n")
+            sys.stderr.write(f"{filename}\n")
             output = talonfmt(
                 contents,
                 encoding=encoding,
@@ -139,14 +141,13 @@ def cli(
                 align_short_commands=align_short_commands,
                 align_short_commands_at=align_short_commands_at,
             )
-            if contents != output:
-                sys.stderr.write(f"Format changed\n")
-                if fail_on_change:
-                    exit(1)
+            if contents != output and filename:
+                files_changed.append(filename)
+            return output
         except ParseError as e:
             sys.stderr.write(e.message(contents=contents, filename=filename))
             if fail_on_error:
-                exit(2)
+                exit(1)
         return None
 
     def format_file(filename: Path):
@@ -159,18 +160,24 @@ def cli(
             else:
                 sys.stdout.write(output)
 
-    for file_or_dir in path:
-        if file_or_dir.is_file():
-            format_file(file_or_dir)
-        if file_or_dir.is_dir():
-            for file in file_or_dir.glob("**/*.talon"):
-                format_file(file)
+    if path:
+        for file_or_dir in path:
+            if file_or_dir.is_file():
+                format_file(file_or_dir)
+            if file_or_dir.is_dir():
+                for file in file_or_dir.glob("**/*.talon"):
+                    format_file(file)
     else:
         contents = "\n".join(sys.stdin.readlines())
         encoding = sys.stdin.encoding
         output = format(contents, encoding=encoding)
         if output:
             sys.stdout.write(output)
+
+    if fail_on_change and files_changed:
+        exit(2)
+    else:
+        exit(0)
 
 
 def main():
