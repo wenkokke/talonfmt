@@ -15,13 +15,14 @@ classifiers = [
   "Topic :: Software Development :: Compilers",
 ]
 dependencies = [
-  "click",
-  "tree_sitter_talon >= 1.5.1",
-  "doc-printer >= 0.8.0"
+  "click >= 8, <= 9",
+  "tree_sitter_talon >= 1.5.3",
+  "doc_printer >= 0.8.4"
 ]
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-golden"]
+publish = ["build", "twine"]
 
 [project.urls]
 repository = "https://github.com/wenkokke/talonfmt"
