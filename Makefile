@@ -1,3 +1,25 @@
+# Run tests
+
+PYTEST_ARGS = -k simple
+
+test:
+	pytest $(PYTEST_ARGS)
+
+.PHONY: test
+
+# Bump versions
+
+patch:
+	bumpver update --patch
+
+minor:
+	bumpver update --minor
+
+major:
+	bumpver update --major
+
+.PHONY: patch minor major
+
 # Publish to PyPi
 
 PROJECT = "talonfmt"
