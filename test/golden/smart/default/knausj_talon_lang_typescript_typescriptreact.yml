@@ -1,0 +1,10 @@
+input: |
+  tag: user.typescriptreact
+  -
+  tag(): user.typescript
+  tag(): user.javascriptreact
+output: |-
+  tag: user.typescriptreact
+  -
+  tag(): user.typescript
+  tag(): user.javascriptreact

@@ -1,7 +1,7 @@
-from doc_printer import SmartDocRenderer, TokenStream
+from doc_printer import DocRenderer, SimpleLayout, SimpleDocRenderer, SmartDocRenderer
 from pathlib import Path
 from talonfmt.formatter import ParseError, TalonFormatter
-from typing import Iterator, Optional, TextIO, Union
+from typing import Optional, Union
 
 import click
 import io
@@ -15,7 +15,7 @@ def talonfmt(
     *,
     encoding: str = "utf-8",
     indent_size: int = 4,
-    max_line_width: int = 80,
+    max_line_width: Optional[int] = None,
     align_match_context: bool = False,
     align_match_context_at: Optional[int] = None,
     align_short_commands: bool = False,
@@ -43,9 +43,16 @@ def talonfmt(
     )
 
     # Create an instance of DocRenderer
-    doc_renderer = SmartDocRenderer(
-        max_line_width=max_line_width,
-    )
+    doc_renderer: DocRenderer
+    if max_line_width:
+        doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
+    else:
+        simple_layout: SimpleLayout
+        if align_match_context is not False or align_short_commands is not False:
+            simple_layout = SimpleLayout.LongestLines
+        else:
+            simple_layout = SimpleLayout.ShortestLines
+        doc_renderer = SimpleDocRenderer(simple_layout=simple_layout)
 
     ast = tree_sitter_talon.parse(contents, encoding=encoding)
     doc = talon_formatter.format(ast)
@@ -61,6 +68,7 @@ def talonfmt(
     ),
 )
 @click.option("--indent-size", type=int, default=4, show_default=True)
+@click.option("--max-line-width", type=int, show_default=True)
 @click.option(
     "--align-match-context/--no-align-match-context",
     default=False,
@@ -84,17 +92,28 @@ def talonfmt(
     default=False,
     show_default=True,
 )
-@click.option("--max-line-width", type=int, default=80, show_default=True)
+@click.option(
+    "--fail-on-change/--no-fail-on-change",
+    default=False,
+    show_default=True,
+)
+@click.option(
+    "--fail-on-error/--no-fail-on-error",
+    default=False,
+    show_default=True,
+)
 def cli(
     *,
     input: Optional[Path],
     indent_size: int,
-    max_line_width: int,
+    max_line_width: Optional[int],
     align_match_context: bool,
     align_match_context_at: Optional[int],
     align_short_commands: bool,
     align_short_commands_at: Optional[int],
     in_place: bool,
+    fail_on_change: bool,
+    fail_on_error: bool,
 ):
     def readfile(filename: Path) -> tuple[str, str]:
         with filename.open(mode="rb") as fp:
@@ -108,7 +127,8 @@ def cli(
         contents: str, *, encoding: str, filename: Optional[str] = None
     ) -> Optional[str]:
         try:
-            return talonfmt(
+            sys.stderr.write(f"Format: {filename}\n")
+            output = talonfmt(
                 contents,
                 encoding=encoding,
                 indent_size=indent_size,
@@ -118,16 +138,21 @@ def cli(
                 align_short_commands=align_short_commands,
                 align_short_commands_at=align_short_commands_at,
             )
+            if contents != output:
+                sys.stderr.write(f"Format changed\n")
+                if fail_on_change:
+                    exit(1)
         except ParseError as e:
             sys.stderr.write(e.message(contents=contents, filename=filename))
-            return None
+            if fail_on_error:
+                exit(2)
+        return None
 
     def format_file(filename: Path):
         contents, encoding = readfile(filename)
         output = format(contents, encoding=encoding, filename=str(filename))
         if output:
             if in_place:
-                print(f"Format {filename}...")
                 with filename.open(mode="w") as handle:
                     handle.write(output)
             else:

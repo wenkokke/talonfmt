@@ -7,6 +7,7 @@ from .parse_error import ParseError
 
 import dataclasses
 
+
 def node_dict_simplify(node_dict) -> None:
     if len(node_dict) > 4:
         del node_dict["text"]
@@ -21,6 +22,7 @@ def node_dict_simplify(node_dict) -> None:
             for val in node_dict[key]:
                 if isinstance(val, dict):
                     node_dict_simplify(val)
+
 
 @dataclasses.dataclass
 class TalonFormatter:
@@ -64,8 +66,10 @@ class TalonFormatter:
                 body.append(self.format(child))
         # NOTE: append any trailing comments
         body.extend(self.get_comments())
-        body_with_tables = create_tables(iter(body))
-        return Line.join(header, "-", body_with_tables)
+        body_iter = iter(body)
+        if self.align_short_commands is True:
+            body_iter = create_tables(body_iter)
+        return Line.join(header, "-", body_iter)
 
     ###########################################################################
     # Tag Includes
@@ -101,6 +105,7 @@ class TalonFormatter:
 
         rule_doc = self.format(node.rule)
         rule_comments = list(self.get_comments())
+        rule_doc = Line.join(rule_comments, rule_doc)
         script_doc = self.format(node.script)
         script_comments = list(self.get_comments())
         # (1): a line-break after the rule, e.g.,
@@ -127,8 +132,7 @@ class TalonFormatter:
             multiline=len(script_comments) + len(node.script.children) > 1,
         )
 
-        alts = alt1 | alt2
-        return Line.join(rule_comments, alts) if rule_comments else alts
+        return alt1 | alt2
 
     def aligned_command(self, *doclike: DocLike, multiline: bool) -> Doc:
         if self.align_short_commands and not multiline:
@@ -244,11 +248,11 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonFloat) -> Doc:
-        return Text.words(node.text, collapse_whitespace=True)
+        return Text.words(node.text.strip(), collapse_whitespace=True)
 
     @format.register
     def _(self, node: TalonInteger) -> Doc:
-        return Text.words(node.text, collapse_whitespace=True)
+        return Text.words(node.text.strip(), collapse_whitespace=True)
 
     @format.register
     def _(self, node: TalonNumber) -> Doc:
@@ -260,7 +264,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonImplicitString) -> Doc:
-        return Text.words(node.text, collapse_whitespace=True)
+        return Text.words(node.text.strip(), collapse_whitespace=True)
 
     @format.register
     def _(self, node: TalonInterpolation) -> Doc:
@@ -396,7 +400,7 @@ class TalonFormatter:
     @format_matches.register
     def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
         kwds = self.match_keywords(under_and, under_not)
-        key = cat(kwds, self.format(match.key), ":")
+        key = cat(kwds, self.format(match.key))
         pattern = self.format(match.pattern)
         yield alt(self.create_match_alts(key, pattern))
 
@@ -408,17 +412,18 @@ class TalonFormatter:
             yield Text("not")
             yield Space
 
-    def create_match_alts(self, *doclike: DocLike) -> Iterator[Doc]:
+    def create_match_alts(self, key: Doc, pattern: Doc) -> Iterator[Doc]:
         # Standard
-        yield Space.join(doclike)
+        yield key / ":" // pattern
 
         # Aligned alternative
         if self.align_match_context:
             if self.align_match_context is True:
-                yield row(*doclike, table_type="match")
+                yield row(key / ":", pattern, table_type="match")
             else:
                 yield row(
-                    *doclike,
+                    key / ":",
+                    pattern,
                     table_type="match",
                     min_col_widths=(self.align_match_context,),
                 )
