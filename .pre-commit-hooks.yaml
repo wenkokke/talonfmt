@@ -2,7 +2,7 @@
   name: talonfmt
   description: "talonfmt: .talon file formatter"
   entry: talonfmt
-  args: [--fail-on-change]
+  args: ["--in-place"]
   types: [file]
   files: \.talon$
   language: python
