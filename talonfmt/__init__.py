@@ -62,7 +62,7 @@ def talonfmt(
 
 @click.command(name="talonfmt")
 @click.argument(
-    "file",
+    "path",
     nargs=-1,
     type=click.Path(
         exists=True, file_okay=True, dir_okay=True, readable=True, path_type=Path
@@ -105,7 +105,7 @@ def talonfmt(
 )
 def cli(
     *,
-    files: tuple[Path, ...],
+    path: tuple[Path, ...],
     indent_size: int,
     max_line_width: Optional[int],
     align_match_context: bool,
@@ -159,12 +159,12 @@ def cli(
             else:
                 sys.stdout.write(output)
 
-    for file in files:
-        if file.is_file():
-            format_file(file)
-        if file.is_dir():
-            for subfile in file.glob("**/*.talon"):
-                format_file(subfile)
+    for file_or_dir in path:
+        if file_or_dir.is_file():
+            format_file(file_or_dir)
+        if file_or_dir.is_dir():
+            for file in file_or_dir.glob("**/*.talon"):
+                format_file(file)
     else:
         contents = "\n".join(sys.stdin.readlines())
         encoding = sys.stdin.encoding
