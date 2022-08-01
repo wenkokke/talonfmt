@@ -177,26 +177,31 @@ class TalonFormatter:
         #
         # select camel left: user.extend_camel_left()
         #
-        alt2 = self.aligned_command(
+        is_multiline = len(script_comments) + len(node.script.children) > 1
+        alt2 = self.short_command(
             rule_doc / ":",
             Line.join(script_comments, script_doc),
-            multiline=len(script_comments) + len(node.script.children) > 1,
+            is_multiline=is_multiline,
         )
 
         return alt1 | alt2
 
-    def aligned_command(self, *doclike: DocLike, multiline: bool) -> Doc:
-        if self.align_short_commands and not multiline:
-            if self.align_short_commands is True:
-                return row(*doclike, table_type="command")
-            else:
-                return row(
-                    *doclike,
-                    table_type="command",
-                    min_col_widths=(self.align_short_commands,),
-                )
-        else:
+    def short_command(self, rule: Doc, script: Doc, is_multiline: bool) -> Doc:
+        if is_multiline:
             return Fail
+        else:
+            if self.align_short_commands:
+                if self.align_short_commands is True:
+                    return row(rule / ":", script, table_type="command")
+                else:
+                    return row(
+                        rule / ":",
+                        script,
+                        table_type="command",
+                        min_col_widths=(self.align_short_commands,),
+                    )
+            else:
+                return rule / ":" // script
 
     ###########################################################################
     # Statements and Blocks
