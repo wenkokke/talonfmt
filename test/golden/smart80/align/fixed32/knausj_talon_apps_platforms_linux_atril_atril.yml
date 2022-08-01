@@ -1,0 +1,11 @@
+input: |
+  app: atril
+  -
+  # Set tags
+  tag(): user.pages
+output: |-
+  app:                             atril
+
+  -
+  # Set tags
+  tag(): user.pages

@@ -1,12 +1,3 @@
-# Run tests
-
-PYTEST_ARGS = -k simple
-
-test:
-	pytest $(PYTEST_ARGS)
-
-.PHONY: test
-
 # Bump versions
 
 patch:
@@ -32,6 +23,7 @@ CURRENT_TARGZ = dist/$(PROJECT)-$(CURRENT_VERSION).tar.gz
 SOURCES = $(shell find $(PROJECT) -name "*.py")
 
 $(CURRENT_WHEEL) $(CURRENT_TARGZ): $(SOURCES)
+	pytest
 	python -m build
 
 testpublish: $(CURRENT_WHEEL) $(CURRENT_TARGZ)
