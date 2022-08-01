@@ -66,8 +66,7 @@ output: |
   (post | cursor after) <user.draft_anchor>:
       user.draft_position_caret("{draft_anchor}", 1)
   # Select a whole word
-  (take | select) <user.draft_anchor>:
-      user.draft_select("{draft_anchor}")
+  (take | select) <user.draft_anchor>: user.draft_select("{draft_anchor}")
   # Select a range of words
   (take | select) <user.draft_anchor> (through | past) <user.draft_anchor>:
       user.draft_select("{draft_anchor_1}", "{draft_anchor_2}")

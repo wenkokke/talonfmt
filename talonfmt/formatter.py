@@ -179,7 +179,7 @@ class TalonFormatter:
         #
         is_multiline = len(script_comments) + len(node.script.children) > 1
         alt2 = self.short_command(
-            rule_doc / ":",
+            rule_doc,
             Line.join(script_comments, script_doc),
             is_multiline=is_multiline,
         )
@@ -192,7 +192,11 @@ class TalonFormatter:
         else:
             if self.align_short_commands:
                 if self.align_short_commands is True:
-                    return row(rule / ":", script, table_type="command")
+                    return row(
+                        rule / ":",
+                        script,
+                        table_type="command",
+                    )
                 else:
                     return row(
                         rule / ":",
