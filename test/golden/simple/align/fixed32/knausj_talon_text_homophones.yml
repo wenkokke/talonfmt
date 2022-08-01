@@ -17,7 +17,7 @@ input: |
     user.words_right(n - 1)
     edit.extend_word_right()
     user.homophones_show_selection()
-output: |-
+output: |
   -
   phones <user.homophones_canonical>: user.homophones_show(homophones_canonical)
 

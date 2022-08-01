@@ -69,7 +69,7 @@ input: |
   go to workflow: insert("gf")
   timestamps toggle: key(shift-t)
   fullscreen toggle: key(shift-f)
-output: |
+output: |+
   # https://help.github.com/en/github/getting-started-with-github/keyboard-shortcuts
   tag: browser
 

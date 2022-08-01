@@ -36,7 +36,7 @@ input: |
   block account: key(x)
   open details: key(enter)
   expand photo: key(o)
-output: |
+output: |+
   tag:                             browser
 
   browser.host:                    twitter.com

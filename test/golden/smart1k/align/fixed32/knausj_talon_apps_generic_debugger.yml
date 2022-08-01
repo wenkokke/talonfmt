@@ -72,7 +72,7 @@ input: |
 
   # Convenience
   clear line: user.debugger_clear_line()
-output: |
+output: |+
   tag:                             debugger
 
   -

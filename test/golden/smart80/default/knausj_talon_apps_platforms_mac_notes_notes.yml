@@ -31,7 +31,7 @@ input: |
   mark: key(shift-cmd-u)
   drag [line] down: key('ctrl-cmd-down')
   drag [line] up: key('ctrl-cmd-up')
-output: |-
+output: |
   os: mac
   and app: notes
   -

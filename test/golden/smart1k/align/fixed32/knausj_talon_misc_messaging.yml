@@ -16,7 +16,7 @@ input: |
   mark (all | workspace | server) read: user.messaging_mark_workspace_read()
   mark channel read: user.messaging_mark_channel_read()
   upload file: user.messaging_upload_file()
-output: |
+output: |+
   tag:                             user.messaging
 
   -

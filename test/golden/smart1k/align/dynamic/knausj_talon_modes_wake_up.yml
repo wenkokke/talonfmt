@@ -16,7 +16,7 @@ input: |
       user.engine_sleep()
   ^talon sleep [<phrase>]$: speech.disable()
   ^talon wake$: speech.enable()
-output: |
+output: |+
   #defines the commands that sleep/wake Talon
   mode: all
 

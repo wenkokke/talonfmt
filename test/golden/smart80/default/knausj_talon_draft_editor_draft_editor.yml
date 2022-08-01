@@ -4,7 +4,7 @@ input:
   \tuser.draft_editor_open()\n\ndraft line:\n\tedit.select_line()\n\tuser.draft_editor_open()\n\
   \ndraft top:\n  edit.extend_file_start()\n  user.draft_editor_open()\n\ndraft bottom:\n\
   \  edit.extend_file_end()\n  user.draft_editor_open()\n\ndraft submit:\n  user.draft_editor_paste_last()\n"
-output: |-
+output: |
   user.draft_editor_running: True
   tag: user.draft_editor_app_focused
   -

@@ -148,7 +148,7 @@ input: |
   #TODO: should this be added to linecommands?
   copy line down: key(ctrl-alt-down)
   copy line up: key(ctrl-alt-up)
-output: |
+output: |+
   #custom eclipse commands go here
   app: eclipse
 

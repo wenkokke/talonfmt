@@ -5,7 +5,7 @@ input: |
 
   tag(): terminal
   tag(): user.git
-output: |-
+output: |
   os: windows
   app.exe: ConEmu64.exe
   -

@@ -28,7 +28,7 @@ input: |
 
   # TODO: This operator should either be abstracted into a function or removed.
   (op | pad) colon: " : "
-output: |
+output: |+
   tag: user.code_operators_math
 
   -

@@ -12,7 +12,7 @@ input: |
 
   # syntax for anonymous functions
   op lambda: user.code_operator_lambda()
-output: |
+output: |+
   tag:                             user.code_operators_lambda
 
   -

@@ -55,7 +55,7 @@ input: |
       key(end enter)
 
   from import: user.insert_between("from ", " import ")
-output: |-
+output: |
   tag: user.python
   -
   tag(): user.code_imperative

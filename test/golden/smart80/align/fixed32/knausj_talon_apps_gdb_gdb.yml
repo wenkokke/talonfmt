@@ -103,7 +103,7 @@ input: |
 
   # misc
   clear screen: "shell clear\n"
-output: |
+output: |+
   os:                              linux
 
   # XXX - this matches .gdb files atm

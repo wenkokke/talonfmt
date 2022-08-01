@@ -217,7 +217,7 @@ input: |
   cut line:
       edit.select_line()
       edit.cut()
-output: |-
+output: |
   -
   find it:       edit.find()
   next one:      edit.find_next()

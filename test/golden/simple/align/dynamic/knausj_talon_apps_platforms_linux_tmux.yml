@@ -54,7 +54,7 @@ input: |
   mux pane numbers:
       key(ctrl-b)
       key(q)
-output: |-
+output: |
   os: linux
 
   tag: user.tmux

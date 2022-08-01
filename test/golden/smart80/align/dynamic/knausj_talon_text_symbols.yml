@@ -46,7 +46,7 @@ input: |
   (grave | back tick) that:
       text = edit.selected_text()
       user.paste('`{text}`')
-output: |-
+output: |
   -
   double dash:                               "--"
   triple quote:                              "'''"

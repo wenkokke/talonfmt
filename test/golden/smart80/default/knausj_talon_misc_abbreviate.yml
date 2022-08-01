@@ -1,7 +1,7 @@
 input: |
   -
   (abbreviate|abreviate|brief) {user.abbreviation}: "{abbreviation}"
-output: |-
+output: |
   -
   (abbreviate | abreviate | brief) {user.abbreviation}:
       "{abbreviation}"

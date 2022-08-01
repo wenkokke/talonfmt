@@ -195,7 +195,7 @@ input: |
       key("right")
       insert(", ")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
-output: |-
+output: |
   tag:                             user.go
 
   -

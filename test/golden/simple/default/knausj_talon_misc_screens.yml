@@ -1,6 +1,6 @@
 input: |
   screen numbers:   user.screens_show_numbering()
-output: |-
+output: |
   -
   screen numbers:
       user.screens_show_numbering()

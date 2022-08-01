@@ -11,7 +11,7 @@ input: |
 
   state class:
         user.code_define_class()
-output: |
+output: |+
   tag: user.code_object_oriented
 
   -

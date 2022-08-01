@@ -32,7 +32,7 @@ input: |
       key(escape)
       # make it so
       edit.find("{phrase}\n")
-output: |-
+output: |
   app: windows_terminal
 
   -

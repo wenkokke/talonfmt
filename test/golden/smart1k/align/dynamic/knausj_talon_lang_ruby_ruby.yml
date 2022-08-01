@@ -38,7 +38,7 @@ input: |
   ^instance <user.text>$:
       insert("@")
       user.code_public_variable_formatter(text)
-output: |-
+output: |
   tag: user.ruby
 
   -

@@ -63,7 +63,7 @@ input:
   RIGHT\", \"DEFAULT\", \"big\", number_small or 1)\nbig word pre [<number_small>]:\
   \ user.navigation_by_name(\"SELECT\", \"LEFT\", \"DEFAULT\", \"big\", number_small\
   \ or 1)\n"
-output: |
+output: |+
   -
   # (2021-03-09) This syntax is experimental and may change. See below for an explanation.
   # If you are having issues with this module not working in vscode try adding the vscode setting "editor.emptySelectionClipboard": false

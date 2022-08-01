@@ -10,7 +10,7 @@ input: |
       browser.focus_address()
       insert("% {text}")
       key(down)
-output: |-
+output: |
   app: firefox
   -
   tag(): browser

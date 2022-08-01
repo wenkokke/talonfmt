@@ -14,7 +14,7 @@ input: |
   grid screen [<number>]:
       user.grid_select_screen(number or 1)
       user.grid_activate()
-output: |-
+output: |
   -
   mouse grid:
       user.grid_select_screen(1)

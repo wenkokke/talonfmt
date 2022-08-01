@@ -41,7 +41,7 @@ input: |
 
   file next: user.file_manager_next_file_page()
   file last: user.file_manager_previous_file_page()
-output: |
+output: |+
   tag:                             user.file_manager
 
   -

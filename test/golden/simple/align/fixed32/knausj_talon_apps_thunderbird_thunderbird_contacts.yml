@@ -8,7 +8,7 @@ input: |
   contact message: user.thunderbird_mod("m")
   contact up: key(up)
   contact down: key(down)
-output: |
+output: |+
   app:                             thunderbird_contacts
 
   -

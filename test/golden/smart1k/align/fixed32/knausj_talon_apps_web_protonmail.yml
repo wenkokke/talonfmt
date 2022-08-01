@@ -80,7 +80,7 @@ input: |
   ## Contact Details
   exit contact: key(left)
   save contact: key(ctrl-s)
-output: |
+output: |+
   tag:                             browser
 
   win.title:                       /ProtonMail/

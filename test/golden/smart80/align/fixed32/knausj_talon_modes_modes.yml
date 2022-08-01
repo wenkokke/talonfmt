@@ -11,7 +11,7 @@ input: |
       mode.disable("sleep")
       mode.disable("dictation")
       mode.enable("command")
-output: |-
+output: |
   mode:                            sleep
 
   -

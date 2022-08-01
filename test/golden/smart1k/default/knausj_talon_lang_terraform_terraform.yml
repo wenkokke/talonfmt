@@ -24,7 +24,7 @@ input: |
       user.code_operator_assignment()
 
   type {user.code_type}: insert("{code_type}")
-output: |-
+output: |
   tag: user.terraform
   -
   tag(): user.code_comment_block_c_like

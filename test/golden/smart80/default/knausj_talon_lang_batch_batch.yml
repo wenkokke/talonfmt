@@ -15,7 +15,7 @@ input: |
   go to: "goto "
   delayed expansion: "SETLOCAL EnableDelayedExpansion\n"
   arg <number_small>: "%{number_small}"
-output: |-
+output: |
   tag: user.batch
   -
   tag(): user.code_comment_line

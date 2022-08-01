@@ -17,7 +17,7 @@ input: |
 
   tag(): user.tabs
   # TODO: add file_manager support
-output: |-
+output: |
   os: linux
 
   and app.name: konsole

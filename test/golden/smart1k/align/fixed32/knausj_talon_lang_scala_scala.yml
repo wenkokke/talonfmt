@@ -41,7 +41,7 @@ input: |
   block string:
     insert('""""""')
     key("left left left")
-output: |-
+output: |
   tag:                             user.scala
 
   -

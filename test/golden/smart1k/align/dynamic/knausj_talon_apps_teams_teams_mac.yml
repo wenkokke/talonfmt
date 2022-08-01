@@ -75,7 +75,7 @@ input: |
   go to suggested time: key(alt-shift-s)
   (raise|lower) hand: key(super-shift-k)
   leave team meeting: key(super-shift-h)
-output: |
+output: |+
   os: mac
 
   app: com.microsoft.teams

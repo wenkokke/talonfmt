@@ -79,7 +79,7 @@ input: |
   # Escape, type things that would otherwise be commands
   ^escape <user.text>$:
       auto_insert(user.text)
-output: |
+output: |+
   mode: dictation
 
   -

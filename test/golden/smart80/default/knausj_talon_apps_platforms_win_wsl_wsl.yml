@@ -39,7 +39,7 @@ input: |
 
   (wsl|weasel) reset path detection: user.wsl_reset_path_detection()
   (wsl|weasel) speak: user.wsl_speak()
-output: |-
+output: |
   # NOTE: to use these commands you will need to activate the tag below in whatever contexts you
   # choose.
   #

@@ -65,7 +65,7 @@ input: |
   (previous | last) (element | bit):
       app.notify("please use the voice command 'element last' instead of 'last element'")
       key(shift-tab)
-output: |-
+output: |
   os: windows
 
   os: linux

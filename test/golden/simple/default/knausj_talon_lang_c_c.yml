@@ -94,7 +94,7 @@ input: |
   include <user.code_libraries>:
       user.code_insert_library(code_libraries, "")
       key(end enter)
-output: |-
+output: |
   tag: user.c
   -
   tag(): user.code_imperative

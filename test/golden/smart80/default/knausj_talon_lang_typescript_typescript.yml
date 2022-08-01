@@ -2,7 +2,7 @@ input: |
   tag: user.typescript
   -
   tag(): user.javascript
-output: |-
+output: |
   tag: user.typescript
   -
   tag(): user.javascript

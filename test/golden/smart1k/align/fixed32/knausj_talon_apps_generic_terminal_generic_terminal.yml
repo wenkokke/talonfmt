@@ -20,7 +20,7 @@ input: |
       edit.copy()
       sleep(50ms)
       edit.paste()
-output: |-
+output: |
   tag:                             terminal
 
   -

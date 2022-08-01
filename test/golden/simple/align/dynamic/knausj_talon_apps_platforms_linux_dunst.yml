@@ -8,7 +8,7 @@ input: |
   #dunce pause: user.system_command('notify-send "DUNST_COMMAND_PAUSE"')
   #dunce resume: user.system_command('notify-send "DUNST_COMMAND_RESUME"')
   #test notification: user.system_command('notify-send "Hello from Talon"')
-output: |-
+output: |
   os: linux
 
   -

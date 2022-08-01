@@ -44,7 +44,7 @@ input: |
 
   op new:
       insert("new ")
-output: |
+output: |+
   tag:                             user.java
 
   -

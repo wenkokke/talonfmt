@@ -38,7 +38,7 @@ input: |
   state end while: "endwhile"
   state end function: "endfunction"
   state continue: "continue"
-output: |
+output: |+
   tag: user.vimscript
 
   -

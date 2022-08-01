@@ -5,7 +5,7 @@ input: |
   settings():
       # Necessary to stop commands like 'slap' getting jumbled
       key_wait = 9.0
-output: |-
+output: |
   app: evernote
 
   os: mac

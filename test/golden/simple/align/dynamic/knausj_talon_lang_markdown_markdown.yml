@@ -13,7 +13,7 @@ input: |
       key(enter:2)
       "```"
       key(up)
-output: |-
+output: |
   tag: user.markdown
 
   -

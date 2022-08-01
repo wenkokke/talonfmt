@@ -6,7 +6,7 @@ input: |
   snip hunt: user.snippet_search("")
   snip create: user.snippet_create()
   snip show: user.snippet_toggle()
-output: |
+output: |+
   tag:                             user.snippets
 
   -

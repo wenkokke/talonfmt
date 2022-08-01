@@ -7,7 +7,7 @@ input: |
   tag(): user.generic_unix_shell
   tag(): user.git
   tag(): user.kubectl
-output: |-
+output: |
   app:                             gnome_terminal
 
   -

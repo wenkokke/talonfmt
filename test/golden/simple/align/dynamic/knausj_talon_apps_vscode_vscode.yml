@@ -125,7 +125,7 @@ input:
   jupyter.gotoPrevCellInFile\")\ncell run above: user.vscode(\"jupyter.runallcellsabove.palette\"\
   )\ncell run: user.vscode(\"jupyter.runcurrentcell\")\n\ninstall local: user.vscode(\"\
   workbench.extensions.action.installVSIX\")\n"
-output: |
+output: |+
   #custom vscode commands go here
   app: vscode
 

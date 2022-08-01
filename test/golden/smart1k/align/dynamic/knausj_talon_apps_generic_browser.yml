@@ -71,7 +71,7 @@ input: |
   # restore: key(X)
   # search tabs: key(T)
   # move to window: key(W)
-output: |-
+output: |
   tag: browser
 
   -

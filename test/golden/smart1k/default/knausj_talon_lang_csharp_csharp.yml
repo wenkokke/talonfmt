@@ -25,7 +25,7 @@ input: |
       user.code_private_variable_formatter = "PRIVATE_CAMEL_CASE"
       user.code_protected_variable_formatter = "PUBLIC_CAMEL_CASE"
       user.code_public_variable_formatter = "PUBLIC_CAMEL_CASE"
-output: |-
+output: |
   tag: user.csharp
   -
   tag(): user.code_imperative

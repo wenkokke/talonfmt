@@ -55,7 +55,7 @@ input: |
   ^debug {user.running} windows$:
       insert("actions.user.talon_debug_app_windows('{running}')")
       key(enter)
-output: |-
+output: |
   win.title: /repl/
 
   win.title: /Talon - REPL/

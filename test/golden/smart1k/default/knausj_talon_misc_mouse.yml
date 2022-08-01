@@ -37,7 +37,7 @@ input:
   curse no:\n    # Command added 2021-12-13, can remove after 2022-06-01\n    app.notify(\"\
   Please activate the user.mouse_cursor_commands_enable tag to enable this command\"\
   )\n"
-output: |-
+output: |
   -
   control mouse:
       user.mouse_toggle_control_mouse()

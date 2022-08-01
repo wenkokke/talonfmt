@@ -94,7 +94,7 @@ input: |
       sleep(200ms)
       user.system_command("i3-msg move scratchpad")
       user.system_command("i3-msg scratchpad show")
-output: |-
+output: |
   # NOTE: If you want to use i3wm you must enable the tag settings.talon. ex: `tag(): user.i3wm`
   os: linux
   tag: user.i3wm

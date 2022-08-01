@@ -120,7 +120,7 @@ class TalonFormatter:
         body_iter = iter(body)
         if self.align_short_commands is True:
             body_iter = create_tables(body_iter)
-        return Line.join(header, "-", body_iter)
+        return Line.join(header, "-", body_iter) / Line
 
     ###########################################################################
     # Tag Includes

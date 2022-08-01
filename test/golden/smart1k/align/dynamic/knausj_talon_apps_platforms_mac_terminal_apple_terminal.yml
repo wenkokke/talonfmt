@@ -22,7 +22,7 @@ input: |
   resume:
       insert("fg")
       key(enter)
-output: |-
+output: |
   app: apple_terminal
 
   -

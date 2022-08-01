@@ -16,7 +16,7 @@ input: |
   shell insert: key("escape")
   visual line: key("v")
   visual line mode: key("V")
-output: |
+output: |+
   app: termite
 
   and win.title: /VIM/
