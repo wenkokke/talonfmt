@@ -1,8 +1,8 @@
+import dataclasses
 from collections.abc import Iterator
 from typing import Optional, Sequence
-from tree_sitter_talon import Point
 
-import dataclasses
+from tree_sitter_talon import Point
 
 
 @dataclasses.dataclass
@@ -35,15 +35,17 @@ class ParseError(Exception):
                     else:
                         annotation.append("^")
                 yield "".join(annotation)
+
         lines = contents.splitlines()
-        lines = lines[self.start_position.row:self.end_position.row+1]
+        lines = lines[self.start_position.row : self.end_position.row + 1]
         return "\n".join(annotated_lines(lines))
 
-
     def message(self, *, contents: str, filename: Optional[str] = None) -> str:
-        return "".join((
-            f"Parse error ",
-            f"in {filename} " if filename else "",
-            f"{self.range()}:\n",
-            f"{self.annotated_region(contents)}\n",
-        ))
+        return "".join(
+            (
+                f"Parse error ",
+                f"in {filename} " if filename else "",
+                f"{self.range()}:\n",
+                f"{self.annotated_region(contents)}\n",
+            )
+        )

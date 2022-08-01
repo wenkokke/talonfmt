@@ -1,11 +1,12 @@
+import dataclasses
 from collections.abc import Iterator, Sequence
 from functools import singledispatchmethod
 from typing import Iterable, Union
+
 from doc_printer import *
 from tree_sitter_talon import *
-from .parse_error import ParseError
 
-import dataclasses
+from .parse_error import ParseError
 
 
 def node_dict_simplify(node_dict) -> None:

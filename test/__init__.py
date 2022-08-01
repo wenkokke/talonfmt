@@ -1,7 +1,9 @@
 from typing import Union
+
 import pytest
-from talonfmt import ParseError
+
 import talonfmt
+from talonfmt import ParseError
 
 
 def format_simple(contents: str, **kwargs) -> str:
@@ -46,7 +48,6 @@ def format_smart1k_align_dynamic(contents: str, **kwargs) -> str:
 
 def format_smart1k_align_fixed32(contents: str, **kwargs) -> str:
     return format_simple_align_fixed32(contents, **(KWARGS_MAX_LINE_WIDTH_1K | kwargs))
-
 
 
 KWARGS_MAX_LINE_WIDTH_80: dict[str, int] = {"max_line_width": 80}

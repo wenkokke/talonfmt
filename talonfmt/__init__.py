@@ -1,13 +1,14 @@
-from doc_printer import DocRenderer, SimpleLayout, SimpleDocRenderer, SmartDocRenderer
-from pathlib import Path
-from talonfmt.formatter import ParseError, TalonFormatter
-from typing import Optional, Union
-
-import click
 import io
 import sys
 import tokenize
+from pathlib import Path
+from typing import Optional, Union
+
+import click
 import tree_sitter_talon
+from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
+
+from talonfmt.formatter import ParseError, TalonFormatter
 
 
 def talonfmt(

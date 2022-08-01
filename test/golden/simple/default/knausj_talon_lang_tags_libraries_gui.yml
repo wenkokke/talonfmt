@@ -16,4 +16,3 @@ output: |-
   #       R uses 'library', etcetera.
   # TODO: If this ever becomes possible, we should abstract over these commands
   #       using a variable which can be set to the context-specific word.
-
