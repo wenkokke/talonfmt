@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-golden", "pytest-mypy"]
+test = ["pytest", "pytest-golden"]
 
 [project.urls]
 repository = "https://github.com/wenkokke/talonfmt"
