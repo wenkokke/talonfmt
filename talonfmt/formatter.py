@@ -367,7 +367,7 @@ class TalonFormatter:
     def _(self, node: TalonSettings) -> Iterator[Doc]:
         block = self.get_node_with_type(node.children, node_type=TalonBlock)
         block = block_with_comments(self.get_comments(), block)
-        yield "settings():" // nest(
+        yield "settings():" / nest(
             self.indent_size,
             Line,
             self.format(block),
