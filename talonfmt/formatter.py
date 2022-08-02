@@ -177,7 +177,7 @@ class TalonFormatter:
             raise TypeError(type(match))
 
     def format_children(self, children: Iterable[Node]) -> Iterator[Doc]:
-        for child in self.store_comments(children, node_type=Node):
+        for child in self.store_comments_with_type(children, node_type=Node):
             if isinstance(child, Iterable):
                 yield from self.format_children(child)
             else:
@@ -588,12 +588,15 @@ class TalonFormatter:
         default_factory=list, init=False
     )
 
-    def store_comments(
+    def store_comments_with_type(
         self,
         children: Iterable[Union[TalonComment, NodeVar]],
         *,
         node_type: type[NodeVar],
     ) -> Iterator[NodeVar]:
+        """
+        Store all the comments in the iterable, yield the rest.
+        """
         for child in children:
             if isinstance(child, TalonComment):
                 self._comment_buffer.append(child)
@@ -603,21 +606,33 @@ class TalonFormatter:
                 raise TypeError(type(child))
 
     def get_comments(self) -> Iterator[TalonComment]:
+        """
+        Get the buffered comments. Clear the buffer.
+        """
         try:
             yield from self._comment_buffer
         finally:
             self._comment_buffer.clear()
 
     def get_formatted_comments(self) -> Iterator[Doc]:
+        """
+        Get the buffered comments, formatted. Clear the buffer.
+        """
         yield from map(self.format, self.get_comments())
 
     def assert_only_comments(self, children: Iterable[TalonComment]) -> None:
-        rest = tuple(self.store_comments(children, node_type=TalonComment))
+        """
+        Assert that all the nodes in the iterable are comments.
+        """
+        rest = tuple(self.store_comments_with_type(children, node_type=TalonComment))
         assert (
             len(rest) == 0
         ), f"There should be no non-comment nodes, found {tuple(node.type_name for node in rest)}:\n{rest}"
 
     def get_node(self, children: Iterable[Node]) -> Node:
+        """
+        Get the single node that is not a comment. Store all the comments.
+        """
         return self.get_node_with_type(children, node_type=Node)
 
     def get_node_with_type(
@@ -626,7 +641,10 @@ class TalonFormatter:
         *,
         node_type: type[NodeVar],
     ) -> NodeVar:
-        rest = tuple(self.store_comments(children, node_type=node_type))
+        """
+        Get the single node that is not a comment, but has type NodeVar. Store all the comments.
+        """
+        rest = tuple(self.store_comments_with_type(children, node_type=node_type))
         assert (
             len(rest) == 1
         ), f"There should be only one non-comment child, found {tuple(node.type_name for node in rest)}:\n{rest}"
