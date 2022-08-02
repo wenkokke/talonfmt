@@ -24,6 +24,7 @@ output: |
   tag: terminal
   -
   # tags should be activated for each specific terminal in the respective talon file
+
   lisa: user.terminal_list_directories()
   lisa all: user.terminal_list_all_directories()
   katie [<user.text>]: user.terminal_change_directory(text or "")
@@ -34,6 +35,7 @@ output: |
   rerun [<user.text>]: user.terminal_rerun_search(text or "")
   rerun search: user.terminal_rerun_search("")
   kill all: user.terminal_kill_all()
+
   copy paste:
       edit.copy()
       sleep(50ms)

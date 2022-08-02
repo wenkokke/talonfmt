@@ -30,7 +30,6 @@ input: |
   (op | pad) colon: " : "
 output: |
   tag: user.code_operators_math
-
   -
   # math operators
   op (minus | subtract):                       user.code_operator_subtraction()

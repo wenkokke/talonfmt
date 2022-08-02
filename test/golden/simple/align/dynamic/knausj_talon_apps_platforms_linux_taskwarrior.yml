@@ -31,11 +31,8 @@ input: |
   task <number> delete$: "task {number} delete"
 output: |
   os: linux
-
   tag: terminal
-
   and tag: user.taskwarrior
-
   -
   # general
   task version:  "task --version\n"

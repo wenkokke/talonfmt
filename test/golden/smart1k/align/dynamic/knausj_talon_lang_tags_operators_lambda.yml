@@ -14,10 +14,10 @@ input: |
   op lambda: user.code_operator_lambda()
 output: |
   tag: user.code_operators_lambda
-
   -
   # In many languages, anonymous functions aren't merely infix syntax:
   #
+
   #       Haskell  '\x -> bla'
   #       OCaml    'fun x -> bla'
   #       Rust     '|x| { bla }'

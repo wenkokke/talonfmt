@@ -7,7 +7,6 @@ input: |
   op arrow: user.code_operator_structure_dereference()
 output: |
   tag: user.code_operators_pointer
-
   -
   # pointer operators
   op dereference: user.code_operator_indirection()

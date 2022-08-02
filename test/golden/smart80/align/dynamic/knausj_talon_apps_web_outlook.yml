@@ -69,11 +69,8 @@ output: |
   # the shortcuts below our based half of the bill in short cut menu, but the
   # link above has significantly more that could so be added
   os: linux
-
   tag: browser
-
   win.title: /Outlook/
-
   -
   # write email
   new message:                   key(n)
@@ -107,19 +104,15 @@ output: |
   go [to] calendar: key(ctrl-shift-2)
   go [to] people:   key(ctrl-shift-3)
   go [to] to do:    key(ctrl-shift-4)
-
   go [to] inbox:
       key(g)
       key(i)
-
   go to drafts:
       key(g)
       key(d)
-
   go to sent:
       key(g)
       key(s)
-
   search [email]: key(alt-q)
   show help:      key(?)
 

@@ -96,9 +96,7 @@ input: |
   debug continue: key(f5)
 output: |
   os: windows
-
   app: visual_studio
-
   -
   tag(): user.tabs
   tag(): user.line_commands
@@ -106,6 +104,7 @@ output: |
   tag(): user.snippets
   tag(): user.multiple_cursors
   # multiple_cursor.py support end
+
   # Panels
   panel solution:    key(ctrl-alt-l)
   panel properties:  key(f4)
@@ -118,9 +117,9 @@ output: |
 
   # Settings
   show settings: key(alt-t o)
-
   # show shortcuts:
   # show snippets:
+
   # Display
   fullscreen switch: key(shift-alt-enter)
   wrap switch:       key(ctrl-e ctrl-w)
@@ -129,9 +128,7 @@ output: |
   file hunt [<user.text>]:
       key(ctrl-shift-t)
       insert(text or "")
-
   file create: key(ctrl-n)
-
   # file open folder:
   file rename: key(ctrl-[ s f2)
   file reveal: key(ctrl-[ s)
@@ -160,22 +157,18 @@ output: |
   go back:                   key(ctrl--)
   go forward:                key(ctrl-shift--)
   go implementation:         key(f12)
-
   go recent [<user.text>]:
       key(ctrl-1 ctrl-r)
       sleep(100ms)
       insert(text or "")
-
   go type [<user.text>]:
       key(ctrl-1 ctrl-t)
       sleep(100ms)
       insert(text or "")
-
   go member [<user.text>]:
       key(alt-\)
       sleep(100ms)
       insert(text or "")
-
   go usage: key(shift-f12)
 
   # Bookmarks.

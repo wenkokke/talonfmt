@@ -33,9 +33,7 @@ input: |
   drag [line] up: key('ctrl-cmd-up')
 output: |
   os: mac
-
   and app: notes
-
   -
   new note:           key(cmd-n)
   duplicate note:     key(cmd-d)

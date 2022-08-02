@@ -18,7 +18,6 @@ output: |
   tab search:
       browser.focus_address()
       insert("% ")
-
   tab search <user.text>$:
       browser.focus_address()
       insert("% {text}")

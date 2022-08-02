@@ -40,7 +40,6 @@ input: |
 output: |
   # These are available globally (in command mode)
   mode: command
-
   -
   ^draft show:
       # Do this toggle so we can have focus when saying 'draft show'
@@ -64,7 +63,6 @@ output: |
       user.draft_hide()
       user.draft_show()
       user.draft_resize(800, 500)
-
   ^draft empty: user.draft_show("")
 
   ^draft edit:

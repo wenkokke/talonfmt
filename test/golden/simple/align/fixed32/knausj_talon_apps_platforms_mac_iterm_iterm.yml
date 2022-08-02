@@ -9,11 +9,9 @@ input: |
   tag(): user.git
   tag(): user.kubectl
   tag(): user.tabs
-output: |-
+output: |
   os:                              mac
-
   app:                             iterm2
-
   -
   tag(): terminal
   # todo: filemanager support

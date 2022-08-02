@@ -2,8 +2,7 @@ input: |
   tag: user.scss
   -
   tag(): user.css
-output: |-
+output: |
   tag: user.scss
-
   -
   tag(): user.css

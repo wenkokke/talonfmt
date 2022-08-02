@@ -77,9 +77,7 @@ input: |
   leave team meeting: key(super-shift-h)
 output: |
   os: mac
-
   app: com.microsoft.teams
-
   -
   open history:               key(super-shift-h)
   view shortcuts:             key(super-.)
@@ -93,13 +91,11 @@ output: |
   open settings:              key(super-,)
   open help:                  key(f1)
   close:                      key(escape)
-
   reset:
       key(escape)
       key(escape)
       key(escape)
       key(escape)
-
   zoom reset: key(super-0)
 
   # navigations
@@ -121,13 +117,11 @@ output: |
   [expand] compose [box]:  key(super-shift-x)
   send message:            key(super-enter)
   attach file:             key(shift-alt-o)
-
   attach local file:
       key(shift-alt-o)
       sleep(100ms)
       key(down)
       key(space)
-
   [start] new line:    key(shift-enter)
   reply [to] [thread]: key(shift-alt-r)
 

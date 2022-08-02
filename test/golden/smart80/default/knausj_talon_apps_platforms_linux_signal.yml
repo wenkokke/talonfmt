@@ -40,11 +40,13 @@ input: |
   attach [file]: key("ctrl-u")
   remove [link] preview: key("ctrl-p")
   remove [link] attachment: key("ctrl-shift-p")
-output: |-
+output: |
   app: signal
   -
   show shortcuts: key("ctrl-/")
+
   # Note that the order below matches Keyboard Shortcuts listings
+
   # Navigation
   (next | nav | navigate) [by] (sec | section): key("ctrl-t")
   (prev | previous) (chat | conversation): key("alt-down")
@@ -65,6 +67,7 @@ output: |-
   (first | top) message: key("ctrl-up")
   (last | bottom) message: key("ctrl-down")
   close chat: key("ctrl-shift-c")
+
   # Messages
   send it: key("enter")
   message details: key("ctrl-d")
@@ -72,6 +75,7 @@ output: |-
   react [message]: key("ctrl-shift-e")
   save attachment: key("ctrl-s")
   delete [message]: key("ctrl-shift-d")
+
   # Composer
   send message: key("ctrl-enter")
   expand chat: key("ctrl-shift-x")

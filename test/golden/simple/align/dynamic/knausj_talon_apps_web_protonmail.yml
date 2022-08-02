@@ -82,9 +82,7 @@ input: |
   save contact: key(ctrl-s)
 output: |
   tag: browser
-
   win.title: /ProtonMail/
-
   -
   # General
   # Application
@@ -104,27 +102,21 @@ output: |
   (go | jump) [to] inbox:
       key(g)
       key(i)
-
   (go | jump) [to] draft:
       key(g)
       key(d)
-
   (go | jump) [to] sent:
       key(g)
       key(s)
-
   (go | jump) [to] starred:
       key(g)
       key(.)
-
   (go | jump) [to] archive:
       key(g)
       key(a)
-
   (go | jump) [to] spam:
       key(g)
       key(x)
-
   (go | jump) [to] trash:
       key(g)
       key(t)
@@ -143,11 +135,9 @@ output: |
   select all:
       key(*)
       key(a)
-
   (deselect | unselect) all:
       key(*)
       key(n)
-
   select [the] (message | conversation): key(x)
   mark [as] read:                        key(r)
   mark [as] unread:                      key(u)

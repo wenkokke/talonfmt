@@ -7,7 +7,6 @@ input: |
   go chapter final: user.chapter_final()
 output: |
   tag: user.chapters
-
   -
   chapter next:        user.chapter_next()
   chapter last:        user.chapter_previous()

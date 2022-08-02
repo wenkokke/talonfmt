@@ -29,9 +29,7 @@ input: |
   hide others: app.window_hide_others()
 output: |
   os: mac
-
   app: finder
-
   -
   tag(): user.file_manager
   tag(): user.tabs

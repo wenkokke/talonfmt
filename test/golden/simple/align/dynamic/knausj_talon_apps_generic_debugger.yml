@@ -74,10 +74,10 @@ input: |
   clear line: user.debugger_clear_line()
 output: |
   tag: debugger
-
   -
   # Code execution
   # instruction level
+
   step into: user.debugger_step_into()
   step over: user.debugger_step_over()
 
@@ -96,7 +96,6 @@ output: |
 
   # Register
   show registers: user.debugger_show_registers()
-
   # XXX -
   get register: user.debugger_get_register()
   set register: user.debugger_set_register()
@@ -118,6 +117,7 @@ output: |
   enable (break | break point) <number_small>:  user.debugger_enable_breakpoint_id(number_small)
 
   # Navigation
+
   # Memory Inspection
   (stack | back) trace:  user.debugger_backtrace()
   disassemble:           user.debugger_disassemble()
@@ -136,5 +136,6 @@ output: |
 
   # Hex Dumping Memory
   # hex dump register:
+
   # Convenience
   clear line: user.debugger_clear_line()

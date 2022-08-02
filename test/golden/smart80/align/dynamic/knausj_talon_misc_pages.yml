@@ -7,7 +7,6 @@ input: |
   go page final: user.page_final()
 output: |
   tag: user.pages
-
   -
   page next:        user.page_next()
   page last:        user.page_previous()

@@ -4,9 +4,8 @@ input: |
   # Set tags
   tag(): user.pages
   tag(): user.tabs
-output: |-
+output: |
   app: nitro_reader_five
-
   -
   # Set tags
   tag(): user.pages

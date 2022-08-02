@@ -41,9 +41,7 @@ input: |
   anaconda verify:      "conda verify "
 output: |
   tag: terminal
-
   and tag: user.anaconda
-
   -
   anaconda:                    "conda "
   anaconda help:               "conda --help\n"

@@ -67,15 +67,13 @@ output: |
       insert(".hh\n")
 
   # xxx - add window switching
+
   add microsoft symbols:
       insert("srv*C:\\symbols*http://msdl.microsoft.com/download/symbols;\n")
-
   force reload symbols:
       insert(".reload /f\n")
-
   reload symbols:
       insert(".reload\n")
-
   loaded modules:
       insert("lm l\n")
 
@@ -92,30 +90,23 @@ output: |
   #
   # Windows
   #
+
   view command:
       key(alt-1)
-
   view watch:
       key(alt-2)
-
   view locals:
       key(alt-3)
-
   view registers:
       key(alt-4)
-
   view memory:
       key(alt-5)
-
   view call stack:
       key(alt-6)
-
   view disassembly:
       key(alt-7)
-
   view scratch pad:
       key(alt-8)
-
   view (processes | threads):
       key(alt-9)
 

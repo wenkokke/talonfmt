@@ -12,7 +12,6 @@ input: |
   cursor lines: user.multi_cursor_add_to_line_ends()
 output: |
   tag: user.multiple_cursors
-
   -
   cursor multiple: user.multi_cursor_enable()
   cursor stop:     user.multi_cursor_disable()

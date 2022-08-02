@@ -126,11 +126,9 @@ input: |
   # insert code section:           key("cmd-shift-r")
   # scroll diff view:              key("ctrl-up/down")
   # sync editor & pdf preview:     key("cmd-f8")
-output: |-
+output: |
   os: mac
-
   app: RStudio
-
   -
   run that:              key("cmd-enter")
   run document:          key("cmd-alt-r")

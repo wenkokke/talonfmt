@@ -62,7 +62,7 @@ input: "## (2021-03-09) This syntax is experimental and may change. See below fo
   RIGHT\", \"DEFAULT\", \"big\", number_small or 1)\nbig word pre [<number_small>]:\
   \ user.navigation_by_name(\"SELECT\", \"LEFT\", \"DEFAULT\", \"big\", number_small\
   \ or 1)\n"
-output: |-
+output: |
   -
   # (2021-03-09) This syntax is experimental and may change. See below for an explanation.
   # If you are having issues with this module not working in vscode try adding the vscode setting "editor.emptySelectionClipboard": false
@@ -133,6 +133,7 @@ output: |-
   #   - "word" or "big" or "small"
   #   - "phrase <some text to search for>"
   #   Specifies the target to search for/navigate to.
+
   # The functionality for all these commands is covered in the lines above, but these commands are kept here for convenience. Originally from word_selection.talon.
   word neck [<number_small>]: user.navigation_by_name("SELECT", "RIGHT", "DEFAULT", "word", number_small or 1)
   word pre [<number_small>]: user.navigation_by_name("SELECT", "LEFT", "DEFAULT", "word", number_small or 1)

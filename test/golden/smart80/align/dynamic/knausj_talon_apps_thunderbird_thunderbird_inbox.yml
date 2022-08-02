@@ -30,7 +30,6 @@ input: |
   (mail | message) print: user.thunderbird_mod("p")
 output: |
   app: thunderbird_inbox
-
   -
   # navigate
   (mail | message) open:                 key(enter)
@@ -40,7 +39,6 @@ output: |
   unread [mail | message] (down | next): key(n)
   go home:                               key(alt-home)
   toggle (mail | message) [pane]:        key(f8)
-
   # mark
   (mail | message) (favorite | unfavorite): key(s)
   (mail | message) (read | unread):         key(m)
@@ -48,7 +46,6 @@ output: |
   (mail | message) (ignore | unignore):     key(k)
   (mail | message) suspend:                 key(c)
   (mail | message) spam:                    key(j)
-
   # send
   (mail | message) new:          user.thunderbird_mod("n")
   (mail | message) edit:         user.thunderbird_mod("e")
@@ -56,7 +53,6 @@ output: |
   (mail | message) reply all:    user.thunderbird_mod("shift-r")
   (mail | message) reply list:   user.thunderbird_mod("shift-l")
   (mail | message) forward:      user.thunderbird_mod("l")
-
   # organize
   (mail | message) delete:  key(delete)
   (mail | message) archive: key(a)

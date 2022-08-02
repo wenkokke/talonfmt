@@ -13,7 +13,6 @@ input: |
   (op | logical | bitwise) (right shift | shift right): user.code_operator_bitwise_right_shift()
 output: |
   tag: user.code_operators_bitwise
-
   -
   # bitwise operators
   [op] bitwise and: user.code_operator_bitwise_and()

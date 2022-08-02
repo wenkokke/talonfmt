@@ -75,7 +75,7 @@ input: |
   go to suggested time: key(alt-shift-s)
   (raise|lower) hand: key(super-shift-k)
   leave team meeting: key(super-shift-h)
-output: |-
+output: |
   os: mac
   app: com.microsoft.teams
   -
@@ -96,8 +96,8 @@ output: |-
       key(escape)
       key(escape)
       key(escape)
-
   zoom reset: key(super-0)
+
   # navigations
   open (act | activity): key(super-1)
   open chat: key(super-2)
@@ -111,6 +111,7 @@ output: |-
   move [selected] team down: key(super-shift-down)
   [go] [to] (prev | previous) section: key(super-shift-f6)
   [go] [to] next section: key(super-f6)
+
   # messaging
   [go] [to] compose [box]: key(shift-alt-c)
   [expand] compose [box]: key(super-shift-x)
@@ -121,9 +122,9 @@ output: |-
       sleep(100ms)
       key(down)
       key(space)
-
   [start] new line: key(shift-enter)
   reply [to] [thread]: key(shift-alt-r)
+
   # Meetings, Calls and Calendar
   accept video call: key(super-shift-a)
   accept audio call: key(super-shift-s)

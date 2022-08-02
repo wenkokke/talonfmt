@@ -97,9 +97,7 @@ input: |
 output: |
   # NOTE: If you want to use i3wm you must enable the tag settings.talon. ex: `tag(): user.i3wm`
   os: linux
-
   tag: user.i3wm
-
   -
   port <number_small>:            user.system_command("i3-msg workspace number {number_small}")
   port ten:                       user.system_command("i3-msg workspace number 10")
@@ -167,19 +165,16 @@ output: |
   (win | window) vertical:                                  user.system_command("i3-msg split v")
   make scratch:                                             user.system_command("i3-msg move scratchpad")
   [(show | hide)] scratch:                                  user.system_command("i3-msg scratchpad show")
-
   next scratch:
       user.system_command("i3-msg scratchpad show")
       user.system_command("i3-msg scratchpad show")
 
   # these rely on the user settings for the mod key. see i3wm.py Actions class
   launch: user.i3wm_launch()
-
   launch <user.text>:
       user.i3wm_launch()
       sleep(100ms)
       insert("{text}")
-
   lock screen:            user.i3wm_launch()
   (launch shell | koopa): user.i3wm_shell()
 

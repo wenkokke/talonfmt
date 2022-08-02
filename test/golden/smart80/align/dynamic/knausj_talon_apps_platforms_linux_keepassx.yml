@@ -23,7 +23,6 @@ input: |
       insert("{text}")
 output: |
   app: keepass
-
   -
   # Database
   open database:  key(ctrl-o)
@@ -42,7 +41,6 @@ output: |
   open (earl | url | link): key(ctrl-u)
   copy (earl | url | link): key(ctrl-alt-u)
   find:                     key(ctrl-f)
-
   find <user.text>:
       key(ctrl-f)
       insert("{text}")

@@ -17,7 +17,6 @@ input: |
   repeated type {user.code_type}: "repeated {code_type}"
 output: |
   tag: user.protobuf
-
   -
   # this is pretty bare-bones, further contributions welcome
   state message:                  "message "

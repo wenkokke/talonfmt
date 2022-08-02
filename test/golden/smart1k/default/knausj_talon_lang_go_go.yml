@@ -250,11 +250,9 @@ output: |
   if <user.text> [over]:
       insert("if ")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
-
   spawn <user.text> [over]:
       insert("go ")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
-
   state else if: " else if "
   else if <user.text> [over]:
       insert(" else if ")
@@ -308,13 +306,11 @@ output: |
   type <user.text> [over]:
       insert("type ")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
-
   state true: " true "
   state false: " false "
   state (start | struct | struck):
       insert(" struct {")
       key("enter")
-
   (struct | struck) <user.text> [over]:
       insert(" struct {")
       key("enter")
@@ -324,7 +320,6 @@ output: |
   state interface:
       insert(" interface {")
       key("enter")
-
   interface <user.text> [over]:
       insert(" interface {")
       key("enter")

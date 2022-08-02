@@ -1,22 +1,26 @@
 import dataclasses
+import itertools
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
-from typing import TypeVar, Union
+from typing import Optional, TypeVar, Union
 
 from doc_printer import (
     Doc,
     Empty,
     Fail,
     Line,
+    Map,
     Space,
+    Table,
     Text,
     alt,
     angles,
     braces,
     brackets,
     cat,
-    create_tables,
+    create_table,
     double_quote,
+    group,
     nest,
     parens,
     row,
@@ -123,7 +127,7 @@ class TalonFormatter:
         """
         Format any node as a document.
         """
-        # NOTE: these should implement format_block
+        # NOTE: these should implement format_lines
         if isinstance(
             node,
             (
@@ -137,28 +141,28 @@ class TalonFormatter:
                 TalonExpression,
             ),
         ):
-            return Line.join(self.format_block(node))
+            return cat(self.format_lines(node))
         elif isinstance(node, TalonError):
             raise ParseError(node)
         else:
             raise TypeError(type(node))
 
     @singledispatchmethod
-    def format_block(self, node: TalonBlockLevel) -> Iterator[Doc]:
+    def format_lines(self, node: TalonBlockLevel) -> Iterator[Doc]:
         """
         Format any block-level node as a series of lines.
         """
         if isinstance(node, (TalonComment, TalonDocstring)):
             yield self.format(node)
         elif isinstance(node, (TalonAnd, TalonNot, TalonMatch, TalonOr)):
-            yield from self.format_block_match(node, under_and=False, under_not=False)
+            yield from self.format_lines_match(node, under_and=False, under_not=False)
         elif isinstance(node, TalonError):
             raise ParseError(node)
         else:
             raise TypeError(type(node))
 
     @singledispatchmethod
-    def format_block_match(
+    def format_lines_match(
         self,
         match: TalonBlockLevelMatch,
         *,
@@ -184,8 +188,9 @@ class TalonFormatter:
     # Format: Source Files
     ###########################################################################
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonSourceFile) -> Iterator[Doc]:
+
         # Used to emit the context header separator.
         in_header: bool = True
 
@@ -204,39 +209,63 @@ class TalonFormatter:
 
             def clear_short_command_buffer() -> Iterator[Doc]:
                 if short_command_buffer:
-                    yield from create_tables(iter(short_command_buffer))
+                    table: Optional[Table] = create_table(short_command_buffer)
+                    if table:
+                        yield alt(cat(short_command_buffer), table)
+                    else:
+                        yield from short_command_buffer
                     short_command_buffer.clear()
 
+        # Used to insert blank lines.
+        previous_line: int = 0
+
+        def extra_blank_lines_before(child: Node) -> Iterator[Doc]:
+            n = child.start_position.row - previous_line
+            yield from itertools.repeat(Line, times=min(1, n - 1))
+
         for child in node.children:
+            extra_blank_lines = extra_blank_lines_before(child)
+
             if in_header and isinstance(child, TalonComment):
+                # NOTE: buffer comments in context header
                 comment_buffer.append(self.format(child))
+                comment_buffer.extend(extra_blank_lines)
             elif isinstance(child, TalonContext):
+                # NOTE: format context header
                 assert in_header
                 yield from clear_comment_buffer()
-                yield from self.format_block(child)
+                yield from self.format_lines(child)
             else:
                 # NOTE: first body-only node, end the context header
                 if in_header and isinstance(
                     child, (TalonIncludeTag, TalonSettings, TalonCommand)
                 ):
-                    yield Text("-")
+                    yield Text("-") / Line
+                    # NOTE: no blank lines after "-"
+                    if not comment_buffer:
+                        extra_blank_lines = iter(())
                     yield from clear_comment_buffer()
                     in_header = False
 
                 if self.align_short_commands is True:
                     if isinstance(child, TalonCommand) and is_short_command(child):
                         # NOTE: buffer short command
-                        short_command_buffer.extend(self.format_block(child))
+                        short_command_buffer.extend(self.format_lines(child))
                     else:
                         # NOTE: long command or other node, clear short command buffer
                         yield from clear_short_command_buffer()
-                        yield from self.format_block(child)
+                        yield from extra_blank_lines
+                        yield from self.format_lines(child)
                 else:
-                    yield from self.format_block(child)
+                    yield from extra_blank_lines
+                    yield from self.format_lines(child)
+
+            # Update previous line.
+            previous_line = child.end_position.row
 
         # NOTE: no body-only node, end the context header
         if in_header:
-            yield Text("-")
+            yield Text("-") / Line
             yield from clear_comment_buffer()
 
         # NOTE: clear remaining short commands in buffer
@@ -247,42 +276,42 @@ class TalonFormatter:
     # Format: Context Header
     ###########################################################################
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonContext) -> Iterator[Doc]:
         for child in node.children:
-            lines = list(self.format_block(child))
+            lines = list(self.format_lines(child))
             yield from self.get_formatted_comments()
             yield from lines
 
-    @format_block_match.register
+    @format_lines_match.register
     def _(self, match: TalonAnd, under_and: bool, under_not: bool) -> Iterator[Doc]:
         for child in match.children:
             if isinstance(child, TalonComment):
-                yield from self.format_block(child)
+                yield from self.format_lines(child)
             else:
-                yield from self.format_block_match(child, under_and, under_not)
+                yield from self.format_lines_match(child, under_and, under_not)
                 under_and = True
 
-    @format_block_match.register
+    @format_lines_match.register
     def _(self, match: TalonNot, under_and: bool, under_not: bool) -> Iterator[Doc]:
         for child in match.children:
             if isinstance(child, TalonComment):
-                yield from self.format_block(child)
+                yield from self.format_lines(child)
             else:
-                yield from self.format_block_match(child, under_and, under_not)
+                yield from self.format_lines_match(child, under_and, under_not)
                 under_not = True
 
-    @format_block_match.register
+    @format_lines_match.register
     def _(self, match: TalonOr, under_and: bool, under_not: bool) -> Iterator[Doc]:
         for child in match.children:
             if isinstance(child, TalonComment):
-                yield from self.format_block(child)
+                yield from self.format_lines(child)
             else:
-                lines = list(self.format_block_match(child, under_and, under_not))
+                lines = list(self.format_lines_match(child, under_and, under_not))
                 yield from self.get_formatted_comments()
                 yield from lines
 
-    @format_block_match.register
+    @format_lines_match.register
     def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
         self.assert_only_comments(match.children)
         match_keywords = self.format_match_keywords(under_and, under_not)
@@ -300,7 +329,7 @@ class TalonFormatter:
 
     def format_match_alternatives(self, key: Doc, pattern: Doc) -> Iterator[Doc]:
         # Standard
-        yield key / ":" // pattern
+        yield key / ":" // pattern / Line
 
         # Aligned alternative
         if self.align_match_context:
@@ -322,27 +351,31 @@ class TalonFormatter:
     # Format: Tag Includes
     ###########################################################################
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonIncludeTag) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
         yield from self.get_formatted_comments()
-        yield "tag():" // self.format(node.tag)
+        yield "tag():" // self.format(node.tag) / Line
 
     ###########################################################################
     # Format: Settings
     ###########################################################################
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonSettings) -> Iterator[Doc]:
         block = self.get_node_with_type(node.children, node_type=TalonBlock)
         block = block_with_comments(self.get_comments(), block)
-        yield "settings():" // nest(self.indent_size, Line, self.format(block))
+        yield "settings():" // nest(
+            self.indent_size,
+            Line,
+            self.format(block),
+        )
 
     ###########################################################################
     # Format: Commands
     ###########################################################################
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonCommand) -> Iterator[Doc]:
         rule = self.format(node.rule)
         yield from self.get_formatted_comments()
@@ -358,7 +391,7 @@ class TalonFormatter:
         #
         alt1 = cat(
             rule / ":",
-            nest(self.indent_size, Line, script, Line),
+            nest(self.indent_size, Line, script),
         )
 
         # (2): the rule and a single-line talon script on the same line, e.g.,
@@ -377,39 +410,39 @@ class TalonFormatter:
             if self.align_short_commands is True:
                 return row(
                     rule / ":",
-                    script,
+                    group(script),
                     table_type="command",
                 )
             else:
                 return row(
                     rule / ":",
-                    script,
+                    group(script),
                     table_type="command",
                     min_col_widths=(self.align_short_commands,),
                 )
         else:
-            return rule / ":" // script
+            return rule / ":" // group(script) / Line
 
     ###########################################################################
     # Format: Statements
     ###########################################################################
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonBlock) -> Iterator[Doc]:
         for child in node.children:
-            for line in self.format_block(child):
+            for line in self.format_lines(child):
                 yield from self.get_formatted_comments()
                 yield line
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonAssignment) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
-        yield self.format(node.left) // "=" // self.format(node.right)
+        yield self.format(node.left) // "=" // self.format(node.right) / Line
 
-    @format_block.register
+    @format_lines.register
     def _(self, node: TalonExpression) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
-        yield self.format(node.expression)
+        yield self.format(node.expression) / Line
 
     ###########################################################################
     # Format: Expressions
@@ -576,9 +609,13 @@ class TalonFormatter:
             # TODO: format blocks of comments so we can:
             #       1. decrease indentation consistently;
             #       2. reflow text
-            return "#" // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
+            return (
+                "#"
+                // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
+                / Line
+            )
         else:
-            return Text.words(node.text, collapse_whitespace=False)
+            return Text.words(node.text, collapse_whitespace=False) / Line
 
     @format.register
     def _(self, node: TalonDocstring) -> Doc:
@@ -586,9 +623,13 @@ class TalonFormatter:
             # TODO: format blocks of comments so we can:
             #       1. decrease indentation consistently;
             #       2. reflow text
-            return "###" // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
+            return (
+                "###"
+                // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
+                / Line
+            )
         else:
-            return Text.words(node.text, collapse_whitespace=False)
+            return Text.words(node.text, collapse_whitespace=False) / Line
 
     # Used to buffer comments encountered inline, e.g., inside a binary operator
     _comment_buffer: list[TalonComment] = dataclasses.field(

@@ -43,7 +43,6 @@ input: |
   date: user.insert_between("DATE '", "'")
 output: |
   tag: user.sql
-
   -
   tag(): user.code_operators_math
   tag(): user.code_comment_line
@@ -80,6 +79,5 @@ output: |
   column:
       key(return)
       ", "
-
   count: user.code_insert_function("Count", "")
   date:  user.insert_between("DATE '", "'")

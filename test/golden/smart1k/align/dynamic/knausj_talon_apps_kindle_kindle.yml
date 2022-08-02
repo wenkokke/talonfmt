@@ -3,9 +3,8 @@ input: |
   -
   # Set tags
   tag(): user.pages
-output: |-
+output: |
   app: kindle
-
   -
   # Set tags
   tag(): user.pages

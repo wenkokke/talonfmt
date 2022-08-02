@@ -21,10 +21,10 @@ input: |
   [(op | logical | bitwise)] (right shift | shift right) equals: user.code_operator_bitwise_right_shift_assignment()
 output: |
   tag: user.code_operators_assignment
-
   -
   tag(): user.code_operators_math
   tag(): user.code_operators_bitwise
+
   # assignment
   op (equals | assign): user.code_operator_assignment()
 

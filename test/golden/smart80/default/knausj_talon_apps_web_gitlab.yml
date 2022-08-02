@@ -60,7 +60,7 @@ input: |
 
   # wiki pages
   edit page: key(e)
-output: |-
+output: |
   # Shortcuts taken from: https://docs.gitlab.com/ee/user/shortcuts.html
   #
   tag: browser
@@ -68,6 +68,7 @@ output: |-
   # win.title: /GitLab/
   -
   # global shortcuts
+
   show shortcuts: key(?)
   go to projects [page]: key(shift-p)
   go to groups [page]: key(shift-g)
@@ -79,8 +80,10 @@ output: |-
   go to merge requests [page]: key(shift-m)
   go to to do [list] [page]: key(shift-t)
   (show | hide) performance bar: key(p)
+
   edit last comment: key(1)
   toggle mark down [preview]: key(ctrl-shift-p)
+
   # projects
   go [to] project home [page]: insert("gp")
   go [to] project activity [feed]: insert("gv")
@@ -100,6 +103,7 @@ output: |-
   go [to] project cubes: insert("gk")
   go [to] project snippets [list]: insert("gs")
   go [to] project wiki: insert("gw")
+
   # issues and merge requests
   edit description: key(e)
   change assignee: key(a)
@@ -110,8 +114,10 @@ output: |-
   previous [unresolved] discussion: key(p)
   next file: key(])
   previous file: key([)
+
   # project files
   back to files: key(escape)
   open permalink: key(y)
+
   # wiki pages
   edit page: key(e)

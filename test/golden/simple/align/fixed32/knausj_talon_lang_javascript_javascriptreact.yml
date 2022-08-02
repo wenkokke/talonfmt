@@ -2,8 +2,7 @@ input: |
   tag: user.javascriptreact
   -
   tag(): user.javascript
-output: |-
+output: |
   tag:                             user.javascriptreact
-
   -
   tag(): user.javascript

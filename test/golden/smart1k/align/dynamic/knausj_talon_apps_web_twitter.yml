@@ -38,9 +38,7 @@ input: |
   expand photo: key(o)
 output: |
   tag: browser
-
   browser.host: twitter.com
-
   # win.title: /Twitter/
   -
   # navigation
@@ -61,7 +59,6 @@ output: |
   go book marks:                     insert("gb")
   go to user:                        insert("gu")
   display settings:                  insert("gd")
-
   # actions
   new tweet:          key(n)
   send tweet:         key(ctrl-enter)

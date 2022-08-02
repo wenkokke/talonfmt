@@ -30,6 +30,7 @@ output: |
   close database: key(ctrl-w)
   lock database: key(ctrl-l)
   quit: key(ctrl-q)
+
   # Entries
   [add] new entry: key(ctrl-n)
   clone entry: key(ctrl-k)

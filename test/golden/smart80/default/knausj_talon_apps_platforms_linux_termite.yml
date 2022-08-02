@@ -16,7 +16,7 @@ input: |
   shell insert: key("escape")
   visual line: key("v")
   visual line mode: key("V")
-output: |-
+output: |
   app: termite
   and win.title: /VIM/
   -
@@ -27,6 +27,7 @@ output: |-
   tag(): user.git
   tag(): user.taskwarrior
   tag(): terminal
+
   # Selection mode
   shell yank: key("y")
   shell select: key("ctrl-shift-space")

@@ -126,7 +126,7 @@ input: |
   # insert code section:           key("cmd-shift-r")
   # scroll diff view:              key("ctrl-up/down")
   # sync editor & pdf preview:     key("cmd-f8")
-output: |-
+output: |
   os: mac
   app: RStudio
   -
@@ -142,6 +142,7 @@ output: |-
   run all: key("cmd-shift-s")
   run knitter: key("cmd-shift-k")
   run profiler: key("cmd-shift-alt-p")
+
   # Moving around and formatting
   jump back: key("cmd-f9")
   jump forward: key("cmd-f10")
@@ -169,11 +170,13 @@ output: |-
   assign that: key("alt--")
   pipe that: key("cmd-shift-m")
   insert knitter chunk: key("cmd-alt-i")
+
   # Folding
   fold that: key("cmd-alt-l")
   unfold that: key("cmd-shift-alt-l")
   fold all: key("cmd-alt-o")
   unfold all: key("cmd-shift-alt-o")
+
   # Find and replace
   find and replace: key("cmd-f")
   find next: key("cmd-g")
@@ -182,6 +185,7 @@ output: |-
   find in files: key("cmd-shift-f")
   run replace: key("cmd-shift-j")
   run spell check: key("f7")
+
   # Navigation and panels
   go to source: key("ctrl-1")
   go to console: key("ctrl-2")
@@ -202,12 +206,15 @@ output: |-
   go to next tab: key("ctrl-f12")
   go to first tab: key("ctrl-shift-f11")
   go to last tab: key("ctrl-shift-f12")
+
   zoom source: key("ctrl-shift-1")
   (zoom | show) all: key("ctrl-shift-0")
+
   help that: key("f1")
   define that: key("f2")
   previous plot: key("cmd-alt-f11")
   next plot: key("cmd-alt-f12")
+
   # devtools, package development, and session management
   restart R session: key("cmd-shift-f10")
   dev tools build: key("cmd-shift-b")
@@ -215,6 +222,7 @@ output: |-
   dev tools test: key("cmd-shift-t")
   dev tools check: key("cmd-shift-e")
   dev tools document: key("cmd-shift-d")
+
   # Debugging
   toggle breakpoint: key("shift-f9")
   debug next: key("f10")
@@ -222,9 +230,11 @@ output: |-
   debug finish (function | funk): key("shift-f6")
   debug continue: key("shift-f5")
   debug stop: key("shift-f8")
+
   # Git/SVN
   run git diff: key("ctrl-alt-d")
   run git commit: key("ctrl-alt-m")
+
   # Other shortcuts that could be enabled
   # run line and stay:             key("alt-enter")
   # run and echo all:              key("cmd-shift-enter")

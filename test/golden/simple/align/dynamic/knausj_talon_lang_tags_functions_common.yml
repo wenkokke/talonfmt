@@ -12,7 +12,6 @@ input: |
       user.code_select_function(number - 1, edit.selected_text())
 output: |
   tag: user.code_functions_common
-
   -
   toggle funk:                           user.code_toggle_functions()
   funk <user.code_common_function>:      user.code_insert_function(code_common_function, "")

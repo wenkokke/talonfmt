@@ -41,7 +41,7 @@ input: |
   count: user.code_insert_function("Count", "")
 
   date: user.insert_between("DATE '", "'")
-output: |-
+output: |
   tag: user.sql
   -
   tag(): user.code_operators_math
@@ -49,6 +49,7 @@ output: |-
   tag(): user.code_comment_block_c_like
   tag(): user.code_data_null
   tag(): user.code_functions_common
+
   select: "SELECT "
   distinct: "DISTINCT "
   from: "FROM "
@@ -64,6 +65,7 @@ output: |-
   inner join using: user.insert_between("INNER JOIN ", " USING ")
   left outer join: user.insert_between("LEFT OUTER JOIN ", " ON ")
   right outer join: user.insert_between("RIGHT OUTER JOIN ", " ON ")
+
   with:
       key(enter up)
       "WITH  AS ("
@@ -80,4 +82,5 @@ output: |-
       ", "
 
   count: user.code_insert_function("Count", "")
+
   date: user.insert_between("DATE '", "'")

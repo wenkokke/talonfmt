@@ -26,7 +26,6 @@ input: |
   type {user.code_type}: insert("{code_type}")
 output: |
   tag: user.terraform
-
   -
   tag(): user.code_comment_block_c_like
   tag(): user.code_comment_line
@@ -43,5 +42,4 @@ output: |
   [state] prop {user.terraform_common_property}:
       insert(user.terraform_common_property)
       user.code_operator_assignment()
-
   type {user.code_type}: insert("{code_type}")

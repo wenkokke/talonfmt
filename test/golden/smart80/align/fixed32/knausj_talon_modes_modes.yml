@@ -13,7 +13,6 @@ input: |
       mode.enable("command")
 output: |
   mode:                            sleep
-
   -
   ^dictation mode$:
       mode.disable("sleep")
@@ -21,7 +20,6 @@ output: |
       mode.enable("dictation")
       user.code_clear_language_mode()
       mode.disable("user.gdb")
-
   ^command mode$:
       mode.disable("sleep")
       mode.disable("dictation")

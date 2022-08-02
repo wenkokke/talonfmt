@@ -3,9 +3,8 @@ input: |
   -
   # Set tags
   tag(): user.pages
-output: |-
+output: |
   app: okular
-
   -
   # Set tags
   tag(): user.pages

@@ -42,11 +42,11 @@ input: |
   remove [link] attachment: key("ctrl-shift-p")
 output: |
   app: signal
-
   -
   show shortcuts: key("ctrl-/")
 
   # Note that the order below matches Keyboard Shortcuts listings
+
   # Navigation
   (next | nav | navigate) [by] (sec | section): key("ctrl-t")
   (prev | previous) (chat | conversation):      key("alt-down")

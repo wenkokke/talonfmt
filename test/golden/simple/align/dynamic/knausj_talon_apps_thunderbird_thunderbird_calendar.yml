@@ -14,13 +14,11 @@ input: |
   view month: user.thunderbird_calendar_view(4)
 output: |
   app: thunderbird_calendar
-
   -
   # event/task
   event new:             user.thunderbird_mod("i")
   task new:              user.thunderbird_mod("d")
   (task | event) delete: key(delete)
-
   # layout
   toggle today:        key(f11)
   view <number_small>: user.thunderbird_calendar_view(number_small)

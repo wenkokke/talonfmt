@@ -15,7 +15,6 @@ input: |
       key(up)
 output: |
   tag: user.markdown
-
   -
   level one:   "# "
   level two:   "## "

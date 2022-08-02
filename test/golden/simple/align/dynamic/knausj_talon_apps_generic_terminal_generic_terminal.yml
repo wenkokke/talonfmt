@@ -22,7 +22,6 @@ input: |
       edit.paste()
 output: |
   tag: terminal
-
   -
   # tags should be activated for each specific terminal in the respective talon file
   lisa:                  user.terminal_list_directories()
