@@ -406,22 +406,19 @@ class TalonFormatter:
         yield alt1 | alt2
 
     def format_short_command(self, rule: Doc, script: Doc) -> Doc:
-        if self.align_short_commands:
-            if self.align_short_commands is True:
-                return row(
-                    rule / ":",
-                    group(script),
-                    table_type="command",
-                )
-            else:
-                return row(
-                    rule / ":",
-                    group(script),
-                    table_type="command",
-                    min_col_widths=(self.align_short_commands,),
-                )
+        if isinstance(self.align_short_commands, bool):
+            return row(
+                rule / ":",
+                group(script),
+                table_type="command",
+            )
         else:
-            return rule / ":" // group(script) / Line
+            return row(
+                rule / ":",
+                group(script),
+                table_type="command",
+                min_col_widths=(self.align_short_commands,),
+            )
 
     ###########################################################################
     # Format: Statements
