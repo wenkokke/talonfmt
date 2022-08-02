@@ -2,16 +2,14 @@ import dataclasses
 import itertools
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
-from typing import Optional, TypeVar, Union
+from typing import TypeVar, Union
 
 from doc_printer import (
     Doc,
     Empty,
     Fail,
     Line,
-    Map,
     Space,
-    Table,
     Text,
     alt,
     angles,
