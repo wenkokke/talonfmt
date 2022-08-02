@@ -24,7 +24,7 @@ input: |
       user.code_operator_assignment()
 
   type {user.code_type}: insert("{code_type}")
-output: |+
+output: |
   tag: user.terraform
 
   -
@@ -43,6 +43,5 @@ output: |+
   [state] prop {user.terraform_common_property}:
       insert(user.terraform_common_property)
       user.code_operator_assignment()
-  type {user.code_type}: insert("{code_type}")
 
-...
+  type {user.code_type}: insert("{code_type}")

@@ -73,24 +73,31 @@ output: |
   angle that:
       text = edit.selected_text()
       user.paste("<{text}>")
+
   (square | square bracket) that:
       text = edit.selected_text()
       user.paste("[{text}]")
+
   (bracket | brace) that:
       text = edit.selected_text()
       user.paste("{{{text}}}")
+
   (parens | args) that:
       text = edit.selected_text()
       user.paste("({text})")
+
   percent that:
       text = edit.selected_text()
       user.paste("%{text}%")
+
   quote that:
       text = edit.selected_text()
       user.paste("'{text}'")
+
   (double quote | dubquote) that:
       text = edit.selected_text()
       user.paste("\"{text}\"")
+
   (grave | back tick) that:
       text = edit.selected_text()
       user.paste("`{text}`")

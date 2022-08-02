@@ -71,7 +71,7 @@ input: |
   # restore: key(X)
   # search tabs: key(T)
   # move to window: key(W)
-output: |
+output: |-
   tag:                             browser
 
   -
@@ -81,6 +81,7 @@ output: |
       browser.focus_address()
       sleep(50ms)
       edit.copy()
+
   go home:                         browser.go_home()
 
   [go] forward:                    browser.go_forward()

@@ -43,7 +43,7 @@ input: |
 
   [value] current color: "currentColor"
   op important: " !important"
-output: |+
+output: |
   tag:                             user.css
 
   -
@@ -58,13 +58,16 @@ output: |+
   attribute [<user.text>]:
       name = user.formatted_text(text or "", "DASH_SEPARATED")
       user.insert_between("[{name}", "]")
+
   prop <user.text>:
       name = user.formatted_text(text, "DASH_SEPARATED")
       user.insert_between("{name}: ", ";")
+
   # for media/supports queries, or if you don't like prop
   rule <user.text>:
       name = user.formatted_text(text, "DASH_SEPARATED")
       insert("{name}: ")
+
   value <user.number_string> [{user.css_unit}]: "{number_string}{css_unit or ''}"
 
   value <user.number_string> point <digit_string> [{user.css_unit}]: "{number_string}.{digit_string}{css_unit or ''}"
@@ -76,6 +79,7 @@ output: |+
   variable <user.text>:
       name = user.formatted_text(text, settings.get("user.code_public_variable_formatter"))
       insert("var(--{name})")
+
   op var:                          user.insert_between("var(--", ")")
 
   at {user.css_at_rule}:           "@{css_at_rule} "
@@ -85,5 +89,3 @@ output: |+
   [value] current color:           "currentColor"
 
   op important:                    " !important"
-
-...

@@ -41,7 +41,7 @@ input: |
   count: user.code_insert_function("Count", "")
 
   date: user.insert_between("DATE '", "'")
-output: |+
+output: |
   tag:                             user.sql
 
   -
@@ -80,6 +80,7 @@ output: |+
 
   right outer join:
       user.insert_between("RIGHT OUTER JOIN ", " ON ")
+
   with:
       key(enter up)
       "WITH  AS ("
@@ -90,11 +91,11 @@ output: |+
       edit.delete()
       ") "
       key(delete up:2 right:3)
+
   column:
       key(return)
       ", "
+
   count:                           user.code_insert_function("Count", "")
 
   date:                            user.insert_between("DATE '", "'")
-
-...

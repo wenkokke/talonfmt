@@ -66,7 +66,7 @@ input: |
       key("ctrl-q")
   cube shell:
       user.insert_between("kubectl exec -it ", " -- /bin/bash")
-output: |+
+output: |
   tag:                             terminal
 
   and tag:                         user.kubectl
@@ -167,9 +167,9 @@ output: |+
   cube {user.kubectl_action} [{user.kubectl_object}]:
       insert("kubectl {kubectl_action} ")
       insert(kubectl_object or "")
+
   cube detach:
       key("ctrl-p")
       key("ctrl-q")
-  cube shell:                      user.insert_between("kubectl exec -it ", " -- /bin/bash")
 
-...
+  cube shell:                      user.insert_between("kubectl exec -it ", " -- /bin/bash")

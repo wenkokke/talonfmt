@@ -80,7 +80,7 @@ input: |
   ## Contact Details
   exit contact: key(left)
   save contact: key(ctrl-s)
-output: |+
+output: |
   tag:                             browser
 
   win.title:                       /ProtonMail/
@@ -110,24 +110,31 @@ output: |+
   (go | jump) [to] inbox:
       key(g)
       key(i)
+
   (go | jump) [to] draft:
       key(g)
       key(d)
+
   (go | jump) [to] sent:
       key(g)
       key(s)
+
   (go | jump) [to] starred:
       key(g)
       key(.)
+
   (go | jump) [to] archive:
       key(g)
       key(a)
+
   (go | jump) [to] spam:
       key(g)
       key(x)
+
   (go | jump) [to] trash:
       key(g)
       key(t)
+
   # Navigation
   (prev | previous) message:       key(up)
 
@@ -149,9 +156,11 @@ output: |+
   select all:
       key(*)
       key(a)
+
   (deselect | unselect) all:
       key(*)
       key(n)
+
   select [the] (message | conversation): key(x)
 
   mark [as] read:                  key(r)
@@ -189,5 +198,3 @@ output: |+
   exit contact:                    key(left)
 
   save contact:                    key(ctrl-s)
-
-...

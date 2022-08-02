@@ -51,7 +51,7 @@ input: |
   dump function params: "r @rcx,@rdx,@r8,@r9\n"
 
   (lib|library) <user.windows_dlls>: "{windows_dlls}"
-output: |+
+output: |
   # XXX - trigger alt-1 to hit command window for necessary commands?
   # ex: user.windbg_insert_in_cmd()
   #    edit.left()
@@ -63,11 +63,13 @@ output: |+
   register <user.registers>:
       key(@)
       insert("{registers}")
+
   open help: insert(".hh\n")
 
   # xxx - add window switching
   add microsoft symbols:
       insert("srv*C:\\symbols*http://msdl.microsoft.com/download/symbols;\n")
+
   force reload symbols: insert(".reload /f\n")
 
   reload symbols: insert(".reload\n")
@@ -96,5 +98,3 @@ output: |+
   # XXX - temp
   dump function params:                "r @rcx,@rdx,@r8,@r9\n"
   (lib | library) <user.windows_dlls>: "{windows_dlls}"
-
-...

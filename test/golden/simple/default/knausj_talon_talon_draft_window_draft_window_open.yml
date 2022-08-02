@@ -17,6 +17,7 @@ output: |
   -
   draft hide:
       user.draft_hide()
+
   draft submit:
       content = user.draft_get_text()
       user.draft_hide()

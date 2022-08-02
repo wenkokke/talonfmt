@@ -124,7 +124,7 @@ input: "#custom vscode commands go here\napp: vscode\n-\ntag(): user.find_and_re
   jupyter.gotoPrevCellInFile\")\ncell run above: user.vscode(\"jupyter.runallcellsabove.palette\"\
   )\ncell run: user.vscode(\"jupyter.runcurrentcell\")\n\ninstall local: user.vscode(\"\
   workbench.extensions.action.installVSIX\")\n"
-output: |
+output: |-
   #custom vscode commands go here
   app: vscode
   -
@@ -140,6 +140,7 @@ output: |
   please [<user.text>]:
       user.vscode("workbench.action.showCommands")
       insert(user.text or "")
+
   # Sidebar
   bar explore: user.vscode("workbench.view.explorer")
   bar extensions: user.vscode("workbench.view.extensions")
@@ -153,6 +154,7 @@ output: |
       user.vscode("workbench.action.gotoSymbol")
       sleep(50ms)
       insert(text or "")
+
   # Panels
   panel control: user.vscode("workbench.panel.repl.view.focus")
   panel output: user.vscode("workbench.panel.output.focus")
@@ -180,6 +182,7 @@ output: |
       user.vscode("workbench.action.quickOpen")
       sleep(50ms)
       insert(text or "")
+
   file copy path: user.vscode("copyFilePath")
   file copy local [path]: user.vscode("copyRelativeFilePath")
   file create sibling: user.vscode_and_wait("explorer.newFile")
@@ -187,15 +190,19 @@ output: |
   file rename:
       user.vscode("fileutils.renameFile")
       sleep(150ms)
+
   file move:
       user.vscode("fileutils.moveFile")
       sleep(150ms)
+
   file clone:
       user.vscode("fileutils.duplicateFile")
       sleep(150ms)
+
   file delete:
       user.vscode("fileutils.removeFile")
       sleep(150ms)
+
   file open folder: user.vscode("revealFileInOS")
   file reveal: user.vscode("workbench.files.action.showActiveFileInExplorer")
   save ugly: user.vscode("workbench.action.files.saveWithoutFormatting")
@@ -231,6 +238,7 @@ output: |
       sleep(50ms)
       insert(text or "")
       sleep(250ms)
+
   go edit: user.vscode("workbench.action.navigateToLastEditLocation")
   # Bookmarks. Requires Bookmarks plugin
   go marks: user.vscode("workbench.view.extension.bookmarks")
@@ -263,10 +271,12 @@ output: |
       user.vscode("git.checkout")
       sleep(50ms)
       insert(text or "")
+
   git commit [<user.text>]:
       user.vscode("git.commitStaged")
       sleep(100ms)
       user.insert_formatted(text or "", "CAPITALIZE_FIRST_WORD")
+
   git commit undo: user.vscode("git.undoCommit")
   git commit amend: user.vscode("git.commitStagedAmend")
   git diff: user.vscode("git.openChange")
@@ -332,6 +342,7 @@ output: |
   replace here:
       user.replace("")
       key(cmd-alt-l)
+
   hover show: user.vscode("editor.action.showHover")
   join lines: user.vscode("editor.action.joinLines")
   full screen: user.vscode("workbench.action.toggleFullScreen")

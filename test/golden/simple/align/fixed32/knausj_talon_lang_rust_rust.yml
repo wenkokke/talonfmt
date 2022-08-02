@@ -103,7 +103,7 @@ input: |
   block dock comment: user.code_comment_documentation_block()
   inner dock comment: user.code_comment_documentation_inner()
   inner block dock comment: user.code_comment_documentation_block_inner()
-output: |+
+output: |
   tag:                             user.rust
 
   -
@@ -139,9 +139,11 @@ output: |+
   state (struct | structure) <user.text>:
       insert("struct ")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
   state enum <user.text>:
       insert("enum ")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
+
   toggle use:                      user.code_toggle_libraries()
 
   # Simple aliases
@@ -188,6 +190,7 @@ output: |+
   use <user.code_libraries>:
       user.code_insert_library(code_libraries, "")
       key(semicolon enter)
+
   # specialist flow control
   state if let some:               user.code_insert_if_let_some()
 
@@ -226,5 +229,3 @@ output: |+
   inner dock comment:              user.code_comment_documentation_inner()
 
   inner block dock comment:        user.code_comment_documentation_block_inner()
-
-...

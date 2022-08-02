@@ -29,7 +29,7 @@ input: |
   # task completion
   task <number> done$: "task {number} done"
   task <number> delete$: "task {number} delete"
-output: |
+output: |-
   os: linux
   tag: terminal
   and tag: user.taskwarrior

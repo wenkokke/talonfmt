@@ -11,7 +11,7 @@ input: |
 
   grid back:
       user.grid_go_back()
-output: |
+output: |-
   tag: user.mouse_grid_showing
   -
   <user.number_key>: user.grid_narrow(number_key)

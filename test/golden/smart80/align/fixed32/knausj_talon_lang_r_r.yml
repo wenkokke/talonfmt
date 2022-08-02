@@ -72,11 +72,13 @@ output: |
   library <user.code_libraries>:
       user.code_insert_library(code_libraries, "")
       key(end enter)
+
   # R specific commands
   (chain | pipe that):
       key(end)
       " %>%"
       key(enter)
+
   state na:                        insert("NA")
 
   # TODO: migrate to function tag

@@ -131,6 +131,7 @@ output: |
       # center window
       sleep(200ms)
       user.system_command("i3-msg move position center")
+
   # resize helpers
   shrink window:
       user.system_command("i3-msg mode \"resize\"")
@@ -141,12 +142,15 @@ output: |
       # center window
       sleep(200ms)
       user.system_command("i3-msg move position center")
+
   horizontal (shell | terminal):
       user.system_command("i3-msg split h")
       user.i3wm_shell()
+
   vertical (shell | terminal):
       user.system_command("i3-msg split v")
       user.i3wm_shell()
+
   # XXX - just replace with shuffle eventually?
   # XXX - like also need to match the generic talon commands
   (shuffle | move (win | window) [to] port) <number_small>: user.system_command("i3-msg move container to workspace number {number_small}")
@@ -163,12 +167,14 @@ output: |
   next scratch:
       user.system_command("i3-msg scratchpad show")
       user.system_command("i3-msg scratchpad show")
+
   # these rely on the user settings for the mod key. see i3wm.py Actions class
   launch: user.i3wm_launch()
   launch <user.text>:
       user.i3wm_launch()
       sleep(100ms)
       insert("{text}")
+
   lock screen: user.i3wm_launch()
   (launch shell | koopa): user.i3wm_shell()
   new scratch (shell | window):

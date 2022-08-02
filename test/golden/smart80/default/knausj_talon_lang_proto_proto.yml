@@ -15,7 +15,7 @@ input: |
 
   type {user.code_type}: "{code_type}"
   repeated type {user.code_type}: "repeated {code_type}"
-output: |
+output: |-
   tag: user.protobuf
   -
   # this is pretty bare-bones, further contributions welcome

@@ -72,7 +72,7 @@ input: |
 
   # Convenience
   clear line: user.debugger_clear_line()
-output: |+
+output: |
   tag: debugger
 
   -
@@ -138,5 +138,3 @@ output: |+
   #hex dump register:
   # Convenience
   clear line: user.debugger_clear_line()
-
-...

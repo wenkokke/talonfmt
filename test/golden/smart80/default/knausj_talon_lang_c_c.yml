@@ -130,6 +130,7 @@ output: |
       insert("{\n\n}")
       edit.up()
       key('tab')
+
   # XXX - create a preprocessor tag for these, as they will match cpp, etc
   state define: "#define "
   state undefine: "#undef "
@@ -154,11 +155,13 @@ output: |
       key(enter)
       key(enter)
       edit.up()
+
   # Declare variables or structs etc.
   # Ex. * int myList
   <user.c_variable> <phrase>:
       insert("{c_variable} ")
       insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
+
   <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
   # Ex. (int *)
   cast to <user.c_cast>: "{c_cast}"

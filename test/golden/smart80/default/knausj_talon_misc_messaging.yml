@@ -16,7 +16,7 @@ input: |
   mark (all | workspace | server) read: user.messaging_mark_workspace_read()
   mark channel read: user.messaging_mark_channel_read()
   upload file: user.messaging_upload_file()
-output: |
+output: |-
   tag: user.messaging
   -
   # Navigation
@@ -26,6 +26,7 @@ output: |
   channel <user.text>:
       user.messaging_open_channel_picker()
       insert(user.formatted_text(user.text, "ALL_LOWERCASE"))
+
   channel up: user.messaging_channel_previous()
   channel down: user.messaging_channel_next()
   ([channel] unread last | gopreev): user.messaging_unread_previous()

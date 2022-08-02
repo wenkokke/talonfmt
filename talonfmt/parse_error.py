@@ -2,13 +2,17 @@ import dataclasses
 from collections.abc import Iterator
 from typing import Optional, Sequence
 
-from tree_sitter_talon import Point
+from tree_sitter_talon import Point, TalonError
 
 
 @dataclasses.dataclass
 class ParseError(Exception):
     start_position: Point
     end_position: Point
+
+    def __init__(self, talon_error: TalonError):
+        self.start_position = talon_error.start_position
+        self.end_position = talon_error.end_position
 
     @staticmethod
     def point_to_str(point: Point) -> str:

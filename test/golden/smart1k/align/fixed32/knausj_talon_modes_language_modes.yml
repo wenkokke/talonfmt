@@ -5,7 +5,7 @@ input: |
       mode.enable("user.gdb")
   disable debug mode:
       mode.disable("user.gdb")
-output: |+
+output: |
   -
   ^force {user.language_mode}$:    user.code_set_language_mode(language_mode)
 
@@ -14,5 +14,3 @@ output: |+
   [enable] debug mode:             mode.enable("user.gdb")
 
   disable debug mode:              mode.disable("user.gdb")
-
-...

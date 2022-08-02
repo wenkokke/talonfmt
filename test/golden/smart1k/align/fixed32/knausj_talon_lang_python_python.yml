@@ -55,7 +55,7 @@ input: |
       key(end enter)
 
   from import: user.insert_between("from ", " import ")
-output: |+
+output: |
   tag:                             user.python
 
   -
@@ -107,6 +107,7 @@ output: |+
   dock {user.python_docstring_fields}:
       insert("{python_docstring_fields}")
       edit.left()
+
   dock type {user.code_type}:      user.insert_between(":type ", ": {code_type}")
 
   dock returns type {user.code_type}: user.insert_between(":rtype ", ": {code_type}")
@@ -116,6 +117,5 @@ output: |+
   import <user.code_libraries>:
       user.code_insert_library(code_libraries, "")
       key(end enter)
-  from import:                     user.insert_between("from ", " import ")
 
-...
+  from import:                     user.insert_between("from ", " import ")

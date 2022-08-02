@@ -10,7 +10,7 @@ input: |
   cursor skip: user.multi_cursor_skip_occurrence()
   cursor all: user.multi_cursor_select_all_occurrences()
   cursor lines: user.multi_cursor_add_to_line_ends()
-output: |
+output: |-
   tag: user.multiple_cursors
   -
   cursor multiple: user.multi_cursor_enable()

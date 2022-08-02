@@ -13,7 +13,7 @@ input: |
   file save: edit.save()
   (pad | padding): user.insert_between(" ", " ")
   slap: edit.line_insert_down()
-output: |+
+output: |
   -
   zoom in:                         edit.zoom_in()
 
@@ -42,5 +42,3 @@ output: |+
   (pad | padding):                 user.insert_between(" ", " ")
 
   slap:                            edit.line_insert_down()
-
-...

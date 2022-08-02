@@ -39,7 +39,7 @@ input: |
   anaconda server:      "conda server "
   anaconda skeleton:    "conda skeleton "
   anaconda verify:      "conda verify "
-output: |+
+output: |
   tag: terminal
 
   and tag: user.anaconda
@@ -79,5 +79,3 @@ output: |+
   anaconda server:             "conda server "
   anaconda skeleton:           "conda skeleton "
   anaconda verify:             "conda verify "
-
-...

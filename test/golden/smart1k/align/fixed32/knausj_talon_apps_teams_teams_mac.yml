@@ -75,7 +75,7 @@ input: |
   go to suggested time: key(alt-shift-s)
   (raise|lower) hand: key(super-shift-k)
   leave team meeting: key(super-shift-h)
-output: |+
+output: |
   os:                              mac
 
   app:                             com.microsoft.teams
@@ -110,6 +110,7 @@ output: |+
       key(escape)
       key(escape)
       key(escape)
+
   zoom reset:                      key(super-0)
 
   # navigations
@@ -151,6 +152,7 @@ output: |+
       sleep(100ms)
       key(down)
       key(space)
+
   [start] new line:                key(shift-enter)
 
   reply [to] [thread]:             key(shift-alt-r)
@@ -201,5 +203,3 @@ output: |+
   (raise | lower) hand:            key(super-shift-k)
 
   leave team meeting:              key(super-shift-h)
-
-...

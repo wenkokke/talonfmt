@@ -7,7 +7,7 @@ input: |
   dragon mode: user.dragon_mode()
   #sleep dragon on Mac, activates talon speech commands
   talon mode: user.talon_mode()
-output: |+
+output: |
   #defines modes specific to Dragon.
   speech.engine: dragon
 
@@ -19,5 +19,3 @@ output: |+
 
   #sleep dragon on Mac, activates talon speech commands
   talon mode: user.talon_mode()
-
-...

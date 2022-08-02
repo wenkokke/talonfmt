@@ -148,7 +148,7 @@ input: |
   #TODO: should this be added to linecommands?
   copy line down: key(ctrl-alt-down)
   copy line up: key(ctrl-alt-up)
-output: |
+output: |-
   #custom eclipse commands go here
   app: eclipse
   -
@@ -162,6 +162,7 @@ output: |
   please [<user.text>]:
       key(ctrl-3)
       insert(user.text or "")
+
   # Sidebar
   bar explore: key(alt-shift-w p)
   # bar extensions:
@@ -175,26 +176,32 @@ output: |
       key(alt-shift-q)
       sleep(200ms)
       key(c)
+
   panel problems:
       key(alt-shift-q)
       sleep(200ms)
       key(x)
+
   panel errors:
       key(alt-shift-q)
       sleep(200ms)
       key(l)
+
   panel breakpoints:
       key(alt-shift-q)
       sleep(200ms)
       key(b)
+
   panel search:
       key(alt-shift-q)
       sleep(200ms)
       key(s)
+
   panel variables:
       key(alt-shift-q)
       sleep(200ms)
       key(v)
+
   # panel switch:
   # panel terminal:
   # Settings
@@ -212,6 +219,7 @@ output: |
       key(ctrl-shift-r)
       sleep(50ms)
       insert(text or "")
+
   # file copy path:
   # file create sibling:
   file create: key(ctrl-n)

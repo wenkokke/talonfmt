@@ -15,7 +15,7 @@ input: |
   tag(): user.git
   tag(): user.anaconda
   # tag(): user.kubectl
-output: |
+output: |-
   os: windows
   and app.name: Windows PowerShell
   os: windows

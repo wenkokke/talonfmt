@@ -16,7 +16,7 @@ input: |
   split next: user.split_next()
   split last: user.split_last()
   go split <number>: user.split_number(number)
-output: |+
+output: |
   tag:                             user.splits
 
   -
@@ -49,5 +49,3 @@ output: |+
   split last:                      user.split_last()
 
   go split <number>:               user.split_number(number)
-
-...

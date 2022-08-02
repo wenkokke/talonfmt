@@ -40,7 +40,7 @@ input: |
   attach [file]: key("ctrl-u")
   remove [link] preview: key("ctrl-p")
   remove [link] attachment: key("ctrl-shift-p")
-output: |+
+output: |
   app:                             signal
 
   -
@@ -109,5 +109,3 @@ output: |+
   remove [link] preview:           key("ctrl-p")
 
   remove [link] attachment:        key("ctrl-shift-p")
-
-...

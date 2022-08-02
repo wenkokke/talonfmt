@@ -28,7 +28,7 @@ input: |
   (mail | message) archive: key(a)
   (mail | message) save: user.thunderbird_mod("s")
   (mail | message) print: user.thunderbird_mod("p")
-output: |+
+output: |
   app:                             thunderbird_inbox
 
   -
@@ -81,5 +81,3 @@ output: |+
   (mail | message) save:           user.thunderbird_mod("s")
 
   (mail | message) print:          user.thunderbird_mod("p")
-
-...

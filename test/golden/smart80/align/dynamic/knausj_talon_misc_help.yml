@@ -14,10 +14,11 @@ input: |
   help context {user.help_contexts}$: user.help_selected_context(help_contexts)
   help help: user.help_search("help")
   help scope$: user.help_scope_toggle()
-output: |+
+output: |
   -
   help alphabet:
       user.help_list("user.letter")
+
   help symbols: user.help_list("user.symbol_key")
 
   help numbers: user.help_list("user.number_key")
@@ -34,6 +35,7 @@ output: |+
 
   (help formatters | help format | format help):
       user.help_formatters(user.get_formatters_words())
+
   help context$: user.help_context()
 
   help active$: user.help_context_enabled()
@@ -45,5 +47,3 @@ output: |+
   help help: user.help_search("help")
 
   help scope$: user.help_scope_toggle()
-
-...

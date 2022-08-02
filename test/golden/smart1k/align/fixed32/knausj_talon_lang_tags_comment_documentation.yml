@@ -2,10 +2,8 @@ input: |
   tag: user.code_comment_documentation
   -
   dock comment: user.code_comment_documentation()
-output: |+
+output: |
   tag:                             user.code_comment_documentation
 
   -
   dock comment:                    user.code_comment_documentation()
-
-...

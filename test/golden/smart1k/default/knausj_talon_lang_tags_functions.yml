@@ -25,7 +25,7 @@ input: |
 
   # for generic reference of types
   type <user.code_type>: insert(code_type)
-output: |
+output: |-
   tag: user.code_functions
   -
   # Default implementation of capture listens for the following keywords in any

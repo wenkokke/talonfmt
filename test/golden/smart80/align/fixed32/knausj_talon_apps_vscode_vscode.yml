@@ -143,6 +143,7 @@ output: |
   please [<user.text>]:
       user.vscode("workbench.action.showCommands")
       insert(user.text or "")
+
   # Sidebar
   bar explore:                     user.vscode("workbench.view.explorer")
 
@@ -160,10 +161,12 @@ output: |
 
   bar switch:
       user.vscode("workbench.action.toggleSidebarVisibility")
+
   symbol hunt [<user.text>]:
       user.vscode("workbench.action.gotoSymbol")
       sleep(50ms)
       insert(text or "")
+
   # Panels
   panel control:                   user.vscode("workbench.panel.repl.view.focus")
 
@@ -171,34 +174,45 @@ output: |
 
   panel problems:
       user.vscode("workbench.panel.markers.view.focus")
+
   panel switch:                    user.vscode("workbench.action.togglePanel")
 
   panel terminal:                  user.vscode("workbench.action.terminal.focus")
 
   focus editor:
       user.vscode("workbench.action.focusActiveEditorGroup")
+
   # Settings
   show settings:
       user.vscode("workbench.action.openGlobalSettings")
+
   show settings json:
       user.vscode("workbench.action.openSettingsJson")
+
   show settings folder:
       user.vscode("workbench.action.openFolderSettings")
+
   show settings folder json:
       user.vscode("workbench.action.openFolderSettingsFile")
+
   show settings workspace:
       user.vscode("workbench.action.openWorkspaceSettings")
+
   show settings workspace json:
       user.vscode("workbench.action.openWorkspaceSettingsFile")
+
   show shortcuts:
       user.vscode("workbench.action.openGlobalKeybindings")
+
   show snippets:                   user.vscode("workbench.action.openSnippets")
 
   # Display
   centered switch:
       user.vscode("workbench.action.toggleCenteredLayout")
+
   fullscreen switch:
       user.vscode("workbench.action.toggleFullScreen")
+
   theme switch:                    user.vscode("workbench.action.selectTheme")
 
   wrap switch:                     user.vscode("editor.action.toggleWordWrap")
@@ -210,6 +224,7 @@ output: |
       user.vscode("workbench.action.quickOpen")
       sleep(50ms)
       insert(text or "")
+
   file copy path:                  user.vscode("copyFilePath")
 
   file copy local [path]:          user.vscode("copyRelativeFilePath")
@@ -218,35 +233,44 @@ output: |
 
   file create:
       user.vscode("workbench.action.files.newUntitledFile")
+
   file rename:
       user.vscode("fileutils.renameFile")
       sleep(150ms)
+
   file move:
       user.vscode("fileutils.moveFile")
       sleep(150ms)
+
   file clone:
       user.vscode("fileutils.duplicateFile")
       sleep(150ms)
+
   file delete:
       user.vscode("fileutils.removeFile")
       sleep(150ms)
+
   file open folder:                user.vscode("revealFileInOS")
 
   file reveal:
       user.vscode("workbench.files.action.showActiveFileInExplorer")
+
   save ugly:
       user.vscode("workbench.action.files.saveWithoutFormatting")
+
   # Language Features
   suggest show:                    user.vscode("editor.action.triggerSuggest")
 
   hint show:
       user.vscode("editor.action.triggerParameterHints")
+
   definition show:                 user.vscode("editor.action.revealDefinition")
 
   definition peek:                 user.vscode("editor.action.peekDefinition")
 
   definition side:
       user.vscode("editor.action.revealDefinitionAside")
+
   references show:                 user.vscode("editor.action.goToReferences")
 
   references find:                 user.vscode("references-view.find")
@@ -269,8 +293,10 @@ output: |
 
   whitespace trim:
       user.vscode("editor.action.trimTrailingWhitespace")
+
   language switch:
       user.vscode("workbench.action.editor.changeLanguageMode")
+
   refactor rename:                 user.vscode("editor.action.rename")
 
   refactor this:                   user.vscode("editor.action.refactor")
@@ -293,11 +319,14 @@ output: |
       sleep(50ms)
       insert(text or "")
       sleep(250ms)
+
   go edit:
       user.vscode("workbench.action.navigateToLastEditLocation")
+
   # Bookmarks. Requires Bookmarks plugin
   go marks:
       user.vscode("workbench.view.extension.bookmarks")
+
   toggle mark:                     user.vscode("bookmarks.toggle")
 
   go next mark:                    user.vscode("bookmarks.jumpToNext")
@@ -306,12 +335,15 @@ output: |
 
   close other tabs:
       user.vscode("workbench.action.closeOtherEditors")
+
   close all tabs:                  user.vscode("workbench.action.closeAllEditors")
 
   close tabs way right:
       user.vscode("workbench.action.closeEditorsToTheRight")
+
   close tabs way left:
       user.vscode("workbench.action.closeEditorsToTheLeft")
+
   # Folding
   fold that:                       user.vscode("editor.fold")
 
@@ -350,10 +382,12 @@ output: |
       user.vscode("git.checkout")
       sleep(50ms)
       insert(text or "")
+
   git commit [<user.text>]:
       user.vscode("git.commitStaged")
       sleep(100ms)
       user.insert_formatted(text or "", "CAPITALIZE_FIRST_WORD")
+
   git commit undo:                 user.vscode("git.undoCommit")
 
   git commit amend:                user.vscode("git.commitStagedAmend")
@@ -409,6 +443,7 @@ output: |
   #Debugging
   break point:
       user.vscode("editor.debug.action.toggleBreakpoint")
+
   step over:                       user.vscode("workbench.action.debug.stepOver")
 
   debug step into:                 user.vscode("workbench.action.debug.stepInto")
@@ -427,32 +462,41 @@ output: |
 
   debug console:
       user.vscode("workbench.debug.action.toggleRepl")
+
   # Terminal
   terminal external:
       user.vscode("workbench.action.terminal.openNativeConsole")
+
   terminal new:                    user.vscode("workbench.action.terminal.new")
 
   terminal next:
       user.vscode("workbench.action.terminal.focusNext")
+
   terminal last:
       user.vscode("workbench.action.terminal.focusPrevious")
+
   terminal split:                  user.vscode("workbench.action.terminal.split")
 
   terminal zoom:
       user.vscode("workbench.action.toggleMaximizedPanel")
+
   terminal trash:                  user.vscode("workbench.action.terminal.kill")
 
   terminal toggle:
       user.vscode_and_wait("workbench.action.terminal.toggleTerminal")
+
   terminal scroll up:
       user.vscode("workbench.action.terminal.scrollUp")
+
   terminal scroll down:
       user.vscode("workbench.action.terminal.scrollDown")
+
   terminal <number_small>:         user.vscode_terminal(number_small)
 
   #TODO: should this be added to linecommands?
   copy line down:
       user.vscode("editor.action.copyLinesDownAction")
+
   copy line up:                    user.vscode("editor.action.copyLinesUpAction")
 
   #Expand/Shrink AST Selection
@@ -464,8 +508,10 @@ output: |
 
   maximize:
       user.vscode("workbench.action.minimizeOtherEditors")
+
   restore:
       user.vscode("workbench.action.evenEditorWidths")
+
   #breadcrumb
   select breadcrumb:               user.vscode("breadcrumbs.focusAndSelect")
 
@@ -473,18 +519,22 @@ output: |
   replace here:
       user.replace("")
       key(cmd-alt-l)
+
   hover show:                      user.vscode("editor.action.showHover")
 
   join lines:                      user.vscode("editor.action.joinLines")
 
   full screen:
       user.vscode("workbench.action.toggleFullScreen")
+
   curse undo:                      user.vscode("cursorUndo")
 
   select word:
       user.vscode("editor.action.addSelectionToNextFindMatch")
+
   skip word:
       user.vscode("editor.action.moveSelectionToNextFindMatch")
+
   # jupyter
   cell next:                       user.vscode("jupyter.gotoNextCellInFile")
 

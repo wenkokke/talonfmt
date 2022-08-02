@@ -60,7 +60,7 @@ input: |
 
   # wiki pages
   edit page: key(e)
-output: |+
+output: |
   # Shortcuts taken from: https://docs.gitlab.com/ee/user/shortcuts.html
   #
   tag: browser
@@ -121,5 +121,3 @@ output: |+
 
   # wiki pages
   edit page: key(e)
-
-...

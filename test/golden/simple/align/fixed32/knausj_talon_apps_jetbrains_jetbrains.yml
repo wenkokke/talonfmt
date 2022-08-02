@@ -251,7 +251,7 @@ input: |
 
   # requires plug-in: black-pycharm
   blacken: user.idea("action BLACKReformatCode")
-output: |+
+output: |
   # Requires https://plugins.jetbrains.com/plugin/10504-voice-code-idea
   app:                             jetbrains
 
@@ -279,12 +279,14 @@ output: |+
   (action | please) <user.text>:
       user.idea("action GotoAction")
       insert(text)
+
   # Refactoring
   refactor:                        user.idea("action Refactorings.QuickListPopupAction")
 
   refactor <user.text>:
       user.idea("action Refactorings.QuickListPopupAction")
       insert(text)
+
   extract variable:                user.idea("action IntroduceVariable")
 
   extract field:                   user.idea("action IntroduceField")
@@ -331,6 +333,7 @@ output: |+
       user.idea("action SearchEverywhere")
       sleep(500ms)
       insert(text)
+
   (search | find) class:           user.idea("action GotoClass")
 
   (search | find) file:            user.idea("action GotoFile")
@@ -343,21 +346,25 @@ output: |+
       user.idea("action GotoSymbol")
       insert(text)
       key("enter")
+
   recent:                          user.idea("action RecentFiles")
 
   surround [this] with <user.text> [over]:
       idea("action SurroundWith")
       sleep(500ms)
       insert(text)
+
   # Making these longer to reduce collisions with real code dictation.
   insert generated <user.text> [over]:
       user.idea("action Generate")
       sleep(500ms)
       insert(text)
+
   insert template <user.text> [over]:
       idea("action InsertLiveTemplate")
       sleep(500ms)
       insert(text)
+
   create (template | snippet):     user.idea("action SaveAsTemplate")
 
   # Recording
@@ -372,6 +379,7 @@ output: |+
       insert(text)
       sleep(500ms)
       Key("enter")
+
   # Marks
   go mark:                         user.idea("action ShowBookmarks")
 
@@ -416,12 +424,14 @@ output: |+
       user.idea("action NewElementSamePlace")
       sleep(500ms)
       insert(text)
+
   create file:                     user.idea("action NewElement")
 
   create file <user.text> [over]:
       user.idea("action NewElement")
       sleep(500ms)
       insert(text)
+
   # Task Management
   go task:                         user.idea("action tasks.goto")
 
@@ -587,9 +597,11 @@ output: |+
   fix next (error | air):
       user.idea("action GotoNextError")
       user.idea("action ShowIntentionActions")
+
   fix last (error | air):
       user.idea("action GotoPreviousError")
       user.idea("action ShowIntentionActions")
+
   # Special Selects
   select less:                     user.idea("action EditorUnSelectWord")
 
@@ -599,15 +611,19 @@ output: |+
   expand <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action ExpandRegion")
+
   collapse <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action CollapseRegion")
+
   paste <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action EditorPaste")
+
   refactor <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action Refactorings.QuickListPopupAction")
+
   clone <number>:                  user.line_clone(number)
 
   #find/replace
@@ -649,5 +665,3 @@ output: |+
 
   # requires plug-in: black-pycharm
   blacken:                         user.idea("action BLACKReformatCode")
-
-...

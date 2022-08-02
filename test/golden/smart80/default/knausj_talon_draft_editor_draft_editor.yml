@@ -3,7 +3,7 @@ input: "user.draft_editor_running: True\nnot tag: user.draft_editor_app_focused\
   \tuser.draft_editor_open()\n\ndraft line:\n\tedit.select_line()\n\tuser.draft_editor_open()\n\
   \ndraft top:\n  edit.extend_file_start()\n  user.draft_editor_open()\n\ndraft bottom:\n\
   \  edit.extend_file_end()\n  user.draft_editor_open()\n\ndraft submit:\n  user.draft_editor_paste_last()\n"
-output: |
+output: |-
   user.draft_editor_running: True
   tag: user.draft_editor_app_focused
   -
@@ -11,13 +11,17 @@ output: |
   draft all:
       edit.select_all()
       user.draft_editor_open()
+
   draft line:
       edit.select_line()
       user.draft_editor_open()
+
   draft top:
       edit.extend_file_start()
       user.draft_editor_open()
+
   draft bottom:
       edit.extend_file_end()
       user.draft_editor_open()
+
   draft submit: user.draft_editor_paste_last()

@@ -291,6 +291,7 @@ output: |
 
   git switch [<user.text>]:
       "git switch {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+
   git switch master:               "git switch master "
 
   git switch main:                 "git switch main "
@@ -299,6 +300,7 @@ output: |
 
   git (switch create | new branch) [<user.text>]:
       "git switch -c {user.formatted_text(text or '', 'DASH_SEPARATED')}"
+
   git switch orphan:               "git switch --orphan "
 
   git submodule add:               "git submodule add "
@@ -312,24 +314,29 @@ output: |
       insert("git clone ")
       edit.paste()
       key(enter)
+
   git diff highlighted:
       edit.copy()
       insert("git diff ")
       edit.paste()
       key(enter)
+
   git diff clipboard:
       insert("git diff ")
       edit.paste()
       key(enter)
+
   git add highlighted:
       edit.copy()
       insert("git add ")
       edit.paste()
       key(enter)
+
   git add clipboard:
       insert("git add ")
       edit.paste()
       key(enter)
+
   git commit highlighted:
       edit.copy()
       insert("git add ")

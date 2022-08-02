@@ -1,12 +1,12 @@
 input: "mode: sleep\n-\nsettings():\n    #stop continuous scroll/gaze scroll with\
   \ a pop\n    user.mouse_enable_pop_stops_scroll = 0\n\t#enable pop click with 'control\
   \ mouse' mode\n\tuser.mouse_enable_pop_click = 0\n"
-output: |
+output: |-
   mode: sleep
 
   -
+  #stop continuous scroll/gaze scroll with a pop
   settings():
-      #stop continuous scroll/gaze scroll with a pop
       user.mouse_enable_pop_stops_scroll = 0
       #enable pop click with 'control mouse' mode
       user.mouse_enable_pop_click = 0

@@ -1,7 +1,5 @@
 input: |
   {user.file_extension}: "{file_extension}"
-output: |+
+output: |
   -
   {user.file_extension}: "{file_extension}"
-
-...

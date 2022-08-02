@@ -7,7 +7,7 @@ input: |
   help return$: user.help_return()
   help refresh$: user.help_refresh()
   help close$: user.help_hide()
-output: |+
+output: |
   mode: user.help
 
   -
@@ -17,5 +17,3 @@ output: |+
   help return$:   user.help_return()
   help refresh$:  user.help_refresh()
   help close$:    user.help_hide()
-
-...

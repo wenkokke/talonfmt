@@ -7,7 +7,7 @@ input: |
   (task | event) delete: key(delete)
   # layout
   toggle today: key(f11)
-output: |+
+output: |
   app:                             thunderbird_tasks
 
   -
@@ -20,5 +20,3 @@ output: |+
 
   # layout
   toggle today:                    key(f11)
-
-...

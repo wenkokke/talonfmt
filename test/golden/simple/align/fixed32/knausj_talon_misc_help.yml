@@ -14,7 +14,7 @@ input: |
   help context {user.help_contexts}$: user.help_selected_context(help_contexts)
   help help: user.help_search("help")
   help scope$: user.help_scope_toggle()
-output: |+
+output: |
   -
   help alphabet:                   user.help_list("user.letter")
 
@@ -45,5 +45,3 @@ output: |+
   help help:                       user.help_search("help")
 
   help scope$:                     user.help_scope_toggle()
-
-...

@@ -227,24 +227,29 @@ output: |
       insert("git clone ")
       edit.paste()
       key(enter)
+
   git diff highlighted:
       edit.copy()
       insert("git diff ")
       edit.paste()
       key(enter)
+
   git diff clipboard:
       insert("git diff ")
       edit.paste()
       key(enter)
+
   git add highlighted:
       edit.copy()
       insert("git add ")
       edit.paste()
       key(enter)
+
   git add clipboard:
       insert("git add ")
       edit.paste()
       key(enter)
+
   git commit highlighted:
       edit.copy()
       insert("git add ")

@@ -2,10 +2,8 @@ input: |
   not tag: user.mouse_grid_showing
   -
   <user.number_string>: "{number_string}"
-output: |+
+output: |
   tag:                             user.mouse_grid_showing
 
   -
   <user.number_string>:            "{number_string}"
-
-...

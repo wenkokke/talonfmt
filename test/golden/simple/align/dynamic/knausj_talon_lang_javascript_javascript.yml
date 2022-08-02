@@ -53,7 +53,7 @@ input: |
 
   from import:
       user.insert_between(' from  "', '"')
-output: |+
+output: |
   tag: user.javascript
 
   -
@@ -94,5 +94,3 @@ output: |+
   state reduce:                           app.notify("ERROR: Command deprecated; please use \"dot reduce\"")
   state spread:                           "..."
   from import:                            user.insert_between(" from  \"", "\"")
-
-...

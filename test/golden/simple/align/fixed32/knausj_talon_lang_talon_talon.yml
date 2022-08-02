@@ -57,7 +57,7 @@ input: |
       user.code_insert_function(code_common_function, edit.selected_text())
   funk wrap <number>:
       user.code_select_function(number - 1, edit.selected_text())
-output: |+
+output: |
   tag:                             user.talon
 
   -
@@ -91,15 +91,19 @@ output: |+
   application [require] [{user.talon_apps}]:
       app = talon_apps or ""
       user.paste("app: {app}")
+
   mode require [{user.talon_modes}]:
       mode = talon_modes or ""
       user.paste("mode: {mode}")
+
   tag require [{user.talon_tags}]:
       tag = talon_tags or ""
       user.paste("tag: {tag}")
+
   tag set [{user.talon_tags}]:
       tag = talon_tags or ""
       user.paste("tag(): {tag}")
+
   # requires user.talon_populate_lists tag. do not use with dragon
   list {user.talon_lists}:         "{{{talon_lists}}}"
 
@@ -119,5 +123,3 @@ output: |+
   funk wrap <user.code_common_function>: user.code_insert_function(code_common_function, edit.selected_text())
 
   funk wrap <number>:              user.code_select_function(number - 1, edit.selected_text())
-
-...

@@ -103,7 +103,7 @@ input: |
 
   # misc
   clear screen: "shell clear\n"
-output: |+
+output: |
   os:                              linux
 
   # XXX - this matches .gdb files atm
@@ -120,10 +120,12 @@ output: |+
   force clear all break points:
       insert("d br\n")
       insert("y\n")
+
   break [on] clipboard:
       insert("break ")
       key(ctrl-shift-v)
       key(enter)
+
   # information
   list [source]:                   "list\n"
 
@@ -158,10 +160,12 @@ output: |+
       edit.copy()
       edit.paste()
       key(enter)
+
   hex dump clipboard:
       insert("x/100gx ")
       edit.paste()
       key(enter)
+
   # execution
   source:                          "source \t\t"
 
@@ -215,9 +219,11 @@ output: |+
   resume main (inf | inferior):
       insert("inferior 1\n")
       insert("c\n")
+
   resume [from] (inf | inferior) <number_small>$:
       insert("inferior {number_small}\n")
       insert("c\n")
+
   # arguments
   set args:                        "set args "
 
@@ -241,5 +247,3 @@ output: |+
 
   # misc
   clear screen:                    "shell clear\n"
-
-...

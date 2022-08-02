@@ -22,7 +22,7 @@ input: |
   [toggle] (deafen | undeafen): user.discord_deafen()
   answer call: user.discord_answer_call()
   decline call: user.discord_decline_call()
-output: |+
+output: |
   app: discord
 
   -
@@ -46,5 +46,3 @@ output: |+
   [toggle] (deafen | undeafen): user.discord_deafen()
   answer call:                  user.discord_answer_call()
   decline call:                 user.discord_decline_call()
-
-...

@@ -11,7 +11,7 @@ input: |
   window grow: key("alt-shift-l")
   window shrink: key("alt-shift-h")
   window reevaluate: key("alt-shift-z")
-output: |+
+output: |
   user.running:                    amethyst
 
   -
@@ -33,5 +33,3 @@ output: |+
   window shrink:                   key("alt-shift-h")
 
   window reevaluate:               key("alt-shift-z")
-
-...

@@ -79,7 +79,7 @@ input: |
   # Escape, type things that would otherwise be commands
   ^escape <user.text>$:
       auto_insert(user.text)
-output: |+
+output: |
   mode:                            dictation
 
   -
@@ -108,15 +108,19 @@ output: |+
   go up <number_small> (line | lines):
       edit.up()
       repeat(number_small - 1)
+
   go down <number_small> (line | lines):
       edit.down()
       repeat(number_small - 1)
+
   go left <number_small> (word | words):
       edit.word_left()
       repeat(number_small - 1)
+
   go right <number_small> (word | words):
       edit.word_right()
       repeat(number_small - 1)
+
   go line start:                   edit.line_start()
 
   go line end:                     edit.line_end()
@@ -125,31 +129,39 @@ output: |+
   select left <number_small> (word | words):
       edit.extend_word_left()
       repeat(number_small - 1)
+
   select right <number_small> (word | words):
       edit.extend_word_right()
       repeat(number_small - 1)
+
   select left <number_small> (character | characters):
       edit.extend_left()
       repeat(number_small - 1)
+
   select right <number_small> (character | characters):
       edit.extend_right()
       repeat(number_small - 1)
+
   clear left <number_small> (word | words):
       edit.extend_word_left()
       repeat(number_small - 1)
       edit.delete()
+
   clear right <number_small> (word | words):
       edit.extend_word_right()
       repeat(number_small - 1)
       edit.delete()
+
   clear left <number_small> (character | characters):
       edit.extend_left()
       repeat(number_small - 1)
       edit.delete()
+
   clear right <number_small> (character | characters):
       edit.extend_right()
       repeat(number_small - 1)
       edit.delete()
+
   # Formatting
   formatted <user.format_text>:    user.dictation_insert_raw(format_text)
 
@@ -167,7 +179,6 @@ output: |+
   spell that <user.formatters> <user.letters>:
       result = user.formatted_text(letters, formatters)
       user.dictation_insert_raw(result)
+
   # Escape, type things that would otherwise be commands
   ^escape <user.text>$:            auto_insert(user.text)
-
-...

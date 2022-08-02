@@ -11,7 +11,7 @@ input: |
   press <user.modifiers>: key(modifiers)
   # for consistency with dictation mode and explicit arrow keys if you need them.
   press <user.keys>: key(keys)
-output: |+
+output: |
   -
   go <user.arrow_keys>:            user.move_cursor(arrow_keys)
 
@@ -19,6 +19,7 @@ output: |+
 
   (ship | uppercase) <user.letters> [(lowercase | sunk)]:
       user.insert_formatted(letters, "ALL_CAPS")
+
   <user.symbol_key>:               key(symbol_key)
 
   <user.function_key>:             key(function_key)
@@ -32,5 +33,3 @@ output: |+
 
   # for consistency with dictation mode and explicit arrow keys if you need them.
   press <user.keys>:               key(keys)
-
-...

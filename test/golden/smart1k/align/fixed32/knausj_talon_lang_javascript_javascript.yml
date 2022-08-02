@@ -53,7 +53,7 @@ input: |
 
   from import:
       user.insert_between(' from  "', '"')
-output: |+
+output: |
   tag:                             user.javascript
 
   -
@@ -108,5 +108,3 @@ output: |+
   state spread:                    "..."
 
   from import:                     user.insert_between(" from  \"", "\"")
-
-...

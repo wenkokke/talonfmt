@@ -9,7 +9,7 @@ input: |
   go tab <number>: user.tab_jump(number)
   go tab final: user.tab_final()
   tab duplicate: user.tab_duplicate()
-output: |+
+output: |
   tag:                             user.tabs
 
   -
@@ -28,5 +28,3 @@ output: |+
   go tab final:                    user.tab_final()
 
   tab duplicate:                   user.tab_duplicate()
-
-...
