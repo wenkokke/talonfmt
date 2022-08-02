@@ -72,7 +72,7 @@ output: |
   dot talon:
       insert(".talon")
 
-  #defintion blocks for the context
+  # defintion blocks for the context
   action block:
       user.insert_between("action(", "):")
 
@@ -82,7 +82,7 @@ output: |
   setting {user.talon_settings}:
       user.paste("{talon_settings} = ")
 
-  #context requirements
+  # context requirements
   win require:
       insert("os: windows\n")
 
@@ -119,7 +119,7 @@ output: |
   capture {user.talon_captures}:
       "<{talon_captures}>"
 
-  #commands for dictating key combos
+  # commands for dictating key combos
   key <user.keys> over:
       "{keys}"
 

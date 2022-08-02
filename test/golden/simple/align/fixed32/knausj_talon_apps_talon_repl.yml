@@ -80,8 +80,8 @@ output: |
   ^test numb <number_small>$:
       phrase = user.history_get(number_small)
       command = "sim('{phrase}')"
-      #to do: shouldn't this work?
-      #user.paste("sim({phrase})")
+      # to do: shouldn't this work?
+      # user.paste("sim({phrase})")
       insert(command)
       key(enter)
 

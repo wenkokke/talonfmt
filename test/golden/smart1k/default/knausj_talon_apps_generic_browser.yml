@@ -101,7 +101,7 @@ output: |-
   show extensions: browser.show_extensions()
   show history: browser.show_history()
   show cache: browser.show_clear_cache()
-  #todo - port to apps
+  # todo - port to apps
   # navigating current page
   # help: key(?)
   # scroll tiny down: key(j)

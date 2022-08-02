@@ -149,7 +149,7 @@ input: |
   copy line down: key(ctrl-alt-down)
   copy line up: key(ctrl-alt-up)
 output: |
-  #custom eclipse commands go here
+  # custom eclipse commands go here
   app:                             eclipse
 
   -
@@ -212,7 +212,7 @@ output: |
 
   show shortcuts:                  key(ctrl-shift-l)
 
-  #show snippets:
+  # show snippets:
   # Display
   # centered switch:
   # fullscreen switch:
@@ -257,7 +257,7 @@ output: |
 
   refactor this:                   key(alt-shift-i)
 
-  #code navigation
+  # code navigation
   (go declaration | follow):       key(f3)
 
   go back:                         key(alt-left)
@@ -269,7 +269,7 @@ output: |
   # go type:
   # go usage:
   # Bookmarks.
-  #requires https://marketplace.eclipse.org/content/quick-bookmarks
+  # requires https://marketplace.eclipse.org/content/quick-bookmarks
   go marks:                        key(alt-end)
 
   toggle mark:                     key(ctrl-alt-b down enter)
@@ -286,7 +286,7 @@ output: |
   # fold all:
   # unfold all:
   # fold comments:
-  #Debugging
+  # Debugging
   break point:                     key(ctrl-shift-b)
 
   step over:                       key(f6)
@@ -295,12 +295,12 @@ output: |
 
   debug step out [of]:             key(f7)
 
-  #debug start: user.vscode("workbench.action.debug.start")
-  #debug pause:
-  #debug stopper:
+  # debug start: user.vscode("workbench.action.debug.start")
+  # debug pause:
+  # debug stopper:
   debug continue:                  key(f8)
 
-  #debug restart:
+  # debug restart:
   # Terminal
   # terminal external: user.vscode("workbench.action.terminal.openNativeConsole")
   # terminal new: user.vscode("workbench.action.terminal.new")
@@ -310,7 +310,7 @@ output: |
   # terminal trash: user.vscode("Terminal:Kill")
   # terminal scroll up: user.vscode("Terminal:ScrollUp")
   # terminal scroll down: user.vscode("Terminal:ScrollDown")
-  #TODO: should this be added to linecommands?
+  # TODO: should this be added to linecommands?
   copy line down:                  key(ctrl-alt-down)
 
   copy line up:                    key(ctrl-alt-up)

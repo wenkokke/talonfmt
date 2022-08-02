@@ -103,7 +103,7 @@ output: |
   tag(): user.find_and_replace
   tag(): user.snippets
   tag(): user.multiple_cursors
-  #multiple_cursor.py support end
+  # multiple_cursor.py support end
   # Panels
   panel solution:
       key(ctrl-alt-l)
@@ -133,8 +133,8 @@ output: |
   show settings:
       key(alt-t o)
 
-  #show shortcuts:
-  #show snippets:
+  # show shortcuts:
+  # show snippets:
   # Display
   fullscreen switch:
       key(shift-alt-enter)
@@ -150,7 +150,7 @@ output: |
   file create:
       key(ctrl-n)
 
-  #file open folder:
+  # file open folder:
   file rename:
       key(ctrl-[ s f2)
 
@@ -200,7 +200,7 @@ output: |
   refactor that:
       key(ctrl-r ctrl-r)
 
-  #code navigation
+  # code navigation
   (go declaration | follow):
       key(ctrl-f12)
 
@@ -254,7 +254,7 @@ output: |
   fold definitions:
       key(ctrl-m ctrl-o)
 
-  #Debugging
+  # Debugging
   break point:
       key(f9)
 

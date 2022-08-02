@@ -61,7 +61,7 @@ output: |
   mux:
       "tmux "
 
-  #session management
+  # session management
   mux new session:
       insert("tmux new ")
 
@@ -76,7 +76,7 @@ output: |
   mux kill session:
       insert("tmux kill-session -t ")
 
-  #window management
+  # window management
   mux new window:
       key(ctrl-b)
       key(c)
@@ -101,7 +101,7 @@ output: |
       key(ctrl-b)
       key(&)
 
-  #pane management
+  # pane management
   mux split horizontal:
       key(ctrl-b)
       key(%)
@@ -122,7 +122,7 @@ output: |
       key(ctrl-b)
       key(x)
 
-  #Say a number right after this command, to switch to pane
+  # Say a number right after this command, to switch to pane
   mux pane numbers:
       key(ctrl-b)
       key(q)

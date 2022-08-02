@@ -65,7 +65,7 @@ output: |-
   #
   tag: browser
   browser.host: /gitlab\.com/
-  #win.title: /GitLab/
+  # win.title: /GitLab/
   -
   # global shortcuts
   show shortcuts: key(?)

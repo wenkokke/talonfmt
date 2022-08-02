@@ -81,7 +81,7 @@ output: |
       user.code_private_variable_formatter = "SNAKE_CASE"
       user.code_protected_variable_formatter = "SNAKE_CASE"
       user.code_public_variable_formatter = "SNAKE_CASE"
-  #python-specific grammars
+  # python-specific grammars
   dunder in it:                    "__init__"
 
   state (def | deaf | deft):       "def "

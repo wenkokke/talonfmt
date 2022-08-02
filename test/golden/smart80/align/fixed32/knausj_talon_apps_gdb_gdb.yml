@@ -107,7 +107,7 @@ output: |
   os:                              linux
 
   # XXX - this matches .gdb files atm
-  #win.title: /gdb/
+  # win.title: /gdb/
   tag:                             terminal
 
   mode:                            user.gdb

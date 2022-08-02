@@ -21,6 +21,7 @@ def talonfmt(
     align_match_context_at: Optional[int] = None,
     align_short_commands: bool = False,
     align_short_commands_at: Optional[int] = None,
+    format_comments: bool = True,
 ) -> str:
     # Enable align_match_context if align_match_context_at is set:
     merged_match_context: Union[bool, int]
@@ -41,6 +42,7 @@ def talonfmt(
         indent_size=indent_size,
         align_match_context=merged_match_context,
         align_short_commands=merged_short_commands,
+        format_comments=format_comments,
     )
 
     # Create an instance of DocRenderer
@@ -89,6 +91,11 @@ def talonfmt(
     type=int,
 )
 @click.option(
+    "--format-comments/--no-format-comments",
+    default=True,
+    show_default=True,
+)
+@click.option(
     "--in-place/--stdout",
     default=False,
     show_default=True,
@@ -117,6 +124,7 @@ def cli(
     align_match_context_at: Optional[int],
     align_short_commands: bool,
     align_short_commands_at: Optional[int],
+    format_comments: bool,
     in_place: bool,
     fail_on_change: bool,
     fail_on_error: bool,
@@ -147,6 +155,7 @@ def cli(
                 align_match_context_at=align_match_context_at,
                 align_short_commands=align_short_commands,
                 align_short_commands_at=align_short_commands_at,
+                format_comments=format_comments,
             )
             if contents != output and filename:
                 if fail_on_change and verbose:

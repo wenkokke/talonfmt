@@ -103,7 +103,7 @@ output: |-
   tag(): user.find_and_replace
   tag(): user.snippets
   tag(): user.multiple_cursors
-  #multiple_cursor.py support end
+  # multiple_cursor.py support end
   # Panels
   panel solution: key(ctrl-alt-l)
   panel properties: key(f4)
@@ -115,8 +115,8 @@ output: |-
   panel breakpoints: key(ctrl-alt-b)
   # Settings
   show settings: key(alt-t o)
-  #show shortcuts:
-  #show snippets:
+  # show shortcuts:
+  # show snippets:
   # Display
   fullscreen switch: key(shift-alt-enter)
   wrap switch: key(ctrl-e ctrl-w)
@@ -126,7 +126,7 @@ output: |-
       insert(text or "")
 
   file create: key(ctrl-n)
-  #file open folder:
+  # file open folder:
   file rename: key(ctrl-[ s f2)
   file reveal: key(ctrl-[ s)
   # Language Features
@@ -146,7 +146,7 @@ output: |-
   refactor reorder parameters: key(ctrl-r ctrl-o)
   refactor remove parameters: key(ctrl-r ctrl-v)
   refactor that: key(ctrl-r ctrl-r)
-  #code navigation
+  # code navigation
   (go declaration | follow): key(ctrl-f12)
   go back: key(ctrl--)
   go forward: key(ctrl-shift--)
@@ -176,7 +176,7 @@ output: |-
   fold toggle: key(ctrl-m ctrl-m)
   fold toggle all: key(ctrl-m ctrl-l)
   fold definitions: key(ctrl-m ctrl-o)
-  #Debugging
+  # Debugging
   break point: key(f9)
   step over: key(f10)
   debug step into: key(f11)

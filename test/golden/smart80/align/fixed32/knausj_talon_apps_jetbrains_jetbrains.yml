@@ -313,7 +313,7 @@ output: |
 
   fix imports:                     user.idea("action OptimizeImports")
 
-  #navigation
+  # navigation
   (go declaration | follow):       user.idea("action GotoDeclaration")
 
   go implementation:               user.idea("action GotoImplementation")
@@ -613,7 +613,7 @@ output: |
 
   select (more | this):            user.idea("action EditorSelectWord")
 
-  #jet brains-specific line commands. see line_commands.talon for generic ones
+  # jet brains-specific line commands. see line_commands.talon for generic ones
   expand <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action ExpandRegion")
@@ -632,7 +632,7 @@ output: |
 
   clone <number>:                  user.line_clone(number)
 
-  #find/replace
+  # find/replace
   clear last <user.text> [over]:
       user.idea("find prev {text}, action EditorBackSpace")
 

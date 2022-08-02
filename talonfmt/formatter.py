@@ -1,13 +1,10 @@
 import dataclasses
-import itertools
-from collections.abc import Iterable, Iterator, Sequence
+from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
-from typing import Optional, TypeVar, Union, cast
+from typing import TypeVar, Union
 
-import more_itertools
 from doc_printer import (
     Doc,
-    DocLike,
     Empty,
     Fail,
     Line,
@@ -25,7 +22,6 @@ from doc_printer import (
     row,
 )
 from tree_sitter_talon import (
-    Branch,
     Node,
     TalonAction,
     TalonAnd,
@@ -120,6 +116,7 @@ class TalonFormatter:
     indent_size: int
     align_match_context: Union[bool, int]
     align_short_commands: Union[bool, int]
+    format_comments: bool
 
     @singledispatchmethod
     def format(self, node: Node) -> Doc:
@@ -575,13 +572,23 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonComment) -> Doc:
-        comment = node.text.lstrip("#")
-        return "#" / Text.words(comment, collapse_whitespace=False)
+        if self.format_comments:
+            # TODO: format blocks of comments so we can:
+            #       1. decrease indentation consistently;
+            #       2. reflow text
+            return "#" // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
+        else:
+            return Text.words(node.text, collapse_whitespace=False)
 
     @format.register
     def _(self, node: TalonDocstring) -> Doc:
-        comment = node.text.lstrip("#")
-        return "###" / Text.words(comment, collapse_whitespace=False)
+        if self.format_comments:
+            # TODO: format blocks of comments so we can:
+            #       1. decrease indentation consistently;
+            #       2. reflow text
+            return "###" // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
+        else:
+            return Text.words(node.text, collapse_whitespace=False)
 
     # Used to buffer comments encountered inline, e.g., inside a binary operator
     _comment_buffer: list[TalonComment] = dataclasses.field(
