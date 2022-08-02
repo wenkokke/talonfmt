@@ -132,3 +132,5 @@ output: |+
   (safe | send) meeting request:        key(ctrl-s)
   join [from] meeting [details]:        key(alt-shift-j)
   go to suggested time:                 key(alt-shift-s)
+
+...

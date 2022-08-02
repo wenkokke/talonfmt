@@ -13,3 +13,5 @@ output: |+
   is not (none | null):            user.code_insert_is_not_null()
 
   is (none | null):                user.code_insert_is_null()
+
+...

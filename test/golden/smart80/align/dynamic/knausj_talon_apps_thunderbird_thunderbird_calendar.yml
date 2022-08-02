@@ -28,3 +28,5 @@ output: |+
   view week:           user.thunderbird_calendar_view(2)
   view multi [week]:   user.thunderbird_calendar_view(3)
   view month:          user.thunderbird_calendar_view(4)
+
+...

@@ -26,3 +26,5 @@ output: |+
   (op | logical | bitwise) (left shift | shift left): user.code_operator_bitwise_left_shift()
 
   (op | logical | bitwise) (right shift | shift right): user.code_operator_bitwise_right_shift()
+
+...

@@ -7,3 +7,5 @@ output: |+
 
   -
   dock comment:                    user.code_comment_documentation()
+
+...

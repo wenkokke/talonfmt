@@ -39,3 +39,5 @@ output: |+
   visual line:                     key("v")
 
   visual line mode:                key("V")
+
+...

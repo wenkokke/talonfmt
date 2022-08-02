@@ -28,3 +28,5 @@ output: |+
   go tab final:                    user.tab_final()
 
   tab duplicate:                   user.tab_duplicate()
+
+...

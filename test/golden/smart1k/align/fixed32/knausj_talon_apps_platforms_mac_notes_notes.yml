@@ -92,3 +92,5 @@ output: |+
   drag [line] down:                key('ctrl-cmd-down')
 
   drag [line] up:                  key('ctrl-cmd-up')
+
+...

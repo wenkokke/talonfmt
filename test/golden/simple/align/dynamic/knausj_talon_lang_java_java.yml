@@ -79,3 +79,5 @@ output: |+
   [state] {user.java_modifier}: insert(user.java_modifier + " ")
   op array:                     user.code_operator_subscript()
   op new:                       insert("new ")
+
+...

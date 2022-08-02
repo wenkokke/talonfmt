@@ -292,3 +292,5 @@ output: |+
   #TODO: should this be added to linecommands?
   copy line down: key(ctrl-alt-down)
   copy line up:   key(ctrl-alt-up)
+
+...

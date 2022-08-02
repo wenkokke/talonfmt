@@ -13,3 +13,5 @@ output: |+
   emoji {user.emoji}:              user.paste(emoji)
 
   kaomoji {user.kaomoji}:          user.paste(kaomoji)
+
+...

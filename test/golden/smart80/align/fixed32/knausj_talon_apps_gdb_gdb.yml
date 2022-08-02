@@ -241,3 +241,5 @@ output: |+
 
   # misc
   clear screen:                    "shell clear\n"
+
+...

@@ -76,3 +76,5 @@ output: |+
   block account:      key(x)
   open details:       key(enter)
   expand photo:       key(o)
+
+...

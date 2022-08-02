@@ -20,3 +20,5 @@ output: |+
 
   # layout
   toggle today:                    key(f11)
+
+...

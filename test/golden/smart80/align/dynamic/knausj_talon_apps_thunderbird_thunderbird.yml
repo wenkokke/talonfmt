@@ -32,3 +32,5 @@ output: |+
   (open address [book] | address book | open contacts):
       user.thunderbird_mod("shift-b")
   dev tools: user.thunderbird_mod("shift-i")
+
+...

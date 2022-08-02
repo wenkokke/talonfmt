@@ -152,3 +152,5 @@ output: |+
   select camel right:  user.extend_camel_right()
   go camel left:       user.camel_left()
   go camel right:      user.camel_right()
+
+...

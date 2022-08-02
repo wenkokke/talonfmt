@@ -96,3 +96,5 @@ output: |+
   count:                           user.code_insert_function("Count", "")
 
   date:                            user.insert_between("DATE '", "'")
+
+...

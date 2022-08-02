@@ -73,3 +73,5 @@ output: |+
   task <number> done$:             "task {number} done"
 
   task <number> delete$:           "task {number} delete"
+
+...

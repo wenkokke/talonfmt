@@ -84,3 +84,5 @@ output: |+
   folder last:   user.file_manager_previous_folder_page()
   file next:     user.file_manager_next_file_page()
   file last:     user.file_manager_previous_file_page()
+
+...

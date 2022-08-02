@@ -9,3 +9,5 @@ output: |+
   macro stop:                      user.macro_stop()
 
   macro play:                      user.macro_play()
+
+...

@@ -31,3 +31,5 @@ output: |+
   terraform plan:             "terraform plan\n"
   terraform state move:       "terraform state mv "
   terraform validate:         "terraform validate\n"
+
+...

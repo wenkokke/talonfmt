@@ -24,3 +24,5 @@ output: |+
   ^grab screen <number_small> clip$: user.screenshot_clipboard(number_small)
 
   ^grab window clip$:              user.screenshot_window_clipboard()
+
+...

@@ -177,3 +177,5 @@ output: |+
   timestamps toggle:               key(shift-t)
 
   fullscreen toggle:               key(shift-f)
+
+...

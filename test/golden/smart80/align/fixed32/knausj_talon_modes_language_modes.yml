@@ -14,3 +14,5 @@ output: |+
   [enable] debug mode:             mode.enable("user.gdb")
 
   disable debug mode:              mode.disable("user.gdb")
+
+...

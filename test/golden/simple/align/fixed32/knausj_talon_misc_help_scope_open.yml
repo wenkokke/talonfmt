@@ -8,3 +8,5 @@ output: |+
 
   -
   scope (hide | close)$:           user.help_scope_toggle()
+
+...

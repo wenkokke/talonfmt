@@ -1,5 +1,4 @@
-input:
-  "#custom vscode commands go here\napp: vscode\n-\ntag(): user.find_and_replace\n\
+input: "#custom vscode commands go here\napp: vscode\n-\ntag(): user.find_and_replace\n\
   tag(): user.line_commands\ntag(): user.multiple_cursors\ntag(): user.snippets\n\
   tag(): user.splits\ntag(): user.tabs\nwindow reload: user.vscode(\"workbench.action.reloadWindow\"\
   )\nwindow close: user.vscode(\"workbench.action.closeWindow\")\n#multiple_cursor.py\
@@ -384,3 +383,5 @@ output: |+
   cell run above: user.vscode("jupyter.runallcellsabove.palette")
   cell run:       user.vscode("jupyter.runcurrentcell")
   install local:  user.vscode("workbench.extensions.action.installVSIX")
+
+...

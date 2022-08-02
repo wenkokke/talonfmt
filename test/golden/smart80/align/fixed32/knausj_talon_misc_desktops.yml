@@ -21,3 +21,5 @@ output: |+
   window move desk left:           user.window_move_desktop_left()
 
   window move desk right:          user.window_move_desktop_right()
+
+...

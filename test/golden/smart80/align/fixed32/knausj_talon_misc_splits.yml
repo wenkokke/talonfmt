@@ -49,3 +49,5 @@ output: |+
   split last:                      user.split_last()
 
   go split <number>:               user.split_number(number)
+
+...

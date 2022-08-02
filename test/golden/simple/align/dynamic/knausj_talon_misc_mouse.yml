@@ -1,5 +1,4 @@
-input:
-  "control mouse: user.mouse_toggle_control_mouse()\nzoom mouse: user.mouse_toggle_zoom_mouse()\n\
+input: "control mouse: user.mouse_toggle_control_mouse()\nzoom mouse: user.mouse_toggle_zoom_mouse()\n\
   camera overlay: user.mouse_toggle_camera_overlay()\nrun calibration: user.mouse_calibrate()\n\
   touch:\n\tmouse_click(0)\n\t# close the mouse grid if open\n\tuser.grid_close()\n\
   \    \t# End any open drags\n\t# Touch automatically ends left drags so this is\
@@ -160,3 +159,5 @@ output: |+
       user.mouse_scroll_right(0.5)
   copy mouse position: user.copy_mouse_position()
   curse no:            app.notify("Please activate the user.mouse_cursor_commands_enable tag to enable this command")
+
+...

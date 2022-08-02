@@ -141,3 +141,5 @@ output: |+
   go to workflow:    insert("gf")
   timestamps toggle: key(shift-t)
   fullscreen toggle: key(shift-f)
+
+...

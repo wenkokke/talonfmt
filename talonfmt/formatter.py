@@ -74,6 +74,21 @@ from tree_sitter_talon import (
 
 from .parse_error import ParseError
 
+TalonTopLevelMatch = Union[
+    TalonAnd,
+    TalonNot,
+    TalonMatch,
+    TalonOr,
+]
+
+TalonTopLevel = Union[
+    TalonContext,
+    TalonIncludeTag,
+    TalonSettings,
+    TalonCommand,
+    TalonComment,
+]
+
 
 @dataclasses.dataclass
 class TalonFormatter:
@@ -92,6 +107,10 @@ class TalonFormatter:
             else:
                 yield self.format(child)
 
+    @singledispatchmethod
+    def format_toplevel(self, top_level_node: TalonTopLevel) -> Doc:
+        raise TypeError(type(top_level_node))
+
     @format.register
     def _(self, node: TalonError) -> Doc:
         raise ParseError(
@@ -99,7 +118,7 @@ class TalonFormatter:
         )
 
     ###########################################################################
-    # Documents
+    # Format: Source Files
     ###########################################################################
 
     @format.register
@@ -121,6 +140,100 @@ class TalonFormatter:
         if self.align_short_commands is True:
             body_iter = create_tables(body_iter)
         return Line.join(header, "-", body_iter) / Line
+
+    ###########################################################################
+    # Format: Context Header
+    ###########################################################################
+
+    @format.register
+    def _(self, node: TalonContext) -> Doc:
+        docstrings: list[Doc] = []
+        buffer: list[Doc] = []
+        for child in node.children:
+            if isinstance(child, TalonDocstring):
+                docstrings.append(self.format(child))
+            elif isinstance(child, TalonComment):
+                buffer.append(self.format(child))
+            else:
+                buffer.extend(self.format_toplevel_match(child, False, False))
+        if not docstrings and not buffer:
+            return Empty
+        else:
+            return Line.join(docstrings, buffer)
+
+    @singledispatchmethod
+    def format_toplevel_match(
+        self,
+        match: TalonTopLevelMatch,
+        *,
+        under_and: bool,
+        under_not: bool,
+    ) -> Iterator[Doc]:
+        """
+        Format a TalonTopLevelMatch node as a series of lines.
+        """
+        raise TypeError(type(match))
+
+    @format_toplevel_match.register
+    def _(self, match: TalonAnd, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        for child in match.children:
+            if isinstance(child, TalonComment):
+                yield self.format(child)
+            else:
+                yield from self.format_toplevel_match(child, under_and, under_not)
+                under_and = True
+
+    @format_toplevel_match.register
+    def _(self, match: TalonNot, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        for child in match.children:
+            if isinstance(child, TalonComment):
+                yield self.format(child)
+            else:
+                yield from self.format_toplevel_match(child, under_and, under_not)
+                under_not = True
+
+    @format_toplevel_match.register
+    def _(self, match: TalonOr, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        for child in match.children:
+            if isinstance(child, TalonComment):
+                yield self.format(child)
+            else:
+                yield from self.format_toplevel_match(child, under_and, under_not)
+
+    @format_toplevel_match.register
+    def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        match_keywords = self.format_match_keywords(under_and, under_not)
+        key = cat(match_keywords, self.format(match.key))
+        pattern = self.format(match.pattern)
+        yield alt(self.format_match_alts(key, pattern))
+
+    def format_match_keywords(self, under_and: bool, under_not: bool) -> Iterator[Doc]:
+        if under_and:
+            yield Text("and")
+            yield Space
+        if under_not:
+            yield Text("not")
+            yield Space
+
+    def format_match_alts(self, key: Doc, pattern: Doc) -> Iterator[Doc]:
+        # Standard
+        yield key / ":" // pattern
+
+        # Aligned alternative
+        if self.align_match_context:
+            if self.align_match_context is True:
+                yield row(
+                    key / ":",
+                    pattern,
+                    table_type="match",
+                )
+            else:
+                yield row(
+                    key / ":",
+                    pattern,
+                    table_type="match",
+                    min_col_widths=(self.align_match_context,),
+                )
 
     ###########################################################################
     # Tag Includes
@@ -400,93 +513,6 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonWord) -> Doc:
         return Text.words(node.text)
-
-    ###########################################################################
-    # Context Header
-    ###########################################################################
-
-    @format.register
-    def _(self, node: TalonContext) -> Doc:
-        docstrings: list[Doc] = []
-        buffer: list[Doc] = []
-        for child in node.children:
-            if isinstance(child, TalonDocstring):
-                docstrings.append(self.format(child))
-            elif isinstance(child, TalonComment):
-                buffer.append(self.format(child))
-            else:
-                buffer.extend(self.format_matches(child, False, False))
-        if not docstrings and not buffer:
-            return Empty
-        else:
-            return Line.join(docstrings, buffer)
-
-    @singledispatchmethod
-    def format_matches(
-        self,
-        match: Union[TalonAnd, TalonNot, TalonMatch, TalonOr],
-        *,
-        under_and: bool,
-        under_not: bool,
-    ) -> Iterator[Doc]:
-        raise TypeError(type(match))
-
-    @format_matches.register
-    def _(self, match: TalonAnd, under_and: bool, under_not: bool) -> Iterator[Doc]:
-        for child in match.children:
-            if isinstance(child, TalonComment):
-                yield self.format(child)
-            else:
-                yield from self.format_matches(child, under_and, under_not)
-                under_and = True
-
-    @format_matches.register
-    def _(self, match: TalonNot, under_and: bool, under_not: bool) -> Iterator[Doc]:
-        for child in match.children:
-            if isinstance(child, TalonComment):
-                yield self.format(child)
-            else:
-                yield from self.format_matches(child, under_and, under_not)
-                under_not = True
-
-    @format_matches.register
-    def _(self, match: TalonOr, under_and: bool, under_not: bool) -> Iterator[Doc]:
-        for child in match.children:
-            if isinstance(child, TalonComment):
-                yield self.format(child)
-            else:
-                yield from self.format_matches(child, under_and, under_not)
-
-    @format_matches.register
-    def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
-        kwds = self.match_keywords(under_and, under_not)
-        key = cat(kwds, self.format(match.key))
-        pattern = self.format(match.pattern)
-        yield alt(self.create_match_alts(key, pattern))
-
-    def match_keywords(self, under_and: bool, under_not: bool) -> Iterator[Doc]:
-        if under_and:
-            yield Text("and")
-            yield Space
-        if under_not:
-            yield Text("not")
-            yield Space
-
-    def create_match_alts(self, key: Doc, pattern: Doc) -> Iterator[Doc]:
-        # Standard
-        yield key / ":" // pattern
-
-        # Aligned alternative
-        if self.align_match_context:
-            if self.align_match_context is True:
-                yield row(key / ":", pattern, table_type="match")
-            else:
-                yield row(
-                    key / ":",
-                    pattern,
-                    table_type="match",
-                    min_col_widths=(self.align_match_context,),
-                )
 
     ###########################################################################
     # Comments

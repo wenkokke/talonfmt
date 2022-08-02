@@ -533,3 +533,5 @@ output: |+
 
   # requires plug-in: black-pycharm
   blacken: user.idea("action BLACKReformatCode")
+
+...

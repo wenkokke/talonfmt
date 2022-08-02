@@ -16,3 +16,5 @@ output: |+
   go page <number>:                user.page_jump(number)
 
   go page final:                   user.page_final()
+
+...

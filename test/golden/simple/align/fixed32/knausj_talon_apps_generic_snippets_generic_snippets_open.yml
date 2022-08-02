@@ -7,3 +7,5 @@ output: |+
 
   -
   snip close:                      user.snippet_hide()
+
+...

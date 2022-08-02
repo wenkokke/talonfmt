@@ -15,3 +15,5 @@ output: |+
   command history less:            user.history_less()
 
   command history more:            user.history_more()
+
+...

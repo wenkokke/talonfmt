@@ -19,3 +19,5 @@ output: |+
   snip create:                     user.snippet_create()
 
   snip show:                       user.snippet_toggle()
+
+...

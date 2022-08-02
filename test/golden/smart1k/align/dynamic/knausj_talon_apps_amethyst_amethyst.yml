@@ -26,3 +26,5 @@ output: |+
   window grow:       key("alt-shift-l")
   window shrink:     key("alt-shift-h")
   window reevaluate: key("alt-shift-z")
+
+...

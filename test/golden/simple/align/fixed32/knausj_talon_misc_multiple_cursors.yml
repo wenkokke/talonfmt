@@ -31,3 +31,5 @@ output: |+
   cursor all:                      user.multi_cursor_select_all_occurrences()
 
   cursor lines:                    user.multi_cursor_add_to_line_ends()
+
+...

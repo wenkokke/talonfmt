@@ -25,3 +25,5 @@ output: |+
   contact up:                      key(up)
 
   contact down:                    key(down)
+
+...

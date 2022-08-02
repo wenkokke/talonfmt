@@ -34,3 +34,5 @@ output: |+
   (unformatted | raw) paste: user.thunderbird_mod("shift-v")
   link new:                  user.thunderbird_mod("k")
   link delete:               user.thunderbird_mod("shift-k")
+
+...

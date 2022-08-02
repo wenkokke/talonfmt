@@ -53,3 +53,5 @@ output: |+
 
   # for generic reference of types
   type <user.code_type>:           insert(code_type)
+
+...

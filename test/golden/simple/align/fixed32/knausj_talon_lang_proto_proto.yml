@@ -41,3 +41,5 @@ output: |+
   type {user.code_type}:           "{code_type}"
 
   repeated type {user.code_type}:  "repeated {code_type}"
+
+...

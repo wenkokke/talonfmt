@@ -306,3 +306,5 @@ output: |+
   copy line down:                  key(ctrl-alt-down)
 
   copy line up:                    key(ctrl-alt-up)
+
+...

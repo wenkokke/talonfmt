@@ -4,3 +4,5 @@ input: |
 output: |+
   -
   (abbreviate | abreviate | brief) {user.abbreviation}: "{abbreviation}"
+
+...

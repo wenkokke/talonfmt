@@ -82,3 +82,5 @@ output: |+
   op array:                        user.code_operator_subscript()
 
   op new:                          insert("new ")
+
+...

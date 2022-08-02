@@ -81,3 +81,5 @@ output: |+
   (mail | message) save:           user.thunderbird_mod("s")
 
   (mail | message) print:          user.thunderbird_mod("p")
+
+...

@@ -39,3 +39,5 @@ output: |+
   link new:                        user.thunderbird_mod("k")
 
   link delete:                     user.thunderbird_mod("shift-k")
+
+...

@@ -158,3 +158,5 @@ output: |+
       user.dictation_insert_raw(result)
   # Escape, type things that would otherwise be commands
   ^escape <user.text>$: auto_insert(user.text)
+
+...

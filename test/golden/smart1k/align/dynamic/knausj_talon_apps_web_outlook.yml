@@ -132,3 +132,5 @@ output: |+
   mark [this] [message] [as] junk:              key(j)
   moved to [a] folder:                          key(v)
   categorize [this] message:                    key(c)
+
+...

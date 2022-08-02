@@ -112,3 +112,5 @@ output: |+
   anaconda skeleton:               "conda skeleton "
 
   anaconda verify:                 "conda verify "
+
+...

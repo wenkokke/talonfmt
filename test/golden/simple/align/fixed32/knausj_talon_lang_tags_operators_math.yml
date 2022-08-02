@@ -70,3 +70,5 @@ output: |+
 
   # TODO: This operator should either be abstracted into a function or removed.
   (op | pad) colon:                " : "
+
+...
