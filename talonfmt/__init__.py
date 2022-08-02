@@ -144,8 +144,6 @@ def cli(
         contents: str, *, encoding: str, filename: Optional[str] = None
     ) -> Optional[str]:
         try:
-            if verbose:
-                sys.stderr.write(f"Formatting {filename}...\n")
             output = talonfmt(
                 contents,
                 encoding=encoding,
@@ -158,8 +156,8 @@ def cli(
                 format_comments=format_comments,
             )
             if contents != output and filename:
-                if fail_on_change and verbose:
-                    sys.stderr.write(f"File changed!")
+                if verbose:
+                    sys.stderr.write(f"Fixed {filename}\n")
                 files_changed.append(filename)
             return output
         except ParseError as e:
