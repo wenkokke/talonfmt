@@ -121,6 +121,9 @@ class TalonFormatter:
     align_match_context: Union[bool, int]
     align_short_commands: Union[bool, int]
     format_comments: bool
+    preserve_blank_lines_in_header: bool
+    preserve_blank_lines_in_body: bool
+    preserve_blank_lines_in_command: bool
 
     @singledispatchmethod
     def format(self, node: Node) -> Doc:
@@ -224,7 +227,7 @@ class TalonFormatter:
 
             if in_header and isinstance(child, TalonComment):
                 # NOTE: buffer comments in context header
-                if extra_blank_line:
+                if self.preserve_blank_lines_in_body and extra_blank_line:
                     comment_buffer.append(Line)
                 comment_buffer.append(self.format(child))
             elif isinstance(child, TalonContext):
@@ -254,11 +257,11 @@ class TalonFormatter:
                     else:
                         # NOTE: long command or other node, clear short command buffer
                         yield from clear_short_command_buffer()
-                        if extra_blank_line:
+                        if self.preserve_blank_lines_in_body and extra_blank_line:
                             yield Line
                         yield from self.format_lines(child)
                 else:
-                    if extra_blank_line:
+                    if self.preserve_blank_lines_in_body and extra_blank_line:
                         yield Line
                     yield from self.format_lines(child)
 
@@ -286,7 +289,8 @@ class TalonFormatter:
 
         for child in node.children:
             if (
-                previous_line is not None
+                self.preserve_blank_lines_in_header
+                and previous_line is not None
                 and child.start_position.row - previous_line >= 2
             ):
                 yield Line
@@ -327,10 +331,22 @@ class TalonFormatter:
     @format_lines_match.register
     def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
         self.assert_only_comments(match.children)
-        match_keywords = self.format_match_keywords(under_and, under_not)
-        key = cat(match_keywords, self.format(match.key))
+        keywords = self.format_match_keywords(under_and, under_not)
+        key = self.format(match.key)
         pattern = self.format(match.pattern)
-        yield alt(self.format_match_alternatives(key, pattern))
+        if isinstance(self.align_match_context, bool):
+            yield row(
+                keywords / key / ":",
+                pattern,
+                table_type="match",
+            )
+        else:
+            yield row(
+                keywords / key / ":",
+                pattern,
+                table_type="match",
+                min_col_widths=(self.align_match_context,),
+            )
 
     def format_match_keywords(self, under_and: bool, under_not: bool) -> Iterator[Doc]:
         if under_and:
@@ -339,26 +355,6 @@ class TalonFormatter:
         if under_not:
             yield Text("not")
             yield Space
-
-    def format_match_alternatives(self, key: Doc, pattern: Doc) -> Iterator[Doc]:
-        # Standard
-        yield key / ":" // pattern / Line
-
-        # Aligned alternative
-        if self.align_match_context:
-            if self.align_match_context is True:
-                yield row(
-                    key / ":",
-                    pattern,
-                    table_type="match",
-                )
-            else:
-                yield row(
-                    key / ":",
-                    pattern,
-                    table_type="match",
-                    min_col_widths=(self.align_match_context,),
-                )
 
     ###########################################################################
     # Format: Tag Includes
@@ -437,9 +433,23 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonBlock) -> Iterator[Doc]:
+
+        # Used to insert blank lines.
+        previous_line: Optional[int] = None
+
         for child in node.children:
+            if (
+                self.preserve_blank_lines_in_command
+                and previous_line is not None
+                and child.start_position.row - previous_line >= 2
+            ):
+                yield Line
+
             for line in self.format_lines(child):
                 yield from self.with_comments(line)
+
+            # Update previous line.
+            previous_line = child.end_position.row
 
     @format_lines.register
     def _(self, node: TalonAssignment) -> Iterator[Doc]:

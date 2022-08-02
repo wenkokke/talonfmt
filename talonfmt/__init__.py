@@ -22,6 +22,7 @@ def talonfmt(
     align_short_commands: bool = False,
     align_short_commands_at: Optional[int] = None,
     format_comments: bool = True,
+    preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ) -> str:
     # Enable align_match_context if align_match_context_at is set:
     merged_match_context: Union[bool, int]
@@ -43,6 +44,9 @@ def talonfmt(
         align_match_context=merged_match_context,
         align_short_commands=merged_short_commands,
         format_comments=format_comments,
+        preserve_blank_lines_in_header="header" in preserve_blank_lines,
+        preserve_blank_lines_in_body="body" in preserve_blank_lines,
+        preserve_blank_lines_in_command="command" in preserve_blank_lines,
     )
 
     # Create an instance of DocRenderer
@@ -115,6 +119,18 @@ def talonfmt(
     default=True,
     show_default=True,
 )
+@click.option(
+    "--verbose/--quiet",
+    default=True,
+    show_default=True,
+)
+@click.option(
+    "--preserve-blank-lines",
+    type=click.Choice(["header", "body", "command"], case_sensitive=False),
+    multiple=True,
+    default=("body", "command"),
+    show_default=True,
+)
 def cli(
     *,
     path: tuple[Path, ...],
@@ -129,6 +145,7 @@ def cli(
     fail_on_change: bool,
     fail_on_error: bool,
     verbose: bool,
+    preserve_blank_lines: tuple[str, ...],
 ):
     files_changed: list[str] = []
 
@@ -154,6 +171,7 @@ def cli(
                 align_short_commands=align_short_commands,
                 align_short_commands_at=align_short_commands_at,
                 format_comments=format_comments,
+                preserve_blank_lines=preserve_blank_lines,
             )
             if contents != output and filename:
                 if verbose:

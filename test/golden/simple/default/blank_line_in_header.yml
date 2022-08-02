@@ -1,0 +1,11 @@
+input: |
+  os: mac
+
+  os: windows
+  -
+  # no body
+output: |
+  os: mac
+  os: windows
+  -
+  # no body
