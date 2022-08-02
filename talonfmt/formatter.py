@@ -1,11 +1,13 @@
 import dataclasses
 import itertools
-from collections.abc import Iterator, Sequence
+from collections.abc import Iterable, Iterator, Sequence
 from functools import singledispatchmethod
-from typing import Iterable, NoReturn, Union
+from typing import Optional, TypeVar, Union, cast
 
+import more_itertools
 from doc_printer import (
     Doc,
+    DocLike,
     Empty,
     Fail,
     Line,
@@ -82,23 +84,35 @@ TalonBlockLevelMatch = Union[
 ]
 
 TalonBlockLevel = Union[
-    # Top-Level Declarations
     TalonSourceFile,
     TalonContext,
     TalonIncludeTag,
     TalonSettings,
     TalonCommand,
-    # Statements
+    TalonBlock,
     TalonAssignment,
     TalonExpression,
-    # Comments
     TalonComment,
     TalonDocstring,
 ]
 
+NodeVar = TypeVar("NodeVar", bound=Node)
+
 
 def is_short_command(node: TalonCommand) -> bool:
     return len(node.children) + len(node.script.children) == 1
+
+
+def block_with_comments(
+    comments: Iterable[TalonComment], block: TalonBlock
+) -> TalonBlock:
+    return TalonBlock(
+        text=block.text,
+        type_name=block.type_name,
+        start_position=block.start_position,
+        end_position=block.end_position,
+        children=[*comments, *block.children],
+    )
 
 
 @dataclasses.dataclass
@@ -112,6 +126,7 @@ class TalonFormatter:
         """
         Format any node as a document.
         """
+        # NOTE: these should implement format_block
         if isinstance(
             node,
             (
@@ -120,6 +135,7 @@ class TalonFormatter:
                 TalonIncludeTag,
                 TalonSettings,
                 TalonCommand,
+                TalonBlock,
                 TalonAssignment,
                 TalonExpression,
             ),
@@ -133,7 +149,7 @@ class TalonFormatter:
     @singledispatchmethod
     def format_block(self, node: TalonBlockLevel) -> Iterator[Doc]:
         """
-        Format any TalonTopLevel or TalonStatement node as a series of lines.
+        Format any block-level node as a series of lines.
         """
         if isinstance(node, (TalonComment, TalonDocstring)):
             yield self.format(node)
@@ -161,7 +177,7 @@ class TalonFormatter:
             raise TypeError(type(match))
 
     def format_children(self, children: Iterable[Node]) -> Iterator[Doc]:
-        for child in self.store_comments(children):
+        for child in self.store_comments(children, node_type=Node):
             if isinstance(child, Iterable):
                 yield from self.format_children(child)
             else:
@@ -238,7 +254,7 @@ class TalonFormatter:
     def _(self, node: TalonContext) -> Iterator[Doc]:
         for child in node.children:
             lines = list(self.format_block(child))
-            yield from self.get_comments()
+            yield from self.get_formatted_comments()
             yield from lines
 
     @format_block_match.register
@@ -266,12 +282,12 @@ class TalonFormatter:
                 yield from self.format_block(child)
             else:
                 lines = list(self.format_block_match(child, under_and, under_not))
-                yield from self.get_comments()
+                yield from self.get_formatted_comments()
                 yield from lines
 
     @format_block_match.register
     def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
-        self.only_comment_children(match)
+        self.assert_only_comments(match.children)
         match_keywords = self.format_match_keywords(under_and, under_not)
         key = cat(match_keywords, self.format(match.key))
         pattern = self.format(match.pattern)
@@ -311,8 +327,8 @@ class TalonFormatter:
 
     @format_block.register
     def _(self, node: TalonIncludeTag) -> Iterator[Doc]:
-        self.only_comment_children(node)
-        yield from self.get_comments()
+        self.assert_only_comments(node.children)
+        yield from self.get_formatted_comments()
         yield "tag():" // self.format(node.tag)
 
     ###########################################################################
@@ -321,8 +337,8 @@ class TalonFormatter:
 
     @format_block.register
     def _(self, node: TalonSettings) -> Iterator[Doc]:
-        block = self.get_only_child(node)
-        yield from self.get_comments()
+        block = self.get_node_with_type(node.children, node_type=TalonBlock)
+        block = block_with_comments(self.get_comments(), block)
         yield "settings():" // nest(self.indent_size, Line, self.format(block))
 
     ###########################################################################
@@ -332,16 +348,10 @@ class TalonFormatter:
     @format_block.register
     def _(self, node: TalonCommand) -> Iterator[Doc]:
         rule = self.format(node.rule)
-        yield from self.get_comments()
+        yield from self.get_formatted_comments()
 
         # Merge comments on this node into the block node.
-        block = TalonBlock(
-            text=node.script.text,
-            type_name=node.script.type_name,
-            start_position=node.script.start_position,
-            end_position=node.script.end_position,
-            children=[*node.children, *node.script.children],
-        )
+        block = block_with_comments(node.children, node.script)
         script = self.format(block)
 
         # (1): a line-break after the rule, e.g.,
@@ -387,25 +397,22 @@ class TalonFormatter:
     # Format: Statements
     ###########################################################################
 
-    @format.register
-    def _(self, node: TalonBlock) -> Doc:
-        return Line.join(
-            itertools.chain.from_iterable(map(self.format_block, node.children))
-        )
+    @format_block.register
+    def _(self, node: TalonBlock) -> Iterator[Doc]:
+        for child in node.children:
+            for line in self.format_block(child):
+                yield from self.get_formatted_comments()
+                yield line
 
     @format_block.register
     def _(self, node: TalonAssignment) -> Iterator[Doc]:
-        self.only_comment_children(node)
-        line = self.format(node.left) // "=" // self.format(node.right)
-        yield from self.get_comments()
-        yield line
+        self.assert_only_comments(node.children)
+        yield self.format(node.left) // "=" // self.format(node.right)
 
     @format_block.register
     def _(self, node: TalonExpression) -> Iterator[Doc]:
-        self.only_comment_children(node)
-        line = self.format(node.expression)
-        yield from self.get_comments()
-        yield line
+        self.assert_only_comments(node.children)
+        yield self.format(node.expression)
 
     ###########################################################################
     # Format: Expressions
@@ -413,24 +420,21 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonAction) -> Doc:
-        self.only_comment_children(node)
-        action_name = self.format(node.action_name)
-        arguments = self.format(node.arguments)
-        return action_name / parens(arguments)
+        self.assert_only_comments(node.children)
+        return self.format(node.action_name) / parens(self.format(node.arguments))
 
     @format.register
     def _(self, node: TalonArgumentList) -> Doc:
-        separator = "," / Space
-        children = self.format_children(node.children)
-        return separator.join(children)
+        return ("," / Space).join(self.format_children(node.children))
 
     @format.register
     def _(self, node: TalonBinaryOperator) -> Doc:
-        self.only_comment_children(node)
-        left = self.format(node.left)
-        operator = self.format(node.operator)
-        right = self.format(node.right)
-        return Space.join(left, operator, right)
+        self.assert_only_comments(node.children)
+        return (
+            self.format(node.left)
+            // self.format(node.operator)
+            // self.format(node.right)
+        )
 
     @format.register
     def _(self, node: TalonIdentifier) -> Doc:
@@ -438,7 +442,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonKeyAction) -> Doc:
-        self.only_comment_children(node)
+        self.assert_only_comments(node.children)
         return "key" / parens(self.format(node.arguments))
 
     @format.register
@@ -447,7 +451,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonParenthesizedExpression) -> Doc:
-        return parens(self.format(self.get_only_child(node)))
+        return parens(self.format(self.get_node(node.children)))
 
     @format.register
     def _(self, node: TalonRegexEscapeSequence) -> Doc:
@@ -458,12 +462,12 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonSleepAction) -> Doc:
-        self.only_comment_children(node)
+        self.assert_only_comments(node.children)
         return "sleep" / parens(self.format(node.arguments))
 
     @format.register
     def _(self, node: TalonVariable) -> Doc:
-        self.only_comment_children(node)
+        self.assert_only_comments(node.children)
         return self.format(node.variable_name)
 
     ###########################################################################
@@ -480,7 +484,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonNumber) -> Doc:
-        return self.format(self.get_only_child(node))
+        return self.format(self.get_node(node.children))
 
     ###########################################################################
     # Format: Strings
@@ -492,7 +496,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonInterpolation) -> Doc:
-        return self.format(self.get_only_child(node))
+        return self.format(self.get_node(node.children))
 
     @format.register
     def _(self, node: TalonString) -> Doc:
@@ -512,7 +516,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonCapture) -> Doc:
-        self.only_comment_children(node)
+        self.assert_only_comments(node.children)
         return angles(self.format(node.capture_name))
 
     @format.register
@@ -527,27 +531,27 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonList) -> Doc:
-        self.only_comment_children(node)
+        self.assert_only_comments(node.children)
         return braces(self.format(node.list_name))
 
     @format.register
     def _(self, node: TalonOptional) -> Doc:
-        child = self.get_only_child(node)
+        child = self.get_node(node.children)
         return brackets(self.format(child))
 
     @format.register
     def _(self, node: TalonParenthesizedRule) -> Doc:
-        child = self.get_only_child(node)
+        child = self.get_node(node.children)
         return parens(self.format(child))
 
     @format.register
     def _(self, node: TalonRepeat) -> Doc:
-        child = self.get_only_child(node)
+        child = self.get_node(node.children)
         return self.format(child) / "*"
 
     @format.register
     def _(self, node: TalonRepeat1) -> Doc:
-        return self.format(self.get_only_child(node)) / "+"
+        return self.format(self.get_node(node.children)) / "+"
 
     @format.register
     def _(self, node: TalonRule) -> Doc:
@@ -584,34 +588,46 @@ class TalonFormatter:
         default_factory=list, init=False
     )
 
-    def store_comments(self, children: Iterable[Node]) -> Iterator[Node]:
+    def store_comments(
+        self,
+        children: Iterable[Union[TalonComment, NodeVar]],
+        *,
+        node_type: type[NodeVar],
+    ) -> Iterator[NodeVar]:
         for child in children:
             if isinstance(child, TalonComment):
                 self._comment_buffer.append(child)
-            else:
+            elif isinstance(child, node_type):
                 yield child
+            else:
+                raise TypeError(type(child))
 
-    def get_comments(self) -> Iterator[Doc]:
+    def get_comments(self) -> Iterator[TalonComment]:
         try:
-            for comment in self._comment_buffer:
-                yield self.format(comment)
+            yield from self._comment_buffer
         finally:
             self._comment_buffer.clear()
 
-    def only_comment_children(self, branch: Branch) -> None:
-        if isinstance(branch.children, list):
-            rest = tuple(self.store_comments(branch.children))
-            assert (
-                len(rest) == 0
-            ), f"There should be no non-comment children, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
+    def get_formatted_comments(self) -> Iterator[Doc]:
+        yield from map(self.format, self.get_comments())
 
-    def get_only_child(self, branch: Branch) -> Node:
-        assert branch.children is not None
-        if isinstance(branch.children, Sequence):
-            rest = tuple(self.store_comments(branch.children))
-            assert (
-                len(rest) == 1
-            ), f"There should be only one non-comment child, found {tuple(node.type_name for node in rest)} in {branch.type_name}:\n{branch}"
-            return rest[0]
-        else:
-            return branch.children
+    def assert_only_comments(self, children: Iterable[TalonComment]) -> None:
+        rest = tuple(self.store_comments(children, node_type=TalonComment))
+        assert (
+            len(rest) == 0
+        ), f"There should be no non-comment nodes, found {tuple(node.type_name for node in rest)}:\n{rest}"
+
+    def get_node(self, children: Iterable[Node]) -> Node:
+        return self.get_node_with_type(children, node_type=Node)
+
+    def get_node_with_type(
+        self,
+        children: Iterable[Union[NodeVar, TalonComment]],
+        *,
+        node_type: type[NodeVar],
+    ) -> NodeVar:
+        rest = tuple(self.store_comments(children, node_type=node_type))
+        assert (
+            len(rest) == 1
+        ), f"There should be only one non-comment child, found {tuple(node.type_name for node in rest)}:\n{rest}"
+        return next(iter(rest))

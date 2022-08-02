@@ -11,6 +11,6 @@ output: |-
   os:                              mac
 
   -
-  # Necessary to stop commands like 'slap' getting jumbled
   settings():
+      # Necessary to stop commands like 'slap' getting jumbled
       key_wait = 9.0
