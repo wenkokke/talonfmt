@@ -2,7 +2,6 @@
   name: talonfmt
   description: "talonfmt: .talon file formatter"
   entry: talonfmt
-  args: ["--in-place", "--quiet"]
   types: [file]
   files: \.talon$
   language: python

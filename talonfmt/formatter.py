@@ -2,10 +2,11 @@ import dataclasses
 import itertools
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
-from typing import TypeVar, Union
+from typing import Optional, TypeVar, Union
 
 from doc_printer import (
     Doc,
+    DocLike,
     Empty,
     Fail,
     Line,
@@ -23,6 +24,7 @@ from doc_printer import (
     parens,
     row,
 )
+from doc_printer.doc import splat
 from tree_sitter_talon import (
     Node,
     TalonAction,
@@ -278,10 +280,21 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonContext) -> Iterator[Doc]:
+
+        # Used to insert blank lines.
+        previous_line: Optional[int] = None
+
         for child in node.children:
-            lines = list(self.format_lines(child))
-            yield from self.get_formatted_comments()
-            yield from lines
+            if (
+                previous_line is not None
+                and child.start_position.row - previous_line >= 2
+            ):
+                yield Line
+
+            yield from self.with_comments(self.format_lines(child))
+
+            # Update previous line.
+            previous_line = child.end_position.row
 
     @format_lines_match.register
     def _(self, match: TalonAnd, under_and: bool, under_not: bool) -> Iterator[Doc]:
@@ -307,9 +320,9 @@ class TalonFormatter:
             if isinstance(child, TalonComment):
                 yield from self.format_lines(child)
             else:
-                lines = list(self.format_lines_match(child, under_and, under_not))
-                yield from self.get_formatted_comments()
-                yield from lines
+                yield from self.with_comments(
+                    self.format_lines_match(child, under_and, under_not)
+                )
 
     @format_lines_match.register
     def _(self, match: TalonMatch, under_and: bool, under_not: bool) -> Iterator[Doc]:
@@ -354,8 +367,7 @@ class TalonFormatter:
     @format_lines.register
     def _(self, node: TalonIncludeTag) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
-        yield from self.get_formatted_comments()
-        yield "tag():" // self.format(node.tag) / Line
+        yield from self.with_comments("tag():" // self.format(node.tag) / Line)
 
     ###########################################################################
     # Format: Settings
@@ -378,7 +390,6 @@ class TalonFormatter:
     @format_lines.register
     def _(self, node: TalonCommand) -> Iterator[Doc]:
         rule = self.format(node.rule)
-        yield from self.get_formatted_comments()
 
         # Merge comments on this node into the block node.
         block = block_with_comments(node.children, node.script)
@@ -403,7 +414,7 @@ class TalonFormatter:
         else:
             alt2 = Fail
 
-        yield alt1 | alt2
+        yield from self.with_comments(alt1 | alt2)
 
     def format_short_command(self, rule: Doc, script: Doc) -> Doc:
         if isinstance(self.align_short_commands, bool):
@@ -428,8 +439,7 @@ class TalonFormatter:
     def _(self, node: TalonBlock) -> Iterator[Doc]:
         for child in node.children:
             for line in self.format_lines(child):
-                yield from self.get_formatted_comments()
-                yield line
+                yield from self.with_comments(line)
 
     @format_lines.register
     def _(self, node: TalonAssignment) -> Iterator[Doc]:
@@ -659,11 +669,12 @@ class TalonFormatter:
         finally:
             self._comment_buffer.clear()
 
-    def get_formatted_comments(self) -> Iterator[Doc]:
+    def with_comments(self, *doclike: DocLike) -> Iterator[Doc]:
         """
-        Get the buffered comments, formatted. Clear the buffer.
+        Yield the buffered comments, formatted. Clear the buffer. Then yield the arguments.
         """
         yield from map(self.format, self.get_comments())
+        yield from splat(doclike)
 
     def assert_only_comments(self, children: Iterable[TalonComment]) -> None:
         """
