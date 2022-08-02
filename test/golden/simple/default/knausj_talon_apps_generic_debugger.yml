@@ -76,9 +76,8 @@ output: |
   tag: debugger
   -
   # Code execution
+
   # instruction level
-
-
   step into:
       user.debugger_step_into()
   step over:

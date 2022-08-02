@@ -42,7 +42,6 @@ output: |
   # win.title: /Twitter/
   -
   # navigation
-
   (show shortcuts | shortcuts help): key(?)
   next tweet: key(j)
   previous tweet: key(k)

@@ -209,7 +209,7 @@ class TalonFormatter:
 
             def clear_short_command_buffer() -> Iterator[Doc]:
                 if short_command_buffer:
-                    table: Optional[Table] = create_table(short_command_buffer)
+                    table = create_table(short_command_buffer)
                     if table:
                         yield alt(cat(short_command_buffer), table)
                     else:
@@ -219,17 +219,14 @@ class TalonFormatter:
         # Used to insert blank lines.
         previous_line: int = 0
 
-        def extra_blank_lines_before(child: Node) -> Iterator[Doc]:
-            n = child.start_position.row - previous_line
-            yield from itertools.repeat(Line, times=min(1, n - 1))
-
         for child in node.children:
-            extra_blank_lines = extra_blank_lines_before(child)
+            extra_blank_line: bool = child.start_position.row - previous_line >= 2
 
             if in_header and isinstance(child, TalonComment):
                 # NOTE: buffer comments in context header
+                if extra_blank_line:
+                    comment_buffer.append(Line)
                 comment_buffer.append(self.format(child))
-                comment_buffer.extend(extra_blank_lines)
             elif isinstance(child, TalonContext):
                 # NOTE: format context header
                 assert in_header
@@ -242,9 +239,12 @@ class TalonFormatter:
                 ):
                     yield Text("-") / Line
                     # NOTE: no blank lines after "-"
-                    if not comment_buffer:
-                        extra_blank_lines = iter(())
-                    yield from clear_comment_buffer()
+                    if comment_buffer:
+                        yield from itertools.dropwhile(
+                            lambda doc: doc is Line, clear_comment_buffer()
+                        )
+                    else:
+                        extra_blank_line = False
                     in_header = False
 
                 if self.align_short_commands is True:
@@ -254,10 +254,12 @@ class TalonFormatter:
                     else:
                         # NOTE: long command or other node, clear short command buffer
                         yield from clear_short_command_buffer()
-                        yield from extra_blank_lines
+                        if extra_blank_line:
+                            yield Line
                         yield from self.format_lines(child)
                 else:
-                    yield from extra_blank_lines
+                    if extra_blank_line:
+                        yield Line
                     yield from self.format_lines(child)
 
             # Update previous line.

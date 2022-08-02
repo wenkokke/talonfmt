@@ -75,7 +75,6 @@ output: |
   browser.host: github.com
   -
   # site wide shortcuts
-
   focus search:
       key(s)
   go to notifications:

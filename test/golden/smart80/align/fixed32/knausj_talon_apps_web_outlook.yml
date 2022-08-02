@@ -73,7 +73,6 @@ output: |
   win.title:                       /Outlook/
   -
   # write email
-
   new message:                     key(n)
   send [this] message:             key(alt-s)
   reply [to] [this] message:       key(r)
