@@ -19,7 +19,7 @@ from doc_printer import (
     cat,
     create_table,
     double_quote,
-    group,
+    inline,
     nest,
     parens,
     row,
@@ -416,13 +416,13 @@ class TalonFormatter:
         if isinstance(self.align_short_commands, bool):
             return row(
                 rule / ":",
-                group(script),
+                inline(script),
                 table_type="command",
             )
         else:
             return row(
                 rule / ":",
-                group(script),
+                inline(script),
                 table_type="command",
                 min_col_widths=(self.align_short_commands,),
             )
