@@ -21,8 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-golden"]
-publish = ["build", "twine"]
+dev = ["pytest", "pytest-golden", "build", "twine"]
 
 [project.urls]
 repository = "https://github.com/wenkokke/talonfmt"
