@@ -18,10 +18,10 @@ from doc_printer import (
     brackets,
     cat,
     create_table,
-    double_quote,
     inline,
     nest,
     parens,
+    quote,
     row,
 )
 from doc_printer.doc import splat
@@ -547,7 +547,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonString) -> Doc:
-        return double_quote(self.format_children(node.children))
+        return quote(self.format_children(node.children))
 
     @format.register
     def _(self, node: TalonStringContent) -> Doc:
