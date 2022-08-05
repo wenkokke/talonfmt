@@ -129,7 +129,7 @@ output: |
   state include system:
       user.insert_between("#include <", ">")
   state include local:
-      user.insert_between("#include \"", "\"")
+      user.insert_between('#include "', '"')
   state type deaf:
       insert("typedef ")
   state type deaf struct:

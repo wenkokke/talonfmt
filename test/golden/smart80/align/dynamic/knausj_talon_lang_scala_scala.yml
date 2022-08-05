@@ -75,5 +75,5 @@ output: |
   state match:                 user.code_state_switch()
 
   block string:
-      insert("\"\"\"\"\"\"")
+      insert('""""""')
       key("left left left")

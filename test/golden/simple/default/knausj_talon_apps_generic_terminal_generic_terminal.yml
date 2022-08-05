@@ -34,7 +34,7 @@ output: |
   katie root:
       user.terminal_change_directory_root()
   go <user.system_path>:
-      insert("cd \"{system_path}\"\n")
+      insert('cd \"{system_path}\"\n')
   clear screen:
       user.terminal_clear_screen()
   run last:

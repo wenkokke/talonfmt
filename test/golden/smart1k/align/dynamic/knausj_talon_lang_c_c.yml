@@ -126,7 +126,7 @@ output: |
   # NOTE: migrated from generic, as they were only used here, though once cpp support is added, perhaps these should be migrated to a tag together with the commands below
   state include:        insert("#include ")
   state include system: user.insert_between("#include <", ">")
-  state include local:  user.insert_between("#include \"", "\"")
+  state include local:  user.insert_between('#include "', '"')
   state type deaf:      insert("typedef ")
   state type deaf struct:
       insert("typedef struct")

@@ -126,13 +126,13 @@ output: |
   toggle floating: user.system_command("i3-msg floating toggle")
   focus floating: user.system_command("i3-msg focus mode_toggle")
   center window: user.system_command("i3-msg move position center")
-  resize mode: user.system_command("i3-msg mode \"resize\"")
+  resize mode: user.system_command('i3-msg mode "resize"')
   focus parent: user.system_command("i3-msg focus parent")
   focus child: user.system_command("i3-msg focus child")
 
   # resize helpers
   grow window:
-      user.system_command("i3-msg mode \"resize\"")
+      user.system_command('i3-msg mode "resize"')
       key(right:10)
       key(down:10)
       # escape resize mode
@@ -143,7 +143,7 @@ output: |
 
   # resize helpers
   shrink window:
-      user.system_command("i3-msg mode \"resize\"")
+      user.system_command('i3-msg mode "resize"')
       key(left:10)
       key(up:10)
       # escape resize mode
