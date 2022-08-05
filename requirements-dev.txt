@@ -3,5 +3,5 @@ click==8.1.3
 doc-printer==0.11.2
 pytest==7.1.2
 pytest-golden==0.2.2
-tree-sitter-talon==1.6.11
+tree-sitter-talon==1.6.12
 twine==4.0.1
