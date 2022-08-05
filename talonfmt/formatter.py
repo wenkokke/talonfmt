@@ -21,8 +21,8 @@ from doc_printer import (
     inline,
     nest,
     parens,
-    quote,
     row,
+    smart_quote,
 )
 from doc_printer.doc import splat
 from tree_sitter_talon import (
@@ -547,7 +547,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonString) -> Doc:
-        return quote(self.format_children(node.children))
+        return smart_quote(self.format_children(node.children))
 
     @format.register
     def _(self, node: TalonStringContent) -> Doc:
