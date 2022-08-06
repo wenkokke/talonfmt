@@ -27,9 +27,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: "pip" # caching pip dependencies
-          cache-dependency-path: "requirements-dev.txt"
-      - run: pip install .[dev]
-
+          cache-dependency-path: |
+            requirements-dev.txt
+            requirements-test.txt
+            requirements.txt
+      - run: pip install .[dev,test]
       ################################################################################
       # Test
       ################################################################################
@@ -49,9 +51,11 @@ jobs:
         with:
           python-version: ${{ env.RECOMMENDED_PYTHON_VERSION }}
           cache: "pip" # caching pip dependencies
-          cache-dependency-path: "requirements-dev.txt"
-      - run: pip install .[dev]
-
+          cache-dependency-path: |
+            requirements-dev.txt
+            requirements-test.txt
+            requirements.txt
+      - run: pip install .[dev,test]
       ################################################################################
       # Build
       ################################################################################
