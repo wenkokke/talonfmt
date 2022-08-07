@@ -109,10 +109,8 @@ output: |
   go right <number_small> (word | words):
       edit.word_right()
       repeat(number_small - 1)
-  go line start:
-      edit.line_start()
-  go line end:
-      edit.line_end()
+  go line start: edit.line_start()
+  go line end: edit.line_end()
 
   # Selection
   select left <number_small> (word | words):

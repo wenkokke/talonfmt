@@ -253,8 +253,7 @@ output: |
   spawn <user.text> [over]:
       insert("go ")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
-  state else if:
-      " else if "
+  state else if:                   " else if "
   else if <user.text> [over]:
       insert(" else if ")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))

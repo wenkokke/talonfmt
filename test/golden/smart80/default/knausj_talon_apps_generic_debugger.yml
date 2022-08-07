@@ -110,16 +110,12 @@ output: |
   clear (break | break point): user.debugger_clear_breakpoint()
   clear (break | break point) <number_small>:
       user.debugger_clear_breakpoint_id(number_small)
-  disable all (breaks | break points):
-      user.debugger_disable_all_breakpoints()
-  disable (break | break point):
-      user.debugger_disable_breakpoint()
+  disable all (breaks | break points): user.debugger_disable_all_breakpoints()
+  disable (break | break point): user.debugger_disable_breakpoint()
   disable (break | break point) <number_small>:
       user.debugger_disable_breakpoint_id(number_small)
-  enable all (breaks | break points):
-      user.debugger_enable_all_breakpoints()
-  enable (break | break point):
-      user.debugger_enable_breakpoint()
+  enable all (breaks | break points): user.debugger_enable_all_breakpoints()
+  enable (break | break point): user.debugger_enable_breakpoint()
   enable (break | break point) <number_small>:
       user.debugger_enable_breakpoint_id(number_small)
 

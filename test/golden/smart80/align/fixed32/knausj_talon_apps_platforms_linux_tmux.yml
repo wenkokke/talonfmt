@@ -68,8 +68,7 @@ output: |
   mux name session:
       key(ctrl-b)
       key($)
-  mux kill session:
-      insert("tmux kill-session -t ")
+  mux kill session:                insert("tmux kill-session -t ")
   # window management
   mux new window:
       key(ctrl-b)

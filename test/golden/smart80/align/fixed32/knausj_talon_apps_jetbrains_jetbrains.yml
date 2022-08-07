@@ -265,10 +265,8 @@ output: |
   complete:                        user.idea("action CodeCompletion")
   perfect:
       user.idea("action CodeCompletion,action CodeCompletion")
-  smart:
-      user.idea("action SmartTypeCompletion")
-  (done | finish):
-      user.idea("action EditorCompleteStatement")
+  smart:                           user.idea("action SmartTypeCompletion")
+  (done | finish):                 user.idea("action EditorCompleteStatement")
   # Copying
   grab <number>:                   user.idea_grab(number)
   # Actions
@@ -282,30 +280,18 @@ output: |
   refactor <user.text>:
       user.idea("action Refactorings.QuickListPopupAction")
       insert(text)
-  extract variable:
-      user.idea("action IntroduceVariable")
-  extract field:
-      user.idea("action IntroduceField")
-  extract constant:
-      user.idea("action IntroduceConstant")
-  extract parameter:
-      user.idea("action IntroduceParameter")
-  extract interface:
-      user.idea("action ExtractInterface")
-  extract method:
-      user.idea("action ExtractMethod")
-  refactor in line:
-      user.idea("action Inline")
-  refactor move:
-      user.idea("action Move")
-  refactor rename:
-      user.idea("action RenameElement")
-  rename file:
-      user.idea("action RenameFile")
-  fix (format | formatting):
-      user.idea("action ReformatCode")
-  fix imports:
-      user.idea("action OptimizeImports")
+  extract variable:                user.idea("action IntroduceVariable")
+  extract field:                   user.idea("action IntroduceField")
+  extract constant:                user.idea("action IntroduceConstant")
+  extract parameter:               user.idea("action IntroduceParameter")
+  extract interface:               user.idea("action ExtractInterface")
+  extract method:                  user.idea("action ExtractMethod")
+  refactor in line:                user.idea("action Inline")
+  refactor move:                   user.idea("action Move")
+  refactor rename:                 user.idea("action RenameElement")
+  rename file:                     user.idea("action RenameFile")
+  fix (format | formatting):       user.idea("action ReformatCode")
+  fix imports:                     user.idea("action OptimizeImports")
   # navigation
   (go declaration | follow):       user.idea("action GotoDeclaration")
   go implementation:               user.idea("action GotoImplementation")
@@ -320,20 +306,15 @@ output: |
       user.idea("action SearchEverywhere")
       sleep(500ms)
       insert(text)
-  (search | find) class:
-      user.idea("action GotoClass")
-  (search | find) file:
-      user.idea("action GotoFile")
-  (search | find) path:
-      user.idea("action FindInPath")
-  (search | find) symbol:
-      user.idea("action GotoSymbol")
+  (search | find) class:           user.idea("action GotoClass")
+  (search | find) file:            user.idea("action GotoFile")
+  (search | find) path:            user.idea("action FindInPath")
+  (search | find) symbol:          user.idea("action GotoSymbol")
   (search | find) symbol <user.text>$:
       user.idea("action GotoSymbol")
       insert(text)
       key("enter")
-  recent:
-      user.idea("action RecentFiles")
+  recent:                          user.idea("action RecentFiles")
 
   surround [this] with <user.text> [over]:
       idea("action SurroundWith")
@@ -348,8 +329,7 @@ output: |
       idea("action InsertLiveTemplate")
       sleep(500ms)
       insert(text)
-  create (template | snippet):
-      user.idea("action SaveAsTemplate")
+  create (template | snippet):     user.idea("action SaveAsTemplate")
   # Recording
   toggle recording:                user.idea("action StartStopMacroRecording")
   change (recording | recordings): user.idea("action EditMacros")
@@ -386,8 +366,7 @@ output: |
       user.idea("action NewElementSamePlace")
       sleep(500ms)
       insert(text)
-  create file:
-      user.idea("action NewElement")
+  create file:                     user.idea("action NewElement")
   create file <user.text> [over]:
       user.idea("action NewElement")
       sleep(500ms)
@@ -408,10 +387,8 @@ output: |
   git (pull request | request):    user.idea("action Github.Create.Pull.Request")
   git (view | show | list) (requests | request):
       user.idea("action Github.View.Pull.Request")
-  git (annotate | blame):
-      user.idea("action Annotate")
-  git menu:
-      user.idea("action Vcs.QuickListPopupAction")
+  git (annotate | blame):          user.idea("action Annotate")
+  git menu:                        user.idea("action Vcs.QuickListPopupAction")
   # Tool windows:
   # Toggling various tool windows
   toggle project:                  user.idea("action ActivateProjectToolWindow")
@@ -424,20 +401,15 @@ output: |
       user.idea("action ActivateVersionControlToolWindow")
   toggle structure:
       user.idea("action ActivateStructureToolWindow")
-  toggle database:
-      user.idea("action ActivateDatabaseToolWindow")
+  toggle database:                 user.idea("action ActivateDatabaseToolWindow")
   toggle database changes:
       user.idea("action ActivateDatabaseChangesToolWindow")
-  toggle make:
-      user.idea("action ActivatemakeToolWindow")
-  toggle to do:
-      user.idea("action ActivateTODOToolWindow")
-  toggle docker:
-      user.idea("action ActivateDockerToolWindow")
+  toggle make:                     user.idea("action ActivatemakeToolWindow")
+  toggle to do:                    user.idea("action ActivateTODOToolWindow")
+  toggle docker:                   user.idea("action ActivateDockerToolWindow")
   toggle favorites:
       user.idea("action ActivateFavoritesToolWindow")
-  toggle last:
-      user.idea("action JumpToLastWindow")
+  toggle last:                     user.idea("action JumpToLastWindow")
   # Pin/dock/float
   toggle pinned:                   user.idea("action TogglePinnedMode")
   toggle docked:                   user.idea("action ToggleDockMode")
@@ -451,17 +423,18 @@ output: |
   toggle navigation [bar]:         user.idea("action ViewNavigationBar")
   # Active editor settings
   toggle power save:               user.idea("action TogglePowerSave")
-  toggle whitespace:               user.idea("action EditorToggleShowWhitespaces")
-  toggle indents:                  user.idea("action EditorToggleShowIndentLines")
-  toggle line numbers:             user.idea("action EditorToggleShowLineNumbers")
+  toggle whitespace:
+      user.idea("action EditorToggleShowWhitespaces")
+  toggle indents:
+      user.idea("action EditorToggleShowIndentLines")
+  toggle line numbers:
+      user.idea("action EditorToggleShowLineNumbers")
   toggle (bread crumbs | breadcrumbs):
       user.idea("action EditorToggleShowBreadcrumbs")
   toggle gutter icons:
       user.idea("action EditorToggleShowGutterIcons")
-  toggle wrap:
-      user.idea("action EditorToggleUseSoftWraps")
-  toggle parameters:
-      user.idea("action ToggleInlineHintsAction")
+  toggle wrap:                     user.idea("action EditorToggleUseSoftWraps")
+  toggle parameters:               user.idea("action ToggleInlineHintsAction")
   # Toggleable views
   toggle fullscreen:               user.idea("action ToggleFullScreen")
   toggle distraction [free mode]:  user.idea("action ToggleDistractionFreeMode")
@@ -518,8 +491,7 @@ output: |
   refactor <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action Refactorings.QuickListPopupAction")
-  clone <number>:
-      user.line_clone(number)
+  clone <number>:                  user.line_clone(number)
 
   # find/replace
   clear last <user.text> [over]:
@@ -546,10 +518,8 @@ output: |
       user.idea("find prev {text}, action EditorPaste")
   replace next <user.text> [over]:
       user.idea("find next {text}, action EditorPaste")
-  select last <user.text> [over]:
-      user.idea("find prev {text}")
-  select next <user.text> [over]:
-      user.idea("find next {text}")
+  select last <user.text> [over]:  user.idea("find prev {text}")
+  select next <user.text> [over]:  user.idea("find next {text}")
 
   select camel left:               user.extend_camel_left()
   select camel right:              user.extend_camel_right()

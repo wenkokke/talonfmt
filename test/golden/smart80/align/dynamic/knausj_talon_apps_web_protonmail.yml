@@ -138,22 +138,14 @@ output: |
   (deselect | unselect) all:
       key(*)
       key(n)
-  select [the] (message | conversation):
-      key(x)
-  mark [as] read:
-      key(r)
-  mark [as] unread:
-      key(u)
-  star (message | conversation):
-      key(.)
-  move to inbox:
-      key(i)
-  move to trash:
-      key(t)
-  move to archive:
-      key(a)
-  move to spam:
-      key(s)
+  select [the] (message | conversation): key(x)
+  mark [as] read:                        key(r)
+  mark [as] unread:                      key(u)
+  star (message | conversation):         key(.)
+  move to inbox:                         key(i)
+  move to trash:                         key(t)
+  move to archive:                       key(a)
+  move to spam:                          key(s)
 
   # Actions
   reply to (message | conversation):       key(shift-r)

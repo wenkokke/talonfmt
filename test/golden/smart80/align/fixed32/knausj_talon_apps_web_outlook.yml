@@ -113,10 +113,8 @@ output: |
   go to sent:
       key(g)
       key(s)
-  search [email]:
-      key(alt-q)
-  show help:
-      key(?)
+  search [email]:                  key(alt-q)
+  show help:                       key(?)
 
   # email actions
   undo [last] [action]:            key(ctrl-z)

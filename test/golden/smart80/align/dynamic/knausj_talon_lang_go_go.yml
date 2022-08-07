@@ -305,8 +305,7 @@ output: |
       insert(" struct {")
       key("enter")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
-  [state] empty interface:
-      " interface{} "
+  [state] empty interface: " interface{} "
   state interface:
       insert(" interface {")
       key("enter")
@@ -314,42 +313,31 @@ output: |
       insert(" interface {")
       key("enter")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))
-  state string:
-      " string "
-  [state] (int | integer | ant):
-      "int"
-  state slice:
-      " []"
-  slice of:
-      "[]"
-  [state] (no | nil):
-      "nil"
-  state (int | integer | ant) sixty four:
-      " int64 "
-  state tag:
-      user.insert_between(" `", "`")
+  state string:                           " string "
+  [state] (int | integer | ant):          "int"
+  state slice:                            " []"
+  slice of:                               "[]"
+  [state] (no | nil):                     "nil"
+  state (int | integer | ant) sixty four: " int64 "
+  state tag:                              user.insert_between(" `", "`")
   field tag <user.text> [over]:
       user.insert_between(" `", "`")
       sleep(100ms)
       insert(user.formatted_text(text, "snake"))
       insert(" ")
       sleep(100ms)
-  state return:
-      " return "
+  state return: " return "
   return <user.text> [over]:
       insert("return ")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
-  map of string to string:
-      " map[string]string "
+  map of string to string: " map[string]string "
   map of <user.text> [over]:
       insert("map[")
       insert(user.formatted_text(text, "PRIVATE_CAMEL_CASE"))
       key("right")
       sleep(100ms)
-  receive:
-      " <- "
-  make:
-      "make("
+  receive: " <- "
+  make:    "make("
   loggers [<user.text>] [over]:
       insert("logrus.")
       insert(user.formatted_text(text, "PUBLIC_CAMEL_CASE"))

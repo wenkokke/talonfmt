@@ -124,5 +124,4 @@ output: |
   cube detach:
       key("ctrl-p")
       key("ctrl-q")
-  cube shell:
-      user.insert_between("kubectl exec -it ", " -- /bin/bash")
+  cube shell: user.insert_between("kubectl exec -it ", " -- /bin/bash")

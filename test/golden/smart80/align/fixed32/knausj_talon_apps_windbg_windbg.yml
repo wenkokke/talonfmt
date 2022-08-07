@@ -69,12 +69,9 @@ output: |
 
   add microsoft symbols:
       insert("srv*C:\\symbols*http://msdl.microsoft.com/download/symbols;\n")
-  force reload symbols:
-      insert(".reload /f\n")
-  reload symbols:
-      insert(".reload\n")
-  loaded modules:
-      insert("lm l\n")
+  force reload symbols:            insert(".reload /f\n")
+  reload symbols:                  insert(".reload\n")
+  loaded modules:                  insert("lm l\n")
 
   display pointers:                insert("dps ")
 

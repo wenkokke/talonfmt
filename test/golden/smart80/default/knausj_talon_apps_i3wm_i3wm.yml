@@ -101,14 +101,10 @@ output: |
   -
   port <number_small>:
       user.system_command("i3-msg workspace number {number_small}")
-  port ten:
-      user.system_command("i3-msg workspace number 10")
-  (port flip | flipper):
-      user.system_command("i3-msg workspace back_and_forth")
-  port right:
-      user.system_command("i3-msg workspace next")
-  port left:
-      user.system_command("i3-msg workspace prev")
+  port ten: user.system_command("i3-msg workspace number 10")
+  (port flip | flipper): user.system_command("i3-msg workspace back_and_forth")
+  port right: user.system_command("i3-msg workspace next")
+  port left: user.system_command("i3-msg workspace prev")
 
   (win | window) left: user.system_command("i3-msg focus left")
   (win | window) right: user.system_command("i3-msg focus right")
@@ -168,14 +164,10 @@ output: |
       user.system_command("i3-msg move container to workspace number 10")
   (shuffle | move (win | window) [to] last port):
       user.system_command("i3-msg move container to workspace back_and_forth")
-  (shuffle | move (win | window) left):
-      user.system_command("i3-msg move left")
-  (shuffle | move (win | window) right):
-      user.system_command("i3-msg move right")
-  (shuffle | move (win | window) up):
-      user.system_command("i3-msg move up")
-  (shuffle | move (win | window) down):
-      user.system_command("i3-msg move down")
+  (shuffle | move (win | window) left): user.system_command("i3-msg move left")
+  (shuffle | move (win | window) right): user.system_command("i3-msg move right")
+  (shuffle | move (win | window) up): user.system_command("i3-msg move up")
+  (shuffle | move (win | window) down): user.system_command("i3-msg move down")
 
   (win | window) horizontal: user.system_command("i3-msg split h")
   (win | window) vertical: user.system_command("i3-msg split v")

@@ -17,7 +17,7 @@ classifiers = [
 dependencies = [
   "click >= 8, <= 9",
   "tree_sitter_talon == 1.7.0",
-  "doc_printer == 0.12.2",
+  "doc_printer == 0.13.1",
 ]
 
 [project.optional-dependencies]
