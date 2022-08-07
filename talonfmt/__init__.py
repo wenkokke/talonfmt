@@ -23,6 +23,7 @@ def talonfmt(
     align_match_context_at: Optional[int] = None,
     align_short_commands: bool = False,
     align_short_commands_at: Optional[int] = None,
+    simple_layout: Optional[str] = None,
     format_comments: bool = True,
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ) -> str:
@@ -53,15 +54,33 @@ def talonfmt(
 
     # Create an instance of DocRenderer
     doc_renderer: DocRenderer
-    if max_line_width:
-        doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
-    else:
-        simple_layout: SimpleLayout
-        if align_match_context is not False or align_short_commands is not False:
-            simple_layout = SimpleLayout.LongestLines
+    if max_line_width is None:
+        # Resolve the simple layout argument
+        simple_layout_value: SimpleLayout
+        if (
+            simple_layout == "longtest"
+            or align_match_context is not False
+            or align_short_commands is not False
+        ):
+            if simple_layout == "shortest":
+                incompatible_options: list[str]
+                if align_match_context is not False:
+                    incompatible_options.append("--align-match-context")
+                if align_short_commands is not False:
+                    incompatible_options.append("--align-short-commands")
+                sys.stderr.write(
+                    f"Warning: incompatible options '--simple-layout=shortest' and {incompatible_options}\n"
+                )
+            simple_layout_value = SimpleLayout.LongestLines
         else:
-            simple_layout = SimpleLayout.ShortestLines
-        doc_renderer = SimpleDocRenderer(simple_layout=simple_layout)
+            simple_layout_value = SimpleLayout.ShortestLines
+        doc_renderer = SimpleDocRenderer(simple_layout=simple_layout_value)
+    else:
+        if simple_layout is not None:
+            sys.stderr.write(
+                f"Warning: incompatible options '--max-line-width' and '--simple-layout'\n"
+            )
+        doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
 
     ast = tree_sitter_talon.parse(contents, encoding=encoding)
     doc = talon_formatter.format(ast)
@@ -76,8 +95,23 @@ def talonfmt(
         exists=True, file_okay=True, dir_okay=True, readable=True, path_type=Path
     ),
 )
-@click.option("--indent-size", type=int, default=4, show_default=True)
-@click.option("--max-line-width", type=int, show_default=True)
+@click.option(
+    "--indent-size",
+    type=int,
+    default=4,
+    show_default=True,
+)
+@click.option(
+    "--max-line-width",
+    type=int,
+    show_default=True,
+)
+@click.option(
+    "--simple-layout",
+    type=click.Choice(["shortest", "longest"], case_sensitive=False),
+    default=None,
+    show_default=False,
+)
 @click.option(
     "--align-match-context/--no-align-match-context",
     default=False,
@@ -143,6 +177,7 @@ def cli(
     align_short_commands: bool,
     align_short_commands_at: Optional[int],
     preserve_blank_lines: tuple[str, ...],
+    simple_layout: Optional[str],
     format_comments: bool,
     in_place: bool,
     fail_on_change: bool,
@@ -172,6 +207,7 @@ def cli(
                 align_match_context_at=align_match_context_at,
                 align_short_commands=align_short_commands,
                 align_short_commands_at=align_short_commands_at,
+                simple_layout=simple_layout,
                 format_comments=format_comments,
                 preserve_blank_lines=preserve_blank_lines,
             )
