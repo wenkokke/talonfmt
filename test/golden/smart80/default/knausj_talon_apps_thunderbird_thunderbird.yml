@@ -15,8 +15,8 @@ input: |
   dev tools: user.thunderbird_mod("shift-i")
 output: |
   app: thunderbird
-  and app: thunderbird_contacts
-  and app: thunderbird_composer
+  and not app: thunderbird_contacts
+  and not app: thunderbird_composer
   -
   # Set tags
   tag(): user.tabs

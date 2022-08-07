@@ -3,7 +3,7 @@ input: |
   -
   <user.number_string>: "{number_string}"
 output: |
-  tag: user.mouse_grid_showing
+  not tag: user.mouse_grid_showing
   -
   <user.number_string>:
       "{number_string}"

@@ -5,7 +5,7 @@ input: "user.draft_editor_running: True\nnot tag: user.draft_editor_app_focused\
   \  edit.extend_file_end()\n  user.draft_editor_open()\n\ndraft submit:\n  user.draft_editor_paste_last()\n"
 output: |
   user.draft_editor_running:       True
-  tag:                             user.draft_editor_app_focused
+  not tag:                         user.draft_editor_app_focused
   -
   draft this:                      user.draft_editor_open()
 

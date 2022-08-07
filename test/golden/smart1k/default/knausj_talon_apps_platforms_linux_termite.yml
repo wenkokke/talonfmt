@@ -18,7 +18,7 @@ input: |
   visual line mode: key("V")
 output: |
   app: termite
-  and win.title: /VIM/
+  and not win.title: /VIM/
   -
   # comment or remove tags for command sets you don't want
   # termite doesn't support the file_manager stuff yet
