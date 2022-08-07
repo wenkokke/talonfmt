@@ -10,6 +10,8 @@ from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRe
 
 from talonfmt.formatter import ParseError, TalonFormatter
 
+__version__: str = "1.4.4"
+
 
 def talonfmt(
     contents: str,
@@ -95,6 +97,13 @@ def talonfmt(
     type=int,
 )
 @click.option(
+    "--preserve-blank-lines",
+    type=click.Choice(["header", "body", "command"], case_sensitive=False),
+    multiple=True,
+    default=("body", "command"),
+    show_default=True,
+)
+@click.option(
     "--format-comments/--no-format-comments",
     default=True,
     show_default=True,
@@ -119,17 +128,10 @@ def talonfmt(
     default=True,
     show_default=True,
 )
-@click.option(
-    "--verbose/--quiet",
-    default=True,
-    show_default=True,
-)
-@click.option(
-    "--preserve-blank-lines",
-    type=click.Choice(["header", "body", "command"], case_sensitive=False),
-    multiple=True,
-    default=("body", "command"),
-    show_default=True,
+@click.version_option(
+    version=__version__,
+    prog_name="talonfmt",
+    message=f"%(prog)s, version %(version)s (with tree-sitter-talon, version {tree_sitter_talon.__grammar_version__})",
 )
 def cli(
     *,
@@ -140,12 +142,12 @@ def cli(
     align_match_context_at: Optional[int],
     align_short_commands: bool,
     align_short_commands_at: Optional[int],
+    preserve_blank_lines: tuple[str, ...],
     format_comments: bool,
     in_place: bool,
     fail_on_change: bool,
     fail_on_error: bool,
     verbose: bool,
-    preserve_blank_lines: tuple[str, ...],
 ):
     files_changed: list[str] = []
 
