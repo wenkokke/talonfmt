@@ -315,8 +315,7 @@ class TalonFormatter:
             if isinstance(child, TalonComment):
                 yield from self.format_lines(child)
             else:
-                yield from self.format_lines_match(child, under_and, under_not)
-                under_not = True
+                yield from self.format_lines_match(child, under_and, under_not=True)
 
     @format_lines_match.register
     def _(self, match: TalonOr, under_and: bool, under_not: bool) -> Iterator[Doc]:
