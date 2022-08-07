@@ -240,7 +240,7 @@ def cli(
                 for file in file_or_dir.glob("**/*.talon"):
                     format_file(file)
     else:
-        contents = "\n".join(sys.stdin.readlines())
+        contents = "".join(sys.stdin.readlines())
         encoding = sys.stdin.encoding
         output = format(contents, encoding=encoding)
         if output:
