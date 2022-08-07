@@ -10,7 +10,7 @@ from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRe
 
 from talonfmt.formatter import ParseError, TalonFormatter
 
-__version__: str = "1.5.0"
+__version__: str = "1.5.1"
 
 
 def talonfmt(
