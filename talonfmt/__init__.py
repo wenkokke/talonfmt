@@ -55,7 +55,7 @@ def talonfmt(
     # Create an instance of DocRenderer
     doc_renderer: DocRenderer
     if max_line_width is None:
-        # Resolve the simple layout argument
+        # Resolve --simple-layout
         simple_layout_value: SimpleLayout
         if (
             simple_layout == "longtest"
@@ -76,6 +76,7 @@ def talonfmt(
             simple_layout_value = SimpleLayout.ShortestLines
         doc_renderer = SimpleDocRenderer(simple_layout=simple_layout_value)
     else:
+        # Resolve --simple-layout
         if simple_layout is not None:
             sys.stderr.write(
                 f"Warning: incompatible options '--max-line-width' and '--simple-layout'\n"
