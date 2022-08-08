@@ -211,7 +211,7 @@ class TalonFormatter:
         previous_line: int = 0
 
         for child in node.children:
-            extra_blank_line: bool = child.start_position.row - previous_line >= 2
+            extra_blank_line: bool = child.start_position.line - previous_line >= 2
 
             if in_header and isinstance(child, TalonComment):
                 # NOTE: buffer comments in context header
@@ -254,7 +254,7 @@ class TalonFormatter:
                     yield from self.format_lines(child)
 
             # Update previous line.
-            previous_line = child.end_position.row
+            previous_line = child.end_position.line
 
         # NOTE: no body-only node, end the context header
         if in_header:
@@ -279,14 +279,14 @@ class TalonFormatter:
             if (
                 self.preserve_blank_lines_in_header
                 and previous_line is not None
-                and child.start_position.row - previous_line >= 2
+                and child.start_position.line - previous_line >= 2
             ):
                 yield Line
 
             yield from self.with_comments(self.format_lines(child))
 
             # Update previous line.
-            previous_line = child.end_position.row
+            previous_line = child.end_position.line
 
     @format_lines_match.register
     def _(self, match: TalonAnd, under_and: bool, under_not: bool) -> Iterator[Doc]:
@@ -428,7 +428,7 @@ class TalonFormatter:
             if (
                 self.preserve_blank_lines_in_command
                 and previous_line is not None
-                and child.start_position.row - previous_line >= 2
+                and child.start_position.line - previous_line >= 2
             ):
                 yield Line
 
@@ -436,7 +436,7 @@ class TalonFormatter:
                 yield from self.with_comments(line)
 
             # Update previous line.
-            previous_line = child.end_position.row
+            previous_line = child.end_position.line
 
     @format_lines.register
     def _(self, node: TalonAssignment) -> Iterator[Doc]:
