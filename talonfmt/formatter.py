@@ -38,9 +38,7 @@ from tree_sitter_talon import (
     TalonCommand,
     TalonComment,
     TalonContext,
-    TalonDocstring,
     TalonEndAnchor,
-    TalonError,
     TalonExpression,
     TalonFloat,
     TalonIdentifier,
@@ -74,8 +72,6 @@ from tree_sitter_talon import (
     TalonWord,
 )
 
-from .parse_error import ParseError
-
 TalonBlockLevelMatch = Union[
     TalonAnd,
     TalonNot,
@@ -93,7 +89,6 @@ TalonBlockLevel = Union[
     TalonAssignment,
     TalonExpression,
     TalonComment,
-    TalonDocstring,
 ]
 
 NodeVar = TypeVar("NodeVar", bound=Node)
@@ -145,8 +140,6 @@ class TalonFormatter:
             ),
         ):
             return cat(self.format_lines(node))
-        elif isinstance(node, TalonError):
-            raise ParseError(node)
         else:
             raise TypeError(type(node))
 
@@ -155,12 +148,10 @@ class TalonFormatter:
         """
         Format any block-level node as a series of lines.
         """
-        if isinstance(node, (TalonComment, TalonDocstring)):
+        if isinstance(node, TalonComment):
             yield self.format(node)
         elif isinstance(node, (TalonAnd, TalonNot, TalonMatch, TalonOr)):
             yield from self.format_lines_match(node, under_and=False, under_not=False)
-        elif isinstance(node, TalonError):
-            raise ParseError(node)
         else:
             raise TypeError(type(node))
 
@@ -175,10 +166,7 @@ class TalonFormatter:
         """
         Format any match statement or comment as a series of lines.
         """
-        if isinstance(match, TalonError):
-            raise ParseError(match)
-        else:
-            raise TypeError(type(match))
+        raise TypeError(type(match))
 
     def format_children(self, children: Iterable[Node]) -> Iterator[Doc]:
         for child in self.store_comments_with_type(children, node_type=Node):
@@ -627,20 +615,6 @@ class TalonFormatter:
             #       2. reflow text
             return (
                 "#"
-                // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
-                / Line
-            )
-        else:
-            return Text.words(node.text, collapse_whitespace=False) / Line
-
-    @format.register
-    def _(self, node: TalonDocstring) -> Doc:
-        if self.format_comments:
-            # TODO: format blocks of comments so we can:
-            #       1. decrease indentation consistently;
-            #       2. reflow text
-            return (
-                "###"
                 // Text.words(node.text.lstrip("#"), collapse_whitespace=False)
                 / Line
             )

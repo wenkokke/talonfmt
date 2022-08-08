@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import Optional, Union
 
 import click
-import tree_sitter_talon
 from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
+from tree_sitter_talon import ParseError, __grammar_version__, parse
 
-from talonfmt.formatter import ParseError, TalonFormatter
+from talonfmt.formatter import TalonFormatter
 
 __version__: str = "1.5.1"
 
@@ -83,7 +83,7 @@ def talonfmt(
             )
         doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
 
-    ast = tree_sitter_talon.parse(contents, encoding=encoding)
+    ast = parse(contents, encoding=encoding, raise_parse_error=True)
     doc = talon_formatter.format(ast)
     return doc_renderer.to_str(doc)
 
@@ -166,7 +166,7 @@ def talonfmt(
 @click.version_option(
     version=__version__,
     prog_name="talonfmt",
-    message=f"%(prog)s, version %(version)s (with tree-sitter-talon, version {tree_sitter_talon.__grammar_version__})",
+    message=f"%(prog)s, version %(version)s (with tree-sitter-talon, version {__grammar_version__})",
 )
 def cli(
     *,
