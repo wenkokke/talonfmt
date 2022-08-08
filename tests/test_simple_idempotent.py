@@ -3,7 +3,7 @@ import pytest
 from . import format_simple, format_simple_align_dynamic, format_simple_align_fixed32
 
 
-@pytest.mark.golden_test("golden/simple/default/*.yml")
+@pytest.mark.golden_test("data/golden/simple/default/*.yml")
 def test_simple_idempotent(golden):
     assert golden["input"] is not None
     output = format_simple(golden["output"])
@@ -12,7 +12,7 @@ def test_simple_idempotent(golden):
     ), "Formatter with default options is not idempotent"
 
 
-@pytest.mark.golden_test("golden/simple/align/dynamic/*.yml")
+@pytest.mark.golden_test("data/golden/simple/align/dynamic/*.yml")
 def test_simple_align_dynamic_idempotent(golden):
     assert golden["input"] is not None
     output = format_simple_align_dynamic(golden["output"])
@@ -21,7 +21,7 @@ def test_simple_align_dynamic_idempotent(golden):
     ), "Formatter with dynamic alignment is not idempotent"
 
 
-@pytest.mark.golden_test("golden/simple/align/fixed32/*.yml")
+@pytest.mark.golden_test("data/golden/simple/align/fixed32/*.yml")
 def test_simple_align_fixed32_idempotent(golden):
     assert golden["input"] is not None
     output = format_simple_align_fixed32(golden["output"])

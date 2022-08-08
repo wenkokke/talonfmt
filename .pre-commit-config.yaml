@@ -1,5 +1,4 @@
 minimum_pre_commit_version: "2.9.0"
-exclude: "^test/golden"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v4.3.0"
@@ -20,6 +19,7 @@ repos:
     rev: "v2.7.1"
     hooks:
       - id: prettier
+        exclude: "^tests/data/golden"
   - repo: https://github.com/ikamensh/flynt/
     rev: "0.76"
     hooks:

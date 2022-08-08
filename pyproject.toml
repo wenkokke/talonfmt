@@ -16,8 +16,8 @@ classifiers = [
 ]
 dependencies = [
   "click >= 8, <= 9",
-  "tree_sitter_talon == 1.8.1",
-  "doc_printer == 0.13.1",
+  "tree_sitter_talon ==1.8.2",
+  "doc_printer ==0.13.1",
 ]
 
 [project.optional-dependencies]

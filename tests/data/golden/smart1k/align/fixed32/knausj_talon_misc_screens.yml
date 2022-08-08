@@ -1,0 +1,6 @@
+input: 'screen numbers:   user.screens_show_numbering()
+
+  '
+output: |
+  -
+  screen numbers:                  user.screens_show_numbering()
