@@ -10,7 +10,7 @@ def format_simple(contents: str, **kwargs) -> str:
     try:
         return talonfmt.talonfmt(contents=contents, **kwargs)
     except ParseError as e:
-        pytest.fail(e.message(contents=contents))
+        pytest.fail(str(e))
 
 
 KWARGS_ALIGN_DYNAMIC: dict[str, bool] = {
