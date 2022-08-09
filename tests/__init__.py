@@ -1,15 +1,19 @@
-from typing import Union
+import pathlib
+import typing
 
 import pytest
 
 import talonfmt
-from talonfmt import ParseError
+
+
+def golden_path(golden) -> str:
+    return str(golden.path.relative_to(pathlib.Path(__file__).parent))
 
 
 def format_simple(contents: str, **kwargs) -> str:
     try:
         return talonfmt.talonfmt(contents=contents, **kwargs)
-    except ParseError as e:
+    except talonfmt.ParseError as e:
         pytest.fail(str(e))
 
 
@@ -23,7 +27,7 @@ def format_simple_align_dynamic(contents: str, **kwargs) -> str:
     return format_simple(contents, **(KWARGS_ALIGN_DYNAMIC | kwargs))
 
 
-KWARGS_ALIGN_FIXED32: dict[str, Union[int, bool]] = {
+KWARGS_ALIGN_FIXED32: dict[str, typing.Union[int, bool]] = {
     "align_match_context": True,
     "align_match_context_at": 32,
     "align_short_commands": True,

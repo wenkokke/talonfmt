@@ -16,6 +16,7 @@ __version__: str = "1.5.1"
 def talonfmt(
     contents: str,
     *,
+    filename: Optional[str] = None,
     encoding: str = "utf-8",
     indent_size: int = 4,
     max_line_width: Optional[int] = None,
@@ -201,6 +202,7 @@ def cli(
         try:
             output = talonfmt(
                 contents,
+                filename=filename,
                 encoding=encoding,
                 indent_size=indent_size,
                 max_line_width=max_line_width,
