@@ -218,7 +218,7 @@ def cli(
                 files_changed.append(filename)
             return output
         except ParseError as e:
-            sys.stderr.write(e.message(contents=contents, filename=filename))
+            sys.stderr.write(str(e))
             if fail_on_error:
                 exit(1)
         return None
