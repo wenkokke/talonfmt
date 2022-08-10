@@ -16,13 +16,17 @@ classifiers = [
 ]
 dependencies = [
   "click >= 8, <= 9",
-  "tree_sitter_talon ==1.8.2",
+  "tree_sitter_talon ==1.8.5",
   "doc_printer ==0.13.1",
 ]
 
 [project.optional-dependencies]
 dev = ["build >=0.8.0, <0.9", "twine >=4.0.1, <4.1"]
-test = ["pytest >=7.1.2, <7.2", "pytest-golden >=0.2.2, <0.3"]
+test = [
+  "pytest >=7.1.2, <7.2",
+  "pytest-benchmark >=3.4.1, <4",
+  "pytest-golden >=0.2.2, <0.3",
+]
 
 [project.urls]
 repository = "https://github.com/wenkokke/talonfmt"
@@ -61,6 +65,7 @@ isolated_build = True
 [testenv]
 deps =
   pytest >=7.1.2, <8
+  pytest-benchmark >=3.4.1, <4
   pytest-golden >=0.2.2, <0.3
 commands = pytest
 """
