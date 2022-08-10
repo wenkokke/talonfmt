@@ -21,7 +21,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["build >=0.8.0, <0.9", "twine >=4.0.1, <4.1"]
+dev = [
+  "build >=0.8.0, <0.9",
+  "pytest-benchmark[histogram] >=3.4.1, <4",
+  "twine >=4.0.1, <4.1"]
 test = [
   "pytest >=7.1.2, <7.2",
   "pytest-benchmark >=3.4.1, <4",
@@ -37,12 +40,12 @@ talonfmt = "talonfmt:cli"
 [tool.setuptools.package-data]
 talonfmt = ["py.typed"]
 
-[pytest]
-testpaths = "tests"
-
 [tool.pytest.ini_options]
 enable_assertion_pass_hook = true
 filterwarnings = ["ignore::DeprecationWarning:.*:"]
+minversion = "6.0"
+addopts = "--benchmark-autosave"
+testpaths = ["tests"]
 
 [tool.bumpver]
 current_version = "1.5.1"
