@@ -36,7 +36,7 @@ jobs:
       # Test
       ################################################################################
       - name: Run PyTest
-        run: pytest
+        run: pytest --benchmark-disable
 
   release:
     name: Release
