@@ -115,6 +115,7 @@ class TalonFormatter:
     indent_size: int
     align_match_context: Union[bool, int]
     align_short_commands: Union[bool, int]
+    blank_line_after_match_context: bool
     format_comments: bool
     preserve_blank_lines_in_header: bool
     preserve_blank_lines_in_body: bool
@@ -229,7 +230,10 @@ class TalonFormatter:
                     child, (TalonIncludeTag, TalonSettings, TalonCommand)
                 ):
                     yield Text("-") / Line
-                    # NOTE: no blank lines after "-"
+                    # NOTE: no blank lines after "-" unless
+                    #       blank_line_after_match_context is set
+                    if self.blank_line_after_match_context:
+                        yield Line
                     if comment_buffer:
                         yield from itertools.dropwhile(
                             lambda doc: doc is Line, clear_comment_buffer()
