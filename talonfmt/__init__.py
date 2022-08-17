@@ -10,7 +10,7 @@ from tree_sitter_talon import ParseError, __grammar_version__, parse
 
 from talonfmt.formatter import TalonFormatter
 
-__version__: str = "1.5.1"
+__version__: str = "1.6.0"
 
 
 def talonfmt(
