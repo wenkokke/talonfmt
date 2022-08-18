@@ -67,6 +67,7 @@ output: |
   browser.host: /gitlab\.com/
   # win.title: /GitLab/
   -
+
   # global shortcuts
   show shortcuts: key(?)
   go to projects [page]: key(shift-p)

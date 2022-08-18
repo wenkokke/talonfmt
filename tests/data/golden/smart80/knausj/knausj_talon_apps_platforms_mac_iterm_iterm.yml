@@ -13,6 +13,7 @@ output: |
   os: mac
   app: iterm2
   -
+
   tag(): terminal
   # todo: filemanager support
   # tag(): user.file_manager

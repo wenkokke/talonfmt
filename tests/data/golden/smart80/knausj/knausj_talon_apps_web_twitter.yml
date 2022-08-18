@@ -41,6 +41,7 @@ output: |
   browser.host: twitter.com
   # win.title: /Twitter/
   -
+
   # navigation
   (show shortcuts | shortcuts help): key(?)
   next tweet: key(j)

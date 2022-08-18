@@ -35,6 +35,7 @@ input: |
 output: |
   app: windows_terminal
   -
+
   # makes the commands in generic_terminal available
   tag(): terminal
 
