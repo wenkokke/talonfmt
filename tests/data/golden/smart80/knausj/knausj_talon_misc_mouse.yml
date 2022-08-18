@@ -37,8 +37,6 @@ input: "control mouse: user.mouse_toggle_control_mouse()\nzoom mouse: user.mouse
   Please activate the user.mouse_cursor_commands_enable tag to enable this command\"\
   )\n"
 output: |
-  -
-
   control mouse: user.mouse_toggle_control_mouse()
   zoom mouse: user.mouse_toggle_zoom_mouse()
   camera overlay: user.mouse_toggle_camera_overlay()

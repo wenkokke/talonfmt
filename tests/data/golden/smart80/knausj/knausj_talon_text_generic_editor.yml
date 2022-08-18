@@ -218,8 +218,6 @@ input: |
       edit.select_line()
       edit.cut()
 output: |
-  -
-
   find it: edit.find()
 
   next one: edit.find_next()

@@ -224,7 +224,8 @@ class TalonFormatter:
             elif isinstance(child, TalonContext):
                 # NOTE: format match context
                 assert in_header
-                header_has_content = True
+                if child.children:
+                    header_has_content = True
                 yield from clear_comment_buffer()
                 yield from self.format_lines(child)
             else:

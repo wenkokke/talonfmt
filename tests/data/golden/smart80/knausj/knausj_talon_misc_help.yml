@@ -15,8 +15,6 @@ input: |
   help help: user.help_search("help")
   help scope$: user.help_scope_toggle()
 output: |
-  -
-
   help alphabet: user.help_list("user.letter")
   help symbols: user.help_list("user.symbol_key")
   help numbers: user.help_list("user.number_key")

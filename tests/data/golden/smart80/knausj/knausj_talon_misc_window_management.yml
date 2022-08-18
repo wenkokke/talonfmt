@@ -19,8 +19,6 @@ input: |
   snap <user.running_applications> [screen] <number>:
       user.move_app_to_screen(running_applications, number)
 output: |
-  -
-
   window (new | open): app.window_open()
   window next: app.window_next()
   window last: app.window_previous()
