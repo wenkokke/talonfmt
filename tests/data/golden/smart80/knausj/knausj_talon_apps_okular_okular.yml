@@ -1,0 +1,10 @@
+input: |
+  app: okular
+  -
+  # Set tags
+  tag(): user.pages
+output: |
+  app: okular
+  -
+  # Set tags
+  tag(): user.pages

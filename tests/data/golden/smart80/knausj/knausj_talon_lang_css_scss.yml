@@ -1,0 +1,8 @@
+input: |
+  tag: user.scss
+  -
+  tag(): user.css
+output: |
+  tag: user.scss
+  -
+  tag(): user.css

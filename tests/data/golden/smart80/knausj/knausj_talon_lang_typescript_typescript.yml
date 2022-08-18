@@ -1,0 +1,8 @@
+input: |
+  tag: user.typescript
+  -
+  tag(): user.javascript
+output: |
+  tag: user.typescript
+  -
+  tag(): user.javascript

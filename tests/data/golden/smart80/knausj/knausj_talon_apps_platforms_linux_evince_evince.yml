@@ -1,0 +1,10 @@
+input: |
+  app: evince
+  -
+  # Set tags
+  tag(): user.pages
+output: |
+  app: evince
+  -
+  # Set tags
+  tag(): user.pages

@@ -67,3 +67,13 @@ def format_smart80_align_dynamic(contents: str, **kwargs) -> str:
 
 def format_smart80_align_fixed32(contents: str, **kwargs) -> str:
     return format_simple_align_fixed32(contents, **(KWARGS_MAX_LINE_WIDTH_80 | kwargs))
+
+
+KWARGS_KNAUSJ: dict[str, typing.Union[int, bool]] = {
+    "omit_empty_match_context": True,
+    "blank_line_after_match_context": True,
+}
+
+
+def format_smart80_knausj(contents: str, **kwargs) -> str:
+    return format_smart80(contents, **KWARGS_KNAUSJ)

@@ -116,6 +116,7 @@ class TalonFormatter:
     align_match_context: Union[bool, int]
     align_short_commands: Union[bool, int]
     blank_line_after_match_context: bool
+    omit_empty_match_context: bool
     format_comments: bool
     preserve_blank_lines_in_header: bool
     preserve_blank_lines_in_body: bool
@@ -183,8 +184,9 @@ class TalonFormatter:
     @format_lines.register
     def _(self, node: TalonSourceFile) -> Iterator[Doc]:
 
-        # Used to emit the context header separator.
+        # Used to emit the match context separator.
         in_header: bool = True
+        header_has_content: bool = False
 
         # Used to buffer comments to ensure that they're split correctly
         # between the header and body.
@@ -215,25 +217,27 @@ class TalonFormatter:
             extra_blank_line: bool = child.start_position.line - previous_line >= 2
 
             if in_header and isinstance(child, TalonComment):
-                # NOTE: buffer comments in context header
+                # NOTE: buffer comments in match context
                 if self.preserve_blank_lines_in_body and extra_blank_line:
                     comment_buffer.append(Line)
                 comment_buffer.append(self.format(child))
             elif isinstance(child, TalonContext):
-                # NOTE: format context header
+                # NOTE: format match context
                 assert in_header
+                header_has_content = True
                 yield from clear_comment_buffer()
                 yield from self.format_lines(child)
             else:
-                # NOTE: first body-only node, end the context header
+                # NOTE: first body-only node, end the match context
                 if in_header and isinstance(
                     child, (TalonIncludeTag, TalonSettings, TalonCommand)
                 ):
-                    yield Text("-") / Line
-                    # NOTE: no blank lines after "-" unless
-                    #       blank_line_after_match_context is set
-                    if self.blank_line_after_match_context:
-                        yield Line
+                    if header_has_content or not self.omit_empty_match_context:
+                        yield Text("-") / Line
+                        # NOTE: no blank lines after "-" unless
+                        #       blank_line_after_match_context is set
+                        if self.blank_line_after_match_context:
+                            yield Line
                     if comment_buffer:
                         yield from itertools.dropwhile(
                             lambda doc: doc is Line, clear_comment_buffer()
@@ -260,9 +264,14 @@ class TalonFormatter:
             # Update previous line.
             previous_line = child.end_position.line
 
-        # NOTE: no body-only node, end the context header
+        # NOTE: no body-only node, end the match context
         if in_header:
-            yield Text("-") / Line
+            if header_has_content or not self.omit_empty_match_context:
+                yield Text("-") / Line
+                # NOTE: no blank lines after "-" unless
+                #       blank_line_after_match_context is set
+                if self.blank_line_after_match_context:
+                    yield Line
             yield from clear_comment_buffer()
 
         # NOTE: clear remaining short commands in buffer
@@ -270,7 +279,7 @@ class TalonFormatter:
             yield from clear_short_command_buffer()
 
     ###########################################################################
-    # Format: Context Header
+    # Format: Match Context
     ###########################################################################
 
     @format_lines.register

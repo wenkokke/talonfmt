@@ -27,6 +27,7 @@ def talonfmt(
     simple_layout: Optional[str] = None,
     format_comments: bool = True,
     blank_line_after_match_context: bool = False,
+    omit_empty_match_context: bool = False,
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ) -> str:
     # Enable align_match_context if align_match_context_at is set:
@@ -49,6 +50,7 @@ def talonfmt(
         align_match_context=merged_match_context,
         align_short_commands=merged_short_commands,
         blank_line_after_match_context=blank_line_after_match_context,
+        omit_empty_match_context=omit_empty_match_context,
         format_comments=format_comments,
         preserve_blank_lines_in_header="header" in preserve_blank_lines,
         preserve_blank_lines_in_body="body" in preserve_blank_lines,
@@ -140,6 +142,11 @@ def talonfmt(
     show_default=True,
 )
 @click.option(
+    "--omit-empty-match-context/--no-omit-empty-match-context",
+    default=False,
+    show_default=True,
+)
+@click.option(
     "--format-comments/--no-format-comments",
     default=True,
     show_default=True,
@@ -188,6 +195,7 @@ def cli(
     preserve_blank_lines: tuple[str, ...],
     simple_layout: Optional[str],
     blank_line_after_match_context: bool,
+    omit_empty_match_context: bool,
     format_comments: bool,
     in_place: bool,
     fail_on_change: bool,
@@ -220,6 +228,7 @@ def cli(
                 align_short_commands_at=align_short_commands_at,
                 simple_layout=simple_layout,
                 blank_line_after_match_context=blank_line_after_match_context,
+                omit_empty_match_context=omit_empty_match_context,
                 format_comments=format_comments,
                 preserve_blank_lines=preserve_blank_lines,
             )
