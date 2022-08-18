@@ -44,7 +44,7 @@ talonfmt = ["py.typed"]
 enable_assertion_pass_hook = true
 filterwarnings = ["ignore::DeprecationWarning:.*:"]
 minversion = "6.0"
-addopts = "--benchmark-autosave"
+# addopts = "--benchmark-autosave"
 testpaths = ["tests"]
 
 [tool.bumpver]
