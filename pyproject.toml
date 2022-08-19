@@ -16,15 +16,16 @@ classifiers = [
 ]
 dependencies = [
   "click >= 8, <= 9",
-  "tree_sitter_talon ==2.0.0",
   "doc_printer ==0.13.1",
+  "tree_sitter_talon ==2.1.1",
 ]
 
 [project.optional-dependencies]
 dev = [
   "build >=0.8.0, <0.9",
   "pytest-benchmark[histogram] >=3.4.1, <4",
-  "twine >=4.0.1, <4.1"]
+  "twine >=4.0.1, <4.1"
+]
 test = [
   "pytest >=7.1.2, <7.2",
   "pytest-benchmark >=3.4.1, <4",

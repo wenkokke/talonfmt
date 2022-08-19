@@ -1,32 +1,39 @@
+import re
 import sys
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
-from tree_sitter_talon import Node, __grammar_version__, parse
+from tree_sitter_talon import (
+    Node,
+    TalonComment,
+    TalonImplicitString,
+    __grammar_version__,
+    parse,
+)
 
-from talonfmt.formatter import EmptyMatchContext, TalonFormatter
+from .formatter import EmptyMatchContext, TalonFormatter
 
 
-def simplify_ast(ast: Node) -> dict[str, Any]:
-    return simplify_node_dict(ast.to_dict())
+def _collapse_whitespace(text: str) -> str:
+    return re.sub(r"\s+", " ", text)
 
 
-def simplify_node_dict(node_dict: dict[str, Any]) -> dict[str, Any]:
-    if len(node_dict) > 4:
-        del node_dict["text"]
+def _assert_equivalent_TalonComment(node1: TalonComment, node2: Node):
+    assert isinstance(node2, TalonComment)
+    assert _collapse_whitespace(node1.text) == _collapse_whitespace(node2.text)
 
-    del node_dict["start_position"]
-    del node_dict["end_position"]
 
-    for key in node_dict.keys():
-        if isinstance(node_dict[key], dict):
-            simplify_node_dict(node_dict[key])
-        if isinstance(node_dict[key], list):
-            for val in node_dict[key]:
-                if isinstance(val, dict):
-                    simplify_node_dict(val)
+setattr(TalonComment, "assert_equivalent", _assert_equivalent_TalonComment)
 
-    return node_dict
+
+def _assert_equivalent_TalonImplicitString(node1: TalonImplicitString, node2: Node):
+    assert isinstance(node2, TalonImplicitString)
+    assert node1.text.strip() == node2.text.strip()
+
+
+setattr(
+    TalonImplicitString, "assert_equivalent", _assert_equivalent_TalonImplicitString
+)
 
 
 def talonfmt(
@@ -120,16 +127,15 @@ def talonfmt(
 
     formatted = render(ast_for_contents, verbose=True)
 
-    ast_for_formatted = parse(formatted, encoding=encoding, raise_parse_error=True)
+    # safety tests:
+    if contents != formatted:
+        ast_for_formatted = parse(formatted, encoding=encoding, raise_parse_error=True)
+        # assert: parsing output results in a similar AST
+        ast_for_contents.assert_equivalent(ast_for_formatted)
 
-    # assert: parsing output results in a similar AST
-    # assert simplify_ast(ast_for_contents) == simplify_ast(
-    #     ast_for_formatted
-    # ), f"Formatting {filename or 'input'} does not preserve meaning."
-
-    # assert: formatting twice results in the same output
-    assert formatted == render(
-        ast_for_formatted, verbose=False
-    ), f"Formatting {filename or 'input'} twice gives a differrent result."
+        # assert: formatting twice results in the same output
+        assert formatted == render(
+            ast_for_formatted, verbose=False
+        ), f"Formatting {filename or 'input'} twice gives a differrent result."
 
     return formatted
