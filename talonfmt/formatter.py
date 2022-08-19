@@ -56,7 +56,6 @@ from tree_sitter_talon import (
     TalonOr,
     TalonParenthesizedExpression,
     TalonParenthesizedRule,
-    TalonRegexEscapeSequence,
     TalonRepeat,
     TalonRepeat1,
     TalonRule,
@@ -500,13 +499,6 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonParenthesizedExpression) -> Doc:
         return parens(self.format(self.get_node(node.children)))
-
-    @format.register
-    def _(self, node: TalonRegexEscapeSequence) -> Doc:
-        if node.children:
-            return braces(self.format_children(node.children))
-        else:
-            return braces(Empty)
 
     @format.register
     def _(self, node: TalonSleepAction) -> Doc:
