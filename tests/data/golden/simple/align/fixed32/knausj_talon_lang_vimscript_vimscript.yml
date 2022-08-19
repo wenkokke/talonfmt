@@ -41,6 +41,7 @@ input: |
 output: |
   tag:                             user.vimscript
   -
+
   tag(): user.code_imperative
   tag(): user.code_operators_assignment
   tag(): user.code_operators_math
@@ -55,9 +56,9 @@ output: |
       user.code_protected_variable_formatter = "SNAKE_CASE"
       user.code_public_variable_formatter = "SNAKE_CASE"
 
-  #
+  ###
   # VIM Script Specific
-  #
+  ###
   assign [<user.vimscript_scope>] (variable | var) [<user.text>] [over]:
       insert("let ")
       insert(vimscript_scope or "")

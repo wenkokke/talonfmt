@@ -72,6 +72,7 @@ output: |
   tag: browser
   win.title: /Outlook/
   -
+
   # write email
   new message:
       key(n)

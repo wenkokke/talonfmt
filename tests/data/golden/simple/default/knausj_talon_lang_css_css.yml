@@ -46,6 +46,7 @@ input: |
 output: |
   tag: user.css
   -
+
   tag(): user.code_comment_block_c_like
   tag(): user.code_functions_common
   tag(): user.code_libraries

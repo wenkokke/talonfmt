@@ -21,6 +21,7 @@ output: |
   os: windows
   and app.exe: powershell.exe
   -
+
   # makes the commands in generic_terminal available
   tag(): terminal
 

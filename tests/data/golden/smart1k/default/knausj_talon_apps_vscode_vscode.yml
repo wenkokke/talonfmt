@@ -125,9 +125,10 @@ input: "#custom vscode commands go here\napp: vscode\n-\ntag(): user.find_and_re
   )\ncell run: user.vscode(\"jupyter.runcurrentcell\")\n\ninstall local: user.vscode(\"\
   workbench.extensions.action.installVSIX\")\n"
 output: |
-  # custom vscode commands go here
+  #custom vscode commands go here
   app: vscode
   -
+
   tag(): user.find_and_replace
   tag(): user.line_commands
   tag(): user.multiple_cursors
@@ -136,7 +137,7 @@ output: |
   tag(): user.tabs
   window reload: user.vscode("workbench.action.reloadWindow")
   window close: user.vscode("workbench.action.closeWindow")
-  # multiple_cursor.py support end
+  #multiple_cursor.py support end
 
   please [<user.text>]:
       user.vscode("workbench.action.showCommands")
@@ -228,7 +229,7 @@ output: |
   refactor rename: user.vscode("editor.action.rename")
   refactor this: user.vscode("editor.action.refactor")
 
-  # code navigation
+  #code navigation
   (go declaration | follow): user.vscode("editor.action.revealDefinition")
   go back: user.vscode("workbench.action.navigateBack")
   go forward: user.vscode("workbench.action.navigateForward")
@@ -308,7 +309,7 @@ output: |
   change next: key(alt-f5)
   change last: key(shift-alt-f5)
 
-  # Debugging
+  #Debugging
   break point: user.vscode("editor.debug.action.toggleBreakpoint")
   step over: user.vscode("workbench.action.debug.stepOver")
   debug step into: user.vscode("workbench.action.debug.stepInto")
@@ -333,11 +334,11 @@ output: |
   terminal scroll down: user.vscode("workbench.action.terminal.scrollDown")
   terminal <number_small>: user.vscode_terminal(number_small)
 
-  # TODO: should this be added to linecommands?
+  #TODO: should this be added to linecommands?
   copy line down: user.vscode("editor.action.copyLinesDownAction")
   copy line up: user.vscode("editor.action.copyLinesUpAction")
 
-  # Expand/Shrink AST Selection
+  #Expand/Shrink AST Selection
   select less: user.vscode("editor.action.smartSelect.shrink")
   select (more | this): user.vscode("editor.action.smartSelect.expand")
 
@@ -345,7 +346,7 @@ output: |
   maximize: user.vscode("workbench.action.minimizeOtherEditors")
   restore: user.vscode("workbench.action.evenEditorWidths")
 
-  # breadcrumb
+  #breadcrumb
   select breadcrumb: user.vscode("breadcrumbs.focusAndSelect")
   # Use `alt-left` and `alt-right` to navigate the bread crumb
 

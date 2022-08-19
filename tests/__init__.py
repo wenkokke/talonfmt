@@ -6,6 +6,24 @@ import pytest
 import talonfmt
 
 
+def node_dict_simplify(node_dict: dict[str, typing.Any]) -> dict[str, typing.Any]:
+    if len(node_dict) > 4:
+        del node_dict["text"]
+
+    del node_dict["start_position"]
+    del node_dict["end_position"]
+
+    for key in node_dict.keys():
+        if isinstance(node_dict[key], dict):
+            node_dict_simplify(node_dict[key])
+        if isinstance(node_dict[key], list):
+            for val in node_dict[key]:
+                if isinstance(val, dict):
+                    node_dict_simplify(val)
+
+    return node_dict
+
+
 def golden_path(golden) -> str:
     return str(golden.path.relative_to(pathlib.Path(__file__).parent))
 
@@ -67,13 +85,3 @@ def format_smart80_align_dynamic(contents: str, **kwargs) -> str:
 
 def format_smart80_align_fixed32(contents: str, **kwargs) -> str:
     return format_simple_align_fixed32(contents, **(KWARGS_MAX_LINE_WIDTH_80 | kwargs))
-
-
-KWARGS_KNAUSJ: dict[str, typing.Union[int, bool]] = {
-    "omit_empty_match_context": True,
-    "blank_line_after_match_context": True,
-}
-
-
-def format_smart80_knausj(contents: str, **kwargs) -> str:
-    return format_smart80(contents, **KWARGS_KNAUSJ)

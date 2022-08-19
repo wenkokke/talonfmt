@@ -7,6 +7,7 @@ input: |
       mode.disable("user.gdb")
 output: |
   -
+
   ^force {user.language_mode}$:
       user.code_set_language_mode(language_mode)
   ^clear language modes$:

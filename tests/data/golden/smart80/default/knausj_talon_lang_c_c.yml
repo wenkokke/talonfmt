@@ -97,6 +97,7 @@ input: |
 output: |
   tag: user.c
   -
+
   tag(): user.code_imperative
 
   tag(): user.code_comment_line
@@ -147,14 +148,14 @@ output: |
   state pragma: "#pragma "
   state default: "default:\nbreak;"
 
-  # control flow
-  # best used with a push like command
-  # the below example may not work in editors that automatically add the closing bracket
-  # if so uncomment the two lines and comment out the rest accordingly
+  #control flow
+  #best used with a push like command
+  #the below example may not work in editors that automatically add the closing bracket
+  #if so uncomment the two lines and comment out the rest accordingly
   push brackets:
       edit.line_end()
-      # insert("{")
-      # key(enter)
+      #insert("{")
+      #key(enter)
       insert("{}")
       edit.left()
       key(enter)

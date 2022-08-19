@@ -21,6 +21,7 @@ output: |
   os:                              linux
   and app.name:                    konsole
   -
+
   # makes the commands in generic_terminal available
   tag(): terminal
 

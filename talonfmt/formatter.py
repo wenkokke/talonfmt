@@ -1,4 +1,5 @@
 import dataclasses
+import enum
 import itertools
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
@@ -7,7 +8,6 @@ from typing import Optional, TypeVar, Union
 from doc_printer import (
     Doc,
     DocLike,
-    Empty,
     Fail,
     Line,
     Space,
@@ -93,6 +93,12 @@ TalonBlockLevel = Union[
 NodeVar = TypeVar("NodeVar", bound=Node)
 
 
+class EmptyMatchContext(enum.IntEnum):
+    Show = 0
+    Keep = 1
+    Hide = 2
+
+
 def is_short_command(node: TalonCommand) -> bool:
     return len(node.children) + len(node.script.children) == 1
 
@@ -115,11 +121,19 @@ class TalonFormatter:
     align_match_context: Union[bool, int]
     align_short_commands: Union[bool, int]
     blank_line_after_match_context: bool
-    omit_empty_match_context: bool
+    empty_match_context: EmptyMatchContext
     format_comments: bool
     preserve_blank_lines_in_header: bool
     preserve_blank_lines_in_body: bool
     preserve_blank_lines_in_command: bool
+
+    @property
+    def show_empty_match_context(self) -> bool:
+        return self.empty_match_context is EmptyMatchContext.Show
+
+    @property
+    def keep_empty_match_context(self) -> bool:
+        return self.empty_match_context is EmptyMatchContext.Keep
 
     @singledispatchmethod
     def format(self, node: Node) -> Doc:
@@ -223,7 +237,7 @@ class TalonFormatter:
             elif isinstance(child, TalonContext):
                 # NOTE: format match context
                 assert in_header
-                if child.children:
+                if child.children or self.keep_empty_match_context:
                     header_has_content = True
                 yield from clear_comment_buffer()
                 yield from self.format_lines(child)
@@ -232,7 +246,7 @@ class TalonFormatter:
                 if in_header and isinstance(
                     child, (TalonIncludeTag, TalonSettings, TalonCommand)
                 ):
-                    if header_has_content or not self.omit_empty_match_context:
+                    if header_has_content or self.show_empty_match_context:
                         yield Text("-") / Line
                         # NOTE: no blank lines after "-" unless
                         #       blank_line_after_match_context is set
@@ -266,7 +280,7 @@ class TalonFormatter:
 
         # NOTE: no body-only node, end the match context
         if in_header:
-            if header_has_content or not self.omit_empty_match_context:
+            if header_has_content or self.show_empty_match_context:
                 yield Text("-") / Line
                 # NOTE: no blank lines after "-" unless
                 #       blank_line_after_match_context is set

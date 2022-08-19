@@ -98,12 +98,13 @@ output: |
   os: windows
   app: visual_studio
   -
+
   tag(): user.tabs
   tag(): user.line_commands
   tag(): user.find_and_replace
   tag(): user.snippets
   tag(): user.multiple_cursors
-  # multiple_cursor.py support end
+  #multiple_cursor.py support end
 
   # Panels
   panel solution:
@@ -126,8 +127,8 @@ output: |
   # Settings
   show settings:
       key(alt-t o)
-  # show shortcuts:
-  # show snippets:
+  #show shortcuts:
+  #show snippets:
 
   # Display
   fullscreen switch:
@@ -141,7 +142,7 @@ output: |
       insert(text or "")
   file create:
       key(ctrl-n)
-  # file open folder:
+  #file open folder:
   file rename:
       key(ctrl-[ s f2)
   file reveal:
@@ -179,7 +180,7 @@ output: |
   refactor that:
       key(ctrl-r ctrl-r)
 
-  # code navigation
+  #code navigation
   (go declaration | follow):
       key(ctrl-f12)
   go back:
@@ -221,7 +222,7 @@ output: |
   fold definitions:
       key(ctrl-m ctrl-o)
 
-  # Debugging
+  #Debugging
   break point:
       key(f9)
   step over:

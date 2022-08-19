@@ -15,6 +15,7 @@ input: |
   slap: edit.line_insert_down()
 output: |
   -
+
   zoom in:         edit.zoom_in()
   zoom out:        edit.zoom_out()
   zoom reset:      edit.zoom_reset()

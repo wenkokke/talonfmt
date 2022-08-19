@@ -5,4 +5,5 @@ input: |
 output: |
   tag:                             user.javascriptreact
   -
+
   tag(): user.javascript

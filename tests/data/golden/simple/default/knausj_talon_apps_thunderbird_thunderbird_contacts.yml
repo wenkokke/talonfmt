@@ -11,6 +11,7 @@ input: |
 output: |
   app: thunderbird_contacts
   -
+
   contact new:
       user.thunderbird_mod("n")
   contact edit:

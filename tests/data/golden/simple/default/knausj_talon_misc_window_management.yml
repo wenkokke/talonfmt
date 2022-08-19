@@ -20,6 +20,7 @@ input: |
       user.move_app_to_screen(running_applications, number)
 output: |
   -
+
   window (new | open):
       app.window_open()
   window next:

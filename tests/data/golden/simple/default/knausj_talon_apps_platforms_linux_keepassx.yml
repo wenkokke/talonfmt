@@ -24,6 +24,7 @@ input: |
 output: |
   app: keepass
   -
+
   # Database
   open database:
       key(ctrl-o)

@@ -219,6 +219,7 @@ input: |
       edit.cut()
 output: |
   -
+
   find it:       edit.find()
   next one:      edit.find_next()
   go word left:  edit.word_left()
@@ -302,11 +303,11 @@ output: |
       edit.select_all()
       edit.delete()
 
-  # copy commands
+  #copy commands
   copy all:
       edit.select_all()
       edit.copy()
-  # to do: do we want these variants, seem to conflict
+  #to do: do we want these variants, seem to conflict
   # copy left:
   #      edit.extend_left()
   #      edit.copy()
@@ -336,11 +337,11 @@ output: |
       edit.select_line()
       edit.copy()
 
-  # cut commands
+  #cut commands
   cut all:
       edit.select_all()
       edit.cut()
-  # to do: do we want these variants
+  #to do: do we want these variants
   # cut left:
   #      edit.select_all()
   #      edit.cut()

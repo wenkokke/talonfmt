@@ -255,6 +255,7 @@ output: |
   # Requires https://plugins.jetbrains.com/plugin/10504-voice-code-idea
   app: jetbrains
   -
+
   tag(): user.line_commands
   tag(): user.multiple_cursors
   tag(): user.splits
@@ -290,7 +291,7 @@ output: |
   rename file:               user.idea("action RenameFile")
   fix (format | formatting): user.idea("action ReformatCode")
   fix imports:               user.idea("action OptimizeImports")
-  # navigation
+  #navigation
   (go declaration | follow): user.idea("action GotoDeclaration")
   go implementation:         user.idea("action GotoImplementation")
   go usage:                  user.idea("action FindUsages")
@@ -468,7 +469,7 @@ output: |
   # Special Selects
   select less:          user.idea("action EditorUnSelectWord")
   select (more | this): user.idea("action EditorSelectWord")
-  # jet brains-specific line commands. see line_commands.talon for generic ones
+  #jet brains-specific line commands. see line_commands.talon for generic ones
   expand <number> until <number>:
       user.select_range(number_1, number_2)
       user.idea("action ExpandRegion")
@@ -483,7 +484,7 @@ output: |
       user.idea("action Refactorings.QuickListPopupAction")
   clone <number>: user.line_clone(number)
 
-  # find/replace
+  #find/replace
   clear last <user.text> [over]:
       user.idea("find prev {text}, action EditorBackSpace")
   clear next <user.text> [over]:

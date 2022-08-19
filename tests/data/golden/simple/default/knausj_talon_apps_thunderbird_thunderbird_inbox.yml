@@ -31,6 +31,7 @@ input: |
 output: |
   app: thunderbird_inbox
   -
+
   # navigate
   (mail | message) open:
       key(enter)

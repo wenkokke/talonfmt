@@ -1,9 +1,0 @@
-input: |
-  tag: user.javascriptreact
-  -
-  tag(): user.javascript
-output: |
-  tag: user.javascriptreact
-  -
-
-  tag(): user.javascript

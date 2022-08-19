@@ -38,6 +38,7 @@ input: "control mouse: user.mouse_toggle_control_mouse()\nzoom mouse: user.mouse
   )\n"
 output: |
   -
+
   control mouse:   user.mouse_toggle_control_mouse()
   zoom mouse:      user.mouse_toggle_zoom_mouse()
   camera overlay:  user.mouse_toggle_camera_overlay()
@@ -60,13 +61,13 @@ output: |
       # close the mouse grid
       user.grid_close()
 
-  # see keys.py for modifiers.
-  # defaults
-  # command
-  # control
-  # option = alt
-  # shift
-  # super = windows key
+  #see keys.py for modifiers.
+  #defaults
+  #command
+  #control
+  #option = alt
+  #shift
+  #super = windows key
   <user.modifiers> touch:
       key("{modifiers}:down")
       mouse_click(0)

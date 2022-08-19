@@ -44,6 +44,7 @@ input: |
 output: |
   tag:                             user.scala
   -
+
   tag(): user.code_imperative
   tag(): user.code_object_oriented
 

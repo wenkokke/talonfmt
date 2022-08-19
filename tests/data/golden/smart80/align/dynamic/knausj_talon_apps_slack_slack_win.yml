@@ -69,8 +69,9 @@ output: |
   os: windows
   os: linux
   app: slack
-  # todo: some sort of plugin, consolidate with teams or something?
+  #todo: some sort of plugin, consolidate with teams or something?
   -
+
   tag(): user.messaging
   tag(): user.emoji
   # Workspaces
@@ -95,7 +96,7 @@ output: |
   grab left:  key(shift-up)
   grab right: key(shift-down)
   add line:   key(shift-enter)
-  # "(slack | lack) (slap | slaw | slapper): [key(cmd-right) key(shift-enter")],
+  #"(slack | lack) (slap | slaw | slapper): [key(cmd-right) key(shift-enter")],
   (slack | lack) (react | reaction):                key(ctrl-shift-\)
   (insert command | commandify):                    key(ctrl-shift-c)
   insert code:                                      insert("```")

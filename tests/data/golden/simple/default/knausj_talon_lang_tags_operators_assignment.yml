@@ -22,6 +22,7 @@ input: |
 output: |
   tag: user.code_operators_assignment
   -
+
   tag(): user.code_operators_math
   tag(): user.code_operators_bitwise
 
@@ -43,7 +44,7 @@ output: |
   [op] increment:
       user.code_operator_increment()
 
-  # bitwise operators
+  #bitwise operators
   (op | logical | bitwise) (ex | exclusive) or equals:
       user.code_operator_bitwise_exclusive_or_assignment()
   [(op | logical | bitwise)] (left shift | shift left) equals:

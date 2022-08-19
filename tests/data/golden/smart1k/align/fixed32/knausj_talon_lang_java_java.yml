@@ -47,6 +47,7 @@ input: |
 output: |
   tag:                             user.java
   -
+
   tag(): user.code_imperative
   tag(): user.code_object_oriented
 

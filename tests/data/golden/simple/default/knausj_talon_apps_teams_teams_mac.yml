@@ -79,6 +79,7 @@ output: |
   os: mac
   app: com.microsoft.teams
   -
+
   open history:
       key(super-shift-h)
   view shortcuts:

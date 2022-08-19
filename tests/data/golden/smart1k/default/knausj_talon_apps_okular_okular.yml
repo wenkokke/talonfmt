@@ -6,5 +6,6 @@ input: |
 output: |
   app: okular
   -
+
   # Set tags
   tag(): user.pages

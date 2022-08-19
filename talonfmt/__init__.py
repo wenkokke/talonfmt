@@ -2,95 +2,14 @@ import io
 import sys
 import tokenize
 from pathlib import Path
-from typing import Optional, Union
+from typing import Optional
 
 import click
-from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
-from tree_sitter_talon import ParseError, __grammar_version__, parse
+from tree_sitter_talon import ParseError, __grammar_version__
 
-from talonfmt.formatter import TalonFormatter
+from .main import talonfmt
 
 __version__: str = "1.6.0"
-
-
-def talonfmt(
-    contents: str,
-    *,
-    filename: Optional[str] = None,
-    encoding: str = "utf-8",
-    indent_size: int = 4,
-    max_line_width: Optional[int] = None,
-    align_match_context: bool = False,
-    align_match_context_at: Optional[int] = None,
-    align_short_commands: bool = False,
-    align_short_commands_at: Optional[int] = None,
-    simple_layout: Optional[str] = None,
-    format_comments: bool = True,
-    blank_line_after_match_context: bool = False,
-    omit_empty_match_context: bool = False,
-    preserve_blank_lines: tuple[str, ...] = ("body", "command"),
-) -> str:
-    # Enable align_match_context if align_match_context_at is set:
-    merged_match_context: Union[bool, int]
-    if isinstance(align_match_context_at, int):
-        merged_match_context = align_match_context_at
-    else:
-        merged_match_context = align_match_context
-
-    # Enable align_short_commands if align_short_commands_at is set:
-    merged_short_commands: Union[bool, int]
-    if isinstance(align_short_commands_at, int):
-        merged_short_commands = align_short_commands_at
-    else:
-        merged_short_commands = align_short_commands
-
-    # Create an instance of TalonFormatter
-    talon_formatter = TalonFormatter(
-        indent_size=indent_size,
-        align_match_context=merged_match_context,
-        align_short_commands=merged_short_commands,
-        blank_line_after_match_context=blank_line_after_match_context,
-        omit_empty_match_context=omit_empty_match_context,
-        format_comments=format_comments,
-        preserve_blank_lines_in_header="header" in preserve_blank_lines,
-        preserve_blank_lines_in_body="body" in preserve_blank_lines,
-        preserve_blank_lines_in_command="command" in preserve_blank_lines,
-    )
-
-    # Create an instance of DocRenderer
-    doc_renderer: DocRenderer
-    if max_line_width is None:
-        # Resolve --simple-layout
-        simple_layout_value: SimpleLayout
-        if (
-            simple_layout == "longtest"
-            or align_match_context is not False
-            or align_short_commands is not False
-        ):
-            if simple_layout == "shortest":
-                incompatible_options: list[str]
-                if align_match_context is not False:
-                    incompatible_options.append("--align-match-context")
-                if align_short_commands is not False:
-                    incompatible_options.append("--align-short-commands")
-                sys.stderr.write(
-                    f"Warning: incompatible options '--simple-layout=shortest' and {incompatible_options}\n"
-                )
-            simple_layout_value = SimpleLayout.LongestLines
-        else:
-            simple_layout_value = SimpleLayout.ShortestLines
-        doc_renderer = SimpleDocRenderer(simple_layout=simple_layout_value)
-    else:
-        # Resolve --simple-layout
-        if simple_layout is not None:
-            sys.stderr.write(
-                f"Warning: incompatible options '--max-line-width' and '--simple-layout'\n"
-            )
-        doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
-
-    ast = parse(contents, encoding=encoding, raise_parse_error=True)
-    doc = talon_formatter.format(ast)
-    return doc_renderer.to_str(doc)
 
 
 @click.command(name="talonfmt")
@@ -138,17 +57,18 @@ def talonfmt(
 )
 @click.option(
     "--blank-line-after-match-context/--no-blank-line-after-match-context",
-    default=False,
+    default=True,
     show_default=True,
 )
 @click.option(
-    "--omit-empty-match-context/--no-omit-empty-match-context",
-    default=False,
+    "--empty-match-context",
+    type=click.Choice(["show", "keep", "hide"], case_sensitive=False),
+    default="keep",
     show_default=True,
 )
 @click.option(
     "--format-comments/--no-format-comments",
-    default=True,
+    default=False,
     show_default=True,
 )
 @click.option(
@@ -195,7 +115,7 @@ def cli(
     preserve_blank_lines: tuple[str, ...],
     simple_layout: Optional[str],
     blank_line_after_match_context: bool,
-    omit_empty_match_context: bool,
+    empty_match_context: str,
     format_comments: bool,
     in_place: bool,
     fail_on_change: bool,
@@ -228,7 +148,7 @@ def cli(
                 align_short_commands_at=align_short_commands_at,
                 simple_layout=simple_layout,
                 blank_line_after_match_context=blank_line_after_match_context,
-                omit_empty_match_context=omit_empty_match_context,
+                empty_match_context=empty_match_context,
                 format_comments=format_comments,
                 preserve_blank_lines=preserve_blank_lines,
             )

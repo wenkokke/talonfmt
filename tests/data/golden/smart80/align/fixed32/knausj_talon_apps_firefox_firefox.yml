@@ -13,6 +13,7 @@ input: |
 output: |
   app:                             firefox
   -
+
   tag(): browser
   tag(): user.tabs
   tab search:

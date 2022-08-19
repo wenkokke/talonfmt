@@ -75,19 +75,20 @@ input: |
 output: |
   tag: debugger
   -
+
   # Code execution
 
-  # instruction level
+  ## instruction level
   step into: user.debugger_step_into()
   step over: user.debugger_step_over()
 
-  # line level
+  ## line level
   step line:      user.debugger_step_line()
   step over line: user.debugger_step_over_line()
   step out:       user.debugger_step_out()
   continue:       user.debugger_continue()
 
-  # these are multi word to avoid accidental utterance
+  ## these are multi word to avoid accidental utterance
   debug start:   user.debugger_start()
   debug stop:    user.debugger_stop()
   debug exit:    user.debugger_exit()
@@ -138,7 +139,7 @@ output: |
   inspect type: user.debugger_inspect_type()
 
   # Hex Dumping Memory
-  # hex dump register:
+  #hex dump register:
 
   # Convenience
   clear line: user.debugger_clear_line()

@@ -8,6 +8,7 @@ input: |
   media (play | pause): user.play_pause()
 output: |
   -
+
   volume up:
       key(volup)
   volume down:

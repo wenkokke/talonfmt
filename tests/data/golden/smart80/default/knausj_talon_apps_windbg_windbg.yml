@@ -57,6 +57,7 @@ output: |
   #    edit.left()
   mode: user.windbg
   -
+
   tag(): user.debugger
   tag(): user.windbg
   register <user.registers>:
@@ -80,9 +81,9 @@ output: |
 
   show version: key(ctrl-alt-w)
 
-  #
+  ##
   # Windows
-  #
+  ##
 
   view command: key(alt-1)
   view watch: key(alt-2)

@@ -48,6 +48,7 @@ input: |
       user.paste('`{text}`')
 output: |
   -
+
   double dash:                     "--"
   triple quote:                    "'''"
   (triple grave | triple back tick | gravy): insert("```")

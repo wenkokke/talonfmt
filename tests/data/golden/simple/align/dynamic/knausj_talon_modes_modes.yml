@@ -14,6 +14,7 @@ input: |
 output: |
   not mode: sleep
   -
+
   ^dictation mode$:
       mode.disable("sleep")
       mode.disable("command")

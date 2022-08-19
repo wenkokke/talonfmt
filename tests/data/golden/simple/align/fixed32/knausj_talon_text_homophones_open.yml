@@ -12,6 +12,7 @@ input: |
 output: |
   mode:                            user.homophones
   -
+
   choose <number_small>:
       result = user.homophones_select(number_small)
       insert(result)

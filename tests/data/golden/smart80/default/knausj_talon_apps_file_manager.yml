@@ -44,6 +44,7 @@ input: |
 output: |
   tag: user.file_manager
   -
+
   title force: user.file_manager_refresh_title()
   manager show: user.file_manager_toggle_pickers()
   manager close: user.file_manager_hide_pickers()
@@ -73,10 +74,10 @@ output: |
   ^(select | cell) file {user.file_manager_files}$:
       user.file_manager_select_file(file_manager_files)
 
-  # new folder
+  #new folder
   folder new <user.text>: user.file_manager_new_folder(text)
 
-  # show properties
+  #show properties
   properties show: user.file_manager_show_properties()
 
   # open terminal at location

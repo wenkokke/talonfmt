@@ -74,6 +74,7 @@ input: |
 output: |
   tag: browser
   -
+
   address bar | go address | go url: browser.focus_address()
   address copy | url copy | copy address | copy url:
       browser.focus_address()
@@ -102,7 +103,7 @@ output: |
   show history:    browser.show_history()
   show cache:      browser.show_clear_cache()
 
-  # todo - port to apps
+  #todo - port to apps
   # navigating current page
   # help: key(?)
   # scroll tiny down: key(j)

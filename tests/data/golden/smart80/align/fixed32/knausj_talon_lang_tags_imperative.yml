@@ -19,6 +19,7 @@ input: |
 output: |
   tag:                             user.code_imperative
   -
+
   block:                           user.code_block()
   state if:                        user.code_state_if()
   state else if:                   user.code_state_else_if()

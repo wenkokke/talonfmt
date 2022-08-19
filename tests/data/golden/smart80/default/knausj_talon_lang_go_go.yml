@@ -198,6 +198,7 @@ input: |
 output: |
   tag: user.go
   -
+
   variadic: "..."
   logical and: " && "
   logical or: " || "
