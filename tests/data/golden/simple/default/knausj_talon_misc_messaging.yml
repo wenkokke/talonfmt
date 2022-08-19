@@ -19,7 +19,6 @@ input: |
 output: |
   tag: user.messaging
   -
-
   # Navigation
   previous (workspace | server):
       user.messaging_workspace_previous()

@@ -110,7 +110,6 @@ output: |
   tag: terminal
   mode: user.gdb
   -
-
   tag(): user.gdb
   tag(): user.debugger
   until <number>: "until {number}"

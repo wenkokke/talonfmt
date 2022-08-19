@@ -130,7 +130,6 @@ output: |
   os: mac
   app: RStudio
   -
-
   run that:              key("cmd-enter")
   run document:          key("cmd-alt-r")
   run from top:          key("cmd-alt-b")

@@ -11,7 +11,6 @@ input: |
 output: |
   os: linux
   -
-
   show notifications:          key(ctrl-`)
   dismiss [notifications]:     user.system_command("dunstctl close")
   dismiss all [notifications]: user.system_command("dunstctl close-all")

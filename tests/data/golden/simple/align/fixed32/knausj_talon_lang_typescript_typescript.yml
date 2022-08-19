@@ -5,5 +5,4 @@ input: |
 output: |
   tag:                             user.typescript
   -
-
   tag(): user.javascript

@@ -7,7 +7,6 @@ input: |
 output: |
   tag: user.emoji
   -
-
   emoticon {user.emoticon}:
       "{emoticon}"
   emoji {user.emoji}:

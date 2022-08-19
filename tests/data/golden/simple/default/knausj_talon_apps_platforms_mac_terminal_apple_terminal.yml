@@ -25,7 +25,6 @@ input: |
 output: |
   app: apple_terminal
   -
-
   # makes the commands in generic_terminal available
   tag(): terminal
 

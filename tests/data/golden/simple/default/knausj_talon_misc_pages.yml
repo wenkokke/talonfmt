@@ -8,7 +8,6 @@ input: |
 output: |
   tag: user.pages
   -
-
   page next:
       user.page_next()
   page last:

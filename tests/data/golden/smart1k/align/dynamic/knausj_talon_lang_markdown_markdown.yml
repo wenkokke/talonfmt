@@ -16,7 +16,6 @@ input: |
 output: |
   tag: user.markdown
   -
-
   level one:   "# "
   level two:   "## "
   level three: "### "

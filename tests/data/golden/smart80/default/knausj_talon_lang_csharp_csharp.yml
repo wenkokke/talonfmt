@@ -28,7 +28,6 @@ input: |
 output: |
   tag: user.csharp
   -
-
   tag(): user.code_imperative
   tag(): user.code_object_oriented
 

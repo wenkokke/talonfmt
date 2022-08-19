@@ -1,10 +1,32 @@
 import sys
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
-from tree_sitter_talon import __grammar_version__, parse
+from tree_sitter_talon import Node, __grammar_version__, parse
 
 from talonfmt.formatter import EmptyMatchContext, TalonFormatter
+
+
+def simplify_ast(ast: Node) -> dict[str, Any]:
+    return simplify_node_dict(ast.to_dict())
+
+
+def simplify_node_dict(node_dict: dict[str, Any]) -> dict[str, Any]:
+    if len(node_dict) > 4:
+        del node_dict["text"]
+
+    del node_dict["start_position"]
+    del node_dict["end_position"]
+
+    for key in node_dict.keys():
+        if isinstance(node_dict[key], dict):
+            simplify_node_dict(node_dict[key])
+        if isinstance(node_dict[key], list):
+            for val in node_dict[key]:
+                if isinstance(val, dict):
+                    simplify_node_dict(val)
+
+    return node_dict
 
 
 def talonfmt(
@@ -59,36 +81,57 @@ def talonfmt(
     )
 
     # Create an instance of DocRenderer
-    doc_renderer: DocRenderer
-    if max_line_width is None:
-        # Resolve --simple-layout
-        simple_layout_value: SimpleLayout
-        if (
-            simple_layout == "longtest"
-            or align_match_context is not False
-            or align_short_commands is not False
-        ):
-            if simple_layout == "shortest":
-                incompatible_options: list[str]
-                if align_match_context is not False:
-                    incompatible_options.append("--align-match-context")
-                if align_short_commands is not False:
-                    incompatible_options.append("--align-short-commands")
-                sys.stderr.write(
-                    f"Warning: incompatible options '--simple-layout=shortest' and {incompatible_options}\n"
-                )
-            simple_layout_value = SimpleLayout.LongestLines
+    def create_doc_renderer(*, verbose: bool = True) -> DocRenderer:
+        doc_renderer: DocRenderer
+        if max_line_width is None:
+            # Resolve --simple-layout
+            simple_layout_value: SimpleLayout
+            if (
+                simple_layout == "longtest"
+                or align_match_context is not False
+                or align_short_commands is not False
+            ):
+                if simple_layout == "shortest":
+                    incompatible_options: list[str]
+                    if align_match_context is not False:
+                        incompatible_options.append("--align-match-context")
+                    if align_short_commands is not False:
+                        incompatible_options.append("--align-short-commands")
+                    if verbose and incompatible_options:
+                        sys.stderr.write(
+                            f"Warning: incompatible options '--simple-layout=shortest' and {incompatible_options}\n"
+                        )
+                simple_layout_value = SimpleLayout.LongestLines
+            else:
+                simple_layout_value = SimpleLayout.ShortestLines
+            doc_renderer = SimpleDocRenderer(simple_layout=simple_layout_value)
         else:
-            simple_layout_value = SimpleLayout.ShortestLines
-        doc_renderer = SimpleDocRenderer(simple_layout=simple_layout_value)
-    else:
-        # Resolve --simple-layout
-        if simple_layout is not None:
-            sys.stderr.write(
-                f"Warning: incompatible options '--max-line-width' and '--simple-layout'\n"
-            )
-        doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
+            # Resolve --simple-layout
+            if verbose and simple_layout is not None:
+                sys.stderr.write(
+                    f"Warning: incompatible options '--max-line-width' and '--simple-layout'\n"
+                )
+            doc_renderer = SmartDocRenderer(max_line_width=max_line_width)
+        return doc_renderer
 
-    ast = parse(contents, encoding=encoding, raise_parse_error=True)
-    doc = talon_formatter.format(ast)
-    return doc_renderer.to_str(doc)
+    def render(ast: Node, *, verbose: bool) -> str:
+        doc = talon_formatter.format(ast)
+        return create_doc_renderer(verbose=verbose).to_str(doc)
+
+    ast_for_contents = parse(contents, encoding=encoding, raise_parse_error=True)
+
+    formatted = render(ast_for_contents, verbose=True)
+
+    ast_for_formatted = parse(formatted, encoding=encoding, raise_parse_error=True)
+
+    # assert: parsing output results in a similar AST
+    # assert simplify_ast(ast_for_contents) == simplify_ast(
+    #     ast_for_formatted
+    # ), f"Formatting {filename or 'input'} does not preserve meaning."
+
+    # assert: formatting twice results in the same output
+    assert formatted == render(
+        ast_for_formatted, verbose=False
+    ), f"Formatting {filename or 'input'} twice gives a differrent result."
+
+    return formatted

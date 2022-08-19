@@ -5,5 +5,4 @@ input: |
 output: |
   tag:                             user.scss
   -
-
   tag(): user.css

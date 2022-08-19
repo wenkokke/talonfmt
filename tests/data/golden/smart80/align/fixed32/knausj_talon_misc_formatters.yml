@@ -18,7 +18,6 @@ input: |
   nope that was <user.formatters>: user.formatters_reformat_last(formatters)
 output: |
   -
-
   #provide both anchored and unachored commands via 'over'
   phrase <user.text>$:             user.insert_with_history(text)
   phrase <user.text> over:         user.insert_with_history(text)

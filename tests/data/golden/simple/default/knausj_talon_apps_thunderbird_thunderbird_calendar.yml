@@ -15,7 +15,6 @@ input: |
 output: |
   app: thunderbird_calendar
   -
-
   # event/task
   event new:
       user.thunderbird_mod("i")

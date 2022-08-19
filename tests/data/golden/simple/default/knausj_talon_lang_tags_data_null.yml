@@ -7,7 +7,6 @@ input: |
 output: |
   tag: user.code_data_null
   -
-
   state (no | none | nil | null):
       user.code_insert_null()
   is not (none | null):

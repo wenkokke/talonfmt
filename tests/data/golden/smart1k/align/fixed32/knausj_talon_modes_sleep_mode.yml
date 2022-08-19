@@ -4,7 +4,6 @@ input: "mode: sleep\n-\nsettings():\n    #stop continuous scroll/gaze scroll wit
 output: |
   mode:                            sleep
   -
-
   settings():
       #stop continuous scroll/gaze scroll with a pop
       user.mouse_enable_pop_stops_scroll = 0

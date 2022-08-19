@@ -3,7 +3,7 @@ import enum
 import itertools
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
-from typing import Optional, TypeVar, Union
+from typing import Any, Optional, TypeVar, Union
 
 from doc_printer import (
     Doc,
@@ -199,16 +199,15 @@ class TalonFormatter:
 
         # Used to emit the match context separator.
         in_header: bool = True
-        header_has_content: bool = False
 
         # Used to buffer comments to ensure that they're split correctly
         # between the header and body.
-        comment_buffer: list[Doc] = []
+        match_context_comment_buffer: list[Doc] = []
 
-        def clear_comment_buffer() -> Iterator[Doc]:
-            if comment_buffer:
-                yield from comment_buffer
-                comment_buffer.clear()
+        def clear_match_context_comment_buffer() -> Iterator[Doc]:
+            if match_context_comment_buffer:
+                yield from match_context_comment_buffer
+                match_context_comment_buffer.clear()
 
         if self.align_short_commands is True:
             # Used to buffer short commands to group them as tables.
@@ -229,66 +228,70 @@ class TalonFormatter:
         for child in node.children:
             extra_blank_line: bool = child.start_position.line - previous_line >= 2
 
+            # buffer comments in match context
             if in_header and isinstance(child, TalonComment):
-                # NOTE: buffer comments in match context
                 if self.preserve_blank_lines_in_body and extra_blank_line:
-                    comment_buffer.append(Line)
-                comment_buffer.append(self.format(child))
+                    match_context_comment_buffer.append(Line)
+                match_context_comment_buffer.append(self.format(child))
+
+            # format the .talon file match context
             elif isinstance(child, TalonContext):
-                # NOTE: format match context
-                assert in_header
-                if child.children or self.keep_empty_match_context:
-                    header_has_content = True
-                yield from clear_comment_buffer()
+                assert in_header  # must still be in the header
+                match_context_has_content = bool(match_context_comment_buffer) or bool(
+                    node.children
+                )
+                yield from clear_match_context_comment_buffer()
                 yield from self.format_lines(child)
+                if match_context_has_content or self.keep_empty_match_context:
+                    yield Text("-") / Line
+                in_header = False
+
+            # format the .talon file body
             else:
-                # NOTE: first body-only node, end the match context
-                if in_header and isinstance(
-                    child, (TalonIncludeTag, TalonSettings, TalonCommand)
-                ):
-                    if header_has_content or self.show_empty_match_context:
+                # if we have not yet seen the .talon file match context,
+                # emit '-' if show_empty_match_context is set
+                if in_header:
+                    if self.show_empty_match_context:
                         yield Text("-") / Line
-                        # NOTE: no blank lines after "-" unless
-                        #       blank_line_after_match_context is set
-                        if self.blank_line_after_match_context:
-                            yield Line
-                    if comment_buffer:
+                    # these comments were not part of the .talon file
+                    # match context, so they come after the '-'
+                    if match_context_comment_buffer:
                         yield from itertools.dropwhile(
-                            lambda doc: doc is Line, clear_comment_buffer()
+                            lambda doc: doc is Line,
+                            clear_match_context_comment_buffer(),
                         )
-                    else:
-                        extra_blank_line = False
                     in_header = False
 
+                # for dynamic alignment:
+                #   buffer short commands and clear the short command buffer
+                #   when anything other kind of node is encountered
                 if self.align_short_commands is True:
                     if isinstance(child, TalonCommand) and is_short_command(child):
-                        # NOTE: buffer short command
                         short_command_buffer.extend(self.format_lines(child))
                     else:
-                        # NOTE: long command or other node, clear short command buffer
                         yield from clear_short_command_buffer()
                         if self.preserve_blank_lines_in_body and extra_blank_line:
                             yield Line
                         yield from self.format_lines(child)
+
+                # otherwise:
+                #   emit formatted nodes as they are encountered
                 else:
                     if self.preserve_blank_lines_in_body and extra_blank_line:
                         yield Line
                     yield from self.format_lines(child)
 
-            # Update previous line.
+            # update previous line
             previous_line = child.end_position.line
 
-        # NOTE: no body-only node, end the match context
+        # no match context or body-only node encountered,
+        # therefore the file consists of only comments
         if in_header:
-            if header_has_content or self.show_empty_match_context:
+            if self.show_empty_match_context:
                 yield Text("-") / Line
-                # NOTE: no blank lines after "-" unless
-                #       blank_line_after_match_context is set
-                if self.blank_line_after_match_context:
-                    yield Line
-            yield from clear_comment_buffer()
+            yield from clear_match_context_comment_buffer()
 
-        # NOTE: clear remaining short commands in buffer
+        # file ends with a short command, clear the short command buffer
         if self.align_short_commands is True:
             yield from clear_short_command_buffer()
 
@@ -642,7 +645,7 @@ class TalonFormatter:
             return Text.words(node.text, collapse_whitespace=False) / Line
 
     # Used to buffer comments encountered inline, e.g., inside a binary operator
-    _comment_buffer: list[TalonComment] = dataclasses.field(
+    _match_context_comment_buffer: list[TalonComment] = dataclasses.field(
         default_factory=list, init=False
     )
 
@@ -657,7 +660,7 @@ class TalonFormatter:
         """
         for child in children:
             if isinstance(child, TalonComment):
-                self._comment_buffer.append(child)
+                self._match_context_comment_buffer.append(child)
             elif isinstance(child, node_type):
                 yield child
             else:
@@ -668,9 +671,9 @@ class TalonFormatter:
         Get the buffered comments. Clear the buffer.
         """
         try:
-            yield from self._comment_buffer
+            yield from self._match_context_comment_buffer
         finally:
-            self._comment_buffer.clear()
+            self._match_context_comment_buffer.clear()
 
     def with_comments(self, *doclike: DocLike) -> Iterator[Doc]:
         """

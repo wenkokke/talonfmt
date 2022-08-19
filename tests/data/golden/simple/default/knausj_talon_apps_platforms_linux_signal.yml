@@ -43,7 +43,6 @@ input: |
 output: |
   app: signal
   -
-
   show shortcuts:
       key("ctrl-/")
 
