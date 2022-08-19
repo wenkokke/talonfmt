@@ -16,7 +16,7 @@ classifiers = [
 ]
 dependencies = [
   "click >= 8, <= 9",
-  "tree_sitter_talon ==1.8.5",
+  "tree_sitter_talon ==2.0.0",
   "doc_printer ==0.13.1",
 ]
 
