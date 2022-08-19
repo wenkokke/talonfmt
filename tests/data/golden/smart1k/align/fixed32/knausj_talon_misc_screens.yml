@@ -1,4 +1,3 @@
 input: "screen numbers:   user.screens_show_numbering()\n"
 output: |
-  -
   screen numbers:                  user.screens_show_numbering()

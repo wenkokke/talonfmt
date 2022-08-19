@@ -18,7 +18,6 @@ input: |
     edit.extend_word_right()
     user.homophones_show_selection()
 output: |
-  -
   phones <user.homophones_canonical>: user.homophones_show(homophones_canonical)
   phones that: user.homophones_show_selection()
   phones force <user.homophones_canonical>:

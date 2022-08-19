@@ -70,5 +70,5 @@ deps =
   pytest >=7.1.2, <8
   pytest-benchmark >=3.4.1, <4
   pytest-golden >=0.2.2, <0.3
-commands = pytest
+commands = pytest --benchmark-disable -x
 """

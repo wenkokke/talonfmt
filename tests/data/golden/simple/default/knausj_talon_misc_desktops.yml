@@ -7,7 +7,6 @@ input: |
   window move desk left: user.window_move_desktop_left()
   window move desk right: user.window_move_desktop_right()
 output: |
-  -
   desk <number_small>:
       user.desktop(number_small)
   desk next:

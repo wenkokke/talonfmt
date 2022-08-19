@@ -56,11 +56,6 @@ __version__: str = "1.6.0"
     type=int,
 )
 @click.option(
-    "--blank-line-after-match-context/--no-blank-line-after-match-context",
-    default=True,
-    show_default=True,
-)
-@click.option(
     "--empty-match-context",
     type=click.Choice(["show", "keep", "hide"], case_sensitive=False),
     default="keep",
@@ -114,7 +109,6 @@ def cli(
     align_short_commands_at: Optional[int],
     preserve_blank_lines: tuple[str, ...],
     simple_layout: Optional[str],
-    blank_line_after_match_context: bool,
     empty_match_context: str,
     format_comments: bool,
     in_place: bool,
@@ -147,7 +141,6 @@ def cli(
                 align_short_commands=align_short_commands,
                 align_short_commands_at=align_short_commands_at,
                 simple_layout=simple_layout,
-                blank_line_after_match_context=blank_line_after_match_context,
                 empty_match_context=empty_match_context,
                 format_comments=format_comments,
                 preserve_blank_lines=preserve_blank_lines,

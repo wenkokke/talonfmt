@@ -120,7 +120,6 @@ class TalonFormatter:
     indent_size: int
     align_match_context: Union[bool, int]
     align_short_commands: Union[bool, int]
-    blank_line_after_match_context: bool
     empty_match_context: EmptyMatchContext
     format_comments: bool
     preserve_blank_lines_in_header: bool

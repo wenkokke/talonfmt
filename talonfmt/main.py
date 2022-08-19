@@ -42,7 +42,6 @@ def talonfmt(
     align_short_commands_at: Optional[int] = None,
     simple_layout: Optional[str] = None,
     format_comments: bool = False,
-    blank_line_after_match_context: bool = True,
     empty_match_context: str = "keep",
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ) -> str:
@@ -72,7 +71,6 @@ def talonfmt(
         indent_size=indent_size,
         align_match_context=merged_match_context,
         align_short_commands=merged_short_commands,
-        blank_line_after_match_context=blank_line_after_match_context,
         empty_match_context=empty_match_context_options[empty_match_context],
         format_comments=format_comments,
         preserve_blank_lines_in_header="header" in preserve_blank_lines,
