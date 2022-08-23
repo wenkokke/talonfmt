@@ -232,6 +232,7 @@ output: |
   go way left:
       edit.line_start()
       edit.line_start()
+
   go way right: edit.line_end()
   go way down:  edit.file_end()
   go way up:    edit.file_start()
@@ -271,6 +272,7 @@ output: |
   clear down:
       edit.extend_line_down()
       edit.delete()
+
   clear word: edit.delete_word()
 
   clear word left:

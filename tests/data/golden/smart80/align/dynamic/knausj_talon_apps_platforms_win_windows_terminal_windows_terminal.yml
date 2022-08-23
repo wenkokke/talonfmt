@@ -50,6 +50,7 @@ output: |
   tag(): user.tabs
   # TODO: file_manager
   tag(): user.splits
+
   settings open: key(ctrl-,)
   focus left:    key(ctrl-alt-shift-left)
   focus right:   key(ctrl-alt-shift-right)

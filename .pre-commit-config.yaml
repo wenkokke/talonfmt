@@ -38,4 +38,4 @@ repos:
     rev: "v0.971"
     hooks:
       - id: mypy
-        exclude: "^(test|build)"
+        exclude: "^(test|build)|(extra\\.py$)"

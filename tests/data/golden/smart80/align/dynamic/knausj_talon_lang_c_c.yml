@@ -166,6 +166,7 @@ output: |
   <user.c_variable> <phrase>:
       insert("{c_variable} ")
       insert(user.formatted_text(phrase, "PRIVATE_CAMEL_CASE,NO_SPACES"))
+
   <user.c_variable> <user.letter>: insert("{c_variable} {letter} ")
 
   # Ex. (int *)

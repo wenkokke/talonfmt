@@ -49,6 +49,7 @@ output: |
   tag(): user.code_comment_block_c_like
   tag(): user.code_data_null
   tag(): user.code_functions_common
+
   select:           "SELECT "
   distinct:         "DISTINCT "
   from:             "FROM "
@@ -79,5 +80,6 @@ output: |
   column:
       key(return)
       ", "
+
   count: user.code_insert_function("Count", "")
   date:  user.insert_between("DATE '", "'")

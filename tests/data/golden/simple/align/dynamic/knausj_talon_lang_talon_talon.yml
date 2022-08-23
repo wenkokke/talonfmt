@@ -69,6 +69,7 @@ output: |
   # with conformer, the latency increase may also be unacceptable depending on your cpu
   # see https://github.com/knausj85/knausj_talon/issues/600
   # tag(): user.talon_populate_lists
+
   dot talon: insert(".talon")
   #defintion blocks for the context
   action block:                  user.insert_between("action(", "):")

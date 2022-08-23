@@ -350,6 +350,7 @@ output: |
   replace here:
       user.replace("")
       key(cmd-alt-l)
+
   hover show:  user.vscode("editor.action.showHover")
   join lines:  user.vscode("editor.action.joinLines")
   full screen: user.vscode("workbench.action.toggleFullScreen")

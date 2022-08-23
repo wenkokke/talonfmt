@@ -62,9 +62,11 @@ output: |
   register <user.registers>:
       key(@)
       insert("{registers}")
+
   open help: insert(".hh\n")
 
   # xxx - add window switching
+
   add microsoft symbols: insert("srv*C:\\symbols*http://msdl.microsoft.com/download/symbols;\n")
   force reload symbols:  insert(".reload /f\n")
   reload symbols:        insert(".reload\n")
@@ -78,6 +80,7 @@ output: |
   ##
   # Windows
   ##
+
   view command:               key(alt-1)
   view watch:                 key(alt-2)
   view locals:                key(alt-3)
