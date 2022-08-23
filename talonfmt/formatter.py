@@ -1,10 +1,9 @@
 import dataclasses
 import enum
-import itertools
 import typing
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
-from typing import Any, Optional, TypeVar, Union
+from typing import Optional, TypeVar, Union
 
 from doc_printer import (
     Doc,
@@ -66,7 +65,6 @@ from tree_sitter_talon import (
     TalonWord,
 )
 
-from .extra import *
 from .extra import (
     TalonBlock,
     TalonCommandDeclaration,

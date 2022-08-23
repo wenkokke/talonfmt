@@ -1,3 +1,4 @@
+import ast
 import collections.abc
 import re
 
@@ -8,6 +9,8 @@ from tree_sitter_talon import TalonComment as TalonComment
 from tree_sitter_talon import TalonImplicitString as TalonImplicitString
 from tree_sitter_talon import TalonKeyBindingDeclaration as TalonKeyBindingDeclaration
 from tree_sitter_talon import TalonMatches as TalonMatches
+from tree_sitter_talon import TalonString as TalonString
+from tree_sitter_talon import TalonStringContent as TalonStringContent
 
 
 def _TalonBlock_with_comments(
@@ -73,3 +76,19 @@ def _TalonMatches___bool__(self: TalonMatches) -> bool:
 
 
 setattr(TalonMatches, "__bool__", _TalonMatches___bool__)
+
+
+def _TalonString_assert_equivalent(self: TalonString, other: Node):
+    assert isinstance(other, TalonString)
+    # NOTE: use the Python parser to normalise strings
+    # TODO: write custom logic to normalise strings?
+    try:
+        ast1 = ast.parse("f" + self.text)
+        ast2 = ast.parse("f" + other.text)
+    except SyntaxError:
+        ast1 = ast.parse(self.text)
+        ast2 = ast.parse(other.text)
+    assert ast.unparse(ast1) == ast.unparse(ast2)
+
+
+setattr(TalonString, "assert_equivalent", _TalonString_assert_equivalent)

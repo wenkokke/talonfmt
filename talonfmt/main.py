@@ -103,7 +103,7 @@ def talonfmt(
     if contents != formatted:
         ast_for_formatted = parse(formatted, encoding=encoding, raise_parse_error=True)
         # assert: parsing output results in a similar AST
-        # ast_for_contents.assert_equivalent(ast_for_formatted)
+        ast_for_contents.assert_equivalent(ast_for_formatted)
 
         # assert: formatting twice results in the same output
         assert formatted == render(
