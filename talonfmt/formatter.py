@@ -284,12 +284,8 @@ class TalonFormatter:
 
     def format_match_modifiers(
         self,
-        modifiers: typing.Union[
-            typing.Sequence[TalonMatchModifier], TalonMatchModifier
-        ],
+        modifiers: typing.Sequence[TalonMatchModifier],
     ) -> Iterator[Doc]:
-        if isinstance(modifiers, TalonMatchModifier):
-            modifiers = typing.cast(typing.Sequence[TalonMatchModifier], [modifiers])
         if any(modifier.text == "and" for modifier in modifiers):
             yield Text("and")
             yield Space
@@ -379,7 +375,6 @@ class TalonFormatter:
         previous_line: Optional[int] = None
 
         for child in node.children:
-            print(child)
             if (
                 self.preserve_blank_lines_in_command
                 and previous_line is not None
