@@ -72,6 +72,7 @@ from .extra import (
     TalonCommandDeclaration,
     TalonComment,
     TalonImplicitString,
+    TalonKeyBindingDeclaration,
     TalonMatches,
 )
 
@@ -294,7 +295,17 @@ class TalonFormatter:
             yield Space
 
     ###########################################################################
-    # Format: Tag Includes
+    # Format: Tag Import Declaration
+    ###########################################################################
+
+    @format_lines.register
+    def _(self, node: TalonKeyBindingDeclaration) -> Iterator[Doc]:
+        rule = self.format(node.key)
+        script = self.format(node.script.with_comments(node.children))
+        yield from self.format_command(rule, script, node.is_short())
+
+    ###########################################################################
+    # Format: Tag Import Declaration
     ###########################################################################
 
     @format_lines.register
@@ -303,7 +314,7 @@ class TalonFormatter:
         yield from self.with_comments("tag():" // self.format(node.tag) / Line)
 
     ###########################################################################
-    # Format: Settings
+    # Format: Settings Declaration
     ###########################################################################
 
     @format_lines.register
@@ -323,11 +334,10 @@ class TalonFormatter:
     @format_lines.register
     def _(self, node: TalonCommandDeclaration) -> Iterator[Doc]:
         rule = self.format(node.rule)
+        script = self.format(node.script.with_comments(node.children))
+        yield from self.format_command(rule, script, node.is_short())
 
-        # Merge comments on this node into the block node.
-        block = node.script.with_comments(node.children)
-        script = self.format(block)
-
+    def format_command(self, rule: Doc, script: Doc, is_short: bool) -> Iterator[Doc]:
         # (1): a line-break after the rule, e.g.,
         #
         # select camel left:
@@ -342,7 +352,7 @@ class TalonFormatter:
         #
         # select camel left: user.extend_camel_left()
         #
-        if len(block.children) == 1:
+        if is_short:
             alt2 = self.format_short_command(rule, script)
         else:
             alt2 = Fail

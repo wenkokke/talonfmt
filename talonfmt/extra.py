@@ -6,6 +6,7 @@ from tree_sitter_talon import TalonBlock as TalonBlock
 from tree_sitter_talon import TalonCommandDeclaration as TalonCommandDeclaration
 from tree_sitter_talon import TalonComment as TalonComment
 from tree_sitter_talon import TalonImplicitString as TalonImplicitString
+from tree_sitter_talon import TalonKeyBindingDeclaration as TalonKeyBindingDeclaration
 from tree_sitter_talon import TalonMatches as TalonMatches
 
 
@@ -29,6 +30,13 @@ def _TalonCommandDeclaration_is_short(self: TalonCommandDeclaration) -> bool:
 
 
 setattr(TalonCommandDeclaration, "is_short", _TalonCommandDeclaration_is_short)
+
+
+def _TalonKeyBindingDeclaration_is_short(self: TalonKeyBindingDeclaration) -> bool:
+    return len(self.children) + len(self.script.children) == 1
+
+
+setattr(TalonKeyBindingDeclaration, "is_short", _TalonKeyBindingDeclaration_is_short)
 
 
 def _collapse_whitespace(text: str) -> str:

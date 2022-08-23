@@ -6,7 +6,7 @@ from tree_sitter_talon import Branch
 from tree_sitter_talon import TalonComment as TalonComment
 from tree_sitter_talon import TalonDeclaration
 from tree_sitter_talon import TalonImplicitString as TalonImplicitString
-from tree_sitter_talon import TalonMatch, TalonRule, TalonStatement
+from tree_sitter_talon import TalonKeyAction, TalonMatch, TalonRule, TalonStatement
 
 @dataclasses.dataclass
 class TalonBlock(Branch):
@@ -29,3 +29,11 @@ class TalonMatches(Branch):
     children: typing.Sequence[typing.Union[TalonMatch, TalonComment]]
 
     def is_explicit(self) -> bool: ...
+
+@dataclasses.dataclass
+class TalonKeyBindingDeclaration(Branch, TalonDeclaration):
+    children: typing.Sequence[TalonComment]
+    key: TalonKeyAction
+    script: TalonBlock
+
+    def is_short(self) -> bool: ...
