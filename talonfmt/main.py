@@ -8,8 +8,8 @@ from .extra import *
 from .formatter import EmptyMatchContext, TalonFormatter
 
 
-def talonfmt(
-    contents: str,
+def talonfmt_ast(
+    ast: Node,
     *,
     filename: Optional[str] = None,
     encoding: str = "utf-8",
@@ -23,7 +23,7 @@ def talonfmt(
     format_comments: bool = False,
     empty_match_context: str = "keep",
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
-) -> str:
+):
     # Enable align_match_context if align_match_context_at is set:
     merged_match_context: Union[bool, int]
     if isinstance(align_match_context_at, int):
@@ -95,15 +95,14 @@ def talonfmt(
         doc = talon_formatter.format(ast)
         return create_doc_renderer(verbose=verbose).to_str(doc)
 
-    ast_for_contents = parse(contents, encoding=encoding, raise_parse_error=True)
-
-    formatted = render(ast_for_contents, verbose=True)
+    formatted = render(ast, verbose=True)
 
     # safety tests:
-    if contents != formatted:
+    if __debug__:
+
         ast_for_formatted = parse(formatted, encoding=encoding, raise_parse_error=True)
         # assert: parsing output results in a similar AST
-        ast_for_contents.assert_equivalent(ast_for_formatted)
+        ast.assert_equivalent(ast_for_formatted)
 
         # assert: formatting twice results in the same output
         assert formatted == render(
@@ -111,3 +110,36 @@ def talonfmt(
         ), f"Formatting {filename or 'input'} twice gives a differrent result."
 
     return formatted
+
+
+def talonfmt(
+    contents: str,
+    *,
+    filename: Optional[str] = None,
+    encoding: str = "utf-8",
+    indent_size: int = 4,
+    max_line_width: Optional[int] = None,
+    align_match_context: bool = False,
+    align_match_context_at: Optional[int] = None,
+    align_short_commands: bool = False,
+    align_short_commands_at: Optional[int] = None,
+    simple_layout: Optional[str] = None,
+    format_comments: bool = False,
+    empty_match_context: str = "keep",
+    preserve_blank_lines: tuple[str, ...] = ("body", "command"),
+) -> str:
+    return talonfmt_ast(
+        parse(contents, encoding=encoding, raise_parse_error=True),
+        filename=filename,
+        encoding=encoding,
+        indent_size=indent_size,
+        max_line_width=max_line_width,
+        align_match_context=align_match_context,
+        align_match_context_at=align_match_context_at,
+        align_short_commands=align_short_commands,
+        align_short_commands_at=align_short_commands_at,
+        simple_layout=simple_layout,
+        format_comments=format_comments,
+        empty_match_context=empty_match_context,
+        preserve_blank_lines=preserve_blank_lines,
+    )
