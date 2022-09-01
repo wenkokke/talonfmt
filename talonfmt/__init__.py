@@ -21,6 +21,11 @@ __version__: str = "1.7.1"
     ),
 )
 @click.option(
+    "--safe/--unsafe",
+    default=True,
+    show_default=True,
+)
+@click.option(
     "--indent-size",
     type=int,
     default=4,
@@ -101,6 +106,7 @@ __version__: str = "1.7.1"
 def cli(
     *,
     path: tuple[Path, ...],
+    safe: bool = True,
     indent_size: int,
     max_line_width: Optional[int],
     align_match_context: bool,
@@ -134,6 +140,7 @@ def cli(
                 contents,
                 filename=filename,
                 encoding=encoding,
+                safe=safe,
                 indent_size=indent_size,
                 max_line_width=max_line_width,
                 align_match_context=align_match_context,

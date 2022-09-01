@@ -13,6 +13,7 @@ def talonfmt(
     *,
     filename: Optional[str] = None,
     encoding: str = "utf-8",
+    safe: Optional[bool] = None,
     indent_size: int = 4,
     max_line_width: Optional[int] = None,
     align_match_context: bool = False,
@@ -25,10 +26,15 @@ def talonfmt(
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ):
     # Parse (if necessary):
-    if isinstance(contents, (str, bytes)):
-        ast = parse(contents, encoding=encoding, raise_parse_error=True)
-    elif isinstance(contents, Node):
+    if isinstance(contents, Node):
         ast = contents
+        # If the contents are already an AST node, we must disable the
+        # safety tests, as we don't know if they parse as source code.
+        safe = safe or False
+    elif isinstance(contents, (str, bytes)):
+        ast = parse(contents, encoding=encoding, raise_parse_error=True)
+    else:
+        raise TypeError(type(contents))
 
     # Enable align_match_context if align_match_context_at is set:
     merged_match_context: Union[bool, int]
@@ -104,7 +110,7 @@ def talonfmt(
     formatted = render(ast, verbose=True)
 
     # safety tests:
-    if __debug__:
+    if safe or (safe is None and __debug__):
 
         ast_for_formatted = parse(formatted, encoding=encoding, raise_parse_error=True)
         # assert: parsing output results in a similar AST
