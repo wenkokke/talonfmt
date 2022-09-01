@@ -8,8 +8,8 @@ from .extra import *
 from .formatter import EmptyMatchContext, TalonFormatter
 
 
-def talonfmt_ast(
-    ast: Node,
+def talonfmt(
+    contents: Union[str, bytes, Node],
     *,
     filename: Optional[str] = None,
     encoding: str = "utf-8",
@@ -24,6 +24,12 @@ def talonfmt_ast(
     empty_match_context: str = "keep",
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ):
+    # Parse (if necessary):
+    if isinstance(contents, (str, bytes)):
+        ast = parse(contents, encoding=encoding, raise_parse_error=True)
+    elif isinstance(contents, Node):
+        ast = contents
+
     # Enable align_match_context if align_match_context_at is set:
     merged_match_context: Union[bool, int]
     if isinstance(align_match_context_at, int):
@@ -110,36 +116,3 @@ def talonfmt_ast(
         ), f"Formatting {filename or 'input'} twice gives a differrent result."
 
     return formatted
-
-
-def talonfmt(
-    contents: str,
-    *,
-    filename: Optional[str] = None,
-    encoding: str = "utf-8",
-    indent_size: int = 4,
-    max_line_width: Optional[int] = None,
-    align_match_context: bool = False,
-    align_match_context_at: Optional[int] = None,
-    align_short_commands: bool = False,
-    align_short_commands_at: Optional[int] = None,
-    simple_layout: Optional[str] = None,
-    format_comments: bool = False,
-    empty_match_context: str = "keep",
-    preserve_blank_lines: tuple[str, ...] = ("body", "command"),
-) -> str:
-    return talonfmt_ast(
-        parse(contents, encoding=encoding, raise_parse_error=True),
-        filename=filename,
-        encoding=encoding,
-        indent_size=indent_size,
-        max_line_width=max_line_width,
-        align_match_context=align_match_context,
-        align_match_context_at=align_match_context_at,
-        align_short_commands=align_short_commands,
-        align_short_commands_at=align_short_commands_at,
-        simple_layout=simple_layout,
-        format_comments=format_comments,
-        empty_match_context=empty_match_context,
-        preserve_blank_lines=preserve_blank_lines,
-    )
