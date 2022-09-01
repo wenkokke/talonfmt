@@ -9,7 +9,7 @@ from tree_sitter_talon import ParseError, __grammar_version__
 
 from .main import talonfmt
 
-__version__: str = "1.7.1"
+__version__: str = "1.7.2"
 
 
 @click.command(name="talonfmt")
