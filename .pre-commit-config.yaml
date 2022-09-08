@@ -38,4 +38,5 @@ repos:
     rev: "v0.971"
     hooks:
       - id: mypy
-        exclude: "^(test|build)|(extra\\.py$)"
+        args: ["--config-file", "pyproject.toml"]
+        exclude: "^talonfmt/extra\\.py$"

@@ -16,11 +16,11 @@ def golden_path(golden) -> str:
     return str(golden.path.relative_to(pathlib.Path(__file__).parent))
 
 
-def format_simple(contents: str, **kwargs) -> str:
+def format_simple(contents: str, **kwargs) -> typing.Union[typing.NoReturn, str]:
     try:
         return talonfmt.talonfmt(contents=contents, **kwargs)
     except talonfmt.ParseError as e:
-        pytest.fail(str(e))
+        return pytest.fail(str(e))
 
 
 KWARGS_ALIGN_DYNAMIC: dict[str, bool] = {

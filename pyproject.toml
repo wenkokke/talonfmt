@@ -17,7 +17,7 @@ classifiers = [
 dependencies = [
   "click >= 8, <= 9",
   "doc_printer==0.13.1",
-  "tree_sitter_talon >=3.0.3, <3.2.0",
+  "tree_sitter_talon >=1!2.0.4, <=1!2.0.5",
 ]
 
 [project.optional-dependencies]
@@ -45,8 +45,15 @@ talonfmt = ["py.typed"]
 enable_assertion_pass_hook = true
 filterwarnings = ["ignore::DeprecationWarning:.*:"]
 minversion = "6.0"
-# addopts = "--benchmark-autosave"
 testpaths = ["tests"]
+
+[tool.mypy]
+python_version = 3.9
+namespace_packages = true
+explicit_package_bases = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_configs = true
 
 [tool.bumpver]
 current_version = "1.7.2"
