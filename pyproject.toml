@@ -24,7 +24,7 @@ doc_printer = "^0.13.1"
 pytest = { version = "^7.1.2", optional = true }
 pytest-benchmark = { version = "^3.4.1", optional = true }
 pytest-golden = { version = "^0.2.2", optional = true }
-tree_sitter_talon = "^1!1000.2.0.0"
+tree_sitter_talon = "^1000.2.0.0"
 
 [tool.poetry.extras]
 dev = ["bumpver"]
