@@ -3,48 +3,41 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
+
+[tool.poetry]
 name = "talonfmt"
 version = "1.7.2"
 description = "A code formatter for Talon files"
+license = "MIT"
+authors = ["Wen Kokke <wenkokke@users.noreply.github.com>"]
 readme = "README.md"
-requires-python = ">=3.9"
-keywords = ["talonfmt"]
-authors = [{ name = "Wen Kokke" }]
+repository = "https://github.com/wenkokke/talonfmt"
+keywords = ["talon", "formatter"]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Topic :: Software Development :: Compilers",
 ]
-dependencies = [
-  "click >= 8, <= 9",
-  "doc_printer==0.13.1",
-  "tree_sitter_talon >=1!2.0.4, <=1!2.0.5",
-]
 
-[project.optional-dependencies]
-dev = [
-  "build >=0.8.0, <0.9",
-  "pytest-benchmark[histogram] >=3.4.1, <4",
-  "twine >=4.0.1, <4.1"
-]
-test = [
-  "pytest >=7.1.2, <7.2",
-  "pytest-benchmark >=3.4.1, <4",
-  "pytest-golden >=0.2.2, <0.3",
-]
+[tool.poetry.dependencies]
+click = "^8"
+bumpver = { version = "*", optional = true }
+doc_printer = "^0.13.1"
+pytest = { version = "^7.1.2", optional = true }
+pytest-benchmark = { version = "^3.4.1", optional = true, extras = "histogram" }
+pytest-golden = { version = "^0.2.2", optional = true }
+tree_sitter_talon = "^1!1000.2.0.0"
 
-[project.urls]
-repository = "https://github.com/wenkokke/talonfmt"
+[tool.poetry.extras]
+dev = ["bumpver"]
+test = ["bumpver", "pytest", "pytest-golden"]
 
-[project.scripts]
+[tool.poetry.scripts]
 talonfmt = "talonfmt:cli"
-
-[tool.setuptools.package-data]
-talonfmt = ["py.typed"]
 
 [tool.pytest.ini_options]
 enable_assertion_pass_hook = true
 filterwarnings = ["ignore::DeprecationWarning:.*:"]
-minversion = "6.0"
+addopts = "--ignore=tests/data"
 testpaths = ["tests"]
 
 [tool.mypy]
@@ -70,13 +63,20 @@ push = true
 [tool.tox]
 legacy_tox_ini = """
 [tox]
+requires =
+  tox-poetry
 envlist = py39,py310
 isolated_build = True
 
+[gh-actions]
+python =
+  3.9: py39
+  3.10: py310
+
 [testenv]
-deps =
-  pytest >=7.1.2, <8
-  pytest-benchmark >=3.4.1, <4
-  pytest-golden >=0.2.2, <0.3
-commands = pytest --benchmark-disable -x
+extras =
+  test
+commands =
+  bumpver update --patch --dry --no-fetch
+  pytest --benchmark-disable -x
 """

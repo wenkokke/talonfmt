@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  workflow_call:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  publish:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: ./.github/actions/setup-python
+        with:
+          python-version: "3.9"
+
+      - name: Build Package
+        run: poetry build
+
+      # - name: Publish to PyPi
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+      #     verbose: true
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/**.tar.gz
+            dist/**.whl
+          fail_on_unmatched_files: true
