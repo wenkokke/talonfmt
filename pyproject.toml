@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [project]
 
@@ -23,7 +23,9 @@ click = "^8"
 bumpver = { version = "*", optional = true }
 doc_printer = "^0.13.1"
 pytest = { version = "^7.1.2", optional = true }
-pytest-benchmark = { version = "^3.4.1", optional = true, extras = "histogram" }
+pytest-benchmark = { version = "^3.4.1", optional = true, extras = [
+  "histogram"
+] }
 pytest-golden = { version = "^0.2.2", optional = true }
 tree_sitter_talon = "^1!1000.2.0.0"
 
