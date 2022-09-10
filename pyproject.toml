@@ -27,8 +27,14 @@ pytest-golden = { version = "^0.2.2", optional = true }
 tree_sitter_talon = "^1000.2.0.0"
 
 [tool.poetry.extras]
-dev = ["bumpver"]
 test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0.971"
+tox = "^3.25.1"
+black = "^22.8.0"
+isort = "^5.10.1"
+flake8 = "^5.0.4"
 
 [tool.poetry.scripts]
 talonfmt = "talonfmt.cli:cli"
