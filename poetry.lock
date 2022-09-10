@@ -47,7 +47,7 @@ name = "bumpver"
 version = "2022.1118"
 description = "Bump version numbers in project files."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7"
 
 [package.dependencies]
@@ -167,7 +167,7 @@ name = "lexid"
 version = "2021.1006"
 description = "Variable width build numbers with lexical ordering."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7"
 
 [[package]]
@@ -256,7 +256,7 @@ name = "pathlib2"
 version = "2.3.7.post1"
 description = "Object-oriented filesystem paths"
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 
 [package.dependencies]
@@ -450,7 +450,7 @@ name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
@@ -570,7 +570,7 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a7b1a2f559742aacdba344b1e4f779f218fe06769c9cc479c1ca7c4efd3bedc8"
+content-hash = "8f8ce00a8178562a931ce4b04958a0e8994043e9ba550e3f353fc23dfaa34735"
 
 [metadata.files]
 atomicwrites = [
