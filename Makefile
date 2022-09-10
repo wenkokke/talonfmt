@@ -1,31 +1,16 @@
-# Bump versions
+build:
+	poetry build
 
-patch:
-	bumpver update --patch
+clean:
+	@git clean -dfqX
 
-minor:
-	bumpver update --minor
+bump-patch:
+	@poetry run bumpver update --patch
 
-major:
-	bumpver update --major
+bump-minor:
+	@poetry run bumpver update --minor
 
-.PHONY: patch minor major
+bump-major:
+	@poetry run bumpver update --major
 
-# Publish to PyPi
-
-# Publish to PyPi
-
-run/dist:
-	python -m build
-	twine check dist/*
-	mkdir -p run && touch run/dist
-
-run/testpypi: run/dist
-	twine upload --skip-existing -r testpypi dist/*
-	mkdir -p run && touch run/testpypi
-
-run/pypi: run/dist
-	twine upload --skip-existing -r pypi dist/*
-	mkdir -p run && touch run/pypi
-
-.PHONY: run/dist run/testpypi run/pypi
+.PHONY: build clean test bump-patch bump-minor bump-major
