@@ -493,7 +493,7 @@ python-versions = ">=3.3"
 
 [[package]]
 name = "tree-sitter-talon"
-version = "1000.2.0.0"
+version = "1001.2.0.0"
 description = "Parser for Talon files in Python."
 category = "main"
 optional = false
@@ -507,7 +507,6 @@ tree-sitter = ">=0.20.0,<0.21.0"
 tree-sitter-type-provider = ">=2.1.7,<3.0.0"
 
 [package.extras]
-dev = ["bumpver"]
 docs = ["Sphinx (>=5.1.1,<6.0.0)", "sphinx-bootstrap-theme (>=0.8.1,<0.9.0)"]
 test = ["bumpver", "mypy (>=0.971,<0.972)", "pytest (>=7.1.2,<8.0.0)", "pytest-golden (>=0.2.2,<0.3.0)"]
 
@@ -570,7 +569,7 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "8f8ce00a8178562a931ce4b04958a0e8994043e9ba550e3f353fc23dfaa34735"
+content-hash = "03789cc75248de75e387139fad3e294034260e170acd2f7da07c7254809ed8ad"
 
 [metadata.files]
 atomicwrites = [
@@ -810,13 +809,13 @@ tree-sitter = [
     {file = "tree_sitter-0.20.1.tar.gz", hash = "sha256:e93f082c545d6649bcfb5d681ed255eb004a6ce22988971a128f40692feec60d"},
 ]
 tree-sitter-talon = [
-    {file = "tree_sitter_talon-1000.2.0.0-cp310-cp310-macosx_10_16_x86_64.whl", hash = "sha256:316186774762997fbf125f56881bad93982c0d497ee0fd0bcd14f56299146974"},
-    {file = "tree_sitter_talon-1000.2.0.0-cp310-cp310-manylinux_2_31_x86_64.whl", hash = "sha256:0228ca0e820a98ff5e3bde06a0d5e18183d11a6cfdd473f513204e14ce69ca7b"},
-    {file = "tree_sitter_talon-1000.2.0.0-cp310-cp310-win_amd64.whl", hash = "sha256:73557ae97eb02f8247dc751536b8e06eb92e0713c117176087c62c4f235983b5"},
-    {file = "tree_sitter_talon-1000.2.0.0-cp39-cp39-macosx_10_16_x86_64.whl", hash = "sha256:c9e53b42ed62e84ced4c3d061ce28ccef46168dacef31b1b9f8ae40c7d948b6e"},
-    {file = "tree_sitter_talon-1000.2.0.0-cp39-cp39-manylinux_2_31_x86_64.whl", hash = "sha256:bb648ce0daca8da058a589acb8b265e5af74bcd722cc7a8fe91f00f0c90a012c"},
-    {file = "tree_sitter_talon-1000.2.0.0-cp39-cp39-win_amd64.whl", hash = "sha256:f1586042932bd9d1ff608847a846fc28e856d45562696cc3e68061c3e723289b"},
-    {file = "tree_sitter_talon-1000.2.0.0.tar.gz", hash = "sha256:2cbfc9b895da89c47817fc74fe9a4527b1c7e3d0e3fbcf758ed6984571b8ff9f"},
+    {file = "tree_sitter_talon-1001.2.0.0-cp310-cp310-macosx_10_16_x86_64.whl", hash = "sha256:51d45cfb4b44354dc445b4a1c8b2bcf31f1e45c278d11130d12d2b9f605e2d92"},
+    {file = "tree_sitter_talon-1001.2.0.0-cp310-cp310-manylinux_2_31_x86_64.whl", hash = "sha256:31559ed7d4dc4e5fa04cf893cb2cb6c74a98f903fc8240d55c37689ea15df53b"},
+    {file = "tree_sitter_talon-1001.2.0.0-cp310-cp310-win_amd64.whl", hash = "sha256:b0488feb0b440d79874391f3d6a525ea33e6a92e2bfd04a194bcf287782687e6"},
+    {file = "tree_sitter_talon-1001.2.0.0-cp39-cp39-macosx_10_16_x86_64.whl", hash = "sha256:e3347cb9ea814729fa85128ab093a5c66312b292bb5f9b50264a988168fdb3e9"},
+    {file = "tree_sitter_talon-1001.2.0.0-cp39-cp39-manylinux_2_31_x86_64.whl", hash = "sha256:4a22e9e10da8843d159d9a0a2671d9e15b8e60dab9ce19b84b49ae705920fbac"},
+    {file = "tree_sitter_talon-1001.2.0.0-cp39-cp39-win_amd64.whl", hash = "sha256:8a88fd17da346a2a612ac004d65c6b62adea8b4f98d1dc5cbcfe94baef0e1f3d"},
+    {file = "tree_sitter_talon-1001.2.0.0.tar.gz", hash = "sha256:839ef96d0cfe9ff551f8fe387d569af7354fa4a867c419f5642dfad9024fca98"},
 ]
 tree-sitter-type-provider = [
     {file = "tree_sitter_type_provider-2.1.12-py3-none-any.whl", hash = "sha256:aa94725120f41aee2b9f0e90bc46913e58ffb97b55200fc686464053656a02e4"},
