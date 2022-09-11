@@ -103,17 +103,20 @@ python-versions = "*"
 
 [[package]]
 name = "doc-printer"
-version = "0.13.1"
+version = "0.14.0"
 description = "A Wadler-Leijen Pretty Printer in Python"
 category = "main"
 optional = false
 python-versions = ">=3.9"
 
 [package.dependencies]
-more-itertools = "*"
+dataclasses-json = ">=0.5.7,<0.6"
+more-itertools = ">=8.13.0,<9"
 
 [package.extras]
-dev = ["build", "pytest", "sphinx", "sphinx-bootstrap-theme", "twine"]
+dev = ["build (>=0.8.0,<0.9)", "twine (>=4.0.1,<5)"]
+doc = ["Sphinx (>=5.1.1,<6)", "sphinx-bootstrap-theme (>=0.8.1,<0.9)"]
+test = ["pytest (>=7.1.2,<8)", "pytest-golden (>=0.2.2,<0.3)"]
 
 [[package]]
 name = "filelock"
@@ -569,7 +572,7 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "03789cc75248de75e387139fad3e294034260e170acd2f7da07c7254809ed8ad"
+content-hash = "d7db79dc25e176859c128993ae0ce2f5bf38be774904fdcf393cb3083687e9ae"
 
 [metadata.files]
 atomicwrites = [
@@ -625,8 +628,8 @@ distlib = [
     {file = "distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
 ]
 doc-printer = [
-    {file = "doc_printer-0.13.1-py3-none-any.whl", hash = "sha256:e623e19a6ecfd0c2c1bf03bb2e820b2ad86a8ee1ede0f29087c954b8c25c2e4c"},
-    {file = "doc_printer-0.13.1.tar.gz", hash = "sha256:3adf6d522292f36163a9247158305a2d40caf34f712e39aab9f57541b65d4cc0"},
+    {file = "doc_printer-0.14.0-py3-none-any.whl", hash = "sha256:60f889455cfc52fbb035feb281352b2df58fcf4fb540b9dc9751966cd1bc34ff"},
+    {file = "doc_printer-0.14.0.tar.gz", hash = "sha256:3cb1011bd45c88bf67edd332d387df5dfda205de87c4339b2ccb163d56083dc5"},
 ]
 filelock = [
     {file = "filelock-3.8.0-py3-none-any.whl", hash = "sha256:617eb4e5eedc82fc5f47b6d61e4d11cb837c56cb4544e39081099fa17ad109d4"},
