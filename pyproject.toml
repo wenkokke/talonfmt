@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "talonfmt"
-version = "1.7.3"
+version = "1.7.4"
 description = "A code formatter for Talon files"
 license = "MIT"
 authors = ["Wen Kokke <wenkokke@users.noreply.github.com>"]
@@ -55,7 +55,7 @@ warn_redundant_casts = true
 warn_unused_configs = true
 
 [tool.bumpver]
-current_version = "1.7.3"
+current_version = "1.7.4"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version {old_version} -> {new_version}"
 commit = true
