@@ -9,8 +9,9 @@ pytest.register_assert_rewrite("talonfmt.formatter")
 pytest.register_assert_rewrite("tree_sitter_type_provider")
 pytest.register_assert_rewrite("tree_sitter_type_provider.node_types")
 
-import talonfmt
 import tree_sitter_talon
+
+import talonfmt
 
 
 def golden_path(golden) -> str:
