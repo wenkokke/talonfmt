@@ -10,6 +10,7 @@ pytest.register_assert_rewrite("tree_sitter_type_provider")
 pytest.register_assert_rewrite("tree_sitter_type_provider.node_types")
 
 import talonfmt
+import tree_sitter_talon
 
 
 def golden_path(golden) -> str:
@@ -19,7 +20,7 @@ def golden_path(golden) -> str:
 def format_simple(contents: str, **kwargs) -> typing.Union[typing.NoReturn, str]:
     try:
         return talonfmt.talonfmt(contents=contents, **kwargs)
-    except talonfmt.ParseError as e:
+    except tree_sitter_talon.ParseError as e:
         return pytest.fail(str(e))
 
 
