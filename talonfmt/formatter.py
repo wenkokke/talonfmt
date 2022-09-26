@@ -1,5 +1,6 @@
 import dataclasses
 import enum
+import itertools
 import typing
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
@@ -34,6 +35,7 @@ from tree_sitter_talon import (
     TalonCapture,
     TalonChoice,
     TalonDeclaration,
+    TalonDeclarations,
     TalonEndAnchor,
     TalonExpressionStatement,
     TalonFloat,
@@ -78,6 +80,7 @@ TalonBlockLevel = Union[
     TalonSourceFile,
     TalonMatches,
     TalonMatch,
+    TalonDeclarations,
     TalonDeclaration,
     TalonBlock,
     TalonStatement,
@@ -185,7 +188,17 @@ class TalonFormatter:
         # Used to insert blank lines.
         previous_line: int = 0
 
-        for child in node.children:
+        # Iterate over children, flatten any TalonDeclarations node
+        def children() -> Iterator[
+            typing.Union[TalonDeclaration, TalonMatches, TalonComment]
+        ]:
+            for child in node.children:
+                if isinstance(child, TalonDeclarations):
+                    yield from child.children
+                else:
+                    yield typing.cast(typing.Union[TalonMatches, TalonComment], child)
+
+        for child in children():
             extra_blank_line: bool = child.start_position.line - previous_line >= 2
 
             # buffer comments in match context
@@ -298,8 +311,8 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonKeyBindingDeclaration) -> Iterator[Doc]:
-        rule = self.format(node.key)
-        script = self.format(node.script.with_comments(node.children))
+        rule = self.format(node.left)
+        script = self.format(node.right.with_comments(node.children))
         yield from self.format_command(rule, script, node.is_short())
 
     ###########################################################################
@@ -309,7 +322,7 @@ class TalonFormatter:
     @format_lines.register
     def _(self, node: TalonTagImportDeclaration) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
-        yield from self.with_comments("tag():" // self.format(node.tag) / Line)
+        yield from self.with_comments("tag():" // self.format(node.right) / Line)
 
     ###########################################################################
     # Format: Settings Declaration
@@ -317,8 +330,8 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonSettingsDeclaration) -> Iterator[Doc]:
-        block = typing.cast(TalonBlock, self.get_node(node.children))
-        block = block.with_comments(self.get_comments())
+        self.assert_only_comments(node.children)  # type: ignore
+        block = node.right.with_comments(self.get_comments())  # type: ignore
         yield "settings():" / nest(
             self.indent_size,
             Line,
@@ -443,7 +456,9 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonParenthesizedExpression) -> Doc:
-        return parens(self.format(self.get_node(node.children)))
+        return parens(
+            self.format(self.get_node(node.children, node_type_name=node.type_name))
+        )
 
     @format.register
     def _(self, node: TalonSleepAction) -> Doc:
@@ -477,7 +492,7 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonInterpolation) -> Doc:
-        return self.format(self.get_node(node.children))
+        return self.format(self.get_node(node.children, node_type_name=node.type_name))
 
     @format.register
     def _(self, node: TalonString) -> Doc:
@@ -517,22 +532,25 @@ class TalonFormatter:
 
     @format.register
     def _(self, node: TalonOptional) -> Doc:
-        child = self.get_node(node.children)
+        child = self.get_node(node.children, node_type_name=node.type_name)
         return brackets(self.format(child))
 
     @format.register
     def _(self, node: TalonParenthesizedRule) -> Doc:
-        child = self.get_node(node.children)
+        child = self.get_node(node.children, node_type_name=node.type_name)
         return parens(self.format(child))
 
     @format.register
     def _(self, node: TalonRepeat) -> Doc:
-        child = self.get_node(node.children)
+        child = self.get_node(node.children, node_type_name=node.type_name)
         return self.format(child) / "*"
 
     @format.register
     def _(self, node: TalonRepeat1) -> Doc:
-        return self.format(self.get_node(node.children)) / "+"
+        return (
+            self.format(self.get_node(node.children, node_type_name=node.type_name))
+            / "+"
+        )
 
     @format.register
     def _(self, node: TalonRule) -> Doc:
@@ -615,17 +633,20 @@ class TalonFormatter:
             len(rest) == 0
         ), f"There should be no non-comment nodes, found {tuple(node.type_name for node in rest)}:\n{rest}"
 
-    def get_node(self, children: Iterable[Node]) -> Node:
+    def get_node(self, children: Iterable[Node], *, node_type_name: str) -> Node:
         """
         Get the single node that is not a comment. Store all the comments.
         """
-        return self.get_node_with_type(children, node_type=Node)
+        return self.get_node_with_type(
+            children, node_type=Node, node_type_name=node_type_name
+        )
 
     def get_node_with_type(
         self,
         children: Iterable[Union[NodeVar, TalonComment]],
         *,
         node_type: type[NodeVar],
+        node_type_name: str,
     ) -> NodeVar:
         """
         Get the single node that is not a comment, but has type NodeVar. Store all the comments.
@@ -633,5 +654,5 @@ class TalonFormatter:
         rest = tuple(self.store_comments_with_type(children, node_type=node_type))
         assert (
             len(rest) == 1
-        ), f"There should be only one non-comment child, found {tuple(node.type_name for node in rest)}:\n{rest}"
+        ), f"There should be only one non-comment child in '{node_type_name}', found {tuple(node.type_name for node in rest)}:\n{rest}"
         return next(iter(rest))
