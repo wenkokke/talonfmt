@@ -310,16 +310,6 @@ class TalonFormatter:
     ###########################################################################
 
     @format_lines.register
-    def _(self, node: TalonKeyBindingDeclaration) -> Iterator[Doc]:
-        rule = self.format(node.left)
-        script = self.format(node.right.with_comments(node.children))
-        yield from self.format_command(rule, script, node.is_short())
-
-    ###########################################################################
-    # Format: Tag Import Declaration
-    ###########################################################################
-
-    @format_lines.register
     def _(self, node: TalonTagImportDeclaration) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
         yield from self.with_comments("tag():" // self.format(node.right) / Line)
@@ -339,13 +329,23 @@ class TalonFormatter:
         )
 
     ###########################################################################
+    # Format: Key Bindings
+    ###########################################################################
+
+    @format_lines.register
+    def _(self, node: TalonKeyBindingDeclaration) -> Iterator[Doc]:
+        rule = self.format(node.left)
+        script = self.format(node.right.with_comments(node.children))
+        yield from self.format_command(rule, script, node.is_short())
+
+    ###########################################################################
     # Format: Commands
     ###########################################################################
 
     @format_lines.register
     def _(self, node: TalonCommandDeclaration) -> Iterator[Doc]:
-        rule = self.format(node.rule)
-        script = self.format(node.script.with_comments(node.children))
+        rule = self.format(node.left)
+        script = self.format(node.right.with_comments(node.children))
         yield from self.format_command(rule, script, node.is_short())
 
     def format_command(self, rule: Doc, script: Doc, is_short: bool) -> Iterator[Doc]:
