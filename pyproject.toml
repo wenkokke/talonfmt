@@ -37,6 +37,9 @@ isort = "^5.10.1"
 flake8 = "^5.0.4"
 bumpver = "*"
 
+[tool.poetry.group.ci.dependencies]
+bumpver = "*"
+
 [tool.poetry.scripts]
 talonfmt = "talonfmt.cli:cli"
 
