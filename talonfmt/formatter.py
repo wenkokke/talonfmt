@@ -1,6 +1,5 @@
 import dataclasses
 import enum
-import itertools
 import typing
 from collections.abc import Iterable, Iterator
 from functools import singledispatchmethod
@@ -32,19 +31,25 @@ from tree_sitter_talon import (
     TalonArgumentList,
     TalonAssignmentStatement,
     TalonBinaryOperator,
+    TalonBlock,
     TalonCapture,
     TalonChoice,
+    TalonCommandDeclaration,
+    TalonComment,
     TalonDeclaration,
     TalonDeclarations,
     TalonEndAnchor,
     TalonExpressionStatement,
     TalonFloat,
     TalonIdentifier,
+    TalonImplicitString,
     TalonInteger,
     TalonInterpolation,
     TalonKeyAction,
+    TalonKeyBindingDeclaration,
     TalonList,
     TalonMatch,
+    TalonMatches,
     TalonMatchModifier,
     TalonOperator,
     TalonOptional,
@@ -63,20 +68,9 @@ from tree_sitter_talon import (
     TalonStringContent,
     TalonStringEscapeSequence,
     TalonTagImportDeclaration,
+    TalonUnaryOperator,
     TalonVariable,
     TalonWord,
-)
-
-# TODO: fix upstream
-from tree_sitter_talon.internal.dynamic import TalonUnaryOperator  # type: ignore
-
-from .extra import (
-    TalonBlock,
-    TalonCommandDeclaration,
-    TalonComment,
-    TalonImplicitString,
-    TalonKeyBindingDeclaration,
-    TalonMatches,
 )
 
 TalonBlockLevel = Union[
@@ -199,7 +193,7 @@ class TalonFormatter:
                 if isinstance(child, TalonDeclarations):
                     yield from child.children
                 else:
-                    yield typing.cast(typing.Union[TalonMatches, TalonComment], child)
+                    yield child
 
         for child in children():
             extra_blank_line: bool = child.start_position.line - previous_line >= 2
@@ -280,9 +274,9 @@ class TalonFormatter:
     @format_lines.register
     def _(self, node: TalonMatch) -> Iterator[Doc]:
         self.assert_only_comments(node.children)
-        keywords = self.format_match_modifiers(node.modifier)
-        key = self.format(node.key)
-        pattern = self.format(node.pattern)
+        keywords = self.format_match_modifiers(node.modifiers)
+        key = self.format(node.left)
+        pattern = self.format(node.right)
         if isinstance(self.align_match_context, bool):
             yield row(
                 keywords / key / ":",
@@ -323,12 +317,11 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonSettingsDeclaration) -> Iterator[Doc]:
-        self.assert_only_comments(node.children)  # type: ignore
-        block = node.right.with_comments(self.get_comments())  # type: ignore
+        assert node.children is None
         yield "settings():" / nest(
             self.indent_size,
             Line,
-            self.format(block),
+            self.format(node.right),
         )
 
     ###########################################################################
@@ -337,8 +330,9 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonKeyBindingDeclaration) -> Iterator[Doc]:
+        assert node.children is None
         rule = self.format(node.left)
-        script = self.format(node.right.with_comments(node.children))
+        script = self.format(node.right)
         yield from self.format_command(rule, script, node.is_short())
 
     ###########################################################################
@@ -347,8 +341,9 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonCommandDeclaration) -> Iterator[Doc]:
+        assert node.children is None
         rule = self.format(node.left)
-        script = self.format(node.right.with_comments(node.children))
+        script = self.format(node.right)
         yield from self.format_command(rule, script, node.is_short())
 
     def format_command(self, rule: Doc, script: Doc, is_short: bool) -> Iterator[Doc]:
