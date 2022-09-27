@@ -1,0 +1,16 @@
+input: |
+  os: mac
+  -
+  ^(note | notification) <number_small> actions$:
+    user.notification_show_actions(number_small - 1)
+
+  ^(note | notification) actions$:
+    user.notification_show_actions(-1)
+output: |
+  os: mac
+  -
+  ^(note | notification) <number_small> actions$:
+      user.notification_show_actions(number_small - 1)
+
+  ^(note | notification) actions$:
+      user.notification_show_actions(-1)

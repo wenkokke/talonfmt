@@ -67,6 +67,9 @@ from tree_sitter_talon import (
     TalonWord,
 )
 
+# TODO: fix upstream
+from tree_sitter_talon.internal.dynamic import TalonUnaryOperator  # type: ignore
+
 from .extra import (
     TalonBlock,
     TalonCommandDeclaration,
@@ -431,6 +434,11 @@ class TalonFormatter:
     @format.register
     def _(self, node: TalonArgumentList) -> Doc:
         return ("," / Space).join(self.format_children(node.children))
+
+    @format.register
+    def _(self, node: TalonUnaryOperator) -> Doc:
+        self.assert_only_comments(node.children)
+        return self.format(node.operator) / self.format(node.right)
 
     @format.register
     def _(self, node: TalonBinaryOperator) -> Doc:
