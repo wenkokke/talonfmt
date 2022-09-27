@@ -25,6 +25,7 @@ pytest = { version = "^7.1.2", optional = true }
 pytest-benchmark = { version = "^3.4.1", optional = true }
 pytest-golden = { version = "^0.2.2", optional = true }
 tree-sitter-talon = "^1004.3.1.0"
+setuptools = "<=65.3.0" # override 'tree-sitter-talon' dependency
 
 [tool.poetry.extras]
 test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
