@@ -73,6 +73,8 @@ from tree_sitter_talon import (
     TalonWord,
 )
 
+from .assert_equivalent import *
+
 TalonBlockLevel = Union[
     TalonSourceFile,
     TalonMatches,
@@ -210,7 +212,7 @@ class TalonFormatter:
                 yield from clear_match_context_comment_buffer()
                 yield from self.format_lines(child)
                 if (
-                    bool(child)
+                    bool(child.children)
                     or (child.is_explicit() and self.keep_empty_match_context)
                     or self.show_empty_match_context
                 ):
