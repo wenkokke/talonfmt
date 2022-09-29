@@ -4,7 +4,6 @@ from typing import Optional, Union
 from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
 from tree_sitter_talon import Node, parse
 
-from .extra import *
 from .formatter import EmptyMatchContext, TalonFormatter
 
 __version__: str = "1.7.4"

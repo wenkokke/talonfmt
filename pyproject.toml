@@ -17,14 +17,14 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.9.8"
 click = "^8.1.3"
 bumpver = { version = "*", optional = true }
-doc_printer = "^0.13.1"
+doc-printer = "^0.13.1"
 pytest = { version = "^7.1.2", optional = true }
 pytest-benchmark = { version = "^3.4.1", optional = true }
 pytest-golden = { version = "^0.2.2", optional = true }
-tree_sitter_talon = ">=1000.2.0.0"
+tree-sitter-talon = "^1005.3.1.0"
 
 [tool.poetry.extras]
 test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
@@ -35,6 +35,9 @@ tox = "^3.25.1"
 black = "^22.8.0"
 isort = "^5.10.1"
 flake8 = "^5.0.4"
+bumpver = "*"
+
+[tool.poetry.group.ci.dependencies]
 bumpver = "*"
 
 [tool.poetry.scripts]

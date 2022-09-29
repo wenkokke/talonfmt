@@ -1,0 +1,8 @@
+input: |
+  -
+  settings():
+    speech._subtitles = 0
+output: |
+  -
+  settings():
+      speech._subtitles = 0
