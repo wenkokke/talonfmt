@@ -421,7 +421,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "setuptools"
-version = "65.4.0"
+version = "65.3.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "main"
 optional = false
@@ -501,16 +501,16 @@ python-versions = ">=3.3"
 
 [[package]]
 name = "tree-sitter-talon"
-version = "1004.3.1.0"
+version = "1005.3.1.0"
 description = "Parser for Talon files in Python."
 category = "main"
 optional = false
-python-versions = ">=3.9.8,<4.0"
+python-versions = ">=3.9.8,<4.0.0"
 
 [package.dependencies]
 dataclasses-json = ">=0.5.7,<0.6.0"
 parsec = ">=3.14,<4.0"
-setuptools = "*"
+setuptools = "<=65.3.0"
 tree-sitter = ">=0.20.0,<0.21.0"
 tree-sitter-type-provider = ">=2.1.17,<3.0.0"
 
@@ -575,8 +575,8 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.9.8,<4"
-content-hash = "556cbfc6e87e3c15edc768810da8af184df1415726e4af9def60480b93e13bdc"
+python-versions = "^3.9.8"
+content-hash = "87451ce00464999899bab34628f8b8ae941a31e74c63838ffaeae63f3d228900"
 
 [metadata.files]
 atomicwrites = [
@@ -791,8 +791,8 @@ pytest-golden = [
     {file = "ruamel.yaml.clib-0.2.6.tar.gz", hash = "sha256:4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd"},
 ]
 setuptools = [
-    {file = "setuptools-65.4.0-py3-none-any.whl", hash = "sha256:c2d2709550f15aab6c9110196ea312f468f41cd546bceb24127a1be6fdcaeeb1"},
-    {file = "setuptools-65.4.0.tar.gz", hash = "sha256:a8f6e213b4b0661f590ccf40de95d28a177cd747d098624ad3f69c40287297e9"},
+    {file = "setuptools-65.3.0-py3-none-any.whl", hash = "sha256:2e24e0bec025f035a2e72cdd1961119f557d78ad331bb00ff82efb2ab8da8e82"},
+    {file = "setuptools-65.3.0.tar.gz", hash = "sha256:7732871f4f7fa58fb6bdcaeadb0161b2bd046c85905dbaa066bdcbcc81953b57"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
@@ -819,25 +819,25 @@ tree-sitter = [
     {file = "tree_sitter-0.20.1.tar.gz", hash = "sha256:e93f082c545d6649bcfb5d681ed255eb004a6ce22988971a128f40692feec60d"},
 ]
 tree-sitter-talon = [
-    {file = "tree_sitter_talon-1004.3.1.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:a55b73c49782d6e380f2d9ce32f84b6c378929f136cffbe7bd753900954eaae4"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:21d926b6b6534ab759e69ad84d00500a969312d230d13f62573c232abec135b6"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp310-cp310-manylinux_2_24_i686.whl", hash = "sha256:4878574480832cbdd772a7afc5467ecb465278c8ab86f9cfb4555c881e5df196"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:fd006decef8019e84727480fc838561f11113ec216daf66241184e401b105960"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp310-cp310-win32.whl", hash = "sha256:97ce33968b380f07a679fae25d7fcdd4563a4368ef67b529552042adb81cd7fc"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:57c918038ab71f493423ddf094ecf1df9d25f41637ccdab224022a0e29f8087c"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:853a970ee5db4d3f70e3d44963833b83310e33d79d7a1b301592925b015ebfa3"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp311-cp311-macosx_12_0_x86_64.whl", hash = "sha256:cb8cb54c9761422a3ea8660973064ac2c1238a8e765c89f02100f601bdd8ab67"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp311-cp311-manylinux_2_24_i686.whl", hash = "sha256:4e401da381f7e683b279241b001b417976f6ab8feb80323b2d007ed73a710028"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:25196b10c7655fcf190f146ac0f6e22263a18093752764fdfa0b136430a8c446"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp311-cp311-win32.whl", hash = "sha256:b49d340823e95f9fafb0f6cc2d3b9d8caca4a13394ec9188a72661912fbc3667"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:055cfc38165b98cd98d612c0ca81de7c35a895ec368677932c2d3b69c17bc61a"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:96b39a405a54ccf0ba8b79de85fed58b528077ad954d24ef8e8d5a22f814033d"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp39-cp39-macosx_12_0_x86_64.whl", hash = "sha256:59769b95df72c41c327da3c64322e0691b86ba0f890aaac87c519c502c2dd10a"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp39-cp39-manylinux_2_24_i686.whl", hash = "sha256:636fc8182bac07402ecc7c67b2979f59329a1e779ddf2519ad6712ad8a47e290"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:eae127feef3af406822c68743c479e83a1314f65a6c628cc80aabb850ece3db0"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp39-cp39-win32.whl", hash = "sha256:6ebc533ff7f0a0bcbbda54ea716a159fe808df99726a14a18e0f1760e58b3d8f"},
-    {file = "tree_sitter_talon-1004.3.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:8fcfd92edaba9e6378c3e3e6169e1d85c141a81519a05c7f2a8611e01a0732df"},
-    {file = "tree_sitter_talon-1004.3.1.0.tar.gz", hash = "sha256:754d6d1e441c17ada712ff3bdcf335b0ca3a8043a2da3efa23ca1a9c02751a2c"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:da2f76716ed2715470cf78d81fbe82f1a5be2f0a94843aaac6cfef0886efbf81"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:bdba202d17507a56cdba07e44dd63cc5b6bb6bbd003eba76928a9b84569eeb75"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-manylinux_2_24_i686.whl", hash = "sha256:45e8b6c1fb2aab06592e9ca10b90fd2d63826103445b39097a19cb8c8ad2782e"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:bdd8e8ab792feac17a17654feb844c73384a8aa1453ae7d17ff1105007fec814"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-win32.whl", hash = "sha256:ad7bd62eafd08287fbeef4bbc13d1686fb6b4370c6db2e132610ec4da9f6395d"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:32049df1b137f00aaac72b31ee732768801a5e09d58c5348edc1426a440f2b0b"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:a6c70c75d5615778949c58a2b5856b4e56c8569aff02002e02f6cb64334f9aa2"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-macosx_12_0_x86_64.whl", hash = "sha256:5b63a825536ca7a09a25ff923eb0ead6b8f6c7a536b263fc05e1bc6bc6a4994b"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-manylinux_2_24_i686.whl", hash = "sha256:435a42a0afc7a0e485dc66f36e5ff6d31ade2537343bd9b92f36b201fcd596b9"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:15f2728cc00dc1e2e890215b8241856252a3fee74ffbf21e0beaf2ebc063df7d"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-win32.whl", hash = "sha256:b74e68101d63e6e2f6bbc95612c756774bbc8b317a40cc30bc45f2347a3142ab"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:fcdd5ed4b85ed0c3f3703f8df4924500b9e12ff187f9d0cb77b6a773d7c772f0"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:c170eb6be3aec2eff353f830054c46fd445c7909414b7ce8b776ab485338af53"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-macosx_12_0_x86_64.whl", hash = "sha256:5a7bffce2a376baebb714ebdcd7d2971f64d786ea5027ea0f7d357607721c16c"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-manylinux_2_24_i686.whl", hash = "sha256:c4390da90611f3c84295ab68967fb713056f6a30a05d963af1850f01beefdaf6"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:3456e2a21c00bcbe87027ba73f43133c27fe199b2f9855991f054997d00ecdb5"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-win32.whl", hash = "sha256:0b7f0188407744dcbfd4f5d4eb35ae38c0ac0de66c06e6e0b299c83e9e6bfcf2"},
+    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:76876b8bb7b4d227ae62f66bf4dfd912406b1f8a82dd48ed500643363aad8873"},
+    {file = "tree_sitter_talon-1005.3.1.0.tar.gz", hash = "sha256:2a6e32b9cfe22625273907471047dd151ebf5ae3c5315b031dc4db2202e70e6e"},
 ]
 tree-sitter-type-provider = [
     {file = "tree_sitter_type_provider-2.1.17.tar.gz", hash = "sha256:ce138c700b645c969352bb89b911ac608e6fe991106a5933948683384521e441"},
