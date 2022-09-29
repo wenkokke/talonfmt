@@ -6,7 +6,7 @@ from tree_sitter_talon import Node, parse
 
 from .formatter import EmptyMatchContext, TalonFormatter
 
-__version__: str = "1.7.4"
+__version__: str = "1.8.0"
 
 
 def talonfmt(
