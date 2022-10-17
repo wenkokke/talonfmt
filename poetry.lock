@@ -22,11 +22,11 @@ tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy 
 
 [[package]]
 name = "black"
-version = "22.8.0"
+version = "22.10.0"
 description = "The uncompromising code formatter."
 category = "dev"
 optional = false
-python-versions = ">=3.6.2"
+python-versions = ">=3.7"
 
 [package.dependencies]
 click = ">=8.0.0"
@@ -421,14 +421,14 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "setuptools"
-version = "65.3.0"
+version = "65.5.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx", "sphinx-favicon", "sphinx-hoverxref (<2)", "sphinx-inline-tabs", "sphinx-notfound-page (==0.8.3)", "sphinx-reredirects", "sphinxcontrib-towncrier"]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-hoverxref (<2)", "sphinx-inline-tabs", "sphinx-notfound-page (==0.8.3)", "sphinx-reredirects", "sphinxcontrib-towncrier"]
 testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8 (<5)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "mock", "pip (>=19.1)", "pip-run (>=8.8)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
 testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
@@ -501,30 +501,29 @@ python-versions = ">=3.3"
 
 [[package]]
 name = "tree-sitter-talon"
-version = "1005.3.1.0"
+version = "1006.3.2.0"
 description = "Parser for Talon files in Python."
 category = "main"
 optional = false
-python-versions = ">=3.9.8,<4.0.0"
+python-versions = ">=3.7.1,<4.0.0"
 
 [package.dependencies]
 dataclasses-json = ">=0.5.7,<0.6.0"
 parsec = ">=3.14,<4.0"
-setuptools = "<=65.3.0"
+setuptools = "<65.6.0"
 tree-sitter = ">=0.20.0,<0.21.0"
-tree-sitter-type-provider = ">=2.1.17,<3.0.0"
+tree-sitter-type-provider = ">=2.1.18,<3.0.0"
 
 [package.extras]
-docs = ["Sphinx (>=5.1.1,<6.0.0)", "sphinx-bootstrap-theme (>=0.8.1,<0.9.0)"]
 test = ["bumpver", "mypy (>=0.971,<0.972)", "pytest (>=7.1.2,<8.0.0)", "pytest-golden (>=0.2.2,<0.3.0)"]
 
 [[package]]
 name = "tree-sitter-type-provider"
-version = "2.1.17"
+version = "2.1.18"
 description = "Type providers for tree-sitter in Python."
 category = "main"
 optional = false
-python-versions = ">=3.9.8"
+python-versions = ">=3.7,<4"
 
 [package.dependencies]
 dataclasses-json = ">=0.5.7,<0.6.0"
@@ -535,7 +534,7 @@ test = ["bumpver", "pytest (>=7.1.2,<8.0.0)", "pytest-golden (>=0.2.2,<0.3.0)"]
 
 [[package]]
 name = "typing-extensions"
-version = "4.3.0"
+version = "4.4.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
 optional = false
@@ -576,7 +575,7 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9.8"
-content-hash = "87451ce00464999899bab34628f8b8ae941a31e74c63838ffaeae63f3d228900"
+content-hash = "5b0983b330eb886bc94ebb238ef5a57d3b2235d3166d2048ae8fa45e48dc3dc2"
 
 [metadata.files]
 atomicwrites = [
@@ -587,29 +586,27 @@ attrs = [
     {file = "attrs-22.1.0.tar.gz", hash = "sha256:29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"},
 ]
 black = [
-    {file = "black-22.8.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:ce957f1d6b78a8a231b18e0dd2d94a33d2ba738cd88a7fe64f53f659eea49fdd"},
-    {file = "black-22.8.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:5107ea36b2b61917956d018bd25129baf9ad1125e39324a9b18248d362156a27"},
-    {file = "black-22.8.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:e8166b7bfe5dcb56d325385bd1d1e0f635f24aae14b3ae437102dedc0c186747"},
-    {file = "black-22.8.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dd82842bb272297503cbec1a2600b6bfb338dae017186f8f215c8958f8acf869"},
-    {file = "black-22.8.0-cp310-cp310-win_amd64.whl", hash = "sha256:d839150f61d09e7217f52917259831fe2b689f5c8e5e32611736351b89bb2a90"},
-    {file = "black-22.8.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:a05da0430bd5ced89176db098567973be52ce175a55677436a271102d7eaa3fe"},
-    {file = "black-22.8.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4a098a69a02596e1f2a58a2a1c8d5a05d5a74461af552b371e82f9fa4ada8342"},
-    {file = "black-22.8.0-cp36-cp36m-win_amd64.whl", hash = "sha256:5594efbdc35426e35a7defa1ea1a1cb97c7dbd34c0e49af7fb593a36bd45edab"},
-    {file = "black-22.8.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a983526af1bea1e4cf6768e649990f28ee4f4137266921c2c3cee8116ae42ec3"},
-    {file = "black-22.8.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3b2c25f8dea5e8444bdc6788a2f543e1fb01494e144480bc17f806178378005e"},
-    {file = "black-22.8.0-cp37-cp37m-win_amd64.whl", hash = "sha256:78dd85caaab7c3153054756b9fe8c611efa63d9e7aecfa33e533060cb14b6d16"},
-    {file = "black-22.8.0-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:cea1b2542d4e2c02c332e83150e41e3ca80dc0fb8de20df3c5e98e242156222c"},
-    {file = "black-22.8.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:5b879eb439094751185d1cfdca43023bc6786bd3c60372462b6f051efa6281a5"},
-    {file = "black-22.8.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:0a12e4e1353819af41df998b02c6742643cfef58282915f781d0e4dd7a200411"},
-    {file = "black-22.8.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c3a73f66b6d5ba7288cd5d6dad9b4c9b43f4e8a4b789a94bf5abfb878c663eb3"},
-    {file = "black-22.8.0-cp38-cp38-win_amd64.whl", hash = "sha256:e981e20ec152dfb3e77418fb616077937378b322d7b26aa1ff87717fb18b4875"},
-    {file = "black-22.8.0-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:8ce13ffed7e66dda0da3e0b2eb1bdfc83f5812f66e09aca2b0978593ed636b6c"},
-    {file = "black-22.8.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:32a4b17f644fc288c6ee2bafdf5e3b045f4eff84693ac069d87b1a347d861497"},
-    {file = "black-22.8.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:0ad827325a3a634bae88ae7747db1a395d5ee02cf05d9aa7a9bd77dfb10e940c"},
-    {file = "black-22.8.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:53198e28a1fb865e9fe97f88220da2e44df6da82b18833b588b1883b16bb5d41"},
-    {file = "black-22.8.0-cp39-cp39-win_amd64.whl", hash = "sha256:bc4d4123830a2d190e9cc42a2e43570f82ace35c3aeb26a512a2102bce5af7ec"},
-    {file = "black-22.8.0-py3-none-any.whl", hash = "sha256:d2c21d439b2baf7aa80d6dd4e3659259be64c6f49dfd0f32091063db0e006db4"},
-    {file = "black-22.8.0.tar.gz", hash = "sha256:792f7eb540ba9a17e8656538701d3eb1afcb134e3b45b71f20b25c77a8db7e6e"},
+    {file = "black-22.10.0-1fixedarch-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:5cc42ca67989e9c3cf859e84c2bf014f6633db63d1cbdf8fdb666dcd9e77e3fa"},
+    {file = "black-22.10.0-1fixedarch-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:5d8f74030e67087b219b032aa33a919fae8806d49c867846bfacde57f43972ef"},
+    {file = "black-22.10.0-1fixedarch-cp37-cp37m-macosx_10_16_x86_64.whl", hash = "sha256:197df8509263b0b8614e1df1756b1dd41be6738eed2ba9e9769f3880c2b9d7b6"},
+    {file = "black-22.10.0-1fixedarch-cp38-cp38-macosx_10_16_x86_64.whl", hash = "sha256:2644b5d63633702bc2c5f3754b1b475378fbbfb481f62319388235d0cd104c2d"},
+    {file = "black-22.10.0-1fixedarch-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:e41a86c6c650bcecc6633ee3180d80a025db041a8e2398dcc059b3afa8382cd4"},
+    {file = "black-22.10.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:2039230db3c6c639bd84efe3292ec7b06e9214a2992cd9beb293d639c6402edb"},
+    {file = "black-22.10.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:14ff67aec0a47c424bc99b71005202045dc09270da44a27848d534600ac64fc7"},
+    {file = "black-22.10.0-cp310-cp310-win_amd64.whl", hash = "sha256:819dc789f4498ecc91438a7de64427c73b45035e2e3680c92e18795a839ebb66"},
+    {file = "black-22.10.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:5b9b29da4f564ba8787c119f37d174f2b69cdfdf9015b7d8c5c16121ddc054ae"},
+    {file = "black-22.10.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b8b49776299fece66bffaafe357d929ca9451450f5466e997a7285ab0fe28e3b"},
+    {file = "black-22.10.0-cp311-cp311-win_amd64.whl", hash = "sha256:21199526696b8f09c3997e2b4db8d0b108d801a348414264d2eb8eb2532e540d"},
+    {file = "black-22.10.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1e464456d24e23d11fced2bc8c47ef66d471f845c7b7a42f3bd77bf3d1789650"},
+    {file = "black-22.10.0-cp37-cp37m-win_amd64.whl", hash = "sha256:9311e99228ae10023300ecac05be5a296f60d2fd10fff31cf5c1fa4ca4b1988d"},
+    {file = "black-22.10.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:fba8a281e570adafb79f7755ac8721b6cf1bbf691186a287e990c7929c7692ff"},
+    {file = "black-22.10.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:915ace4ff03fdfff953962fa672d44be269deb2eaf88499a0f8805221bc68c87"},
+    {file = "black-22.10.0-cp38-cp38-win_amd64.whl", hash = "sha256:444ebfb4e441254e87bad00c661fe32df9969b2bf224373a448d8aca2132b395"},
+    {file = "black-22.10.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:974308c58d057a651d182208a484ce80a26dac0caef2895836a92dd6ebd725e0"},
+    {file = "black-22.10.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:72ef3925f30e12a184889aac03d77d031056860ccae8a1e519f6cbb742736383"},
+    {file = "black-22.10.0-cp39-cp39-win_amd64.whl", hash = "sha256:432247333090c8c5366e69627ccb363bc58514ae3e63f7fc75c54b1ea80fa7de"},
+    {file = "black-22.10.0-py3-none-any.whl", hash = "sha256:c957b2b4ea88587b46cf49d1dc17681c1e672864fd7af32fc1e9664d572b3458"},
+    {file = "black-22.10.0.tar.gz", hash = "sha256:f513588da599943e0cde4e32cc9879e825d58720d6557062d1098c5ad80080e1"},
 ]
 bumpver = [
     {file = "bumpver-2022.1119-py2.py3-none-any.whl", hash = "sha256:c4cc84a881bf945510a4831200fd082c3520665c61e73ff7732e26249a6a86c9"},
@@ -791,8 +788,8 @@ pytest-golden = [
     {file = "ruamel.yaml.clib-0.2.6.tar.gz", hash = "sha256:4ff604ce439abb20794f05613c374759ce10e3595d1867764dd1ae675b85acbd"},
 ]
 setuptools = [
-    {file = "setuptools-65.3.0-py3-none-any.whl", hash = "sha256:2e24e0bec025f035a2e72cdd1961119f557d78ad331bb00ff82efb2ab8da8e82"},
-    {file = "setuptools-65.3.0.tar.gz", hash = "sha256:7732871f4f7fa58fb6bdcaeadb0161b2bd046c85905dbaa066bdcbcc81953b57"},
+    {file = "setuptools-65.5.0-py3-none-any.whl", hash = "sha256:f62ea9da9ed6289bfe868cd6845968a2c854d1427f8548d52cae02a42b4f0356"},
+    {file = "setuptools-65.5.0.tar.gz", hash = "sha256:512e5536220e38146176efb833d4a62aa726b7bbff82cfbc8ba9eaa3996e0b17"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
@@ -819,32 +816,43 @@ tree-sitter = [
     {file = "tree_sitter-0.20.1.tar.gz", hash = "sha256:e93f082c545d6649bcfb5d681ed255eb004a6ce22988971a128f40692feec60d"},
 ]
 tree-sitter-talon = [
-    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:da2f76716ed2715470cf78d81fbe82f1a5be2f0a94843aaac6cfef0886efbf81"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:bdba202d17507a56cdba07e44dd63cc5b6bb6bbd003eba76928a9b84569eeb75"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-manylinux_2_24_i686.whl", hash = "sha256:45e8b6c1fb2aab06592e9ca10b90fd2d63826103445b39097a19cb8c8ad2782e"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:bdd8e8ab792feac17a17654feb844c73384a8aa1453ae7d17ff1105007fec814"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-win32.whl", hash = "sha256:ad7bd62eafd08287fbeef4bbc13d1686fb6b4370c6db2e132610ec4da9f6395d"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:32049df1b137f00aaac72b31ee732768801a5e09d58c5348edc1426a440f2b0b"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:a6c70c75d5615778949c58a2b5856b4e56c8569aff02002e02f6cb64334f9aa2"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-macosx_12_0_x86_64.whl", hash = "sha256:5b63a825536ca7a09a25ff923eb0ead6b8f6c7a536b263fc05e1bc6bc6a4994b"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-manylinux_2_24_i686.whl", hash = "sha256:435a42a0afc7a0e485dc66f36e5ff6d31ade2537343bd9b92f36b201fcd596b9"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:15f2728cc00dc1e2e890215b8241856252a3fee74ffbf21e0beaf2ebc063df7d"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-win32.whl", hash = "sha256:b74e68101d63e6e2f6bbc95612c756774bbc8b317a40cc30bc45f2347a3142ab"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:fcdd5ed4b85ed0c3f3703f8df4924500b9e12ff187f9d0cb77b6a773d7c772f0"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:c170eb6be3aec2eff353f830054c46fd445c7909414b7ce8b776ab485338af53"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-macosx_12_0_x86_64.whl", hash = "sha256:5a7bffce2a376baebb714ebdcd7d2971f64d786ea5027ea0f7d357607721c16c"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-manylinux_2_24_i686.whl", hash = "sha256:c4390da90611f3c84295ab68967fb713056f6a30a05d963af1850f01beefdaf6"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:3456e2a21c00bcbe87027ba73f43133c27fe199b2f9855991f054997d00ecdb5"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-win32.whl", hash = "sha256:0b7f0188407744dcbfd4f5d4eb35ae38c0ac0de66c06e6e0b299c83e9e6bfcf2"},
-    {file = "tree_sitter_talon-1005.3.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:76876b8bb7b4d227ae62f66bf4dfd912406b1f8a82dd48ed500643363aad8873"},
-    {file = "tree_sitter_talon-1005.3.1.0.tar.gz", hash = "sha256:2a6e32b9cfe22625273907471047dd151ebf5ae3c5315b031dc4db2202e70e6e"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:bcdc3d513dda90ff056246581285e30f180b5eb0f98a16f73c56065acad04d1e"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp310-cp310-macosx_12_0_x86_64.whl", hash = "sha256:ce2d969cfc6e0611cd1f58e640b6c8c79fa177bed585741651b7ad1e959f4d68"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp310-cp310-manylinux_2_24_i686.whl", hash = "sha256:480d96f5b3c46aabd636fec6c6962de93106e903e118ac29fdfe3317a153c123"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:4d4cebcc204bebdce739ad115611a9cc28297ee3ddde48471366787fbd5378cd"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp310-cp310-win32.whl", hash = "sha256:618e00abb91db923902172e76038c9534f64c1f77e1e8cb0ae90b5c1e48740b2"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp310-cp310-win_amd64.whl", hash = "sha256:e0169ccdb1be320ff226cc5875b70457af6f865b15875976ba7282964723fe02"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:47e3988513de716409906b7cdff66933df5d9b8f395bfd70ac1958c3e95583f8"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp311-cp311-macosx_12_0_x86_64.whl", hash = "sha256:3fdcce9b16d199d555a33f6ad90b729117aa35c7af36a39d6fbdedb76a7502eb"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp311-cp311-manylinux_2_24_i686.whl", hash = "sha256:0b4e9bfc89438841cc620079b0404b4def6c4eb48bd1268d1659770198f1c6e8"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:bc83406dfaeae128aff5e623aadb208d0d6ce8facfaace48777dd9e07a3c2482"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp311-cp311-win32.whl", hash = "sha256:961e26bcce51aa97d08e59858db39b019969cf028fc18cb08de7028e3cd83071"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp311-cp311-win_amd64.whl", hash = "sha256:c8979df61f6873d337431a0a02b41084d84b1ddd0add794af57b65e9f8152c14"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp37-cp37m-macosx_10_16_x86_64.whl", hash = "sha256:8d15c12f9e2d40513ee5b66eb546d2c49f5cc41b1455c5026d79113b3a3c4216"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp37-cp37m-manylinux_2_24_i686.whl", hash = "sha256:74b2b2cbe8d583dcd351f4bf956146a44825b0b06a03c2bb91a0b5d39977c2a5"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp37-cp37m-manylinux_2_24_x86_64.whl", hash = "sha256:779888f0d67518c2751cf84215aa117c69bc51a34ae29a224ad5e02f22505acd"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp37-cp37m-win32.whl", hash = "sha256:dd8a47f01aac522be0ca1ba320b3902a23d64ad3c477eaa38d4c7b048dbd0d1f"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp37-cp37m-win_amd64.whl", hash = "sha256:6c3c24deb3b66b638a24e6991c6f9a3e7f4aa9f7c267aed15d3a231b1a70fd0d"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp38-cp38-macosx_10_16_x86_64.whl", hash = "sha256:206d5f534c96c7ab7d22d64d136a527cd71cf50eb35e2cbf5821e49a8d2e88a0"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp38-cp38-manylinux_2_24_i686.whl", hash = "sha256:3118ef5d1d416f987c71710579298c6dacd4b4a16a7ee4d0d891955849531fef"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp38-cp38-manylinux_2_24_x86_64.whl", hash = "sha256:33c25842ab57709a96da3060fcc5c9d3ef0bec3da5a2e33aa4166018eac39097"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp38-cp38-win32.whl", hash = "sha256:11504d06e7e87d4f19eb03e4b6d8eba63f2b33e96feb2e928a3fae35cf99fe15"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp38-cp38-win_amd64.whl", hash = "sha256:f119e157dcbc459050b02fb5605c7b929cd96bad801aaaad266b7ae5f4bb3103"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:bd826beab43068027bf9ac99dd629ed950bc721e4cc8a47650ca7fb96dda84b7"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp39-cp39-macosx_12_0_x86_64.whl", hash = "sha256:f4bee213e2aaf697fc64ce150730da556cb609b6266e15bd9e3cf67efc042293"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp39-cp39-manylinux_2_24_i686.whl", hash = "sha256:90272cd0f9fc7f53661dd65fc0365239b2f0438c9828d35a935b8068f6b0e215"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:a9b9677512ee1ee11a0b98922ed1f9be65cde8a50347fa49080e9bc74b091621"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp39-cp39-win32.whl", hash = "sha256:8cb7de0ae0282d66b5db81983015106e298636def2a4b558cbe5858dadaaddef"},
+    {file = "tree_sitter_talon-1006.3.2.0-cp39-cp39-win_amd64.whl", hash = "sha256:b6b110f3eae4634d22837369275ad8e715595fdb0dacd3a9630538ea64730a37"},
+    {file = "tree_sitter_talon-1006.3.2.0.tar.gz", hash = "sha256:182f54fbf7848d3bae37131b26b88172d000e19635c41cc61e55f28581a62a83"},
 ]
 tree-sitter-type-provider = [
-    {file = "tree_sitter_type_provider-2.1.17.tar.gz", hash = "sha256:ce138c700b645c969352bb89b911ac608e6fe991106a5933948683384521e441"},
+    {file = "tree_sitter_type_provider-2.1.18-py3-none-any.whl", hash = "sha256:7714dcfc1148c6c7893b95a628b569895a9333daa9091aba22254453feda0ac4"},
+    {file = "tree_sitter_type_provider-2.1.18.tar.gz", hash = "sha256:d9181335af3955fcf08e2b5cfb5ee170867390b6cbd41b7d898816d8c169c774"},
 ]
 typing-extensions = [
-    {file = "typing_extensions-4.3.0-py3-none-any.whl", hash = "sha256:25642c956049920a5aa49edcdd6ab1e06d7e5d467fc00e0506c44ac86fbfca02"},
-    {file = "typing_extensions-4.3.0.tar.gz", hash = "sha256:e6d2677a32f47fc7eb2795db1dd15c1f34eff616bcaf2cfb5e997f854fa1c4a6"},
+    {file = "typing_extensions-4.4.0-py3-none-any.whl", hash = "sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e"},
+    {file = "typing_extensions-4.4.0.tar.gz", hash = "sha256:1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa"},
 ]
 typing-inspect = [
     {file = "typing_inspect-0.8.0-py3-none-any.whl", hash = "sha256:5fbf9c1e65d4fa01e701fe12a5bca6c6e08a4ffd5bc60bfac028253a447c5188"},
