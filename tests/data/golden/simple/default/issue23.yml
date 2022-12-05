@@ -1,0 +1,8 @@
+input: |
+  -
+  time <number_small> o'clock [<user.ampm>]:
+    skip()
+output: |
+  -
+  time <number_small> o'clock [<user.ampm>]:
+      skip()
