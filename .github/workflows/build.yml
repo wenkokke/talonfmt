@@ -51,7 +51,7 @@ jobs:
 
       - name: Build & Test
         run: |
-          poetry install --with ci --without dev
+          poetry install --with ci --without dev -E test
           poetry run bumpver update --patch --dry --no-fetch
           poetry run pytest --benchmark-disable -x
 
