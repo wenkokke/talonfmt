@@ -25,13 +25,12 @@ from . import __version__, talonfmt
 )
 @click.option(
     "--indent-size",
-    type=int,
-    default=4,
+    type=int,  # Optional[int]
     show_default=True,
 )
 @click.option(
     "--max-line-width",
-    type=int,
+    type=int,  # Optional[int]
     show_default=True,
 )
 @click.option(
@@ -105,7 +104,7 @@ def cli(
     *,
     path: tuple[Path, ...],
     safe: bool = True,
-    indent_size: int,
+    indent_size: Optional[int],
     max_line_width: Optional[int],
     align_match_context: bool,
     align_match_context_at: Optional[int],

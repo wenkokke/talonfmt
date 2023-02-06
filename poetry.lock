@@ -163,6 +163,18 @@ more-itertools = "*"
 dev = ["build", "pytest", "sphinx", "sphinx-bootstrap-theme", "twine"]
 
 [[package]]
+name = "editorconfig"
+version = "0.12.3"
+description = "EditorConfig File Locator and Interpreter for Python"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "EditorConfig-0.12.3-py3-none-any.whl", hash = "sha256:6b0851425aa875b08b16789ee0eeadbd4ab59666e9ebe728e526314c4a2e52c1"},
+    {file = "EditorConfig-0.12.3.tar.gz", hash = "sha256:57f8ce78afcba15c8b18d46b5170848c88d56fd38f05c2ec60dbbfcb8996e89e"},
+]
+
+[[package]]
 name = "exceptiongroup"
 version = "1.0.0rc9"
 description = "Backport of PEP 654 (exception groups)"
@@ -867,4 +879,4 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.8"
-content-hash = "54f74fe734246360c52f71aae177619b82d9cab16c2fa9cf296bb3c43e6be240"
+content-hash = "25d34857d5573baeb6fc60ce21d21c1090f412da57f2014d0e77fe81950c352b"

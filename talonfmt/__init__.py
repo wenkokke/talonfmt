@@ -4,6 +4,7 @@ from typing import Optional, Union
 from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
 from tree_sitter_talon import Node, parse
 
+from .editorconfig import get_indent_size, get_max_line_length
 from .formatter import EmptyMatchContext, TalonFormatter
 
 __version__: str = "1.8.1"
@@ -15,7 +16,7 @@ def talonfmt(
     filename: Optional[str] = None,
     encoding: str = "utf-8",
     safe: Optional[bool] = None,
-    indent_size: int = 4,
+    indent_size: Optional[int] = None,
     max_line_width: Optional[int] = None,
     align_match_context: bool = False,
     align_match_context_at: Optional[int] = None,
@@ -26,6 +27,20 @@ def talonfmt(
     empty_match_context: str = "keep",
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
 ):
+    # Get max_line_width from .editorconfig
+    if filename is not None and max_line_width is None:
+        max_line_width = get_max_line_length(filename)
+        print(f"Got max_line_width={max_line_width} from .editorconfig")
+
+    # Get indent_size from .editorconfig
+    if filename is not None and indent_size is None:
+        indent_size = get_indent_size(filename)
+        print(f"Got indent_size={indent_size} from .editorconfig")
+
+    # Set default indent_size
+    if indent_size is None:
+        indent_size = 4
+
     # Parse (if necessary):
     if isinstance(contents, Node):
         ast = contents
