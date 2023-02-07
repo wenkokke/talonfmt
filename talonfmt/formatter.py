@@ -158,7 +158,6 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonSourceFile) -> Iterator[Doc]:
-
         # Used to emit the match context separator.
         in_header: bool = True
 
@@ -188,9 +187,9 @@ class TalonFormatter:
         previous_line: int = 0
 
         # Iterate over children, flatten any TalonDeclarations node
-        def children() -> Iterator[
-            typing.Union[TalonDeclaration, TalonMatches, TalonComment]
-        ]:
+        def children() -> (
+            Iterator[typing.Union[TalonDeclaration, TalonMatches, TalonComment]]
+        ):
             for child in node.children:
                 if isinstance(child, TalonDeclarations):
                     yield from child.children
@@ -256,7 +255,6 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonMatches) -> Iterator[Doc]:
-
         # Used to insert blank lines.
         previous_line: Optional[int] = None
 
@@ -391,7 +389,6 @@ class TalonFormatter:
 
     @format_lines.register
     def _(self, node: TalonBlock) -> Iterator[Doc]:
-
         # Used to insert blank lines.
         previous_line: Optional[int] = None
 
