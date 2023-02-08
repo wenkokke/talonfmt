@@ -86,10 +86,9 @@ python =
   3.11: py311
 
 [testenv]
-allowlist_externals = poetry
-commands_pre =
-    poetry install --no-root --sync -E test
 commands =
-    poetry run bumpver update --patch --dry --no-fetch
-    poetry run pytest --benchmark-disable -x
+    bumpver update --patch --dry --no-fetch
+    pytest --benchmark-disable -x
+extras =
+    test
 """
