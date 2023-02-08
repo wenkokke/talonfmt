@@ -879,4 +879,4 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9.8"
-content-hash = "c5731a4131d4c6d7335ff1148e602ffa3c81e1866991fba1e53e20f5e5afd6d6"
+content-hash = "055b923835cb603c6dfccc6d25cade2c465ba0e2f3a36c5b4b0372f8e7476d5b"

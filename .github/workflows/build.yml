@@ -50,10 +50,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Build & Test
-        run: |
-          poetry install --all-extras --with ci
-          poetry run bumpver update --patch --dry --no-fetch
-          poetry run pytest --benchmark-disable -x
+        run: poetry install --with ci && poetry run tox
 
   release:
     name: Release
