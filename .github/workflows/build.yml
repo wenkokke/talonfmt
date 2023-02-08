@@ -26,7 +26,14 @@ jobs:
         include:
           - os: ubuntu-20.04
             python-version: "3.9.8"
+            pyenv: "py39"
             experimental: false
+          - python-version: "3.9"
+            pyenv: "py39"
+          - python-version: "3.10"
+            pyenv: "py310"
+          - python-version: "3.11"
+            pyenv: "py311"
         exclude:
           - os: windows-latest
             python-version: "3.10"
@@ -43,7 +50,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Build & Test
-        run: tox
+        run: tox run -e ${{ matrix.pyenv }}
 
   release:
     name: Release
