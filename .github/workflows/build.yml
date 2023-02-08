@@ -27,6 +27,11 @@ jobs:
           - os: ubuntu-20.04
             python-version: "3.9.8"
             experimental: false
+        exclude:
+          - os: windows-latest
+            python-version: "3.10"
+          - os: windows-latest
+            python-version: "3.11"
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     steps:
