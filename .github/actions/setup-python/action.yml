@@ -12,12 +12,7 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ inputs.python-version }}
-
-    - name: Setup Poetry
-      uses: Gr1N/setup-poetry@v7
-
-    - name: Cache Poetry
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pypoetry/virtualenvs
-        key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}-
+        cache: "pip"
+        cache-dependency-path: "requirements-ci.txt"
+    - run: pip install -r requirements-ci.txt
+      shell: sh
