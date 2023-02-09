@@ -30,12 +30,10 @@ def talonfmt(
     # Get max_line_width from .editorconfig
     if filename is not None and max_line_width is None:
         max_line_width = get_max_line_length(filename)
-        print(f"Got max_line_width={max_line_width} from .editorconfig")
 
     # Get indent_size from .editorconfig
     if filename is not None and indent_size is None:
         indent_size = get_indent_size(filename)
-        print(f"Got indent_size={indent_size} from .editorconfig")
 
     # Set default indent_size
     if indent_size is None:
