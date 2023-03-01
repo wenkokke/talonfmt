@@ -33,7 +33,7 @@ setuptools = "*"
 test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^0.971"
+mypy = ">=0.971,<1.1"
 tox = "^3.25.1"
 black = "^22.8.0"
 isort = "^5.10.1"
