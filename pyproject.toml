@@ -34,14 +34,14 @@ test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
 
 [tool.poetry.group.dev.dependencies]
 mypy = ">=0.971,<1.1"
-tox = "^3.25.1"
+tox = ">=3.25.1,<5.0.0"
 black = "^22.8.0"
 isort = "^5.10.1"
 flake8 = "^5.0.4"
 bumpver = "*"
 
 [tool.poetry.group.ci.dependencies]
-tox = "^3.25.1"
+tox = ">=3.25.1,<5.0.0"
 bumpver = "*"
 
 [tool.poetry.scripts]
