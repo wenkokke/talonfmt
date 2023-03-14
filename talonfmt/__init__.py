@@ -7,7 +7,7 @@ from tree_sitter_talon import Node, parse
 from .editorconfig import get_indent_size, get_max_line_length
 from .formatter import EmptyMatchContext, TalonFormatter
 
-__version__: str = "1.9.3"
+__version__: str = "1.9.4"
 
 
 def talonfmt(
