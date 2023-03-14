@@ -22,13 +22,13 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python:
-          - {version: "3.9", env: "py39"}
-          - {version: "3.10", env: "py310"}
-          - {version: "3.11", env: "py311"}
+          - { version: "3.9", env: "py39" }
+          - { version: "3.10", env: "py310" }
+          - { version: "3.11", env: "py311" }
         include:
           - # Earliest supported version:
             os: ubuntu-20.04
-            python: {version: "3.9.8", env: "py39"}
+            python: { version: "3.9.8", env: "py39" }
 
     runs-on: ${{ matrix.os }}
     steps:
