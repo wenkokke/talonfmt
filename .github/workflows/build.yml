@@ -21,11 +21,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version:
+        python:
           - {version: "3.9", env: "py39"}
           - {version: "3.10", env: "py310"}
           - {version: "3.11", env: "py311"}
-        experimental: [false]
         include:
           - # Earliest supported version:
             os: ubuntu-20.04
