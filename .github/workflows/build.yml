@@ -52,7 +52,7 @@ jobs:
       - name: Build & Test
         run: |
           pipx run --spec tox==4.4.6 \
-            tox run -e ${{ matrix.python.env }}s
+            tox run -e ${{ matrix.python.env }}
 
   release:
     name: Release
