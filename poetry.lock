@@ -13,22 +13,22 @@ files = [
 
 [[package]]
 name = "bumpver"
-version = "2022.1120"
+version = "2023.1121"
 description = "Bump version numbers in project files."
 category = "main"
 optional = true
 python-versions = ">=2.7"
 files = [
-    {file = "bumpver-2022.1120-py2.py3-none-any.whl", hash = "sha256:9da18a6997ade04c66bec05f5349acc5f2f146b16fb77b307f91ef3370c6aa55"},
-    {file = "bumpver-2022.1120.tar.gz", hash = "sha256:ff8ad562a2ed87e862e07683cb68c4b61046679bf155f7a7ebb20b2ea47775cd"},
+    {file = "bumpver-2023.1121-py2.py3-none-any.whl", hash = "sha256:f088d1caf13518353928d0f0e1258c6f60b1d1fe6c18c24d65e9de1325dc9806"},
+    {file = "bumpver-2023.1121.tar.gz", hash = "sha256:7dd5f80d0956a13c3ae87300b85cacd04a498c99c913f9f52f998ebc4515dafe"},
 ]
 
 [package.dependencies]
 click = {version = "*", markers = "python_version >= \"3.6\""}
 colorama = ">=0.4"
 lexid = "*"
+looseversion = {version = "*", markers = "python_version >= \"3.5\""}
 pathlib2 = "*"
-setuptools = {version = ">=45.0.0", markers = "python_version >= \"3.5\""}
 toml = "*"
 
 [[package]]
@@ -145,6 +145,18 @@ python-versions = ">=2.7"
 files = [
     {file = "lexid-2021.1006-py2.py3-none-any.whl", hash = "sha256:5526bb5606fd74c7add23320da5f02805bddd7c77916f2dc1943e6bada8605ed"},
     {file = "lexid-2021.1006.tar.gz", hash = "sha256:509a3a4cc926d3dbf22b203b18a4c66c25e6473fb7c0e0d30374533ac28bafe5"},
+]
+
+[[package]]
+name = "looseversion"
+version = "1.1.2"
+description = "Version numbering for anarchists and software realists"
+category = "main"
+optional = true
+python-versions = ">=3"
+files = [
+    {file = "looseversion-1.1.2-py3-none-any.whl", hash = "sha256:9f5b29d9a230f7fd9ef9275b729d6454a03b4a8d5b6e1622d1ca9860ad415c9e"},
+    {file = "looseversion-1.1.2.tar.gz", hash = "sha256:94d80bdbd0b6d57c11b886147ba1601f7d1531571621b81933b34537cbe469ad"},
 ]
 
 [[package]]
