@@ -1,53 +1,44 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=45"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry]
+[project]
 name = "talonfmt"
 version = "1.9.5"
 description = "A code formatter for Talon files"
-license = "MIT"
-authors = ["Wen Kokke <wenkokke@users.noreply.github.com>"]
+license = { file = 'LICENSE' }
+authors = [{ name = "Wen Kokke", email = "wenkokke@users.noreply.github.com" }]
 readme = "README.md"
-repository = "https://github.com/wenkokke/talonfmt"
 keywords = ["talon", "formatter"]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Topic :: Software Development :: Compilers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.9.8,<3.12"
+dependencies = [
+  "click >=8.1.3,<9",
+  "dataclasses_json >=0.5.7,<0.6",
+  "doc_printer >=0.13.1,<0.14",
+  "editorconfig >=0.12.3,<0.13",
+  "tree_sitter_talon >=1007.3.2.0,<1008",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.9.8"
-click = "^8.1.3"
-bumpver = { version = "*", optional = true }
-doc-printer = "^0.13.1"
-editorconfig = "^0.12.3"
-pytest = { version = "^7.1.2", optional = true }
-pytest-benchmark = { version = ">=3.4.1,<5.0.0", optional = true }
-pytest-golden = { version = "^0.2.2", optional = true }
-tree-sitter-talon = "^1007.3.2.0"
-# Prevent Poetry 1.3 from removing setuptools
-setuptools = "*"
+[project.optional-dependencies]
+mypy = ["types_setuptools"]
+test = [
+  "bumpver",
+  "mypy >=1.1.1,<2",
+  "pytest >=7.1.2,<8",
+  "pytest_golden >=0.2.2,<0.3",
+  "pytest_benchmark >=3.4.1,<5.0.0"
+]
 
-[tool.poetry.extras]
-test = ["bumpver", "pytest", "pytest-benchmark", "pytest-golden"]
-
-[tool.poetry.scripts]
-talonfmt = "talonfmt.cli:cli"
-
-[tool.pytest.ini_options]
-enable_assertion_pass_hook = true
-filterwarnings = ["ignore::DeprecationWarning:.*:"]
-addopts = "--ignore=tests/data"
-testpaths = ["tests"]
-
-[tool.mypy]
-python_version = 3.9
-namespace_packages = true
-explicit_package_bases = true
-ignore_missing_imports = true
-warn_redundant_casts = true
-warn_unused_configs = true
+[project.scripts]
+talondoc = "talonfmt.cli:cli"
 
 [tool.bumpver]
 current_version = "1.9.5"
@@ -59,24 +50,35 @@ push = true
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
-"talonfmt/__init__.py" = ['__version__: str = "{version}"']
+"src/talonfmt/__init__.py" = ['__version__: str = "{version}"']
+
+[tool.mypy]
+python_version = 3.9
+namespace_packages = true
+explicit_package_bases = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+enable_assertion_pass_hook = true
+filterwarnings = ["ignore::DeprecationWarning:.*:"]
+addopts = "--ignore=tests/data"
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
+envlist = py39, py310, py311
 isolated_build = true
-envlist = py39,py310,py311
-
-[gh-actions]
-python =
-  3.9: py39
-  3.10: py310
-  3.11: py311
 
 [testenv]
-commands =
-    bumpver update --patch --dry --no-fetch
-    pytest --benchmark-disable -x
 extras =
-    test
+  test
+commands =
+  {envpython} -m bumpver update --patch --dry --no-fetch
+  {envpython} -m pytest tests --benchmark-disable -x
 """
