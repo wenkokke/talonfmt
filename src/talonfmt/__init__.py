@@ -26,7 +26,7 @@ def talonfmt(
     format_comments: bool = False,
     empty_match_context: str = "keep",
     preserve_blank_lines: tuple[str, ...] = ("body", "command"),
-):
+) -> str:
     # Get max_line_width from .editorconfig
     if filename is not None and max_line_width is None:
         max_line_width = get_max_line_length(filename)
@@ -119,7 +119,7 @@ def talonfmt(
 
     def render(ast: Node, *, verbose: bool) -> str:
         doc = talon_formatter.format(ast)
-        return create_doc_renderer(verbose=verbose).to_str(doc)
+        return str(create_doc_renderer(verbose=verbose).to_str(doc))
 
     formatted = render(ast, verbose=True)
 

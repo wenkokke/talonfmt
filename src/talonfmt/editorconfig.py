@@ -1,12 +1,12 @@
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, cast
 
 try:
     from editorconfig import EditorConfigError, get_properties
 
     def get_editorconfig(file: str) -> Dict[str, str]:
         try:
-            return get_properties(Path(file).absolute())
+            return cast(Dict[str, str], get_properties(Path(file).absolute()) or {})
         except EditorConfigError:
             return {}
 

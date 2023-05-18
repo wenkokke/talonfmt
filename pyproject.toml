@@ -27,6 +27,7 @@ dependencies = [
   "doc_printer >=0.13.1,<0.16",
   "editorconfig >=0.12.3,<0.13",
   "tree_sitter_talon >=1007.3.2.0,<3!2",
+  "singledispatchmethod >=1.0,<2; python_version <'3.8'",
 ]
 
 [project.optional-dependencies]
@@ -56,12 +57,11 @@ push = true
 
 [tool.mypy]
 python_version = 3.9
-namespace_packages = true
-explicit_package_bases = true
+strict = true
 implicit_reexport = false
 ignore_missing_imports = true
-warn_redundant_casts = true
-warn_unused_configs = true
+disallow_untyped_decorators = false
+warn_unused_ignores = false
 
 [tool.pytest.ini_options]
 enable_assertion_pass_hook = true

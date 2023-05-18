@@ -1,4 +1,6 @@
-import pytest
+from pytest import mark
+from pytest_benchmark.fixture import BenchmarkFixture
+from pytest_golden.plugin import GoldenTestFixture
 
 from . import (
     format_smart1k,
@@ -8,8 +10,8 @@ from . import (
 )
 
 
-@pytest.mark.golden_test("data/golden/smart1k/default/*.yml")
-def test_smart1k(golden, benchmark):
+@mark.golden_test("data/golden/smart1k/default/*.yml")
+def test_smart1k(golden: GoldenTestFixture, benchmark: BenchmarkFixture) -> None:
     filename = golden_path(golden)
     contents = golden["input"]
 
@@ -19,8 +21,10 @@ def test_smart1k(golden, benchmark):
     assert benchmark(format) == golden.out["output"]
 
 
-@pytest.mark.golden_test("data/golden/smart1k/align/dynamic/*.yml")
-def test_smart1k_align_dynamic(golden, benchmark):
+@mark.golden_test("data/golden/smart1k/align/dynamic/*.yml")
+def test_smart1k_align_dynamic(
+    golden: GoldenTestFixture, benchmark: BenchmarkFixture
+) -> None:
     filename = golden_path(golden)
     contents = golden["input"]
 
@@ -30,8 +34,10 @@ def test_smart1k_align_dynamic(golden, benchmark):
     assert benchmark(format) == golden.out["output"]
 
 
-@pytest.mark.golden_test("data/golden/smart1k/align/fixed32/*.yml")
-def test_smart1k_align_fixed32(golden, benchmark):
+@mark.golden_test("data/golden/smart1k/align/fixed32/*.yml")
+def test_smart1k_align_fixed32(
+    golden: GoldenTestFixture, benchmark: BenchmarkFixture
+) -> None:
     filename = golden_path(golden)
     contents = golden["input"]
 

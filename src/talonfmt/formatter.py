@@ -1,9 +1,8 @@
-import dataclasses
-import enum
-import typing
-from collections.abc import Iterable, Iterator
-from functools import singledispatchmethod
-from typing import Optional, TypeVar, Union
+import ast
+import re
+from dataclasses import dataclass, field
+from enum import IntEnum
+from typing import Iterable, Iterator, List, Optional, Sequence, TypeVar, Union
 
 from doc_printer import (
     Doc,
@@ -72,10 +71,60 @@ from tree_sitter_talon import (
     TalonVariable,
     TalonWord,
 )
+from typing_extensions import TypeAlias
 
-from .assert_equivalent import *
+from ._compat_singledispatchmethod import singledispatchmethod
 
-TalonBlockLevel = Union[
+################################################################################
+# Patch assert_equivalent
+################################################################################
+
+
+def _collapse_whitespace(text: str) -> str:
+    return re.sub(r"\s+", " ", text)
+
+
+def _TalonComment_assert_equivalent(self: TalonComment, other: Node) -> None:
+    assert isinstance(other, TalonComment)
+    assert _collapse_whitespace(self.text) == _collapse_whitespace(other.text)
+
+
+setattr(TalonComment, "assert_equivalent", _TalonComment_assert_equivalent)
+
+
+def _TalonImplicitString_assert_equivalent(
+    self: TalonImplicitString, other: Node
+) -> None:
+    assert isinstance(other, TalonImplicitString)
+    assert self.text.strip() == other.text.strip()
+
+
+setattr(
+    TalonImplicitString, "assert_equivalent", _TalonImplicitString_assert_equivalent
+)
+
+
+def _TalonString_assert_equivalent(self: TalonString, other: Node) -> None:
+    assert isinstance(other, TalonString)
+    # NOTE: use the Python parser to normalise strings
+    # TODO: write custom logic to normalise strings?
+    try:
+        ast1 = ast.parse("f" + self.text)
+        ast2 = ast.parse("f" + other.text)
+    except SyntaxError:
+        ast1 = ast.parse(self.text)
+        ast2 = ast.parse(other.text)
+    assert ast.unparse(ast1) == ast.unparse(ast2)
+
+
+setattr(TalonString, "assert_equivalent", _TalonString_assert_equivalent)
+
+################################################################################
+# Type Aliases and Variables
+################################################################################
+
+
+TalonBlockLevel: TypeAlias = Union[
     TalonSourceFile,
     TalonMatches,
     TalonMatch,
@@ -88,14 +137,18 @@ TalonBlockLevel = Union[
 
 NodeVar = TypeVar("NodeVar", bound=Node)
 
+################################################################################
+# Formatter
+################################################################################
 
-class EmptyMatchContext(enum.IntEnum):
+
+class EmptyMatchContext(IntEnum):
     Show = 0
     Keep = 1
     Hide = 2
 
 
-@dataclasses.dataclass
+@dataclass
 class TalonFormatter:
     indent_size: int
     align_match_context: Union[bool, int]
@@ -163,7 +216,7 @@ class TalonFormatter:
 
         # Used to buffer comments to ensure that they're split correctly
         # between the header and body.
-        match_context_comment_buffer: list[Doc] = []
+        match_context_comment_buffer: List[Doc] = []
 
         def clear_match_context_comment_buffer() -> Iterator[Doc]:
             if match_context_comment_buffer:
@@ -172,7 +225,7 @@ class TalonFormatter:
 
         if self.align_short_commands is True:
             # Used to buffer short commands to group them as tables.
-            short_command_buffer: list[Doc] = []
+            short_command_buffer: List[Doc] = []
 
             def clear_short_command_buffer() -> Iterator[Doc]:
                 if short_command_buffer:
@@ -187,9 +240,7 @@ class TalonFormatter:
         previous_line: int = 0
 
         # Iterate over children, flatten any TalonDeclarations node
-        def children() -> (
-            Iterator[typing.Union[TalonDeclaration, TalonMatches, TalonComment]]
-        ):
+        def children() -> Iterator[Union[TalonDeclaration, TalonMatches, TalonComment]]:
             for child in node.children:
                 if isinstance(child, TalonDeclarations):
                     yield from child.children
@@ -293,7 +344,7 @@ class TalonFormatter:
 
     def format_match_modifiers(
         self,
-        modifiers: typing.Sequence[TalonMatchModifier],
+        modifiers: Sequence[TalonMatchModifier],
     ) -> Iterator[Doc]:
         if any(modifier.text == "and" for modifier in modifiers):
             yield Text("and")
@@ -589,7 +640,7 @@ class TalonFormatter:
             return Text.words(node.text, collapse_whitespace=False) / Line
 
     # Used to buffer comments encountered inline, e.g., inside a binary operator
-    _match_context_comment_buffer: list[TalonComment] = dataclasses.field(
+    _match_context_comment_buffer: List[TalonComment] = field(
         default_factory=list, init=False
     )
 

@@ -1,8 +1,9 @@
 import io
+import pathlib
 import sys
 import tokenize
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional, Tuple, Union
 
 import click
 from tree_sitter_talon import ParseError
@@ -15,7 +16,10 @@ from . import __version__, talonfmt
     "path",
     nargs=-1,
     type=click.Path(
-        exists=True, file_okay=True, dir_okay=True, readable=True, path_type=Path
+        exists=True,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
     ),
 )
 @click.option(
@@ -102,7 +106,7 @@ from . import __version__, talonfmt
 )
 def cli(
     *,
-    path: tuple[Path, ...],
+    path: Tuple[str, ...],
     safe: bool = True,
     indent_size: Optional[int],
     max_line_width: Optional[int],
@@ -110,7 +114,7 @@ def cli(
     align_match_context_at: Optional[int],
     align_short_commands: bool,
     align_short_commands_at: Optional[int],
-    preserve_blank_lines: tuple[str, ...],
+    preserve_blank_lines: Tuple[str, ...],
     simple_layout: Optional[str],
     empty_match_context: str,
     format_comments: bool,
@@ -118,10 +122,10 @@ def cli(
     fail_on_change: bool,
     fail_on_error: bool,
     verbose: bool,
-):
-    files_changed: list[str] = []
+) -> None:
+    files_changed: List[str] = []
 
-    def readfile(filename: Path) -> tuple[str, str]:
+    def readfile(filename: Path) -> Tuple[str, str]:
         with filename.open(mode="rb") as fp:
             bytes_on_disk = fp.read()
         encoding, _ = tokenize.detect_encoding(io.BytesIO(bytes_on_disk).readline)
@@ -160,7 +164,7 @@ def cli(
                 exit(1)
         return None
 
-    def format_file(filename: Path):
+    def format_file(filename: Path) -> None:
         contents, encoding = readfile(filename)
         output = format(contents, encoding=encoding, filename=str(filename))
         if output:
@@ -172,10 +176,11 @@ def cli(
 
     if path:
         for file_or_dir in path:
-            if file_or_dir.is_file():
-                format_file(file_or_dir)
-            if file_or_dir.is_dir():
-                for file in file_or_dir.glob("**/*.talon"):
+            file_or_dir_path = Path(file_or_dir)
+            if file_or_dir_path.is_file():
+                format_file(file_or_dir_path)
+            if file_or_dir_path.is_dir():
+                for file in file_or_dir_path.glob("**/*.talon"):
                     format_file(file)
     else:
         contents = "".join(sys.stdin.readlines())
@@ -190,7 +195,7 @@ def cli(
         exit(0)
 
 
-def main():
+def main() -> None:
     cli(prog_name="talonfmt")
 
 
