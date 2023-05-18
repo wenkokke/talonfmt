@@ -24,7 +24,7 @@ dependencies = [
   "dataclasses_json >=0.5.7,<0.6",
   "doc_printer >=0.13.1,<0.14",
   "editorconfig >=0.12.3,<0.13",
-  "tree_sitter_talon >=1007.3.2.0,<1008",
+  "tree_sitter_talon >=1007.3.2.0,<3!2",
 ]
 
 [project.optional-dependencies]
