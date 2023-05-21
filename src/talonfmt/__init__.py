@@ -1,5 +1,5 @@
 import sys
-from typing import Optional, Union
+from typing import Optional, Sequence, Union
 
 from doc_printer import DocRenderer, SimpleDocRenderer, SimpleLayout, SmartDocRenderer
 from tree_sitter_talon import Node, parse
@@ -25,8 +25,8 @@ def talonfmt(
     simple_layout: Optional[str] = None,
     format_comments: bool = False,
     empty_match_context: str = "keep",
-    preserve_blank_lines: tuple[str, ...] = ("body", "command"),
-):
+    preserve_blank_lines: Sequence[str] = ("body", "command"),
+) -> str:
     # Get max_line_width from .editorconfig
     if filename is not None and max_line_width is None:
         max_line_width = get_max_line_length(filename)
@@ -119,7 +119,7 @@ def talonfmt(
 
     def render(ast: Node, *, verbose: bool) -> str:
         doc = talon_formatter.format(ast)
-        return create_doc_renderer(verbose=verbose).to_str(doc)
+        return str(create_doc_renderer(verbose=verbose).to_str(doc))
 
     formatted = render(ast, verbose=True)
 

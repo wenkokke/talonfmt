@@ -1,5 +1,5 @@
-import pathlib
-import typing
+from pathlib import Path
+from typing import Any, Dict, NoReturn, Union, cast
 
 import pytest
 
@@ -10,32 +10,33 @@ pytest.register_assert_rewrite("tree_sitter_type_provider")
 pytest.register_assert_rewrite("tree_sitter_type_provider.node_types")
 
 import tree_sitter_talon
+from pytest_golden.plugin import GoldenTestFixture
 
 import talonfmt
 
 
-def golden_path(golden) -> str:
-    return str(golden.path.relative_to(pathlib.Path(__file__).parent))
+def golden_path(golden: GoldenTestFixture) -> str:
+    return str(golden.path.relative_to(Path(__file__).parent))
 
 
-def format_simple(contents: str, **kwargs) -> typing.Union[typing.NoReturn, str]:
+def format_simple(contents: str, **kwargs: Any) -> str:  # type: ignore[return]
     try:
         return talonfmt.talonfmt(contents=contents, **kwargs)
     except tree_sitter_talon.ParseError as e:
-        return pytest.fail(str(e))
+        _: NoReturn = pytest.fail(str(e))
 
 
-KWARGS_ALIGN_DYNAMIC: dict[str, bool] = {
+KWARGS_ALIGN_DYNAMIC: Dict[str, bool] = {
     "align_match_context": True,
     "align_short_commands": True,
 }
 
 
-def format_simple_align_dynamic(contents: str, **kwargs) -> str:
-    return format_simple(contents, **(KWARGS_ALIGN_DYNAMIC | kwargs))
+def format_simple_align_dynamic(contents: str, **kwargs: Any) -> str:
+    return format_simple(contents, **KWARGS_ALIGN_DYNAMIC, **kwargs)
 
 
-KWARGS_ALIGN_FIXED32: dict[str, typing.Union[int, bool]] = {
+KWARGS_ALIGN_FIXED32: Dict[str, Union[int, bool]] = {
     "align_match_context": True,
     "align_match_context_at": 32,
     "align_short_commands": True,
@@ -43,35 +44,35 @@ KWARGS_ALIGN_FIXED32: dict[str, typing.Union[int, bool]] = {
 }
 
 
-def format_simple_align_fixed32(contents: str, **kwargs) -> str:
-    return format_simple(contents, **(KWARGS_ALIGN_FIXED32 | kwargs))
+def format_simple_align_fixed32(contents: str, **kwargs: Any) -> str:
+    return format_simple(contents, **KWARGS_ALIGN_FIXED32, **kwargs)
 
 
-KWARGS_MAX_LINE_WIDTH_1K: dict[str, int] = {"max_line_width": 1000}
+KWARGS_MAX_LINE_WIDTH_1K: Dict[str, int] = {"max_line_width": 1000}
 
 
-def format_smart1k(contents: str, **kwargs) -> str:
-    return format_simple(contents, **(KWARGS_MAX_LINE_WIDTH_1K | kwargs))
+def format_smart1k(contents: str, **kwargs: Any) -> str:
+    return format_simple(contents, **KWARGS_MAX_LINE_WIDTH_1K, **kwargs)
 
 
-def format_smart1k_align_dynamic(contents: str, **kwargs) -> str:
-    return format_simple_align_dynamic(contents, **(KWARGS_MAX_LINE_WIDTH_1K | kwargs))
+def format_smart1k_align_dynamic(contents: str, **kwargs: Any) -> str:
+    return format_simple_align_dynamic(contents, **KWARGS_MAX_LINE_WIDTH_1K, **kwargs)
 
 
-def format_smart1k_align_fixed32(contents: str, **kwargs) -> str:
-    return format_simple_align_fixed32(contents, **(KWARGS_MAX_LINE_WIDTH_1K | kwargs))
+def format_smart1k_align_fixed32(contents: str, **kwargs: Any) -> str:
+    return format_simple_align_fixed32(contents, **KWARGS_MAX_LINE_WIDTH_1K, **kwargs)
 
 
-KWARGS_MAX_LINE_WIDTH_80: dict[str, int] = {"max_line_width": 80}
+KWARGS_MAX_LINE_WIDTH_80: Dict[str, int] = {"max_line_width": 80}
 
 
-def format_smart80(contents: str, **kwargs) -> str:
-    return format_simple(contents, **(KWARGS_MAX_LINE_WIDTH_80 | kwargs))
+def format_smart80(contents: str, **kwargs: Any) -> str:
+    return format_simple(contents, **KWARGS_MAX_LINE_WIDTH_80, **kwargs)
 
 
-def format_smart80_align_dynamic(contents: str, **kwargs) -> str:
-    return format_simple_align_dynamic(contents, **(KWARGS_MAX_LINE_WIDTH_80 | kwargs))
+def format_smart80_align_dynamic(contents: str, **kwargs: Any) -> str:
+    return format_simple_align_dynamic(contents, **KWARGS_MAX_LINE_WIDTH_80, **kwargs)
 
 
-def format_smart80_align_fixed32(contents: str, **kwargs) -> str:
-    return format_simple_align_fixed32(contents, **(KWARGS_MAX_LINE_WIDTH_80 | kwargs))
+def format_smart80_align_fixed32(contents: str, **kwargs: Any) -> str:
+    return format_simple_align_fixed32(contents, **KWARGS_MAX_LINE_WIDTH_80, **kwargs)
