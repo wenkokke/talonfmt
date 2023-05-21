@@ -1,8 +1,7 @@
-import ast
 import re
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Iterable, Iterator, List, Optional, Sequence, TypeVar, Union
+from typing import Iterable, Iterator, List, Optional, Sequence, Type, TypeVar, Union
 
 from doc_printer import (
     Doc,
@@ -73,6 +72,7 @@ from tree_sitter_talon import (
 )
 from typing_extensions import TypeAlias
 
+from ._compat_ast import astparse, astunparse
 from ._compat_singledispatchmethod import singledispatchmethod
 
 ################################################################################
@@ -109,12 +109,12 @@ def _TalonString_assert_equivalent(self: TalonString, other: Node) -> None:
     # NOTE: use the Python parser to normalise strings
     # TODO: write custom logic to normalise strings?
     try:
-        ast1 = ast.parse("f" + self.text)
-        ast2 = ast.parse("f" + other.text)
+        ast1 = astparse("f" + self.text)
+        ast2 = astparse("f" + other.text)
     except SyntaxError:
-        ast1 = ast.parse(self.text)
-        ast2 = ast.parse(other.text)
-    assert ast.unparse(ast1) == ast.unparse(ast2)
+        ast1 = astparse(self.text)
+        ast2 = astparse(other.text)
+    assert astunparse(ast1) == astunparse(ast2)
 
 
 setattr(TalonString, "assert_equivalent", _TalonString_assert_equivalent)
@@ -648,7 +648,7 @@ class TalonFormatter:
         self,
         children: Iterable[Union[TalonComment, NodeVar]],
         *,
-        node_type: type[NodeVar],
+        node_type: Type[NodeVar],
     ) -> Iterator[NodeVar]:
         """
         Store all the comments in the iterable, yield the rest.
@@ -698,7 +698,7 @@ class TalonFormatter:
         self,
         children: Iterable[Union[NodeVar, TalonComment]],
         *,
-        node_type: type[NodeVar],
+        node_type: Type[NodeVar],
         node_type_name: str,
     ) -> NodeVar:
         """
