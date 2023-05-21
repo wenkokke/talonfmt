@@ -39,7 +39,7 @@ repos:
     hooks:
       - id: mypy
         args: ["--config-file", "pyproject.toml"]
-        exclude: "^talonfmt/extra\\.py$"
+        exclude: "^src/talonfmt/_compat_singledispatchmethod\\.py$"
         additional_dependencies:
           - "types_click"
           - "types_pyyaml"
