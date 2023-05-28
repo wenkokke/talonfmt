@@ -43,7 +43,7 @@ test = [
 ]
 
 [project.scripts]
-talondoc = "talonfmt.cli:cli"
+talonfmt = "talonfmt.cli:cli"
 
 [tool.bumpver]
 current_version = "1.10.0"
