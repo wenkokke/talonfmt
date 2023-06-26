@@ -132,6 +132,6 @@ def talonfmt(
         # assert: formatting twice results in the same output
         assert formatted == render(
             ast_for_formatted, verbose=False
-        ), f"Formatting {filename or 'input'} twice gives a differrent result."
+        ), f"Formatting {filename or 'input'} twice gives a different result."
 
     return formatted
