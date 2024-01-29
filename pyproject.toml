@@ -37,7 +37,7 @@ mypy = ["types_setuptools"]
 test = [
   "bumpver",
   "mypy >=1.1.1,<2",
-  "pytest >=7.1.2,<8",
+  "pytest >=7.1.2,<9",
   "pytest_golden >=0.2.2,<0.3",
   "pytest_benchmark >=3.4.1,<5.0.0"
 ]
