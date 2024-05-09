@@ -57,7 +57,7 @@ push = true
 "src/talonfmt/__init__.py" = ['__version__: str = "{version}"']
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 strict = true
 implicit_reexport = false
 ignore_missing_imports = true
