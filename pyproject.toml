@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "talonfmt"
-version = "1.10.1"
+version = "1.10.2"
 description = "A code formatter for Talon files"
 license = { file = 'LICENSE' }
 authors = [{ name = "Wen Kokke", email = "wenkokke@users.noreply.github.com" }]
@@ -45,7 +45,7 @@ test = [
 talonfmt = "talonfmt.cli:cli"
 
 [tool.bumpver]
-current_version = "1.10.1"
+current_version = "1.10.2"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version {old_version} -> {new_version}"
 commit = true
